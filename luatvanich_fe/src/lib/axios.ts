@@ -15,7 +15,7 @@ export class LawFirmApiError extends Error {
 const defaultBaseUrl =
   process.env.NEXT_PUBLIC_API_URL ||
   (typeof window === "undefined"
-    ? `http://localhost:${process.env.PORT || 3001}/api/v1`
+    ? `http://localhost:${process.env.PORT || 3000}/api/v1`
     : "/api/v1");
 
 export const apiClient: AxiosInstance = axios.create({

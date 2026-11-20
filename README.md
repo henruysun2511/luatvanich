@@ -19,8 +19,8 @@ luatvanich/
 
 ### 1. Backend API (`luatvanich_be`)
 - **Công nghệ**: NestJS 10, TypeORM, PostgreSQL, Swagger, JWT Auth, Winston
-- **Cổng mặc định**: `3000`
-- **Tài liệu API (Swagger)**: `http://localhost:3000/api/docs`
+- **Cổng mặc định**: `4000`
+- **Tài liệu API (Swagger)**: `http://localhost:4000/api/docs`
 
 ```bash
 cd luatvanich_be
@@ -38,12 +38,12 @@ npm run dev
 
 ### 2. Frontend Website (`luatvanich_fe`)
 - **Công nghệ**: Next.js 15 (App Router), React 18, Tailwind CSS, TanStack Query v5, `@measured/puck` (Page Builder)
-- **Cổng mặc định**: `3001`
-- **Địa chỉ truy cập**: `http://localhost:3001`
+- **Cổng mặc định**: `3000`
+- **Địa chỉ truy cập**: `http://localhost:3000`
 
 ```bash
 cd luatvanich_fe
-cp .env.example .env     # Đã cấu hình trỏ về API http://localhost:3000/api/v1
+cp .env.example .env     # Đã cấu hình trỏ về API http://localhost:4000/api/v1
 npm install
 npm run dev
 ```

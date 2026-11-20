@@ -24,8 +24,8 @@ npm run dev
 
 ## URL
 
-- API: http://localhost:3000/api/v1
-- Swagger: http://localhost:3000/api/docs
+- API: http://localhost:4000/api/v1
+- Swagger: http://localhost:4000/api/docs
 
 ## Tài khoản mặc định (sau seed)
 

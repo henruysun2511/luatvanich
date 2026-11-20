@@ -63,6 +63,6 @@ npm install
 npm run dev
 ```
 Mở trình duyệt:
-- Website công khai: `http://localhost:3001` (Tự động chuyển về `http://localhost:3001/vi`)
-- Bảng điều khiển quản trị: `http://localhost:3001/admin`
-- Quản lý Dịch vụ pháp lý: `http://localhost:3001/admin/services`
+- Website công khai: `http://localhost:3000` (Tự động chuyển về `http://localhost:3000/vi`)
+- Bảng điều khiển quản trị: `http://localhost:3000/admin`
+- Quản lý Dịch vụ pháp lý: `http://localhost:3000/admin/services`

@@ -2,8 +2,8 @@ import * as Joi from 'joi';
 
 const schema = Joi.object({
   NODE_ENV: Joi.string().valid('development', 'staging', 'production').default('development'),
-  PORT: Joi.number().default(3000),
-  FRONTEND_URL: Joi.string().uri().default('http://localhost:3001'),
+  PORT: Joi.number().default(4000),
+  FRONTEND_URL: Joi.string().uri().default('http://localhost:3000'),
 
   DB_HOST: Joi.string().default('localhost'),
   DB_PORT: Joi.number().default(5432),
@@ -26,7 +26,7 @@ const schema = Joi.object({
   MAIL_PASS: Joi.string().allow('').default(''),
   MAIL_FROM: Joi.string().default('no-reply@luatvanich.vn'),
 
-  CORS_ORIGINS: Joi.string().default('http://localhost:3001'),
+  CORS_ORIGINS: Joi.string().default('http://localhost:3000'),
   CORS_CREDENTIALS: Joi.boolean().default(true),
 });
 

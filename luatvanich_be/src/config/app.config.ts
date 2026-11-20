@@ -5,8 +5,8 @@
 export const AppConfig = {
   get NODE_ENV() { return process.env.NODE_ENV || 'development'; },
   get IS_DEV() { return (process.env.NODE_ENV || 'development') === 'development'; },
-  get PORT() { return parseInt(process.env.PORT || '3000', 10); },
-  get FRONTEND_URL() { return process.env.FRONTEND_URL || 'http://localhost:3001'; },
+  get PORT() { return parseInt(process.env.PORT || '4000', 10); },
+  get FRONTEND_URL() { return process.env.FRONTEND_URL || 'http://localhost:3000'; },
 
   // Database
   get DB_HOST() { return process.env.DB_HOST || 'localhost'; },
@@ -35,7 +35,7 @@ export const AppConfig = {
 
   // CORS
   get CORS_ORIGINS() {
-    return (process.env.CORS_ORIGINS || 'http://localhost:3001')
+    return (process.env.CORS_ORIGINS || 'http://localhost:3000')
       .split(',')
       .map((o) => o.trim());
   },
