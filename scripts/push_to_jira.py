@@ -134,7 +134,7 @@ def main():
         
     issue_types = {it['name'].lower(): it['id'] for it in project_info.get('issueTypes', [])}
     epic_type_id = issue_types.get('epic') or issue_types.get('task')
-    task_type_id = issue_types.get('story') or issue_types.get('task') or list(issue_types.values())[0]
+    task_type_id = issue_types.get('task') or issue_types.get('story') or list(issue_types.values())[0]
     
     print(f"📌 Project: {project_info.get('name')} | Epic Type ID: {epic_type_id} | Task Type ID: {task_type_id}")
     
