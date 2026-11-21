@@ -21,10 +21,20 @@ export const AppConfig = {
   get JWT_ACCESS_EXPIRES() { return process.env.JWT_ACCESS_EXPIRES || '15m'; },
   get JWT_REFRESH_EXPIRES() { return process.env.JWT_REFRESH_EXPIRES || '7d'; },
 
-  // Cloudinary
-  get CLOUDINARY_CLOUD_NAME() { return process.env.CLOUDINARY_CLOUD_NAME || ''; },
-  get CLOUDINARY_API_KEY() { return process.env.CLOUDINARY_API_KEY || ''; },
-  get CLOUDINARY_API_SECRET() { return process.env.CLOUDINARY_API_SECRET || ''; },
+  // MinIO / S3 Object Storage
+  get S3_ENDPOINT() { return process.env.S3_ENDPOINT || 'http://localhost:9000'; },
+  get S3_REGION() { return process.env.S3_REGION || 'us-east-1'; },
+  get S3_ACCESS_KEY() { return process.env.S3_ACCESS_KEY || 'admin_minio'; },
+  get S3_SECRET_KEY() { return process.env.S3_SECRET_KEY || 'Password@2026!'; },
+  get S3_BUCKET_PUBLIC() { return process.env.S3_BUCKET_PUBLIC || 'luatvanich-public'; },
+  get S3_BUCKET_PRIVATE() { return process.env.S3_BUCKET_PRIVATE || 'luatvanich-private'; },
+  get S3_FORCE_PATH_STYLE() { return process.env.S3_FORCE_PATH_STYLE !== 'false'; },
+  get S3_PUBLIC_URL() {
+    return (
+      process.env.S3_PUBLIC_URL ||
+      `${process.env.S3_ENDPOINT || 'http://localhost:9000'}/${process.env.S3_BUCKET_PUBLIC || 'luatvanich-public'}`
+    );
+  },
 
   // Mail
   get MAIL_HOST() { return process.env.MAIL_HOST || 'smtp.gmail.com'; },

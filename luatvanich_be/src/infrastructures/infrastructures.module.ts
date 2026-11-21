@@ -2,7 +2,7 @@ import { Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfig } from '../config/app.config';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { StorageModule } from './storage/storage.module';
 import { MailerModule } from './mailer/mailer.module';
 
 @Global()
@@ -27,9 +27,9 @@ import { MailerModule } from './mailer/mailer.module';
       }),
     }),
 
-    CloudinaryModule,
+    StorageModule,
     MailerModule,
   ],
-  exports: [CloudinaryModule, MailerModule],
+  exports: [StorageModule, MailerModule],
 })
 export class InfrastructuresModule {}

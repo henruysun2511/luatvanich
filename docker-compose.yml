@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # ── 1. Cơ sở dữ liệu PostgreSQL ──────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: luatvanich_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-luatvanich}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASS:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - luatvanich_net
+
+  # ── 2. Dịch vụ lưu trữ Object Storage MinIO (S3 Tự Lưu Trữ) ─────────────
+  minio:
+    image: minio/minio:latest
+    container_name: luatvanich_minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY:-admin_minio}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:-Password@2026!}
+    ports:
+      - "9000:9000"   # S3 API cho Backend kết nối
+      - "9001:9001"   # Giao diện Web Console quản lý file
+    volumes:
+      - minio_data:/data
+    networks:
+      - luatvanich_net
+
+  # ── 3. Backend API (NestJS) ──────────────────────────────────────────────
+  api:
+    build:
+      context: ./luatvanich_be
+      dockerfile: Dockerfile
+    container_name: luatvanich_api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-luatvanich}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASS: ${DB_PASS:-postgres}
+      JWT_SECRET: ${JWT_SECRET:-luatvanich-production-secret-key-change-me-32chars}
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-admin_minio}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:-Password@2026!}
+      S3_BUCKET_PUBLIC: luatvanich-public
+      S3_BUCKET_PRIVATE: luatvanich-private
+      S3_FORCE_PATH_STYLE: "true"
+      S3_PUBLIC_URL: http://localhost:9000/luatvanich-public
+      CORS_ORIGINS: http://localhost:3000
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks:
+      - luatvanich_net
+
+  # ── 4. Frontend Web (Next.js) ────────────────────────────────────────────
+  web:
+    build:
+      context: ./luatvanich_fe
+      dockerfile: Dockerfile
+    container_name: luatvanich_web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - luatvanich_net
+
+volumes:
+  pgdata:
+    name: luatvanich_pgdata
+  minio_data:
+    name: luatvanich_minio_data
+
+networks:
+  luatvanich_net:
+    driver: bridge
