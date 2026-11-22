@@ -8,6 +8,7 @@ import { RefreshToken } from '../auth/entities/refresh-token.entity';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { UserQueryDto } from './dto/request/user-query.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
+import { UpdateUserStatusDto } from './dto/request/update-user-status.dto';
 import { UserResponseDto } from './dto/response/user.dto';
 import { PaginatedResponse } from '../../common/response/api-response';
 import {
@@ -17,6 +18,8 @@ import {
   RoleNotFoundException,
   CannotDeleteSelfException,
   CannotDeleteSuperAdminException,
+  CannotDeactivateSelfException,
+  CannotDeactivateSuperAdminException,
 } from './exceptions/user.exception';
 import { SYSTEM_ROLES } from '../../common/constants/role.constant';
 
@@ -117,5 +120,41 @@ export class UsersService {
 
     // 2. Thu hồi toàn bộ refresh token của tài khoản đó
     await this.refreshTokenRepo.update({ userId: id }, { isRevoked: true });
+  }
+
+  /**
+   * Bật/tắt trạng thái hoạt động của tài khoản (Khóa / Mở khóa)
+   */
+  async updateStatus(
+    id: string,
+    dto: UpdateUserStatusDto,
+    currentUserId: string,
+  ): Promise<UserResponseDto> {
+    // 1. Không cho phép tự khóa tài khoản của chính mình
+    if (id === currentUserId && !dto.isActive) {
+      throw new CannotDeactivateSelfException();
+    }
+
+    const user = await this.userRepo.findById(id);
+    if (!user) throw new UserNotFoundException(id);
+
+    // 2. Không cho phép khóa tài khoản Super Admin duy nhất
+    if (user.role?.code === SYSTEM_ROLES.SUPERADMIN && !dto.isActive) {
+      const superAdminCount = await this.userRepo.countSuperAdmins();
+      if (superAdminCount <= 1) {
+        throw new CannotDeactivateSuperAdminException();
+      }
+    }
+
+    // 3. Cập nhật trạng thái
+    user.isActive = dto.isActive;
+    const saved = await this.userRepo.save(user);
+
+    // 4. Nếu khóa tài khoản, thu hồi toàn bộ refresh token để buộc đăng xuất ngay
+    if (!dto.isActive) {
+      await this.refreshTokenRepo.update({ userId: id }, { isRevoked: true });
+    }
+
+    return UserResponseDto.fromEntity(saved);
   }
 }

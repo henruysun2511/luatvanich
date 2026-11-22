@@ -72,6 +72,26 @@ export class CannotDowngradeSuperAdminException extends AppError {
   }
 }
 
+export class CannotDeactivateSelfException extends AppError {
+  constructor() {
+    super({
+      code: USER_ERROR_CODE.CANNOT_DEACTIVATE_SELF,
+      message: 'Bạn không thể tự khóa tài khoản của chính mình',
+      statusCode: HttpStatus.BAD_REQUEST,
+    });
+  }
+}
+
+export class CannotDeactivateSuperAdminException extends AppError {
+  constructor() {
+    super({
+      code: USER_ERROR_CODE.CANNOT_DEACTIVATE_SUPERADMIN,
+      message: 'Không thể khóa tài khoản Super Admin duy nhất của hệ thống',
+      statusCode: HttpStatus.BAD_REQUEST,
+    });
+  }
+}
+
 export class InvalidCurrentPasswordException extends AppError {
   constructor() {
     super({

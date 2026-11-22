@@ -6,10 +6,7 @@ import { UserSortBy } from '../../users.constant';
 
 export { UserSortBy };
 
-/**
- * UserQueryDto — Kế thừa BaseQueryDto (q, page, limit, sortOrder)
- * và mở rộng các bộ lọc chuyên biệt cho người dùng (role, isActive, sortBy).
- */
+
 export class UserQueryDto extends BaseQueryDto {
   @ApiPropertyOptional({
     description: 'Lọc theo vai trò (mã vai trò: superadmin, admin, editor, viewer hoặc UUID vai trò)',

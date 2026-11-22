@@ -17,6 +17,7 @@ import { UserResponseDto } from './dto/response/user.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { UserQueryDto } from './dto/request/user-query.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
+import { UpdateUserStatusDto } from './dto/request/update-user-status.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
 import { RequirePermission } from '../../common/decorators/require-permission.decorator';
@@ -101,5 +102,30 @@ export class UsersController {
   ) {
     await this.usersService.adminResetPassword(id, dto);
     return ApiResponse.noContent('Đặt lại mật khẩu cho người dùng thành công');
+  }
+
+  /**
+   * PATCH /api/v1/admin/users/:id/status
+   * Cập nhật trạng thái hoạt động của người dùng (Khóa / Mở khóa)
+   */
+  @Patch(':id/status')
+  @HttpCode(HttpStatus.OK)
+  @RequirePermission(PERMISSIONS.USERS_WRITE)
+  @SwaggerDoc({
+    summary: 'Bật/tắt trạng thái hoạt động của người dùng (Khóa / Mở khóa)',
+    bodyType: UpdateUserStatusDto,
+    responseType: UserResponseDto,
+    bearerAuth: true,
+  })
+  async updateStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdateUserStatusDto,
+    @CurrentUser('id') currentUserId: string,
+  ) {
+    const data = await this.usersService.updateStatus(id, dto, currentUserId);
+    const msg = dto.isActive
+      ? 'Kích hoạt tài khoản người dùng thành công'
+      : 'Khóa tài khoản người dùng thành công';
+    return ApiResponse.success(data, msg);
   }
 }
