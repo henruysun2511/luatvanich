@@ -429,36 +429,36 @@ Trang đích quảng cáo riêng (A48) dùng `pages` loại `landing`.
 
 ### M17. `lawyers` 🌐 – Luật sư
 
-Bảng: `lawyers`, `lawyer_translations`, `lawyer_positions`, `lawyer_languages`, `lawyer_practice_areas`, `lawyer_credentials`. Số năm kinh nghiệm tính từ `practice_start_date`.
+Bảng: `lawyers`, `lawyer_translations`, `lawyer_positions`, `lawyer_position_translations`, `lawyer_languages`, `lawyer_practice_areas`, `lawyer_credentials`, `lawyer_credential_translations`. Số năm kinh nghiệm tính từ `practice_start_date`. Xem chi tiết tại [thiet-ke-database-phan-he-luat-su.md](thiet-ke-database-phan-he-luat-su.md).
 
 | Method | Endpoint | Mô tả | Truy cập | Mã CN | GĐ |
 |---|---|---|---|---|---|
-| GET | `/lawyers` | Danh sách có lọc: `q`, `area`, `language`, `office`, `position`, `experienceMin`, `sort`, phân trang (hoặc tải thêm) | Public | A26, A28–A33 | MVP |
+| GET | `/lawyers` | Danh sách có lọc: `q`, `group` (`core_leadership`, `chinese_team`, `vietnamese_team`, `senior_advisor`), `area`, `language`, `office`, `position`, `experienceMin`, `sort`, phân trang | Public | A26, A28–A33 | MVP |
 | GET | `/lawyers/suggest` | Gợi ý tự động khi gõ tên/từ khóa (`?q=`, tối đa 8 kết quả) | Public | A27 | P2 |
-| GET | `/lawyers/filters` | Dữ liệu cho bộ lọc: lĩnh vực, ngôn ngữ, văn phòng, chức danh (kèm số lượng) | Public | A28–A31 | MVP |
+| GET | `/lawyers/filters` | Dữ liệu cho bộ lọc: nhóm, lĩnh vực, ngôn ngữ, văn phòng, chức danh (kèm số lượng) | Public | A28–A31 | MVP |
 | GET | `/lawyers/featured` | Luật sư hiển thị ở trang chủ theo thứ tự admin đặt | Public | A17 | MVP |
-| GET | `/lawyers/:slug` | Hồ sơ: tiểu sử, học vấn, chứng chỉ, ngôn ngữ, chuyên môn, văn phòng, SEO | Public | A34, A35 | MVP |
+| GET | `/lawyers/:slug` | Hồ sơ: tiểu sử, học hàm/học vị, học vấn, chứng chỉ, công trình nghiên cứu (`publication`), ngôn ngữ, chuyên môn, văn phòng, SEO | Public | A34, A35 | MVP |
 | GET | `/lawyers/:slug/posts` | Bài viết do luật sư viết | Public | A36 | MVP |
 | GET | `/lawyers/:slug/services` | Dịch vụ liên quan chuyên môn của luật sư | Public | A35 | MVP |
 | GET | `/lawyers/:slug/vcard` | Tải danh thiếp điện tử `.vcf` | Public | A38 | TBC |
 | GET | `/lawyers/:slug/profile.pdf` | Tải hồ sơ năng lực PDF (sinh từ dữ liệu hoặc tệp đính kèm) | Public | A38 | TBC |
-| GET | `/admin/lawyers` | Danh sách (lọc trạng thái, văn phòng) | `lawyers:read` | B04 | MVP |
-| POST | `/admin/lawyers` | Tạo hồ sơ | `lawyers:write` | B04 | MVP |
-| GET | `/admin/lawyers/:id` | Chi tiết đầy đủ | `lawyers:read` | B04 | MVP |
-| PATCH | `/admin/lawyers/:id` | Sửa thuộc tính chung (ảnh, chức danh, văn phòng, ngày hành nghề, tài khoản liên kết) | `lawyers:write` | B04 | MVP |
-| PATCH | `/admin/lawyers/:id/status` | Đổi trạng thái đăng | `lawyers:publish` | B04 | MVP |
+| GET | `/admin/lawyers` | Danh sách quản trị (lọc `status`, `group`, `office`) | `lawyers:read` | B04 | MVP |
+| POST | `/admin/lawyers` | Tạo hồ sơ (thông tin chung, phân nhóm, liên hệ, ảnh chân dung, giấy phép) | `lawyers:write` | B04 | MVP |
+| GET | `/admin/lawyers/:id` | Chi tiết đầy đủ (kèm các bản dịch `vi`/`zh-CN`) | `lawyers:read` | B04 | MVP |
+| PATCH | `/admin/lawyers/:id` | Sửa thuộc tính chung (ảnh, chức danh, nhóm, văn phòng, ngày hành nghề, tài khoản liên kết) | `lawyers:write` | B04 | MVP |
+| PATCH | `/admin/lawyers/:id/status` | Đổi trạng thái đăng (`draft`, `published`, `archived`) | `lawyers:publish` | B04 | MVP |
 | PUT | `/admin/lawyers/:id/languages` | Gán ngôn ngữ làm việc | `lawyers:write` | A29, B04 | MVP |
 | PUT | `/admin/lawyers/:id/practice-areas` | Gán lĩnh vực chuyên môn | `lawyers:write` | A28, B04 | MVP |
-| GET | `/admin/lawyers/:id/credentials` | Học vấn, chứng chỉ, hội viên, giải thưởng, vụ việc tiêu biểu | `lawyers:read` | A34 | MVP |
-| POST | `/admin/lawyers/:id/credentials` | Thêm mục (kèm `kind`) | `lawyers:write` | A34 | MVP |
-| PATCH | `/admin/lawyer-credentials/:credId` | Sửa (kèm bản dịch qua `translations/:lang`) | `lawyers:write` | A34 | MVP |
-| DELETE | `/admin/lawyer-credentials/:credId` | Xóa | `lawyers:write` | A34 | MVP |
+| GET | `/admin/lawyers/:id/credentials` | Danh sách học vấn, chứng chỉ, hội viên, giải thưởng, vụ việc tiêu biểu, công trình nghiên cứu (`publication`) | `lawyers:read` | A34 | MVP |
+| POST | `/admin/lawyers/:id/credentials` | Thêm mục hồ sơ năng lực (kèm `kind`) | `lawyers:write` | A34 | MVP |
+| PATCH | `/admin/lawyer-credentials/:credId` | Sửa mục năng lực (kèm bản dịch qua `translations/:lang`) | `lawyers:write` | A34 | MVP |
+| DELETE | `/admin/lawyer-credentials/:credId` | Xóa mục năng lực | `lawyers:write` | A34 | MVP |
 | PATCH | `/admin/lawyers/reorder` | Đổi thứ tự hiển thị | `lawyers:write` | A32 | MVP |
-| DELETE | `/admin/lawyers/:id` | Xóa | `lawyers:delete` | B04 | MVP |
+| DELETE | `/admin/lawyers/:id` | Xóa hồ sơ (soft delete) | `lawyers:delete` | B04 | MVP |
 | GET | `/admin/lawyer-positions` | Danh sách chức danh | `lawyers:read` | A31 | MVP |
 | POST | `/admin/lawyer-positions` | Thêm chức danh | `lawyers:write` | A31 | MVP |
-| PATCH | `/admin/lawyer-positions/:id` | Sửa (kèm bản dịch); `PATCH .../reorder` đổi thứ tự | `lawyers:write` | A31 | MVP |
-| DELETE | `/admin/lawyer-positions/:id` | Xóa (chặn nếu còn luật sư) | `lawyers:write` | A31 | MVP |
+| PATCH | `/admin/lawyer-positions/:id` | Sửa chức danh (kèm bản dịch); `PATCH .../reorder` đổi thứ tự | `lawyers:write` | A31 | MVP |
+| DELETE | `/admin/lawyer-positions/:id` | Xóa chức danh (chặn nếu còn luật sư đang dùng) | `lawyers:write` | A31 | MVP |
 
 ### M18. `offices` 🌐 – Văn phòng
 

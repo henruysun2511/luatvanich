@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { LegalServicesModule } from './modules/legal-services/legal-services.module';
 import { MediaModule } from './modules/media/media.module';
+import { PracticeAreasModule } from './modules/practice-areas/practice-areas.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { PermissionsGuard } from './modules/auth/guards/permissions.guard';
 import { LangMiddleware } from './common/middleware/lang.middleware';
@@ -17,6 +18,7 @@ import { LangMiddleware } from './common/middleware/lang.middleware';
     UsersModule,
     RolesModule,
     LegalServicesModule,
+    PracticeAreasModule,
     MediaModule,
     // TODO Phase 2+: thêm các module khác
     // SiteSettingsModule,
@@ -24,7 +26,6 @@ import { LangMiddleware } from './common/middleware/lang.middleware';
     // MediaModule,
     // PagesModule,
     // MenusModule,
-    // PracticeAreasModule,
     // LawyersModule,
     // OfficesModule,
     // PostsModule,

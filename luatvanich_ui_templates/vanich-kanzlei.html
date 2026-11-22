@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luật Vạn Ích – Rechtsanwalt München</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Noto+Serif:wght@400;700&family=Roboto:wght@400&display=swap">
+<style>
+:root{--red:#7f1a1a;--red2:#5f1212;--ink:#333;--mute:#666;--line:#d6d6d6;--serif:'Noto Serif',Georgia,serif;--disp:'Playfair Display',Georgia,serif;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--mute);font:400 11.5px/1.7 var(--serif)}
+a{color:inherit;text-decoration:none}
+.w{max-width:740px;margin:0 auto;padding:0 20px;position:relative}
+h1,h2,h3{font-family:var(--disp);font-weight:400;color:var(--ink);margin:0}
+.btn{display:inline-block;background:var(--red);color:#fff;font:400 14px var(--disp);padding:12px 20px;border:0;border-radius:4px;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+.btn:hover{background:var(--red2)}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+/* header */
+header{position:absolute;top:0;left:0;right:0;z-index:10;height:110px;background:linear-gradient(#fff 40%,rgba(255,255,255,0))}
+.hin{max-width:1200px;margin:0 auto;position:relative;height:100%;padding:20px 80px 0}
+.logo{font:500 22px/1 var(--disp);font-variant:small-caps;letter-spacing:1px;color:#444;display:inline-block}
+.logo small{display:block;font-size:13px;letter-spacing:6px;color:#777;margin-top:2px;font-variant:normal}
+.hr{position:absolute;right:250px;top:14px;text-align:right}
+.hours{font:400 9.5px var(--serif);color:#777;margin-bottom:14px}
+nav{display:flex;gap:26px;font:400 10px var(--serif);letter-spacing:1.5px;text-transform:uppercase;color:#444}
+nav a:hover{color:var(--red)}
+.callbox{position:absolute;right:84px;top:0;width:142px;background:var(--red);color:#fff;font:400 10.5px/1.5 var(--serif);padding:8px 14px 8px;border-radius:0 0 5px 5px}
+.callbox b{display:block;font-weight:400;font-size:11px;color:#e8c9c9;margin-bottom:6px}
+.mb{display:none;position:absolute;right:20px;top:60px;background:#fff;border:1px solid var(--line);padding:6px 12px;font:inherit}
+/* hero */
+.hero{position:relative;height:715px;overflow:hidden;background:linear-gradient(90deg,#f7f7f7 0,#eeeeee 55%,#cfcfcf 100%)}
+.hero .b{position:absolute;filter:blur(22px)}
+.hero .b1{left:48%;top:8%;width:210px;height:330px;background:linear-gradient(#cfcfcf,#fafafa)}
+.hero .b2{left:-2%;top:44%;width:520px;height:150px;background:linear-gradient(#bdbdbd,#e0e0e0);border-radius:50%}
+.hero .b3{right:-3%;top:56%;width:300px;height:200px;background:#555;border-radius:50%}
+.hero .desk{position:absolute;left:0;bottom:0;width:70%;height:36%;background:linear-gradient(90deg,#3b3b3b,#4d4d4d 70%,rgba(80,80,80,0));filter:blur(3px)}
+.hero .floor{position:absolute;left:0;right:0;bottom:0;height:28%;background:linear-gradient(transparent,rgba(30,30,30,.55))}
+.hero .statue{position:absolute;right:max(3%,calc(50% - 330px));bottom:0;height:100%;width:auto;filter:drop-shadow(8px 6px 14px rgba(0,0,0,.35))}
+.hero .w{height:100%;max-width:1000px}
+.hero .txt{position:absolute;left:20px;top:188px;right:20px}
+.hero h1{font-size:44px;line-height:1.08;color:#3a3a3a;font-weight:400}
+.hero .sub{font:400 15px var(--disp);color:#777;margin:10px 0 30px}
+.slider{position:absolute;left:20px;top:446px;width:400px;height:168px}
+.slide{height:100%;background:#fff;padding:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.slide .in{height:100%;background:#f4f4f4;border:1px solid #bbb;display:flex;align-items:center;padding:0 16px;gap:18px}
+.ico{flex:0 0 100px;height:100px;border-radius:50%;border:2px solid #fff;background:radial-gradient(circle at 40% 45%,#2b2b2b 0 22%,#a58750 23% 40%,#7a6238 41% 60%,#d7c7a5 61%);box-shadow:0 0 0 1px #ccc}
+.sep{width:1px;align-self:stretch;margin:22px 0;background:#ccc}
+.slide h3{font-size:14px;display:flex;align-items:baseline;gap:8px}
+.slide h3 b{font:400 38px var(--disp);color:#c9c9c9}
+.slide p{margin:4px 0 0;font-size:9.5px;line-height:1.55;color:#666}
+.tabs{position:absolute;left:100%;top:9px;display:flex;flex-direction:column;gap:2px;margin-left:-0px}
+.tabs button{width:34px;height:34px;border:0;background:#bcbcbc;color:#eee;font:400 20px var(--disp);cursor:pointer;border-radius:0 6px 6px 0}
+.tabs button[aria-selected=true]{background:var(--red);color:#fff}
+/* about */
+.about{background:#f8f8f8;padding:36px 0 40px}
+.about h2{font-size:28px;line-height:1;display:flex;align-items:flex-start}
+.about h2 i{font:300 italic 62px/0.8 var(--disp);font-style:normal;color:#333;margin-right:2px}
+.about h2 span{padding-top:8px}
+.about .sub{font:400 15px var(--disp);color:#555;margin:-14px 0 20px 38px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px 20px;font-size:10px}
+.cols p{margin:0 0 10px}
+/* areas */
+.areas{background:#efefef;padding:26px 0}
+.areas .w{display:grid;grid-template-columns:270px 1fr;gap:60px;align-items:start}
+.lead{background:#f7f7f7;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.lead h2{font-size:14px;line-height:1.4;padding:22px 20px 16px 22px;color:#444}
+.lead h2 i{font:300 56px/0.7 var(--disp);font-style:normal;float:left;margin:6px 6px 0 0;color:#bbb}
+.lead p{margin:0;padding:14px 20px;border-top:1px solid #e3e3e3;font-size:10px;line-height:1.6}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;list-style:none;margin:6px 0 0;padding:0;font-size:10px;grid-auto-flow:row}
+.list li::before{content:"";display:inline-block;width:5px;height:5px;border:1px solid #888;margin-right:9px}
+.list a{color:var(--red);border-bottom:1px solid var(--red)}
+/* extra */
+.sec{padding:56px 0}.alt{background:#f8f8f8}
+.sec h2.t{font-size:28px}.sec .st{font:400 15px var(--disp);color:#777;margin-bottom:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);padding:24px 20px;outline:1px solid #eee;outline-offset:-7px}
+.card h3{font-size:16px;margin-bottom:6px}.card p{margin:0;font-size:10.5px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.stat b{display:block;font:400 38px var(--disp);color:var(--red)}
+.stat{border-right:1px solid var(--line)}.stat:last-child{border:0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{counter-increment:s;border-top:1px solid #ccc;padding-top:10px}
+.step::before{content:"0" counter(s);font:400 36px var(--disp);color:#c9c9c9}
+.step h3{font-size:15px}.step p{margin:2px 0 0;font-size:10.5px}
+.person{text-align:center}.av{width:100px;height:100px;border-radius:50%;margin:0 auto 10px;background:radial-gradient(circle at 40% 35%,#cfcfcf,#5d5d5d);display:grid;place-items:center;color:#fff;font:400 28px var(--disp)}
+.person h3{font-size:15px}.person p{margin:0;font-size:10px}
+blockquote{margin:0;background:#fff;border-left:3px solid var(--red);padding:18px;font:italic 13px/1.6 var(--disp);color:#444}
+blockquote cite{display:block;font:400 10px var(--serif);font-style:normal;margin-top:8px;color:#777}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font:400 15px var(--disp);color:#333;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--red);font-size:20px;line-height:1}details[open] summary::after{content:"–"}
+details p{margin:8px 0 0}
+/* contact */
+.contact{position:relative;height:580px;overflow:hidden;background:radial-gradient(ellipse at 40% 40%,#f1f1f1,#cfcfcf)}
+.contact .il{position:absolute;left:50%;margin-left:-560px;bottom:30px;height:540px;width:auto}
+.floor2{position:absolute;left:0;right:0;bottom:0;height:90px;background:repeating-linear-gradient(90deg,transparent 0 58px,rgba(0,0,0,.35) 58px 60px),linear-gradient(#777,#3f3f3f 40%,#585858)}
+.contact .w{height:100%}
+.box{position:absolute;right:20px;top:62px;width:280px}
+.box h2{font-size:28px}.box .st{font:400 14px var(--disp);color:#666;margin-bottom:12px}
+.box input,.box textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #aaa;padding:9px 0;margin-top:8px;font:10px var(--serif);color:#333}
+.box textarea{border:1px solid #aaa;height:100px;padding:10px;margin-top:22px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chk{display:flex;gap:8px;font-size:9px;line-height:1.4;margin:12px 0}
+.chk input{width:auto;margin:2px 0 0}
+.ok{display:none;margin-top:10px;padding:10px;background:#fff;border-left:3px solid var(--red)}
+/* footer */
+.f1{background:#3a3a3a;color:#bbb;font:10px/1.6 var(--serif);padding:40px 0}
+.f1 .w{max-width:740px;display:grid;grid-template-columns:200px 150px 170px 1fr;gap:0 14px;align-items:center}
+.f1 .logo{color:#fff;font-size:20px}.f1 .logo small{color:#ccc;font-size:12px}
+.f1 .w>div+div{border-left:1px solid #555;padding-left:14px}.f1 .w>div:nth-child(n+3){border:0;padding-left:0}
+.f1 b{color:#fff}
+.f2{background:#333;padding:26px 0;color:#999}
+.f2 h4{font:400 16px var(--disp);color:#eee;margin:0 0 10px}
+.f2 .l{display:flex;gap:30px;flex-wrap:wrap;font-size:9.5px;color:#888}
+.f2 .l div{min-width:90px}.f2 .l small{display:block;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;font-size:9px;margin-bottom:2px}
+.f2 .l a{display:block}.f2 .l a:hover{color:#fff}
+.f3{background:#2e2e2e;color:#aaa;padding:16px 0;font:400 9px var(--serif);letter-spacing:1.5px;text-transform:uppercase}
+.f3 .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.f4{background:#3a3a3a;padding:14px 0;color:#888;font-size:9px}
+.f4 .w{display:flex;gap:16px;align-items:center;justify-content:center}
+.badge{background:#fff;color:#333;font:700 11px var(--serif);padding:5px 10px;border-radius:2px}
+@media (max-width:860px){
+ .hin{padding:20px}.hr,.callbox{display:none}.mb{display:block}
+ nav{display:none;position:absolute;left:0;right:0;top:100px;background:#fff;flex-direction:column;padding:14px 20px;gap:12px}
+ nav.open{display:flex}.hr{position:static}
+ .hero h1{font-size:32px}.hero .statue{opacity:.35;right:-20%}
+ .slider{width:calc(100% - 74px)}.slide .sep,.ico{display:none}
+ .cols,.areas .w,.grid3{grid-template-columns:1fr}.stats,.steps{grid-template-columns:1fr 1fr}
+ .contact{height:auto;padding:50px 0 120px}.contact .il{opacity:.2;left:0;margin:0}
+ .box{position:relative;right:auto;top:auto;width:100%}.contact .w{height:auto}
+ .f1 .w{grid-template-columns:1fr;gap:16px}.f1 .w>div+div{border:0;padding:0}
+}
+@media (max-width:520px){.list,.stats,.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hin">
+  <a class="logo" href="#top">Luật Vạn Ích<small>RECHTSANWALT</small></a>
+  <div class="hr">
+   <div class="hours">Montag - Donnerstag: 09:00 - 17:00 Uhr &nbsp;|&nbsp; Freitag: 09:00 - 14:00 Uhr</div>
+   <nav id="nav"><a href="#top">Startseite</a><a href="#ueber">Über mich</a><a href="#kanzlei">Kanzlei</a><a href="#gebiete">Rechtsgebiete</a><a href="#allg">Allgemeines</a><a href="#kontakt">Kontakt</a></nav>
+  </div>
+  <div class="callbox"><b>Wir sind gerne für Sie da!</b>✆ +49 89 262 627 40<br>✉ ra.p@vanich-law.de</div>
+  <button class="mb" id="mb">Menü</button>
+ </div>
+</header>
+
+<main id="top">
+<div class="hero">
+ <div class="b b1"></div><div class="b b2"></div><div class="b b3"></div><div class="desk"></div><div class="floor"></div>
+ <svg class="statue" viewBox="0 0 360 700" aria-hidden="true">
+  <defs>
+   <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#f4f4f4"/><stop offset=".3" stop-color="#a9a9a9"/><stop offset=".65" stop-color="#4a4a4a"/><stop offset="1" stop-color="#1e1e1e"/></linearGradient>
+   <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#ddd"/><stop offset="1" stop-color="#555"/></linearGradient>
+  </defs>
+  <path d="M60 640h250v34H60z" fill="#3b3b3b"/><path d="M60 640h250v8H60z" fill="#8a8a8a"/><path d="M80 656h210" stroke="#777" stroke-width="2"/>
+  <path d="M120 628c40 18 140 18 190 0" stroke="#333" stroke-width="7" fill="none"/>
+  <path d="M175 235C150 310 140 450 118 636H305C292 520 278 380 238 235Z" fill="url(#g1)"/>
+  <g fill="none" stroke="#1c1c1c" stroke-opacity=".55" stroke-width="2"><path d="M180 300C170 420 165 540 150 636"/><path d="M205 290C210 420 222 540 232 636"/><path d="M232 300C255 420 268 540 285 636"/><path d="M165 440c40 30 80 20 120 0"/></g>
+  <path d="M165 212Q205 192 242 212L236 262Q203 278 172 262Z" fill="url(#g1)"/>
+  <path d="M172 222c-30 10-52-20-54-76" stroke="url(#g2)" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="118" cy="140" r="9" fill="#ccc"/>
+  <ellipse cx="205" cy="176" rx="19" ry="25" fill="#d8d8d8"/><rect x="184" y="168" width="42" height="9" fill="#2d2d2d" transform="rotate(-4 205 172)"/><circle cx="206" cy="148" r="11" fill="#8d8d8d"/><path d="M186 160c6-20 36-20 42 0" fill="#7b7b7b"/>
+  <path d="M236 232c34 36 38 96 24 150" stroke="#999" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <rect x="244" y="378" width="34" height="6" fill="#bbb"/><path d="M262 384L246 640" stroke="#d8d8d8" stroke-width="5"/>
+  <path d="M118 150V14" stroke="#777" stroke-width="4"/><circle cx="118" cy="12" r="7" fill="#888"/>
+  <path d="M22 62L336 84" stroke="#555" stroke-width="5"/>
+  <g stroke="#666" stroke-width="1.5"><path d="M24 62L-8 230M24 62L60 230M336 84L282 340M336 84L390 340"/></g>
+  <path d="M-12 230q36 30 76 0z" fill="#4a4a4a"/><path d="M278 340q56 40 116 0z" fill="#333"/>
+ </svg>
+ <div class="w">
+  <div class="txt"><h1>Ihr Rechtsbeistand<br>aus München</h1><p class="sub">Langjährige Erfahrung als Fachanwalt für Familien- &amp; Arbeitsrecht</p><a class="btn" href="#kontakt">Jetzt kontaktieren</a></div>
+  <div class="slider">
+   <div class="slide"><div class="in"><div class="ico"></div><div class="sep"></div><div><h3><b id="sn">01</b><span id="stt">Familienrecht</span></h3><p id="sp"></p></div></div></div>
+   <div class="tabs" id="tabs"></div>
+  </div>
+ </div>
+</div>
+
+<section class="about" id="ueber"><div class="w">
+ <h2><i>L</i><span>uật Vạn Ích</span></h2><div class="sub">Ihr Fachanwalt in München - Familienrecht</div>
+ <div class="cols">
+  <div><p>Lieber Kunde, leider befindet sich unsere neue Webseite noch im Aufbau.</p><p>Deswegen bieten manche Unterseiten, wie diese hier, Ihnen noch keine weiteren Informationen. Wir entschuldigen uns dafür und danken Ihnen für Ihr Verständnis.</p><p>Wir werden ganz bald alle Informationen nachreichen.</p><p>Wenn Sie Fragen zu unseren Angeboten oder sonstige Wünsche haben, können Sie gerne eine E-Mail schreiben.</p></div>
+  <div><p>Seit über 20 Jahren vertrete ich Mandanten in München in familien- und arbeitsrechtlichen Fragen. Mein Anspruch: verständlich beraten und Ihre Interessen konsequent durchsetzen.</p><p>Jedes Mandat beginnt mit einem persönlichen Gespräch, in dem wir Ziele, Risiken und Kosten klären.</p><p>Wir werden uns umgehend mit Ihnen in Verbindung setzen.</p><p>Oder Sie rufen uns einfach an!</p></div>
+ </div>
+</div></section>
+
+<section class="areas" id="gebiete"><div class="w">
+ <div class="lead"><h2><i>S</i>ie benötigen einen kompetenten und erfahrenen Fachanwalt für Familienrecht in München?</h2><p>Ich vertrete Ihre juristischen Interessen, wenn es um folgende Gebiete des <b>Familienrechts</b> geht →</p></div>
+ <ul class="list"><li><a href="#kontakt">Scheidungsrecht</a>, national, international</li><li>Umgangsrecht</li><li><a href="#kontakt">Trennung</a></li><li>Aufenthaltsbestimmungsrecht</li><li><a href="#kontakt">Unterhalt</a></li><li>Zugewinnausgleich</li><li><a href="#kontakt">Sorgerecht</a></li><li><a href="#kontakt">Versorgungsausgleich</a></li><li>Vaterschaftsfeststellung</li></ul>
+</div></section>
+
+<section class="sec" id="kanzlei"><div class="w">
+ <h2 class="t">Leistungen</h2><div class="st">Was wir für Sie tun können</div>
+ <div class="grid3">
+  <div class="card"><h3>Familienrecht</h3><p>Scheidung, Unterhalt, Sorgerecht: einfühlsam und entschlossen.</p></div>
+  <div class="card"><h3>Arbeitsrecht</h3><p>Kündigung, Abfindung, Arbeitsvertrag für beide Seiten.</p></div>
+  <div class="card"><h3>Erbrecht</h3><p>Testament, Pflichtteil und Nachlass rechtssicher regeln.</p></div>
+  <div class="card"><h3>Vertragsrecht</h3><p>Verträge prüfen und gestalten, bevor Streit entsteht.</p></div>
+  <div class="card"><h3>Versicherungsrecht</h3><p>Ansprüche gegenüber Versicherern durchsetzen.</p></div>
+  <div class="card"><h3>Mediation</h3><p>Einvernehmliche Lösungen, die Zeit und Nerven sparen.</p></div>
+ </div>
+</div></section>
+
+<section class="sec alt"><div class="w">
+ <div class="stats">
+  <div class="stat"><b data-n="20">0</b>Jahre Erfahrung</div><div class="stat"><b data-n="1500">0</b>betreute Mandate</div><div class="stat"><b data-n="2">0</b>Fachanwaltstitel</div><div class="stat"><b data-n="24">0</b>Stunden bis zur Antwort</div>
+ </div>
+</div></section>
+
+<section class="sec"><div class="w">
+ <h2 class="t">So arbeiten wir</h2><div class="st">Vom ersten Anruf bis zur Lösung</div>
+ <div class="steps"><div class="step"><h3>Erstgespräch</h3><p>Sie schildern Ihren Fall.</p></div><div class="step"><h3>Strategie</h3><p>Ziele und Kosten klären.</p></div><div class="step"><h3>Umsetzung</h3><p>Verhandlung oder Verfahren.</p></div><div class="step"><h3>Abschluss</h3><p>Verbindliche Regelung.</p></div></div>
+</div></section>
+
+<section class="sec alt" id="allg"><div class="w">
+ <h2 class="t">Ihr Team</h2><div class="st">Persönliche Beratung in der Kanzlei</div>
+ <div class="grid3"><div class="person"><div class="av">PB</div><h3>Luật Vạn Ích</h3><p>Fachanwalt Familien- &amp; Arbeitsrecht</p></div><div class="person"><div class="av">AK</div><h3>Anna Keller</h3><p>Rechtsanwältin, Erbrecht</p></div><div class="person"><div class="av">SM</div><h3>Sabine Moser</h3><p>Kanzleileitung</p></div></div>
+</div></section>
+
+<section class="sec"><div class="w">
+ <h2 class="t" style="margin-bottom:22px">Mandantenstimmen</h2>
+ <div class="grid3"><blockquote>Klar, ehrlich und immer erreichbar.<cite>M. S., München</cite></blockquote><blockquote>Die Abfindung wurde schnell und fair verhandelt.<cite>T. R., Freising</cite></blockquote><blockquote>Verständliche Erklärungen statt Juristendeutsch.<cite>K. W., Dachau</cite></blockquote></div>
+</div></section>
+
+<section class="sec alt"><div class="w">
+ <h2 class="t" style="margin-bottom:16px">Häufige Fragen</h2>
+ <details><summary>Was kostet das Erstgespräch?</summary><p>Die Kosten richten sich nach dem RVG und werden vorab transparent genannt.</p></details>
+ <details><summary>Wie schnell bekomme ich einen Termin?</summary><p>In der Regel innerhalb weniger Tage, bei Dringlichkeit kurzfristig.</p></details>
+ <details><summary>Beraten Sie auch online?</summary><p>Ja, per Telefon, E-Mail oder Videogespräch.</p></details>
+</div></section>
+
+<div class="contact" id="kontakt">
+ <svg class="il" viewBox="0 0 600 560" aria-hidden="true">
+  <defs><linearGradient id="m" x1="0" x2="1"><stop offset="0" stop-color="#555"/><stop offset=".5" stop-color="#999"/><stop offset="1" stop-color="#222"/></linearGradient><linearGradient id="pg" x1="0" x2="1"><stop offset="0" stop-color="#ddd"/><stop offset="1" stop-color="#9a9a9a"/></linearGradient></defs>
+  <rect x="237" y="30" width="14" height="400" fill="url(#m)"/><circle cx="244" cy="26" r="11" fill="#444"/>
+  <path d="M60 110C160 90 330 90 430 110" stroke="#2f2f2f" stroke-width="9" fill="none"/>
+  <g stroke="#555" stroke-width="1.5"><path d="M70 110L-10 330M70 110L150 330M420 110L330 320M420 110L520 320"/></g>
+  <path d="M-30 330q90 50 200 0z" fill="#222"/><path d="M310 320q110 50 220 0z" fill="#222"/>
+  <rect x="0" y="440" width="420" height="40" fill="#e4e4e4"/><path d="M0 452h420M0 464h420" stroke="#aaa"/><rect x="0" y="426" width="420" height="16" fill="url(#pg)"/>
+  <rect x="60" y="480" width="360" height="36" fill="#d6d6d6"/><path d="M60 492h360M60 504h360" stroke="#999"/>
+  <ellipse cx="400" cy="520" rx="110" ry="16" fill="#1c1c1c"/><rect x="290" y="490" width="220" height="30" fill="#2c2c2c"/>
+  <g transform="rotate(-24 340 410)"><rect x="270" y="360" width="130" height="64" rx="8" fill="#2a2a2a"/><rect x="270" y="360" width="130" height="14" rx="6" fill="#666"/></g>
+  <path d="M310 440L60 540" stroke="#3a3a3a" stroke-width="14" stroke-linecap="round"/>
+ </svg>
+ <div class="floor2"></div>
+ <div class="w"><div class="box">
+  <h2>Kontaktieren Sie mich</h2><div class="st">Nutzen Sie das Online Kontaktformular</div>
+  <form id="cf">
+   <input placeholder="Ihr Name" required aria-label="Ihr Name"><input placeholder="Ihre Adresse" aria-label="Ihre Adresse">
+   <div class="r2"><input placeholder="Telefonnummer" aria-label="Telefonnummer"><input type="email" placeholder="E-Mail" required aria-label="E-Mail"></div>
+   <textarea placeholder="Ihre Nachricht" aria-label="Ihre Nachricht"></textarea>
+   <label class="chk"><input type="checkbox" checked>Hiermit nehme ich zur Kenntnis, dass die Übermittlung der Daten über dieses Formular unverschlüsselt erfolgt.</label>
+   <div style="text-align:right"><button class="btn" type="submit">Jetzt senden</button></div>
+   <div class="ok" id="ok" role="status">Danke, Ihre Nachricht wurde gesendet.</div>
+  </form>
+ </div></div>
+</div>
+</main>
+
+<footer>
+ <div class="f1"><div class="w">
+  <div class="logo">Luật Vạn Ích<small>RECHTSANWALT</small></div>
+  <div><b>Rechtsanwalt Luật Vạn Ích</b><br>Lindwurmstr. 9<br>80337 München</div>
+  <div>Telefon: +49 89 262 627 40<br>Fax: &nbsp;&nbsp;&nbsp;&nbsp;+49 89 262 627 430<br>E-Mail: ra.p@vanich-law.de</div>
+  <div><b>Unsere Öffnungszeiten</b><br>Montag - Donnerstag: 09:00 - 17:00 Uhr<br>Freitag: 09:00 - 14:00 Uhr</div>
+ </div></div>
+ <div class="f2"><div class="w"><h4>Seitenübersicht</h4>
+  <div class="l"><div><small>Rechtsgebiete</small><a href="#gebiete">→ Familienrecht</a><a href="#gebiete">→ Arbeitsrecht</a></div><div><small>&nbsp;</small><a href="#gebiete">→ Erbrecht</a><a href="#gebiete">→ Versicherungsrecht</a></div><div><small>&nbsp;</small><a href="#gebiete">→ Vertragsrecht</a><a href="#gebiete">→ weitere Rechtsgebiete</a></div><div><small>Allgemeines</small><a href="#allg">→ Beratungsgebühren</a><a href="#allg">→ Gebühren</a></div></div>
+ </div></div>
+ <div class="f3"><div class="w"><a href="#top">Startseite</a><a href="#ueber">Über mich</a><a href="#kanzlei">Kanzlei</a><a href="#kontakt">Kontakt</a><a href="#kontakt">Anfahrt</a><a href="#top">Impressum</a><a href="#top">Datenschutzerklärung</a></div></div>
+ <div class="f4"><div class="w"><span class="badge">muenchen.de</span><span>Rechtsanwalt Luật Vạn Ích, auch bei anwaltssuche.de für Familienrecht in München</span></div></div>
+</footer>
+
+<script>
+const D=[["Familienrecht","Wenn Sie Fragen zu unseren Angeboten oder sonstige Wünsche haben, können Sie gerne eine E-Mail schreiben. Wir werden uns umgehend mit Ihnen in Verbindung setzen."],["Arbeitsrecht","Kündigung, Abfindung oder Arbeitsvertrag: Ich vertrete Arbeitnehmer wie Arbeitgeber mit Erfahrung und Augenmaß."],["Erbrecht","Testament, Pflichtteil und Erbauseinandersetzung rechtssicher und frühzeitig regeln."],["Vertragsrecht","Verträge prüfen und gestalten, bevor aus Unklarheit ein Streit wird."]];
+const tabs=document.getElementById('tabs');
+function show(i){sn.textContent='0'+(i+1);stt.textContent=D[i][0];sp.textContent=D[i][1];[...tabs.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i))}
+D.forEach((_,i)=>{const b=document.createElement('button');b.textContent='0'+(i+1);b.onclick=()=>{show(i);clearInterval(t)};tabs.appendChild(b)});
+show(0);let k=0;const t=setInterval(()=>{k=(k+1)%4;show(k)},5000);
+mb.onclick=()=>nav.classList.toggle('open');
+cf.onsubmit=e=>{e.preventDefault();ok.style.display='block';e.target.reset()};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,n=+el.dataset.n,s=performance.now();(function f(x){const p=Math.min((x-s)/1200,1);el.textContent=Math.round(n*p).toLocaleString('de-DE');if(p<1)requestAnimationFrame(f)})(s)}));
+document.querySelectorAll('[data-n]').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>

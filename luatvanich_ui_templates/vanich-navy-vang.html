@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luật Vạn Ích – Luật sư tiếng Trung tại Việt Nam</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{--navy:#0b1f4a;--navy2:#12306b;--deep:#071433;--gold:#d9a441;--gold2:#f0c56e;--red:#b3201b;--cream:#f7f2e8;--paper:#fffdf8;--ink:#17203a;--mute:#5a6275;--line:#e4d9bf;--f:'Noto Serif',Georgia,serif;--c:'Noto Serif SC',serif;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 15px/1.7 var(--f)}
+a{color:inherit;text-decoration:none}
+.w{max-width:1180px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.25}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 14px var(--f);letter-spacing:.6px;text-transform:uppercase;padding:14px 24px;border-radius:6px;border:1.5px solid var(--red);background:var(--red);color:#fff;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{background:#8f1713;transform:translateY(-2px)}
+.btn.g{background:#fff;color:var(--red);border-color:var(--gold)}.btn.g:hover{background:var(--red);color:#fff}
+.btn.s{padding:9px 16px;font-size:12.5px;background:transparent;color:var(--red);text-transform:none;font-weight:600;letter-spacing:0}.btn.s:hover{background:var(--red);color:#fff}
+.title{text-align:center;font-size:28px;text-transform:uppercase;color:var(--navy);letter-spacing:.5px}
+.title::after{content:"";display:block;width:64px;height:3px;background:linear-gradient(90deg,var(--gold),var(--red));margin:12px auto 34px}
+.title.l{text-align:left}.title.l::after{margin-left:0;margin-bottom:22px}
+/* top & nav */
+.top{background:var(--deep);color:#dfe5f3;font-size:13px}
+.top .w{display:flex;justify-content:space-between;align-items:center;height:38px;gap:14px}
+.top span:last-child{display:flex;gap:20px}
+.nav{background:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 14px rgba(11,31,74,.12)}
+.nav .w{display:flex;justify-content:space-between;align-items:center;height:78px}
+.logo{display:flex;align-items:center;gap:12px}
+.emb{width:50px;height:50px;border-radius:50%;background:conic-gradient(from 200deg,var(--navy),var(--red) 40%,var(--navy2) 70%,var(--navy));display:grid;place-items:center;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--gold)}
+.emb i{font:700 22px/1 var(--c);font-style:normal;color:var(--gold2)}
+.logo b{display:block;font:700 18px/1.1 var(--f);color:var(--navy);letter-spacing:.5px}.logo small{font:600 10px var(--f);letter-spacing:3px;color:var(--red)}
+.menu{display:flex;gap:30px;font:600 15px var(--f);align-items:center}
+.menu a{padding:6px 0;border-bottom:2px solid transparent;color:var(--navy)}.menu a.on,.menu a:hover{color:var(--red);border-color:var(--red)}
+.chev::after{content:"⌵";font-size:11px;margin-left:5px}
+.lang{display:flex;align-items:center;gap:8px;font:700 14px var(--f);color:var(--navy)}
+.lang button{background:none;border:0;font:inherit;color:#7d869b;cursor:pointer;display:flex;gap:6px;align-items:center;padding:2px}.lang button.on{color:var(--red)}
+.fg{display:inline-grid;place-items:center;width:20px;height:14px;background:#da251d;color:#ffde00;font-size:9px;line-height:1;border-radius:1px}
+.mb{display:none;background:none;border:1px solid var(--line);padding:8px 14px;font:inherit;border-radius:4px}
+/* hero */
+.hero{position:relative;background:var(--deep);color:#fff;overflow:hidden;min-height:560px}
+.hero svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,20,51,.96) 0,rgba(7,20,51,.8) 38%,rgba(7,20,51,0) 68%)}
+.hero .w{position:relative;z-index:2;padding-top:56px;padding-bottom:56px}
+.tag{display:inline-block;background:linear-gradient(90deg,var(--red),#8f1713);color:var(--gold2);font:italic 600 24px var(--f);padding:6px 22px;border-radius:6px;border:1px solid rgba(240,197,110,.5);margin-bottom:22px}
+.hero h1{font-size:42px;text-transform:uppercase;max-width:640px;letter-spacing:.5px}
+.hero h1 em{display:block;font-style:normal;color:var(--gold);text-shadow:0 2px 12px rgba(217,164,65,.35)}
+.hero p{max-width:600px;color:#dbe3f5;margin:22px 0 26px}
+.pill{display:grid;grid-template-columns:repeat(4,auto);gap:0;max-width:620px;border:1.5px solid var(--gold);border-radius:14px;padding:14px 8px;background:rgba(7,20,51,.55);backdrop-filter:blur(3px);margin-bottom:28px}
+.pill div{display:flex;gap:10px;align-items:center;padding:0 14px;border-right:1px solid rgba(217,164,65,.4)}.pill div:last-child{border:0}
+.pill .ic{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold2);display:grid;place-items:center;font:700 16px var(--c);flex:none}
+.pill b{display:block;font-size:19px;color:var(--gold2);line-height:1.1}.pill small{font-size:11px;line-height:1.25;color:#dbe3f5;display:block}
+.vt{position:absolute;right:16px;top:36px;z-index:3;writing-mode:vertical-rl;font:700 24px/1.2 var(--c);letter-spacing:.35em;color:var(--gold2);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.vt::after{content:"信";display:block;margin-top:18px;width:30px;height:30px;background:var(--red);color:#fff;font:700 16px/30px var(--c);text-align:center;letter-spacing:0;writing-mode:horizontal-tb;border:1px solid var(--gold)}
+/* story */
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;box-shadow:0 6px 24px rgba(11,31,74,.06);position:relative;overflow:hidden}
+.story{margin-top:-22px;position:relative;z-index:4}
+.story .card{padding:34px 40px 40px}
+.story h2{font-size:25px;text-transform:uppercase;color:var(--navy)}.story h2::after{content:"";display:block;width:70px;height:3px;background:var(--gold);margin:10px 0 18px}
+.story p{margin:0 0 12px;max-width:900px;position:relative;z-index:1}.story p i{color:var(--navy2)}
+.story svg{position:absolute;right:0;bottom:0;width:62%;opacity:.22}
+.story .cta{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap;position:relative;z-index:1}
+.sec{padding:54px 0 0}
+/* services */
+.sv{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.sc{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:18px 16px 18px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sc:hover{transform:translateY(-5px);box-shadow:0 12px 26px rgba(11,31,74,.14);border-color:var(--gold)}
+.sc .t{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.num{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font:700 14px var(--f);box-shadow:0 0 0 3px #f1d6d3}
+.gl{font:700 34px/1 var(--c);color:var(--navy);opacity:.85}
+.sc h3{font-size:14.5px;text-transform:uppercase;color:var(--navy);margin-bottom:8px;min-height:44px}
+.sc p{font-size:13px;color:var(--mute);margin:0 0 14px;flex:1}
+.sc .btn{align-self:flex-start}
+.all{text-align:center;margin-top:28px}
+/* values */
+.vals{background:linear-gradient(90deg,var(--navy),var(--navy2));border-radius:20px;color:#fff;display:grid;grid-template-columns:repeat(5,1fr);margin-top:36px;padding:20px 10px;box-shadow:0 8px 24px rgba(11,31,74,.25)}
+.val{display:flex;gap:12px;align-items:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.18)}.val:last-child{border:0}
+.val .ic{flex:none;width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;display:grid;place-items:center;font:700 19px var(--c);color:var(--gold2)}
+.val b{display:block;font-size:13.5px;text-transform:uppercase;line-height:1.3;color:var(--gold2)}.val span{display:block;font-size:12px;color:#d3dcf0;line-height:1.45;margin-top:2px}
+/* culture + team */
+.two{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin-top:30px}
+.cul{padding:26px 28px;min-height:340px}
+.cul h2,.tmb h2{font-size:20px;text-transform:uppercase;color:var(--navy)}
+.cul ul{list-style:none;margin:16px 0 20px;padding:0;max-width:60%;position:relative;z-index:1}
+.cul li{display:flex;gap:12px;padding:8px 0;font-size:14px}
+.cul li::before{content:"";flex:none;width:22px;height:24px;background:var(--red);clip-path:polygon(50% 0,100% 15%,100% 60%,50% 100%,0 60%,0 15%);margin-top:3px}
+.puz{position:absolute;right:-10px;bottom:0;width:48%}
+.tmb{padding:22px 24px 26px}
+.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 6px}
+.rail::-webkit-scrollbar{display:none}
+.pr{flex:0 0 calc(33.3% - 10px);scroll-snap-align:start;border:1.5px solid var(--line);border-radius:14px;background:#fff;text-align:center;padding:8px 8px 12px}
+.pr svg{width:100%;aspect-ratio:1;border-radius:10px;display:block}
+.pr small{display:block;margin-top:10px;font:600 11.5px var(--f);color:var(--red);letter-spacing:1px}.pr b{font-size:12.5px;text-transform:uppercase;color:var(--navy)}
+.arr{position:absolute;top:50%;width:34px;height:34px;border-radius:50%;border:0;background:rgba(11,31,74,.55);color:#fff;font-size:16px;cursor:pointer;z-index:5;transform:translateY(-50%)}
+.arr:hover{background:var(--red)}.arr.p{left:6px}.arr.n{right:6px}
+.rw{position:relative}
+/* news */
+.nr .pr2{flex:0 0 calc(20% - 12px);scroll-snap-align:start;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s}
+.nr .pr2:hover{transform:translateY(-4px)}
+.nr .rail{gap:15px}
+.cv{aspect-ratio:3/2;position:relative;display:grid;place-items:center;overflow:hidden}
+.cv i{font:700 76px/1 var(--c);font-style:normal;color:rgba(240,197,110,.9)}
+.cv span{position:absolute;left:10px;top:10px;background:var(--red);color:#fff;font:600 10.5px var(--f);padding:2px 9px;border-radius:10px;letter-spacing:.5px}
+.pr2 .bd{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1}
+.pr2 h3{font-size:14px;color:var(--navy);margin-bottom:6px}.pr2 p{font-size:12.5px;color:var(--mute);margin:0 0 10px;flex:1}
+.pr2 .m{font:600 13px var(--f);color:var(--red)}
+/* partners */
+.pt{display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+.pt div{height:72px;background:#fff;border:1.5px solid var(--line);border-radius:12px;display:grid;place-items:center;font:700 14px var(--f);color:var(--navy2);text-align:center;line-height:1.2;padding:4px;transition:border-color .2s}
+.pt div:hover{border-color:var(--gold)}.pt b{display:block;font:700 17px var(--c);color:var(--red)}
+/* footer */
+footer{margin-top:56px;background:linear-gradient(180deg,var(--navy),var(--deep));color:#d3dcf0;position:relative;overflow:hidden}
+footer::before{content:"律";position:absolute;left:-30px;bottom:-120px;font:700 460px/1 var(--c);color:#fff;opacity:.04}
+.fg2{display:grid;grid-template-columns:1.1fr 1fr 1.1fr 1.2fr;gap:36px;padding:52px 0 40px;position:relative}
+footer h4{font:700 16px var(--f);text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+footer a,footer p{display:block;margin:0;padding:5px 0;font-size:14.5px}footer a:hover{color:var(--gold2)}
+.so{display:flex;gap:10px;margin:16px 0}.so a{width:36px;height:36px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center;font-size:12px;padding:0}
+.fb{border-top:1px solid rgba(255,255,255,.15);padding:16px 0;font-size:12.5px;position:relative}
+.fl{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:9px}
+.fl a{width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font:700 12px var(--f);border:2px solid var(--gold2);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.fl a:hover{transform:scale(1.08)}
+@media (max-width:1100px){.sv{grid-template-columns:repeat(3,1fr)}.vals{grid-template-columns:repeat(3,1fr);row-gap:18px}.pt{grid-template-columns:repeat(4,1fr)}.nr .pr2{flex-basis:calc(33% - 10px)}.two{grid-template-columns:1fr}.vt{display:none}}
+@media (max-width:900px){.menu{display:none;position:absolute;left:0;right:0;top:78px;background:#fff;flex-direction:column;align-items:flex-start;padding:18px 24px;gap:14px;box-shadow:0 10px 20px rgba(0,0,0,.1)}.menu.open{display:flex}.mb{display:block}.lang{display:none}.hero h1{font-size:30px}.tag{font-size:18px}.pill{grid-template-columns:1fr 1fr;row-gap:12px}.pill div:nth-child(2){border:0}.fg2{grid-template-columns:1fr 1fr}.hero::after{background:rgba(7,20,51,.82)}}
+@media (max-width:620px){.sv,.vals{grid-template-columns:1fr}.pt{grid-template-columns:repeat(2,1fr)}.nr .pr2{flex-basis:80%}.pr{flex-basis:70%}.fg2{grid-template-columns:1fr}.cul ul{max-width:100%}.puz{opacity:.2}.story .card{padding:26px 22px}.top span:last-child span:last-child{display:none}.val{border:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><span>CÔNG TY LUẬT TNHH VẠN ÍCH</span><span><span>📞 0900 123 456</span><span>✉ lienhe@vanichlaw.vn</span></span></div></div>
+<header class="nav"><div class="w">
+ <a class="logo" href="#top"><span class="emb"><i>万</i></span><span><b>LUẬT VẠN ÍCH</b><small>LAW FIRM · 万益律师</small></span></a>
+ <nav class="menu" id="menu"><a class="on" href="#top">TRANG CHỦ</a><a class="chev" href="#hanhtrinh">GIỚI THIỆU</a><a class="chev" href="#dichvu">DỊCH VỤ PHÁP LÝ</a><a class="chev" href="#tieudiem">CẨM NANG</a><a href="#lienhe">LIÊN HỆ</a></nav>
+ <div class="lang"><button class="on"><span class="fg">★</span>VIE</button>|<button>中文<span class="fg">★</span></button></div>
+ <button class="mb" id="mb">Menu</button>
+</div></header>
+
+<main id="top">
+<section class="hero">
+ <svg class="bg" viewBox="0 0 1400 560" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+  <defs>
+   <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1f4a"/><stop offset=".6" stop-color="#26427c"/><stop offset="1" stop-color="#c9833a"/></linearGradient>
+   <linearGradient id="tw" x1="0" x2="1"><stop offset="0" stop-color="#1b2c57"/><stop offset=".5" stop-color="#4b628f"/><stop offset="1" stop-color="#16244a"/></linearGradient>
+   <linearGradient id="rb" x1="0" x2="1"><stop offset="0" stop-color="#8f1713"/><stop offset="1" stop-color="#e0453c"/></linearGradient>
+  </defs>
+  <rect width="1400" height="560" fill="url(#sk)"/>
+  <g fill="url(#tw)">
+   <rect x="640" y="250" width="40" height="310"/><rect x="690" y="190" width="56" height="370"/><path d="M760 560V210l30-50 30 50v350z"/><rect x="835" y="300" width="50" height="260"/><rect x="900" y="270" width="70" height="290"/><rect x="990" y="340" width="40" height="220"/>
+   <rect x="740" y="60" width="6" height="130"/>
+  </g>
+  <g fill="#8aa0cf" opacity=".5"><rect x="700" y="230" width="3" height="300"/><rect x="920" y="290" width="3" height="270"/></g>
+  <g fill="#f0c56e" opacity=".75"><rect x="700" y="260" width="4" height="4"/><rect x="722" y="320" width="4" height="4"/><rect x="780" y="260" width="4" height="4"/><rect x="800" y="350" width="4" height="4"/><rect x="850" y="340" width="4" height="4"/><rect x="920" y="330" width="4" height="4"/><rect x="940" y="400" width="4" height="4"/><rect x="660" y="320" width="4" height="4"/></g>
+  <g fill="#c8353a"><circle cx="1090" cy="196" r="22"/><circle cx="1090" cy="250" r="30" fill="#e5484d"/></g><rect x="1088" y="100" width="4" height="96" fill="#c8353a"/>
+  <g transform="translate(1220 200)" fill="#7c1a17"><path d="M0 60h150l-12 14H12z"/><path d="M22 60V30h106v30z" fill="#5a1210"/><path d="M-10 30h170l-16 14H6z"/><path d="M28 30V4h94v26z" fill="#5a1210"/><path d="M8 4h134l-22 14H30z"/><path d="M75-20l-6 24h12z" fill="#d9a441"/><rect x="22" y="74" width="106" height="150" fill="#3a0e0d"/></g>
+  <circle cx="960" cy="300" r="170" fill="#2c4a86" opacity=".28"/>
+  <g transform="translate(900 170)"><path d="M-70 400c0-120 40-170 130-190l50 40 50-40c90 20 130 70 130 190z" fill="#0a1740"/><path d="M60 210l50 54 50-54v34l-50 156-50-156z" fill="#eef2fa"/><path d="M98 248h24l8 100-20 52-20-52z" fill="#7c1a17"/><ellipse cx="110" cy="135" rx="50" ry="62" fill="#c98f6c"/><path d="M60 125c-6-52 30-76 52-76s58 22 50 76c-10-30-20-44-52-44s-40 14-50 44z" fill="#1d1a1c"/><path d="M36 400L10 330l20-70 40 40zM184 400l26-70-20-70-40 40z" fill="#0d1d4a"/></g>
+  <path d="M0 470C180 400 330 450 480 500L0 560z" fill="url(#rb)"/><path d="M0 500C140 450 240 480 330 520L0 560z" fill="#d9a441" opacity=".7"/>
+  <g transform="translate(980 470) rotate(-6)"><path d="M0 40q50-30 100-10v12q-50-22-100 8z" fill="#eadfc2"/><path d="M100 30q50-20 100 8v12q-50-30-100-10z" fill="#f4ead2"/></g>
+ </svg>
+ <div class="vt" aria-hidden="true">专业·理解·信任·共创价值</div>
+ <div class="w">
+  <span class="tag">Luật sư tiếng Trung tại Việt Nam</span>
+  <h1>Đồng hành pháp lý <em>cho hợp tác Việt – Trung</em></h1>
+  <p>Luật sư thông thạo tiếng Trung đồng hành cùng doanh nghiệp Việt Nam và Trung Quốc, cung cấp giải pháp pháp lý chuyên sâu cho hoạt động đầu tư, kinh doanh và giải quyết tranh chấp.</p>
+  <div class="pill"><div><span class="ic">年</span><span><b>12+</b><small>Năm kinh nghiệm</small></span></div><div><span class="ic">案</span><span><b>1200+</b><small>Hồ sơ tư vấn</small></span></div><div><span class="ic">团</span><span><b>15+</b><small>Luật sư &amp; chuyên gia</small></span></div><div><span class="ic">中</span><span><b>100%</b><small>Tư vấn bằng tiếng Trung</small></span></div></div>
+  <a class="btn" href="#lienhe">📅 Đặt lịch tư vấn</a>
+ </div>
+</section>
+
+<section class="story" id="hanhtrinh"><div class="w"><div class="card">
+ <svg viewBox="0 0 600 200" aria-hidden="true"><g fill="none" stroke="#17203a" stroke-width="2"><path d="M0 170q150-120 300-20t300-60"/><path d="M60 150l40-30 40 30M360 130l50-40 50 40M440 110l30-24 30 24"/><path d="M200 160h140M220 160v-24h100v24"/><path d="M180 136h160l-20-18H200z"/></g></svg>
+ <h2>Hành trình tâm huyết</h2>
+ <p>Tình yêu của chúng tôi dành cho văn hóa Trung Hoa bắt đầu từ những cuốn sách cổ và những bộ phim thời thơ ấu. Khi ấy, đội ngũ sáng lập chỉ mang trong mình một ước mơ giản dị: <i>một ngày nào đó sẽ đặt chân đến vùng đất đã nuôi lớn bao tò mò và khát khao khám phá.</i></p>
+ <p>Càng sống, học tập và làm việc cùng đối tác Trung Quốc, chúng tôi càng nhận ra rằng đằng sau những hợp đồng và con số là cả một nền tảng về tư duy, văn hóa và cách con người kiến tạo giá trị.</p>
+ <p>Từ đó, chúng tôi theo đuổi một triết lý nghề nghiệp: không chỉ am hiểu pháp luật, mà còn thấu hiểu con người, văn hóa và cách tư duy của mỗi đối tác để trở thành cầu nối bền vững giữa doanh nghiệp Việt Nam và Trung Quốc.</p>
+ <div class="cta"><a class="btn" href="#doingu">Tìm hiểu thêm →</a><a class="btn g" href="#lienhe">📅 Đặt lịch tư vấn</a></div>
+</div></div></section>
+
+<section class="sec" id="dichvu"><div class="w">
+ <h2 class="title">Dịch vụ pháp lý tiêu biểu</h2>
+ <div class="sv" id="sv"></div>
+ <div class="all"><a class="btn" href="#lienhe">Xem tất cả →</a></div>
+ <div class="vals">
+  <div class="val"><span class="ic">专</span><div><b>Chuyên nghiệp</b><span>Đội ngũ luật sư giàu kinh nghiệm, am hiểu pháp luật.</span></div></div>
+  <div class="val"><span class="ic">效</span><div><b>Hiệu quả</b><span>Giải pháp tối ưu, tiết kiệm thời gian và chi phí.</span></div></div>
+  <div class="val"><span class="ic">密</span><div><b>Bảo mật tuyệt đối</b><span>Cam kết bảo mật thông tin ở mức cao nhất.</span></div></div>
+  <div class="val"><span class="ic">伴</span><div><b>Đồng hành bền vững</b><span>Cùng doanh nghiệp phát triển, cùng thành công.</span></div></div>
+  <div class="val"><span class="ic">援</span><div><b>Hỗ trợ 24/7</b><span>Luôn sẵn sàng lắng nghe và hỗ trợ mọi lúc.</span></div></div>
+ </div>
+</div></section>
+
+<section class="sec" id="doingu" style="padding-top:0"><div class="w two">
+ <div class="card cul">
+  <h2>Văn hóa kinh doanh Việt Trung</h2>
+  <ul><li>Am hiểu phong tục, tập quán và chuẩn mực kinh doanh của cả Việt Nam và Trung Quốc.</li><li>Tôn trọng khác biệt, đề cao sự tin cậy và thiện chí trong hợp tác.</li><li>Xây dựng cầu nối vững chắc, thúc đẩy hợp tác lâu dài và hiệu quả.</li></ul>
+  <a class="btn g" href="#tieudiem" style="position:relative;z-index:1">Khám phá thêm →</a>
+  <svg class="puz" viewBox="0 0 300 300" aria-hidden="true"><defs><linearGradient id="pz" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0c56e"/><stop offset="1" stop-color="#a8741f"/></linearGradient></defs><path d="M30 120h80a20 20 0 1140 0h60v80a20 20 0 100 40v50H30z" fill="url(#pz)" opacity=".9"/><path d="M150 40h60a20 20 0 1140 0h30v110h-60a20 20 0 100-40h-70z" fill="#e6b858" opacity=".75"/><path d="M110 230q50-50 100-10" stroke="#fff" stroke-width="6" fill="none" opacity=".5"/></svg>
+ </div>
+ <div class="card tmb">
+  <div class="hd"><h2>Đội ngũ luật sư</h2><a class="btn" href="#lienhe">Xem tất cả →</a></div>
+  <div class="rw"><button class="arr p" data-t="tm" data-d="-1" aria-label="Trước">‹</button><div class="rail" id="tm"></div><button class="arr n" data-t="tm" data-d="1" aria-label="Sau">›</button></div>
+ </div>
+</div></section>
+
+<section class="sec" id="tieudiem"><div class="w nr">
+ <h2 class="title">Tiêu điểm luật</h2>
+ <div class="rw"><button class="arr p" data-t="nw" data-d="-1" aria-label="Trước">‹</button><div class="rail" id="nw"></div><button class="arr n" data-t="nw" data-d="1" aria-label="Sau">›</button></div>
+</div></section>
+
+<section class="sec"><div class="w">
+ <h2 class="title">Đối tác tiêu biểu</h2>
+ <div class="pt"><div><span><b>华</b>HOA LONG</span></div><div><span><b>盛</b>THANH SƠN</span></div><div><span><b>东</b>ĐÔNG Á CORP</span></div><div><span><b>瑞</b>RUI FENG</span></div><div><span><b>联</b>LIÊN VIỆT</span></div><div><span><b>通</b>TONGDA</span></div><div><span><b>港</b>HẢI CẢNG</span></div><div><span><b>鑫</b>XIN TAI</span></div></div>
+</div></section>
+</main>
+
+<footer id="lienhe"><div class="w">
+ <div class="fg2">
+  <div><a class="logo" href="#top" style="padding:0"><span class="emb"><i>万</i></span><span><b style="color:#fff">LUẬT VẠN ÍCH</b><small>LAW FIRM · 万益律师</small></span></a><div class="so"><a href="#top">f</a><a href="#top">m</a><a href="#top">微</a><a href="#top">▶</a></div><p style="font-size:13px">© 2026 Luật Vạn Ích. Trang minh họa thiết kế.</p></div>
+  <div><h4>Tìm hiểu thêm</h4><a href="#hanhtrinh">Giới thiệu chung</a><a href="#doingu">Đội ngũ</a><a href="#tieudiem">Tiêu điểm luật</a><a href="#doingu">Văn hóa kinh doanh</a><a href="#top">Chính sách bảo mật</a></div>
+  <div><h4>Dịch vụ pháp lý</h4><a href="#dichvu">Luật sư tư vấn tiếng Trung</a><a href="#dichvu">Tư vấn đầu tư</a><a href="#dichvu">Tư vấn doanh nghiệp</a><a href="#dichvu">Tranh tụng &amp; thu hồi nợ</a><a href="#dichvu">Mua bán sáp nhập M&amp;A</a></div>
+  <div><h4>Thông tin liên hệ</h4><p>🌐 vanichlaw.vn</p><p>📞 0900 123 456</p><p>✉ lienhe@vanichlaw.vn</p><p>📍 Số 1 Đường mẫu, Quận 1, TP. Hồ Chí Minh</p></div>
+ </div>
+ <div class="fb">Thông tin trong trang là dữ liệu mẫu phục vụ thiết kế.</div>
+</div></footer>
+<div class="fl"><a href="tel:0900123456" aria-label="Gọi">Gọi</a><a href="#lienhe">Zalo</a><a href="#top" aria-label="Lên đầu trang">↑</a></div>
+
+<script>
+const SV=[["律","Luật sư tư vấn tiếng Trung","Tư vấn pháp lý bằng tiếng Trung chuyên nghiệp, chính xác, giúp doanh nghiệp quyết định vững vàng."],["投","Luật sư tư vấn đầu tư","Giải pháp tối ưu, hỗ trợ nhà đầu tư nước ngoài nắm bắt cơ hội, kiểm soát rủi ro."],["企","Luật sư tư vấn doanh nghiệp","Tư vấn toàn diện thành lập, quản trị, hợp đồng, lao động và tuân thủ."],["顾","Tư vấn pháp luật thường xuyên","Đồng hành pháp lý dài hạn, hỗ trợ doanh nghiệp xử lý kịp thời."],["诉","Tranh tụng &amp; thu hồi nợ","Đại diện khách hàng trong tranh chấp, tối ưu giải pháp bảo vệ quyền lợi."],["并","Mua bán sáp nhập M&amp;A","Tư vấn chiến lược, thẩm định, đàm phán và hoàn tất giao dịch an toàn."]];
+sv.innerHTML=SV.map((s,i)=>`<div class="sc"><div class="t"><span class="num">0${i+1}</span><span class="gl">${s[0]}</span></div><h3>${s[1]}</h3><p>${s[2]}</p><a class="btn s" href="#lienhe">Xem chi tiết →</a></div>`).join('');
+const hairs=['#1b1718','#2a1c16','#3a2a22','#161214'];
+const P=[["Lê Thị Trang",0],["Đỗ Thị Hồng Ngọc",1],["Trần Thị Thanh Thảo",2],["Mã Thị Bích Mai",3],["Nguyễn Hữu Quang",0,1],["Bùi Khắc Long",1,1]];
+tm.innerHTML=P.map((p,i)=>{const m=p[2],h=hairs[p[1]];return `<div class="pr"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="a${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9edf5"/><stop offset="1" stop-color="#b6c2d8"/></linearGradient></defs><rect width="100" height="100" fill="url(#a${i})"/>${m?'':`<path d="M30 52c-6-30 10-40 20-40s26 10 20 40v26H30z" fill="${h}"/>`}<path d="M10 100c0-24 14-34 40-36 26 2 40 12 40 36z" fill="#0d1d4a"/><path d="M40 64l10 14 10-14v12l-10 24-10-24z" fill="#f2f5fa"/><ellipse cx="50" cy="44" rx="14" ry="17" fill="#e3b497"/><path d="M36 40c-2-18 28-18 28 0-5-8-23-8-28 0z" fill="${h}"/></svg><small>LUẬT SƯ</small><b>${p[0]}</b></div>`}).join('');
+const N=[["债","THU HỒI NỢ","Mất tiền đặt cọc thuê nhà xưởng: sai lầm khi đặt cọc","Rủi ro lớn khi hợp đồng đặt cọc không rõ điều khoản hoàn trả…"],["投","ĐẦU TƯ","Luật Đầu tư 2025: những thay đổi lớn với nhà đầu tư nước ngoài","Nhiều thay đổi đáng chú ý về điều kiện và thủ tục đầu tư…"],["权","DOANH NGHIỆP","Chủ sở hữu hưởng lợi: nghĩa vụ kê khai cần biết","Khái niệm chủ sở hữu hưởng lợi ngày càng được siết chặt…"],["封","TỐ TỤNG","Phong tỏa tài sản “con nợ”: khi nào được yêu cầu","Khi nào chủ nợ được yêu cầu Tòa án phong tỏa tài sản…"],["约","HỢP ĐỒNG","Hợp đồng song ngữ Việt – Trung: điểm cần lưu ý","Xử lý khác biệt ngôn ngữ để tránh tranh chấp về sau…"]];
+const G=[["#0b1f4a","#1f3f86"],["#14295c","#8f1713"],["#0b1f4a","#3a2a22"],["#071433","#12306b"],["#2a1210","#0b1f4a"]];
+nw.innerHTML=N.map((n,i)=>`<a class="pr2" href="#lienhe"><div class="cv" style="background:linear-gradient(135deg,${G[i][0]},${G[i][1]})"><span>${n[1]}</span><i>${n[0]}</i></div><div class="bd"><h3>${n[2]}</h3><p>${n[3]}</p><span class="m">Xem chi tiết →</span></div></a>`).join('');
+document.querySelectorAll('.arr').forEach(b=>b.onclick=()=>{const r=document.getElementById(b.dataset.t);r.scrollBy({left:b.dataset.d*r.clientWidth*.7,behavior:'smooth'})});
+mb.onclick=()=>menu.classList.toggle('open');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+</script>
+</body>
+</html>
