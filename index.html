@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bộ Sưu Tập Giao Diện – Hãng Luật Vạn Ích (万益河内)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1f4a;
+      --navy-light: #162f6b;
+      --gold: #c9a24b;
+      --gold-light: #e5c378;
+      --bg: #07122b;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #162f6b 0%, #07122b 75%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(201, 162, 75, 0.15);
+      border: 1px solid rgba(201, 162, 75, 0.35);
+      color: var(--gold-light);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #f0c56e 0%, #c9a24b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient, linear-gradient(90deg, #c9a24b, #e5c378));
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(201, 162, 75, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 162, 75, 0.12);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      height: 5px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .item-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold-light);
+      background: rgba(201, 162, 75, 0.12);
+      border: 1px solid rgba(201, 162, 75, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .palette {
+      display: flex;
+      gap: 6px;
+    }
+
+    .color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .card-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .card-style {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+
+    .card:hover .card-btn {
+      background: linear-gradient(135deg, #c9a24b 0%, #b3882f 100%);
+      border-color: #c9a24b;
+      color: #07122b;
+      box-shadow: 0 4px 14px rgba(201, 162, 75, 0.35);
+    }
+
+    .card-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.25s;
+    }
+
+    .card:hover .card-btn svg {
+      transform: translateX(4px);
+    }
+
+    /* Tùy chỉnh màu sắc riêng cho từng mẫu */
+    .card-1 { --accent-gradient: linear-gradient(90deg, #0b1f4a, #d9a441); }
+    .card-2 { --accent-gradient: linear-gradient(90deg, #b3201b, #f0c56e); }
+    .card-3 { --accent-gradient: linear-gradient(90deg, #2b3a4a, #718096); }
+    .card-4 { --accent-gradient: linear-gradient(90deg, #1a202c, #4a5568); }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      padding-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">⚖️ UI Templates Preview</div>
+      <h1>Hãng Luật Vạn Ích <span>(万益河内)</span></h1>
+      <p class="subtitle">Khám phá 4 phong cách giao diện website được thiết kế riêng cho Hãng luật song ngữ Việt – Trung Vạn Ích. Bấm vào từng mẫu để xem trực tiếp giao diện.</p>
+    </header>
+
+    <div class="grid">
+      <!-- MẪU 1 -->
+      <a href="vanich-navy-vang.html" class="card card-1">
+        <div class="card-top">
+          <span class="item-tag">MẪU 1</span>
+          <div class="palette" title="Bảng màu chính">
+            <span class="color-dot" style="background: #0b1f4a;"></span>
+            <span class="color-dot" style="background: #d9a441;"></span>
+            <span class="color-dot" style="background: #f7f2e8;"></span>
+          </div>
+        </div>
+        <h2 class="card-title">Mẫu 1</h2>
+        <div class="card-style">Navy & Vàng Gold (Corporate Classic)</div>
+        <p class="card-desc">Phong cách chuẩn mực của các hãng luật quốc tế danh tiếng: Xanh Navy quyền uy `#0B1F4A` kết hợp Vàng Kim `#D9A441`, toát lên sự đĩnh đạc, tin cậy và bảo chứng vững chắc.</p>
+        <div class="card-btn">
+          <span>Xem giao diện Mẫu 1</span>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+      </a>
+
+      <!-- MẪU 2 -->
+      <a href="vanich-do-trung-hoa.html" class="card card-2">
+        <div class="card-top">
+          <span class="item-tag">MẪU 2</span>
+          <div class="palette" title="Bảng màu chính">
+            <span class="color-dot" style="background: #b3201b;"></span>
+            <span class="color-dot" style="background: #c9a24b;"></span>
+            <span class="color-dot" style="background: #fffdf8;"></span>
+          </div>
+        </div>
+        <h2 class="card-title">Mẫu 2</h2>
+        <div class="card-style">Đỏ Trung Hoa (Oriental Business)</div>
+        <p class="card-desc">Sử dụng sắc Đỏ son truyền thống đậm nét văn hóa Trung Hoa `#B3201B` đi cùng sắc Vàng kim sang trọng. Rất gần gũi, tạo sự đồng điệu tâm lý mạnh mẽ với khách hàng và nhà đầu tư Trung Quốc.</p>
+        <div class="card-btn">
+          <span>Xem giao diện Mẫu 2</span>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+      </a>
+
+      <!-- MẪU 3 -->
+      <a href="vanich-thuy-mac.html" class="card card-3">
+        <div class="card-top">
+          <span class="item-tag">MẪU 3</span>
+          <div class="palette" title="Bảng màu chính">
+            <span class="color-dot" style="background: #232c38;"></span>
+            <span class="color-dot" style="background: #64748b;"></span>
+            <span class="color-dot" style="background: #f8fafc;"></span>
+          </div>
+        </div>
+        <h2 class="card-title">Mẫu 3</h2>
+        <div class="card-style">Thủy Mặc Á Đông (Ink & Calligraphy)</div>
+        <p class="card-desc">Cảm hứng từ nghệ thuật thư pháp và tranh Thủy mặc Á Đông. Tông màu khói mực thanh nhã, khoảng trắng thoáng đạt, mang chiều sâu triết lý và sự điềm tĩnh uyên thâm của giới luật học.</p>
+        <div class="card-btn">
+          <span>Xem giao diện Mẫu 3</span>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+      </a>
+
+      <!-- MẪU 4 -->
+      <a href="vanich-kanzlei.html" class="card card-4">
+        <div class="card-top">
+          <span class="item-tag">MẪU 4</span>
+          <div class="palette" title="Bảng màu chính">
+            <span class="color-dot" style="background: #111827;"></span>
+            <span class="color-dot" style="background: #4b5563;"></span>
+            <span class="color-dot" style="background: #f3f4f6;"></span>
+          </div>
+        </div>
+        <h2 class="card-title">Mẫu 4</h2>
+        <div class="card-style">Kanzlei Châu Âu (European Minimalist)</div>
+        <p class="card-desc">Lấy cảm hứng từ các văn phòng luật Kanzlei của Đức và Tây Âu: Thiết kế tối giản, bố cục dứt khoát, kiểu chữ Serif sắc sảo và hiện đại, tôn vinh tính chuẩn xác và kỷ luật thép.</p>
+        <div class="card-btn">
+          <span>Xem giao diện Mẫu 4</span>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      Hãng luật Vạn Ích (万益河内律师事务所) • Bộ sưu tập Demo giao diện người dùng
+    </footer>
+  </div>
+</body>
+</html>
