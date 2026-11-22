@@ -2,6 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsInt, Min, Max, IsEnum } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { SortOrder } from '../../../../common/enums/sort-order.enum';
+import { PAGINATION } from '../../../../common/constants/pagination.constant';
 import { UserSortBy } from '../../users.constant';
 
 export { SortOrder, UserSortBy };
@@ -52,23 +53,23 @@ export class UserQueryDto {
   sortOrder?: SortOrder = SortOrder.DESC;
 
   @ApiPropertyOptional({
-    default: 1,
+    default: PAGINATION.DEFAULT_PAGE,
     description: 'Trang hiện tại (bắt đầu từ 1)',
   })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  @Min(1)
-  page?: number = 1;
+  @Min(PAGINATION.MIN_PAGE)
+  page?: number = PAGINATION.DEFAULT_PAGE;
 
   @ApiPropertyOptional({
-    default: 10,
-    description: 'Số lượng bản ghi trên một trang (tối đa 100)',
+    default: PAGINATION.DEFAULT_LIMIT,
+    description: `Số lượng bản ghi trên một trang (tối đa ${PAGINATION.MAX_LIMIT})`,
   })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  @Min(1)
-  @Max(100)
-  limit?: number = 10;
+  @Min(PAGINATION.MIN_LIMIT)
+  @Max(PAGINATION.MAX_LIMIT)
+  limit?: number = PAGINATION.DEFAULT_LIMIT;
 }
