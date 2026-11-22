@@ -51,7 +51,6 @@ apiClient.interceptors.request.use((reqConfig) => {
   if (typeof window !== "undefined") {
     const activeLang = document.documentElement.lang || "vi";
     reqConfig.headers["Accept-Language"] = activeLang;
-    reqConfig.params = { lang: activeLang, ...reqConfig.params };
   }
 
   const token = authHandlers?.getAccessToken();
