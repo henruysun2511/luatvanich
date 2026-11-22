@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luật Vạn Ích – Văn phòng luật sư song ngữ Việt – Trung</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{--ink:#0d1726;--ink2:#17263d;--steel:#5d6b80;--line:#d9dde4;--bg:#fff;--bg2:#f2f4f7;--brass:#b08d57;--brass2:#d3b27a;--wine:#7a1f2b;--d:'Playfair Display',Georgia,serif;--s:'Inter',Arial,sans-serif;--c:'Noto Serif SC',serif;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;font:400 15px/1.7 var(--s);color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{max-width:1180px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--d);margin:0;font-weight:700;line-height:1.2}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.lab{font:600 11.5px var(--s);letter-spacing:2.5px;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:12px}
+.lab::before{content:"";width:34px;height:1px;background:currentColor}
+.lab i{font:700 13px var(--c);font-style:normal;letter-spacing:3px}
+.btn{display:inline-flex;gap:10px;align-items:center;font:600 13px var(--s);letter-spacing:1.2px;text-transform:uppercase;padding:15px 28px;background:var(--brass);color:var(--ink);border:0;border-radius:2px;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--brass2)}.btn.o{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}.btn.o:hover{background:rgba(255,255,255,.1)}
+.btn.d{background:var(--ink);color:#fff}.btn.d:hover{background:var(--ink2)}
+.sec{padding:96px 0}.alt{background:var(--bg2)}.dk{background:var(--ink);color:#fff}
+.hd{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:48px}
+.hd h2{font-size:36px;margin-top:14px}.hd p{margin:0;color:var(--steel)}.dk .hd p{color:#aab4c4}
+/* top/nav */
+.top{background:var(--ink);color:#b8c1cf;font-size:12.5px}
+.top .w{display:flex;justify-content:space-between;height:36px;align-items:center}
+.top a{margin-left:22px}.top a:hover{color:#fff}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.nav .w{display:flex;justify-content:space-between;align-items:center;height:76px}
+.logo{display:flex;align-items:center;gap:14px}
+.mk{width:44px;height:44px;background:var(--ink);color:var(--brass2);display:grid;place-items:center;font:700 24px var(--c);border:1px solid var(--brass)}
+.logo b{display:block;font:700 19px/1 var(--d);letter-spacing:1px}.logo small{font:600 10px var(--s);letter-spacing:3px;color:var(--steel)}
+.menu{display:flex;gap:30px;font:500 13.5px var(--s)}
+.menu a{padding:6px 0;border-bottom:2px solid transparent}.menu a:hover{border-color:var(--brass)}
+.mb{display:none;background:none;border:1px solid var(--line);padding:8px 14px;font:inherit}
+/* hero */
+.hero{position:relative;background:linear-gradient(120deg,#08111f,#14243d 60%,#1d3556);color:#fff;overflow:hidden}
+.hero svg{position:absolute;right:0;bottom:0;height:100%;width:56%}
+.hero .w{position:relative;padding-top:110px;padding-bottom:150px}
+.hero h1{font-size:54px;max-width:640px;margin:18px 0 22px}
+.hero h1 span{color:var(--brass2);font-style:italic;font-weight:500}
+.hero p{max-width:520px;color:#bfc9d8;font-size:17px;margin:0 0 34px}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+.vt{position:absolute;right:28px;top:60px;writing-mode:vertical-rl;font:700 18px var(--c);letter-spacing:.7em;color:var(--brass);opacity:.9}
+.band{position:relative;margin-top:-72px;z-index:3}
+.band .w{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;box-shadow:0 18px 50px rgba(13,23,38,.18);padding:0;border-top:3px solid var(--brass)}
+.bs{padding:28px 26px;border-right:1px solid var(--line)}.bs:last-child{border:0}
+.bs b{display:block;font:700 40px/1 var(--d)}.bs span{display:block;margin-top:8px;font-size:13px;color:var(--steel)}
+/* practice index */
+.pi{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:70px 1.1fr 1.6fr 90px 40px;gap:24px;align-items:center;padding:26px 14px;border-bottom:1px solid var(--line);transition:background .2s,color .2s,padding .2s}
+.row:hover{background:var(--ink);color:#fff;padding-left:26px}
+.row .n{font:500 14px var(--s);color:var(--brass)}.row h3{font-size:20px}.row p{margin:0;font-size:14px;color:var(--steel)}.row:hover p{color:#b8c1cf}
+.row .z{font:700 26px var(--c);color:var(--ink);opacity:.18;text-align:right}.row:hover .z{color:var(--brass2);opacity:1}
+.row .a{font-size:20px;color:var(--brass)}
+/* bilingual */
+.bl{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:#fff;box-shadow:0 10px 30px rgba(13,23,38,.07)}
+.bl>div{padding:30px 34px}.bl>div+div{border-left:1px solid var(--line);background:#fbf9f4}
+.bl .t{display:flex;justify-content:space-between;font:600 11.5px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--steel);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px}
+.bl h3{font-size:18px;margin-bottom:10px}.bl p{margin:0;font-size:15px}
+.bl .zh p{font:500 16px/2 var(--c)}.bl .zh h3{font-family:var(--c)}
+mark{background:rgba(122,31,43,.14);color:var(--wine);padding:1px 4px;font-weight:600;border-bottom:2px solid var(--wine)}
+.flag{grid-column:1/-1;background:var(--wine);color:#fff;padding:16px 34px;display:flex;gap:16px;align-items:center;font-size:14px}
+.flag b{font:700 11px var(--s);letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(255,255,255,.5);padding:3px 10px;white-space:nowrap}
+.pts{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:40px}
+.pts div{border-top:2px solid var(--ink);padding-top:14px}.pts h3{font-size:17px;margin-bottom:6px}.pts p{margin:0;font-size:14px;color:var(--steel)}
+/* results */
+.rs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cs{background:#fff;border:1px solid var(--line);padding:30px;border-top:3px solid var(--ink);display:flex;flex-direction:column}
+.cs small{font:600 11px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--brass)}
+.cs b{display:block;font:700 36px/1.1 var(--d);margin:14px 0 4px}.cs em{font-style:normal;color:var(--steel);font-size:13px}
+.cs p{margin:16px 0;font-size:14px;flex:1}.cs .m{display:flex;gap:18px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--steel)}.cs .m span b{display:block;font:700 15px var(--s);color:var(--ink);margin:0}
+.note{margin-top:18px;font-size:12.5px;color:var(--steel)}
+/* process */
+.st{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.st::before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--brass)}
+.sp{position:relative;padding-right:30px}
+.sp .c{width:54px;height:54px;background:var(--ink);color:var(--brass2);display:grid;place-items:center;font:700 24px var(--c);border:1px solid var(--brass);position:relative}
+.sp h3{font-size:19px;margin:20px 0 6px}.sp p{margin:0;font-size:14px;color:var(--steel)}.sp small{display:block;font:600 11px var(--s);letter-spacing:2px;color:var(--brass);margin-top:12px;text-transform:uppercase}
+/* code */
+.cd{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid rgba(176,141,87,.5)}
+.cl{padding:34px 22px;border-left:1px solid rgba(176,141,87,.35)}.cl:first-child{border:0}
+.cl .zc{font:700 44px/1 var(--c);color:var(--brass2);display:block;margin-bottom:16px}
+.cl b{font:600 11px var(--s);letter-spacing:2px;color:var(--brass);text-transform:uppercase}.cl h3{font-size:20px;margin:4px 0 8px}.cl p{margin:0;font-size:14px;color:#aab4c4}
+/* team */
+.tm{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.pr svg{width:100%;aspect-ratio:4/5;display:block;border-bottom:3px solid var(--brass)}
+.pr h3{font-size:18px;margin:14px 0 2px}.pr small{display:block;color:var(--steel);font-size:13px}.pr .lg{display:flex;gap:6px;margin-top:10px}
+.pr .lg span{font:600 11px var(--s);border:1px solid var(--line);padding:2px 8px;letter-spacing:.5px}
+/* quote */
+.q{max-width:860px;margin:0 auto;text-align:center}
+.q p{font:italic 500 30px/1.45 var(--d);margin:18px 0}.q cite{font:600 12px var(--s);letter-spacing:3px;text-transform:uppercase;color:var(--brass);font-style:normal}
+.q .zq{font:700 18px var(--c);letter-spacing:.4em;color:var(--steel);margin-top:8px}
+/* faq */
+.fq{max-width:820px;margin:0 auto;border-top:1px solid var(--ink)}
+details{border-bottom:1px solid var(--line);padding:22px 4px}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:700 19px var(--d)}
+summary::after{content:"+";color:var(--brass);font:400 26px/1 var(--s)}details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;color:var(--steel);max-width:700px}
+/* form */
+.fm{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+.fm h2{font-size:38px;margin:14px 0 16px}.fm>div>p{color:#aab4c4;margin:0 0 24px}
+.fm ul{list-style:none;padding:0;margin:0}.fm li{padding:14px 0 14px 30px;border-top:1px solid rgba(255,255,255,.14);position:relative;color:#d6dce6}
+.fm li::before{content:"§";position:absolute;left:0;color:var(--brass2);font-family:var(--d)}
+.sh{background:#fff;color:var(--ink);padding:34px 36px;position:relative;border-top:4px solid var(--brass)}
+.sh .h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:6px}
+.sh .h b{font:700 20px var(--d)}.sh .h span{font:700 15px var(--c);color:var(--steel);letter-spacing:4px}
+.sh input,.sh select,.sh textarea{width:100%;border:0;border-bottom:1px solid var(--line);padding:14px 0;margin-top:4px;font:15px var(--s);color:var(--ink);background:transparent}
+.sh textarea{height:88px;resize:vertical}.sh .btn{margin-top:20px}
+.ok{display:none;margin-top:14px;padding:12px 14px;background:var(--bg2);border-left:3px solid var(--brass);font-size:14px}
+/* footer */
+footer{background:#070d17;color:#9aa6b8;font-size:14px}
+.fg{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:40px;padding:60px 0 40px}
+footer h4{font:600 12px var(--s);letter-spacing:2px;text-transform:uppercase;color:#fff;margin:0 0 16px}
+footer a,footer p{display:block;margin:0;padding:4px 0}footer a:hover{color:var(--brass2)}
+.fb{border-top:1px solid #1c2638;padding:18px 0;font-size:12.5px}
+.fl{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60}
+.fl a{display:grid;place-items:center;width:54px;height:54px;background:var(--brass);color:var(--ink);font:700 12px var(--s);box-shadow:0 6px 18px rgba(0,0,0,.3);border-radius:2px}
+@media (max-width:1000px){.menu{display:none;position:absolute;left:0;right:0;top:76px;background:#fff;flex-direction:column;padding:18px 28px;gap:14px;border-bottom:1px solid var(--line)}.menu.open{display:flex}.mb{display:block}
+ .hero h1{font-size:38px}.hero svg{opacity:.25;width:100%}.vt{display:none}.band .w,.cd{grid-template-columns:1fr 1fr}.hd,.bl,.fm,.rs,.pts{grid-template-columns:1fr}.bl>div+div{border-left:0;border-top:1px solid var(--line)}
+ .row{grid-template-columns:44px 1fr 30px}.row p,.row .z{display:none}.st{grid-template-columns:1fr 1fr;row-gap:36px}.st::before{display:none}.tm{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr}.hd h2,.fm h2{font-size:30px}.q p{font-size:23px}}
+@media (max-width:560px){.band .w,.cd,.st,.tm,.fg{grid-template-columns:1fr}.bs{border-right:0;border-bottom:1px solid var(--line)}.sec{padding:70px 0}.flag{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+:root{--ink:#2a0f12;--steel:#6b5659;--line:#e8dbd5;--bg2:#fbf5ef;--brass:#c79a45;--brass2:#e8c47a;--red:#a51d22;--red2:#7d1319;--red3:#4d0a0f;--wine:#a51d22}
+.top{background:var(--red3);color:#f0d6d0}.top a:hover{color:#fff}
+.nav{border-bottom:2px solid var(--red)}.menu a:hover{border-color:var(--red);color:var(--red)}
+.mk{background:var(--red);color:var(--brass2);border-color:var(--brass2)}.logo small{color:#8b6f70}
+.hero{background:radial-gradient(ellipse at 74% 42%,#bd2a2f 0,#8f161c 46%,#560b10 100%)}
+.hero p{color:#f6dfd9}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M1 13V1h12v12H5V5h4' fill='none' stroke='%23e8c47a' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x}
+.hero .lab,.dk .lab{color:var(--brass2)}
+.vt{color:var(--brass2)}
+.vt::after{content:"信";display:block;margin-top:18px;width:32px;height:32px;border:1.5px solid var(--brass2);color:var(--brass2);font:700 17px/29px var(--c);text-align:center;letter-spacing:0;writing-mode:horizontal-tb}
+.btn{background:var(--brass);color:#3a0a0d}.btn:hover{background:var(--brass2)}
+.btn.d{background:var(--red);color:#fff}.btn.d:hover{background:var(--red2)}
+.lab{color:var(--red)}
+.band .w{border-top:3px solid var(--red)}.bs b{color:var(--red2)}
+.pi{border-top-color:var(--red)}.row .n,.row .a{color:var(--red)}.row .z{color:var(--red)}.row:hover{background:var(--red)}.row:hover .n,.row:hover .a,.row:hover .z{color:var(--brass2)}.row:hover p{color:#f6dfd9}
+.alt{background:var(--bg2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cg fill='none' stroke='%23a51d22' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M10 44c0-10 14-12 18-4 2-10 18-10 20 0 8-4 16 0 14 8H10z'/%3E%3Cpath d='M70 24c0-8 10-10 14-3 2-8 14-8 16 0 6-3 12 0 11 6H70z'/%3E%3C/g%3E%3C/svg%3E")}
+.pts div{border-top-color:var(--red)}.cs{border-top-color:var(--red)}.cs small{color:var(--red)}
+.flag{background:var(--red)}
+.sp .c{background:var(--red);color:var(--brass2);border-color:var(--brass2)}.sp small{color:var(--red)}
+.dk{background:var(--red2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cg fill='none' stroke='%23e8c47a' stroke-opacity='.13' stroke-width='1.2'%3E%3Cpath d='M10 44c0-10 14-12 18-4 2-10 18-10 20 0 8-4 16 0 14 8H10z'/%3E%3Cpath d='M70 24c0-8 10-10 14-3 2-8 14-8 16 0 6-3 12 0 11 6H70z'/%3E%3C/g%3E%3C/svg%3E");color:#fff}
+.dk .hd p,.cl p,.fm>div>p{color:#f1d3cc}.fm li{color:#f6dfd9;border-top-color:rgba(232,196,122,.3)}
+.cd,.cl{border-color:rgba(232,196,122,.45)}.cl b{color:var(--brass2)}.cl .zc{color:var(--brass2)}
+.pr svg{border-bottom-color:var(--red)}
+.fq{border-top-color:var(--red)}summary::after{color:var(--red)}
+.q cite{color:var(--red)}.q .zq{color:var(--red2)}
+.sh{border-top-color:var(--red)}.sh .h span{color:var(--red)}
+.ok{border-left-color:var(--red)}
+footer{background:var(--red3);color:#e2c6c0;position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M1 13V1h12v12H5V5h4' fill='none' stroke='%23c79a45' stroke-width='1.3'/%3E%3C/svg%3E") repeat-x}
+footer .fg{padding-top:74px}footer h4{color:var(--brass2)}.fb{border-top-color:rgba(232,196,122,.25)}
+.fl a{background:var(--red);color:#fff;border:2px solid var(--brass2)}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><span>Văn phòng luật sư · Việt – 中文 – EN</span><span><a href="tel:0900123456">Hotline 0900 123 456</a><a href="mailto:lienhe@vanichlaw.vn">lienhe@vanichlaw.vn</a></span></div></div>
+<header class="nav"><div class="w">
+ <a class="logo" href="#top"><span class="mk">万</span><span><b>LUẬT VẠN ÍCH</b><small>万益律师事务所</small></span></a>
+ <nav class="menu" id="menu"><a href="#linhvuc">Lĩnh vực</a><a href="#songngu">Song ngữ</a><a href="#ketqua">Kết quả</a><a href="#doingu">Đội ngũ</a><a href="#hoidap">Hỏi đáp</a><a href="#lienhe">Liên hệ</a></nav>
+ <button class="mb" id="mb">Menu</button>
+</div></header>
+
+<main id="top">
+<section class="hero">
+ <svg viewBox="0 0 600 520" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+  <defs><linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient></defs>
+  <g fill="url(#cf)" stroke="#b08d57" stroke-width="1.4" stroke-opacity=".75">
+   <path d="M60 170L300 60l240 110z"/><path d="M110 168L300 82l190 86" fill="none"/>
+   <rect x="60" y="170" width="480" height="26"/><rect x="74" y="196" width="452" height="12"/>
+   <rect x="90" y="208" width="34" height="238"/><rect x="170" y="208" width="34" height="238"/><rect x="250" y="208" width="34" height="238"/><rect x="316" y="208" width="34" height="238"/><rect x="396" y="208" width="34" height="238"/><rect x="476" y="208" width="34" height="238"/>
+   <rect x="74" y="446" width="452" height="14"/><rect x="56" y="460" width="488" height="16"/><rect x="38" y="476" width="524" height="18"/><rect x="20" y="494" width="560" height="26"/>
+  </g>
+  <g stroke="#b08d57" stroke-opacity=".35" stroke-width="1"><path d="M107 208v238M187 208v238M267 208v238M333 208v238M413 208v238M493 208v238"/></g>
+  <text x="300" y="150" text-anchor="middle" font-family="Noto Serif SC,serif" font-weight="700" font-size="52" fill="#d3b27a">律</text>
+  <g stroke="#d3b27a" stroke-width="2" fill="none" opacity=".9"><path d="M300 240v120M250 262h100M250 262l-20 54h40zM350 262l-20 54h40z"/><path d="M226 316q24 18 48 0M326 316q24 18 48 0"/></g>
+ </svg>
+ <div class="vt" aria-hidden="true">依法 · 守信 · 共赢</div>
+ <div class="w">
+  <div class="lab"><i>律师</i> Văn phòng luật sư song ngữ</div>
+  <h1>Hiểu luật Việt Nam. <span>Đọc được</span> cả hợp đồng tiếng Trung.</h1>
+  <p>Chúng tôi đại diện doanh nghiệp Việt Nam và Trung Quốc trong đầu tư, hợp đồng, tranh chấp và thu hồi nợ, bằng ngôn ngữ và quy định của cả hai bên.</p>
+  <div class="cta"><a class="btn" href="#lienhe">Đặt lịch tư vấn</a><a class="btn o" href="#songngu">Xem cách chúng tôi rà soát hợp đồng</a></div>
+ </div>
+</section>
+<div class="band"><div class="w">
+ <div class="bs"><b>12+</b><span>Năm hành nghề</span></div><div class="bs"><b>1.200+</b><span>Hồ sơ đã tiếp nhận</span></div><div class="bs"><b>15</b><span>Luật sư &amp; chuyên viên pháp lý</span></div><div class="bs"><b>2 bản</b><span>Rà soát song song Việt – Trung</span></div>
+</div></div>
+
+<section class="sec" id="linhvuc"><div class="w">
+ <div class="hd"><div><div class="lab"><i>业务</i> Lĩnh vực hành nghề</div><h2>Bảy mảng tư vấn cho doanh nghiệp có yếu tố Trung Quốc</h2></div><p>Mỗi vụ việc có một luật sư phụ trách và một luật sư dự phòng thông thạo tiếng Trung, để hồ sơ không bị gián đoạn.</p></div>
+ <div class="pi" id="pi"></div>
+</div></section>
+
+<section class="sec alt" id="songngu"><div class="w">
+ <div class="hd"><div><div class="lab"><i>双语</i> Rà soát hợp đồng song ngữ</div><h2>Bản Việt và bản Trung không phải lúc nào cũng nói cùng một điều</h2></div><p>Nhiều tranh chấp bắt nguồn từ chênh lệch giữa hai bản dịch. Chúng tôi đối chiếu từng điều khoản và đánh dấu điểm lệch trước khi bạn ký.</p></div>
+ <div class="bl">
+  <div><div class="t"><span>Bản tiếng Việt</span><span>Điều 12</span></div><h3>Phạt vi phạm</h3><p>Bên vi phạm phải trả khoản phạt tối đa bằng <mark>8%</mark> giá trị phần nghĩa vụ hợp đồng bị vi phạm.</p></div>
+  <div class="zh"><div class="t"><span>中文版本</span><span>第十二条</span></div><h3>违约金</h3><p>违约方应向守约方支付违约金，金额为违约部分价值的<mark>20%</mark>。</p></div>
+  <div class="flag"><b>Phát hiện lệch</b><span>Bản tiếng Trung ghi mức phạt 20%, cao hơn mức trần 8% theo Luật Thương mại. Cần thống nhất điều khoản và ghi rõ bản nào được ưu tiên áp dụng.</span></div>
+ </div>
+ <p class="note">Ví dụ minh họa cho mục đích giới thiệu quy trình, không phải hồ sơ khách hàng thật.</p>
+ <div class="pts"><div><h3>Đối chiếu từng điều</h3><p>Luật sư đọc trực tiếp cả hai bản, không dựa vào bản dịch máy.</p></div><div><h3>Ghi rõ bản ưu tiên</h3><p>Điều khoản ngôn ngữ ưu tiên giúp tránh tranh cãi khi giải thích hợp đồng.</p></div><div><h3>Chuẩn bị bằng chứng</h3><p>Tin nhắn WeChat, email và biên bản họp được lưu giữ đúng cách để có giá trị chứng cứ.</p></div></div>
+</div></section>
+
+<section class="sec" id="ketqua"><div class="w">
+ <div class="hd"><div><div class="lab"><i>案例</i> Kết quả tiêu biểu</div><h2>Những vụ việc đã được giải quyết</h2></div><p>Thông tin được ẩn danh và làm tròn để bảo vệ khách hàng.</p></div>
+ <div class="rs">
+  <div class="cs"><small>Thu hồi nợ thương mại</small><b>4,2 tỷ đồng</b><em>đã thu hồi sau 5 tháng</em><p>Nhà cung cấp thiết bị Trung Quốc yêu cầu thanh toán bị chậm. Đàm phán, gửi thông báo và chuẩn bị khởi kiện song song.</p><div class="m"><span><b>86%</b>giá trị khoản nợ</span><span><b>Thương lượng</b>hình thức</span></div></div>
+  <div class="cs"><small>Tranh chấp hợp đồng</small><b>Hủy phạt</b><em>giảm mức phạt vi phạm</em><p>Bản tiếng Trung quy định mức phạt vượt trần luật định. Đàm phán lại và ký phụ lục điều chỉnh.</p><div class="m"><span><b>8%</b>mức áp dụng</span><span><b>Phụ lục</b>cách xử lý</span></div></div>
+  <div class="cs"><small>Đầu tư nước ngoài</small><b>45 ngày</b><em>hoàn tất thành lập</em><p>Nhà đầu tư Trung Quốc thành lập công ty sản xuất. Xin giấy chứng nhận đăng ký đầu tư và các giấy phép liên quan.</p><div class="m"><span><b>1 đầu mối</b>luật sư phụ trách</span><span><b>Song ngữ</b>hồ sơ</span></div></div>
+ </div>
+ <p class="note">Số liệu mang tính minh họa cho thiết kế trang. Kết quả trong quá khứ không bảo đảm kết quả của vụ việc khác.</p>
+</div></section>
+
+<section class="sec alt"><div class="w">
+ <div class="hd"><div><div class="lab"><i>流程</i> Quy trình làm việc</div><h2>Từ lần liên hệ đầu tiên đến khi hoàn tất vụ việc</h2></div><p>Mọi bước đều được báo phí trước và có luật sư cập nhật tiến độ.</p></div>
+ <div class="st">
+  <div class="sp"><div class="c">受</div><h3>Tiếp nhận</h3><p>Nghe trình bày, xác định mục tiêu và rủi ro ban đầu.</p><small>Trong 24 giờ</small></div>
+  <div class="sp"><div class="c">研</div><h3>Nghiên cứu hồ sơ</h3><p>Đọc hợp đồng, chứng từ ở cả hai ngôn ngữ.</p><small>2 – 5 ngày</small></div>
+  <div class="sp"><div class="c">策</div><h3>Phương án</h3><p>Trình bày phương án, thời gian và chi phí rõ ràng.</p><small>Có văn bản</small></div>
+  <div class="sp"><div class="c">代</div><h3>Đại diện</h3><p>Đàm phán, làm việc với cơ quan hoặc tham gia tố tụng.</p><small>Đến khi hoàn tất</small></div>
+ </div>
+</div></section>
+
+<section class="sec dk"><div class="w">
+ <div class="hd"><div><div class="lab"><i>准则</i> Chuẩn mực hành nghề</div><h2>Năm điều chúng tôi cam kết với khách hàng</h2></div><p>Các nguyên tắc này áp dụng cho mọi vụ việc, dù lớn hay nhỏ.</p></div>
+ <div class="cd">
+  <div class="cl"><span class="zc">信</span><b>Điều 1</b><h3>Chữ tín</h3><p>Đặt lợi ích hợp pháp của khách hàng lên trước.</p></div>
+  <div class="cl"><span class="zc">密</span><b>Điều 2</b><h3>Bảo mật</h3><p>Giữ kín mọi thông tin được ủy thác.</p></div>
+  <div class="cl"><span class="zc">专</span><b>Điều 3</b><h3>Chuyên môn</h3><p>Tư vấn dựa trên pháp luật hai nước.</p></div>
+  <div class="cl"><span class="zc">明</span><b>Điều 4</b><h3>Minh bạch</h3><p>Báo phí và phương án bằng văn bản.</p></div>
+  <div class="cl"><span class="zc">伴</span><b>Điều 5</b><h3>Đồng hành</h3><p>Theo sát vụ việc đến khi hoàn tất.</p></div>
+ </div>
+</div></section>
+
+<section class="sec" id="doingu"><div class="w">
+ <div class="hd"><div><div class="lab"><i>团队</i> Đội ngũ luật sư</div><h2>Người trực tiếp xử lý hồ sơ của bạn</h2></div><p>Mỗi luật sư ghi rõ ngôn ngữ làm việc để bạn biết có thể trao đổi bằng tiếng nào.</p></div>
+ <div class="tm" id="tm"></div>
+</div></section>
+
+<section class="sec alt"><div class="w q">
+ <div class="lab" style="justify-content:center"><i>誓言</i> Nguyên tắc</div>
+ <p>“Hợp đồng tốt không phải hợp đồng dài, mà là hợp đồng mà cả hai bên đều hiểu giống nhau.”</p>
+ <cite>Luật sư điều hành</cite><div class="zq">诚信为本</div>
+</div></section>
+
+<section class="sec" id="hoidap"><div class="w">
+ <div class="hd" style="grid-template-columns:1fr"><div><div class="lab"><i>问答</i> Hỏi đáp</div><h2>Những câu hỏi thường gặp</h2></div></div>
+ <div class="fq">
+  <details><summary>Hợp đồng chỉ có bản tiếng Trung có giá trị tại Việt Nam không?</summary><p>Khi cần dùng làm chứng cứ hoặc nộp cho cơ quan nhà nước, tài liệu tiếng nước ngoài thường phải có bản dịch sang tiếng Việt theo quy định. Nên ký song ngữ và ghi rõ bản ưu tiên.</p></details>
+  <details><summary>Tin nhắn WeChat có dùng làm chứng cứ được không?</summary><p>Có thể, nếu chứng minh được người gửi, nội dung nguyên vẹn và nguồn gốc. Nên lưu giữ sớm và nhờ luật sư hướng dẫn cách lập vi bằng hoặc công chứng.</p></details>
+  <details><summary>Chi phí tư vấn được tính như thế nào?</summary><p>Tùy phạm vi công việc: theo giờ, trọn gói hoặc theo kết quả. Phương án và mức phí được gửi bằng văn bản trước khi chúng tôi nhận vụ việc.</p></details>
+  <details><summary>Tôi có thể trao đổi hoàn toàn bằng tiếng Trung không?</summary><p>Có. Luật sư làm việc trực tiếp bằng tiếng Trung qua điện thoại, WeChat, email hoặc họp trực tiếp.</p></details>
+ </div>
+</div></section>
+
+<section class="sec dk" id="lienhe"><div class="w fm">
+ <div><div class="lab"><i>委托</i> Liên hệ luật sư</div><h2>Đặt lịch tư vấn ban đầu</h2><p>Mô tả ngắn gọn vụ việc. Luật sư phụ trách sẽ liên hệ lại bằng tiếng Việt hoặc tiếng Trung.</p><ul><li>Phản hồi trong 24 giờ làm việc</li><li>Thông tin được bảo mật theo quy định nghề luật sư</li><li>Báo phí rõ ràng trước khi nhận vụ việc</li></ul></div>
+ <form class="sh" id="cf"><div class="h"><b>Phiếu yêu cầu tư vấn</b><span>委托单</span></div>
+  <input placeholder="Họ tên / Công ty" required aria-label="Họ tên"><input placeholder="Điện thoại hoặc WeChat" required aria-label="Liên hệ">
+  <select aria-label="Lĩnh vực"><option>Lĩnh vực cần tư vấn</option><option>Đầu tư nước ngoài</option><option>Hợp đồng song ngữ</option><option>Thu hồi nợ</option><option>Tranh chấp thương mại</option><option>Khác</option></select>
+  <textarea placeholder="Nội dung vụ việc" aria-label="Nội dung"></textarea>
+  <button class="btn d" type="submit">Gửi yêu cầu</button><div class="ok" id="ok" role="status">Đã tiếp nhận yêu cầu. Chúng tôi sẽ liên hệ sớm.</div></form>
+</div></section>
+</main>
+
+<footer><div class="w">
+ <div class="fg">
+  <div><a class="logo" href="#top" style="color:#fff"><span class="mk">万</span><span><b>LUẬT VẠN ÍCH</b><small style="color:#8794a8">万益律师事务所</small></span></a><p style="margin-top:16px;max-width:260px">Văn phòng luật sư đồng hành cùng doanh nghiệp Việt Nam và Trung Quốc.</p></div>
+  <div><h4>Lĩnh vực</h4><a href="#linhvuc">Đầu tư nước ngoài</a><a href="#linhvuc">Hợp đồng song ngữ</a><a href="#linhvuc">Tranh tụng</a><a href="#linhvuc">Thu hồi nợ</a></div>
+  <div><h4>Văn phòng</h4><a href="#songngu">Rà soát song ngữ</a><a href="#ketqua">Kết quả tiêu biểu</a><a href="#doingu">Đội ngũ</a><a href="#hoidap">Hỏi đáp</a></div>
+  <div><h4>Liên hệ</h4><p>0900 123 456</p><p>lienhe@vanichlaw.vn</p><p>Số 1 Đường mẫu, Quận 1, TP. Hồ Chí Minh</p></div>
+ </div>
+ <div class="fb">© 2026 Luật Vạn Ích. Nội dung và số liệu trên trang là dữ liệu mẫu phục vụ thiết kế.</div>
+</div></footer>
+<div class="fl"><a href="tel:0900123456" aria-label="Gọi luật sư">GỌI</a></div>
+
+<script>
+const A=[["Tư vấn đầu tư nước ngoài","外商投资","Thành lập doanh nghiệp, giấy chứng nhận đầu tư, cơ cấu vốn và tuân thủ."],["Hợp đồng thương mại song ngữ","双语合同","Soạn thảo, đối chiếu và rà soát hợp đồng Việt – Trung."],["Tranh tụng &amp; trọng tài","诉讼仲裁","Đại diện tại Tòa án và trung tâm trọng tài thương mại."],["Thu hồi nợ","债务追收","Đàm phán, khởi kiện và thi hành án để thu hồi công nợ."],["Lao động &amp; nhân sự","劳动用工","Hợp đồng lao động, kỷ luật, chấm dứt và giấy phép lao động cho chuyên gia."],["Sở hữu trí tuệ","知识产权","Đăng ký, bảo hộ nhãn hiệu và xử lý hành vi xâm phạm."],["Mua bán &amp; sáp nhập","并购重组","Thẩm định pháp lý, đàm phán và hoàn tất giao dịch M&amp;A."]];
+pi.innerHTML=A.map((a,i)=>`<a class="row" href="#lienhe"><span class="n">0${i+1}</span><h3>${a[0]}</h3><p>${a[2]}</p><span class="z">${a[1]}</span><span class="a">→</span></a>`).join('');
+const H=['#1b1718','#2a1c16','#3a2a22','#161214'];
+const P=[["Nguyễn Minh Hoàng","Luật sư điều hành","Việt · 中文 · EN",0,1],["Trần Thu Hà","Luật sư thành viên","Việt · 中文",1],["Lê Quốc Bảo","Luật sư tranh tụng","Việt · EN",2,1],["Phạm Ngọc Lan","Chuyên viên pháp lý","Việt · 中文",3]];
+tm.innerHTML=P.map((p,i)=>{const m=p[4],h=H[p[3]];return `<div class="pr"><svg viewBox="0 0 100 125" aria-hidden="true"><defs><linearGradient id="t${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8ebf0"/><stop offset="1" stop-color="#aeb9c9"/></linearGradient></defs><rect width="100" height="125" fill="url(#t${i})"/>${m?'':`<path d="M28 62c-7-34 11-48 22-48s29 14 22 48v30H28z" fill="${h}"/>`}<path d="M6 125c0-30 16-42 44-44 28 2 44 14 44 44z" fill="#0d1726"/><path d="M38 82l12 16 12-16v14l-12 29-12-29z" fill="#f3f5f9"/><path d="M47 96h6l3 29h-12z" fill="#7a1f2b"/><ellipse cx="50" cy="52" rx="15" ry="19" fill="#e0b293"/><path d="M34 48c-2-20 32-20 32 0-6-9-26-9-32 0z" fill="${h}"/></svg><h3>${p[0]}</h3><small>${p[1]}</small><div class="lg">${p[2].split(' · ').map(l=>`<span>${l}</span>`).join('')}</div></div>`}).join('');
+mb.onclick=()=>menu.classList.toggle('open');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+cf.onsubmit=e=>{e.preventDefault();ok.style.display='block';cf.reset()};
+</script>
+</body>
+</html>
