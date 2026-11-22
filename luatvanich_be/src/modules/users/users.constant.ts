@@ -10,3 +10,11 @@ export const USER_ERROR_CODE = {
   PASSWORD_TOO_WEAK: 'PASSWORD_TOO_WEAK',
   ACCOUNT_INACTIVE: 'ACCOUNT_INACTIVE',
 } as const;
+
+export enum UserSortBy {
+  CREATED_AT = 'createdAt',
+  FULL_NAME = 'fullName',
+  USERNAME = 'username',
+  EMAIL = 'email',
+  LAST_LOGIN_AT = 'lastLoginAt',
+}

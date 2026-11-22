@@ -1,19 +1,10 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsInt, Min, Max, IsEnum } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
+import { SortOrder } from '../../../../common/enums/sort-order.enum';
+import { UserSortBy } from '../../users.constant';
 
-export enum UserSortBy {
-  CREATED_AT = 'createdAt',
-  FULL_NAME = 'fullName',
-  USERNAME = 'username',
-  EMAIL = 'email',
-  LAST_LOGIN_AT = 'lastLoginAt',
-}
-
-export enum SortOrder {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
+export { SortOrder, UserSortBy };
 
 export class UserQueryDto {
   @ApiPropertyOptional({
