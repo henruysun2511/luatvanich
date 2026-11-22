@@ -17,7 +17,7 @@ import { ApiResponse } from '../../common/response/api-response';
 import { RequirePermission } from '../../common/decorators/require-permission.decorator';
 
 @ApiTags('Media')
-@Controller({ path: 'admin/media', version: '1' })
+@Controller({ path: 'media', version: '1' })
 export class MediaController {
   constructor(private readonly storageService: StorageService) { }
 
@@ -39,7 +39,7 @@ export class MediaController {
       },
     },
   })
-  @SwaggerDoc({ summary: 'Admin: Tải lên tệp công khai', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Tải lên tệp công khai', bearerAuth: true })
   async uploadPublic(
     @UploadedFile() file: Express.Multer.File,
     @Body('folder') folder?: string,
@@ -67,7 +67,7 @@ export class MediaController {
       },
     },
   })
-  @SwaggerDoc({ summary: 'Admin: Tải lên tệp bảo mật (riêng tư)', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Tải lên tệp bảo mật (riêng tư)', bearerAuth: true })
   async uploadPrivate(
     @UploadedFile() file: Express.Multer.File,
     @Body('folder') folder?: string,
@@ -78,12 +78,12 @@ export class MediaController {
   }
 
   /**
-   * GET /api/v1/admin/media/presigned-url?key=...
+   * GET /api/v1/media/presigned-url?key=...
    * Tạo liên kết tạm thời để xem/tải tệp bảo mật
    */
   @Get('presigned-url')
   @RequirePermission('media:read')
-  @SwaggerDoc({ summary: 'Admin: Tạo liên kết truy cập tạm thời cho tệp bảo mật', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Tạo liên kết truy cập tạm thời cho tệp bảo mật', bearerAuth: true })
   async getPresignedUrl(@Query('key') key: string) {
     if (!key) throw new BadRequestException('Thiếu tham số key');
     const url = await this.storageService.getPresignedUrl(key, 3600); // 1 giờ
@@ -93,7 +93,7 @@ export class MediaController {
 
   @Delete()
   @RequirePermission('media:delete')
-  @SwaggerDoc({ summary: 'Admin: Xóa tệp khỏi kho lưu trữ', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Xóa tệp khỏi kho lưu trữ', bearerAuth: true })
   async deleteFile(
     @Query('key') key: string,
     @Query('isPrivate') isPrivate?: string,
