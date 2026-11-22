@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   },
   description:
     "Công ty Luật Vạn Ích - Chuyên cung cấp dịch vụ pháp lý chuyên sâu về Đầu tư FDI, Doanh nghiệp, Thương mại và Tranh chấp song ngữ Việt - Trung.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
