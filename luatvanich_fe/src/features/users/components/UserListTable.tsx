@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { RoleBadge, AssignRoleDialog } from "@/features/roles";
+import { RoleSelect, useAssignRole } from "@/features/roles";
+import { ConfirmDialog } from "@/components/common";
 import { ResetPasswordDialog } from "./ResetPasswordDialog";
 import { DeleteUserDialog } from "./DeleteUserDialog";
 import { ToggleUserStatusDialog } from "./ToggleUserStatusDialog";
@@ -32,12 +33,16 @@ interface UserListTableProps {
 
 export function UserListTable({ users, isLoading }: UserListTableProps) {
   const { data: currentUser } = useMe();
+  const assignRoleMutation = useAssignRole();
 
   // State cho các Dialogs
-  const [roleUser, setRoleUser] = useState<UserItem | null>(null);
   const [passwordUser, setPasswordUser] = useState<UserItem | null>(null);
   const [deleteUser, setDeleteUser] = useState<UserItem | null>(null);
   const [statusUser, setStatusUser] = useState<UserItem | null>(null);
+  const [pendingRoleChange, setPendingRoleChange] = useState<{
+    user: UserItem;
+    newRole: string;
+  } | null>(null);
 
   if (isLoading && users.length === 0) {
     return (
@@ -67,7 +72,7 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
             <TableRow className="bg-muted/40 hover:bg-muted/40 text-xs">
               <TableHead className="w-[280px]">Người dùng</TableHead>
               <TableHead className="w-[220px]">Liên hệ</TableHead>
-              <TableHead className="w-[140px]">Vai trò</TableHead>
+              <TableHead className="w-[180px]">Vai trò</TableHead>
               <TableHead className="w-[130px]">Trạng thái</TableHead>
               <TableHead className="w-[140px]">Ngày tạo</TableHead>
               <TableHead className="text-right w-[160px]">Hành động</TableHead>
@@ -122,9 +127,20 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
                     </div>
                   </TableCell>
 
-                  {/* Vai trò */}
+                  {/* Vai trò: Chọn trực tiếp qua RoleSelect */}
                   <TableCell>
-                    <RoleBadge role={user.role} roleName={user.roleName} />
+                    <div className="w-[155px]">
+                      <RoleSelect
+                        value={user.role}
+                        onChange={(newRole) => {
+                          if (newRole && newRole !== user.role) {
+                            setPendingRoleChange({ user, newRole });
+                          }
+                        }}
+                        disabled={isSelf || assignRoleMutation.isPending}
+                        className="h-8 text-xs font-medium"
+                      />
+                    </div>
                   </TableCell>
 
                   {/* Trạng thái (Switch) */}
@@ -162,17 +178,6 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
                   {/* Các nút hành động */}
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
-                      {/* Đổi vai trò */}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-7 text-muted-foreground hover:text-primary"
-                        onClick={() => setRoleUser(user)}
-                        title="Đổi vai trò"
-                      >
-                        <ShieldAlert className="size-3.5" />
-                      </Button>
-
                       {/* Đặt lại mật khẩu */}
                       <Button
                         variant="ghost"
@@ -204,12 +209,64 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
         </Table>
       </div>
 
-      {/* Dialog Đổi Vai Trò (từ Feature roles) */}
-      <AssignRoleDialog
-        user={roleUser}
-        open={!!roleUser}
-        onOpenChange={(open) => !open && setRoleUser(null)}
-      />
+      {/* ConfirmDialog dùng chung: Xác nhận Đổi Vai Trò */}
+      <ConfirmDialog
+        open={!!pendingRoleChange}
+        onOpenChange={(open) => !open && setPendingRoleChange(null)}
+        title="Xác nhận thay đổi vai trò"
+        icon={<ShieldAlert className="size-5 text-amber-500" />}
+        confirmText="Xác nhận đổi"
+        cancelText="Hủy"
+        isLoading={assignRoleMutation.isPending}
+        onConfirm={() => {
+          if (!pendingRoleChange) return;
+          assignRoleMutation.mutate(
+            {
+              userId: pendingRoleChange.user.id,
+              role: pendingRoleChange.newRole,
+            },
+            {
+              onSuccess: () => {
+                setPendingRoleChange(null);
+              },
+            },
+          );
+        }}
+        description={
+          pendingRoleChange ? (
+            <span>
+              Bạn có chắc chắn muốn thay đổi vai trò của người dùng{" "}
+              <strong className="text-foreground">
+                {pendingRoleChange.user.fullName || pendingRoleChange.user.username}
+              </strong>{" "}
+              (@{pendingRoleChange.user.username})? Quyền hạn của người dùng sẽ có hiệu lực ngay lập tức.
+            </span>
+          ) : null
+        }
+      >
+        {pendingRoleChange && (
+          <div className="rounded-lg border border-border bg-muted/40 p-3 text-xs space-y-1.5">
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">Tài khoản:</span>
+              <span className="font-semibold text-foreground">
+                {pendingRoleChange.user.fullName || pendingRoleChange.user.username}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">Vai trò hiện tại:</span>
+              <span className="font-medium text-foreground">
+                {pendingRoleChange.user.roleName || pendingRoleChange.user.role}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">Vai trò mới:</span>
+              <span className="font-bold text-primary uppercase">
+                {pendingRoleChange.newRole}
+              </span>
+            </div>
+          </div>
+        )}
+      </ConfirmDialog>
 
       {/* Dialog Đặt lại mật khẩu */}
       <ResetPasswordDialog
