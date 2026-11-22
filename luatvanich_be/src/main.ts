@@ -93,9 +93,9 @@ async function bootstrap() {
 
   const port = AppConfig.PORT;
   await app.listen(port);
-  console.log(`🚀 Luật Vạn Ích API: http://localhost:${port}/api/v1`);
+  console.log(`Luật Vạn Ích API: http://localhost:${port}/api/v1`);
   if (AppConfig.IS_DEV) {
-    console.log(`📖 Swagger docs: http://localhost:${port}/api/docs`);
+    console.log(`Swagger docs: http://localhost:${port}/api/docs`);
   }
 }
 
