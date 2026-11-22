@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiConsumes, ApiBody } from '@nestjs/swagger';
-import { StorageService } from '../../../infrastructures/storage/storage.service';
-import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../../common/response/api-response';
-import { RequirePermission } from '../../../common/decorators/require-permission.decorator';
+import { StorageService } from '../../infrastructures/storage/storage.service';
+import { SwaggerDoc } from '../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../common/response/api-response';
+import { RequirePermission } from '../../common/decorators/require-permission.decorator';
 
 @ApiTags('Media')
 @Controller({ path: 'media', version: '1' })

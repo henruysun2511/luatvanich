@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { LegalServiceRepository } from '../repositories/legal-service.repository';
-import { LegalServiceTranslationRepository } from '../repositories/legal-service-translation.repository';
-import { LegalServiceMapper } from '../mapper/legal-service.mapper';
-import { CreateLegalServiceDto } from '../dto/request/create-legal-service.dto';
-import { UpdateLegalServiceDto } from '../dto/request/update-legal-service.dto';
-import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
-import { UpsertTranslationDto } from '../dto/request/upsert-translation.dto';
-import { UpdateStatusDto } from '../dto/request/update-status.dto';
-import { ReorderDto } from '../dto/request/reorder.dto';
-import { LangCode, DEFAULT_LANG } from '../../../common/enums/lang.enum';
-import { ContentStatus } from '../../../common/enums/content-status.enum';
-import { generateViSlug, generateZhSlug, appendSlugSuffix } from '../../../common/utils/slug.util';
-import { normalizePagination } from '../../../common/utils/pagination.util';
-import { PaginatedResponse } from '../../../common/response/api-response';
+import { LegalServiceRepository } from './repositories/legal-service.repository';
+import { LegalServiceTranslationRepository } from './repositories/legal-service-translation.repository';
+import { LegalServiceMapper } from './mapper/legal-service.mapper';
+import { CreateLegalServiceDto } from './dto/request/create-legal-service.dto';
+import { UpdateLegalServiceDto } from './dto/request/update-legal-service.dto';
+import { LegalServiceQueryDto } from './dto/request/legal-service-query.dto';
+import { UpsertTranslationDto } from './dto/request/upsert-translation.dto';
+import { UpdateStatusDto } from './dto/request/update-status.dto';
+import { ReorderDto } from './dto/request/reorder.dto';
+import { LangCode, DEFAULT_LANG } from '../../common/enums/lang.enum';
+import { ContentStatus } from '../../common/enums/content-status.enum';
+import { generateViSlug, generateZhSlug, appendSlugSuffix } from '../../common/utils/slug.util';
+import { normalizePagination } from '../../common/utils/pagination.util';
+import { PaginatedResponse } from '../../common/response/api-response';
 import {
   LegalServiceNotFoundException,
   LegalServiceSlugConflictException,
-} from '../exceptions/legal-service.exception';
+} from './exceptions/legal-service.exception';
 
 @Injectable()
 export class LegalServicesService {

@@ -22,6 +22,7 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'postgres',
   entities: [Role, User],
+  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
   synchronize: true, // Seed chạy synchronize để tạo bảng nếu chưa có
 });
 

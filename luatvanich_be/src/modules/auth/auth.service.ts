@@ -1,34 +1,37 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from '../../users/entities/user.entity';
-import { RefreshToken } from '../entities/refresh-token.entity';
-import { LoginDto } from '../dto/login.dto';
-import { AppConfig } from '../../../config/app.config';
 import { createHash } from 'crypto';
+import { UserRepository } from '../users/repositories/user.repository';
+import { RefreshTokenRepository } from './repositories/refresh-token.repository';
+import { LoginDto } from './dto/request/login.dto';
+import { AppConfig } from '../../config/app.config';
+import { User } from '../users/entities/user.entity';
+import {
+  InvalidCredentialsException,
+  AccountInactiveException,
+  RefreshTokenExpiredException,
+} from './exceptions/auth.exception';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private readonly userRepo: Repository<User>,
-    @InjectRepository(RefreshToken) private readonly refreshTokenRepo: Repository<RefreshToken>,
+    private readonly userRepo: UserRepository,
+    private readonly refreshTokenRepo: RefreshTokenRepository,
     private readonly jwtService: JwtService,
   ) {}
 
   async login(dto: LoginDto, userAgent?: string, ipAddress?: string) {
     // BR1: Tìm user theo email
-    const user = await this.userRepo.findOne({
-      where: { email: dto.email, isActive: true },
-      relations: ['role'],
-    });
+    const user = await this.userRepo.findByEmail(dto.email);
+    if (!user) throw new InvalidCredentialsException();
 
-    if (!user) throw new UnauthorizedException({ code: 'INVALID_CREDENTIALS', message: 'Email hoặc mật khẩu không đúng' });
+    // BR2: Kiểm tra tài khoản có hoạt động không
+    if (!user.isActive) throw new AccountInactiveException();
 
-    // BR2: Kiểm tra password
+    // BR3: Kiểm tra password
     const isMatch = await bcrypt.compare(dto.password, user.passwordHash);
-    if (!isMatch) throw new UnauthorizedException({ code: 'INVALID_CREDENTIALS', message: 'Email hoặc mật khẩu không đúng' });
+    if (!isMatch) throw new InvalidCredentialsException();
 
     // Tạo token pair
     const { accessToken, refreshToken } = await this.generateTokenPair(user, userAgent, ipAddress);
@@ -42,13 +45,10 @@ export class AuthService {
 
   async refresh(rawToken: string) {
     const tokenHash = this.hashToken(rawToken);
-    const stored = await this.refreshTokenRepo.findOne({
-      where: { tokenHash, isRevoked: false },
-      relations: ['user', 'user.role'],
-    });
+    const stored = await this.refreshTokenRepo.findValidToken(tokenHash);
 
     if (!stored || stored.expiresAt < new Date()) {
-      throw new UnauthorizedException({ code: 'REFRESH_TOKEN_INVALID', message: 'Phiên đã hết hạn, vui lòng đăng nhập lại' });
+      throw new RefreshTokenExpiredException();
     }
 
     // Xoay vòng token: thu hồi token cũ, cấp token mới
@@ -61,9 +61,9 @@ export class AuthService {
 
   async logout(userId: string, tokenHash?: string) {
     if (tokenHash) {
-      await this.refreshTokenRepo.update({ tokenHash }, { isRevoked: true });
+      await this.refreshTokenRepo.revokeToken(tokenHash);
     } else {
-      await this.refreshTokenRepo.update({ userId }, { isRevoked: true });
+      await this.refreshTokenRepo.revokeAllUserTokens(userId);
     }
   }
 
@@ -87,9 +87,7 @@ export class AuthService {
     const tokenHash = this.hashToken(rawRefresh);
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7d
 
-    await this.refreshTokenRepo.save(
-      this.refreshTokenRepo.create({ tokenHash, userId: user.id, expiresAt, userAgent, ipAddress }),
-    );
+    await this.refreshTokenRepo.saveToken(user.id, tokenHash, expiresAt, userAgent, ipAddress);
 
     return { accessToken, refreshToken: rawRefresh };
   }
