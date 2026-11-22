@@ -35,6 +35,13 @@ export class RefreshTokenRepository {
     });
   }
 
+  async findByTokenHash(tokenHash: string): Promise<RefreshToken | null> {
+    return this.repo.findOne({
+      where: { tokenHash },
+      relations: ['user', 'user.role'],
+    });
+  }
+
   async revokeToken(tokenHash: string): Promise<void> {
     await this.repo.update({ tokenHash }, { isRevoked: true });
   }

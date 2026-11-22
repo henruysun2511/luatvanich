@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Eye, EyeOff, User, Lock, AlertCircle } from "lucide-react";
@@ -10,15 +11,17 @@ import { useLogin } from "../queries/useAuthQuery";
 import { loginSchema, type LoginInput } from "../schemas/auth.schema";
 import { AuthCard } from "./AuthCard";
 import { extractErrorMessage } from "@/lib/axios";
+import { DASHBOARD_PATH } from "../constants/auth.constants";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const loginMutation = useLogin();
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -29,12 +32,16 @@ export function LoginForm() {
   });
 
   const onSubmit = (values: LoginInput) => {
-    loginMutation.mutate(values);
-  };
-
-  const handleFillDemo = (username: string, pass: string) => {
-    setValue("username", username, { shouldValidate: true });
-    setValue("password", pass, { shouldValidate: true });
+    loginMutation.mutate(values, {
+      onSuccess: () => {
+        const rawRedirect = searchParams.get("redirect");
+        const target =
+          rawRedirect && rawRedirect.startsWith("/admin") && rawRedirect !== "/admin/login"
+            ? rawRedirect
+            : DASHBOARD_PATH;
+        router.replace(target);
+      },
+    });
   };
 
   return (
@@ -122,36 +129,6 @@ export function LoginForm() {
           )}
         </Button>
       </form>
-
-      {/* Nút bấm điền nhanh tài khoản Dev */}
-      {process.env.NODE_ENV !== "production" && (
-        <div className="mt-4 rounded-xl border border-dashed border-[#C9A24B]/40 bg-[#C9A24B]/5 p-3 text-xs">
-          <div className="font-semibold text-foreground mb-1.5 flex items-center justify-between">
-            <span className="text-[11px] text-muted-foreground">Tài khoản Superadmin mẫu:</span>
-            <span className="text-[10px] font-mono bg-[#C9A24B]/20 text-[#8f6d23] px-1.5 py-0.5 rounded">DEV</span>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="flex-1 text-[11px] h-7 border-[#C9A24B]/30 hover:bg-[#C9A24B]/10"
-              onClick={() => handleFillDemo("admin", "Admin@2026!")}
-            >
-              Điền Username: <strong>admin</strong>
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="flex-1 text-[11px] h-7 border-[#C9A24B]/30 hover:bg-[#C9A24B]/10"
-              onClick={() => handleFillDemo("admin@luatvanich.vn", "Admin@2026!")}
-            >
-              Điền Email
-            </Button>
-          </div>
-        </div>
-      )}
     </AuthCard>
   );
 }

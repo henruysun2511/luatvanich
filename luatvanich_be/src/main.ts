@@ -53,6 +53,7 @@ async function bootstrap() {
       'Accept',
       'Authorization',
       'X-Requested-With',
+      'Accept-Language',
     ],
   });
 

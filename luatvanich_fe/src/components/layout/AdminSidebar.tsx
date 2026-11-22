@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ShieldCheck,
   Settings,
+  Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,7 @@ const adminNavList = [
   { href: "/admin", title: "Tổng quan", icon: LayoutDashboard, exact: true },
   { href: "/admin/pages", title: "Quản lý trang & Builder", icon: Layers },
   { href: "/admin/services", title: "Dịch vụ pháp lý", icon: Briefcase },
+  { href: "/admin/offices", title: "Văn phòng đại diện", icon: Building2 },
   { href: "/admin/lawyers", title: "Đội ngũ luật sư", icon: Users },
   { href: "/admin/posts", title: "Cẩm nang & Bài viết", icon: FileText },
   { href: "/admin/consultations", title: "Yêu cầu tư vấn (Leads)", icon: MessageSquareText },

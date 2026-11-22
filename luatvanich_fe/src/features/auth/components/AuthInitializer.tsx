@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { listenAuth } from "../utils/authChannel";
 import { clearLocalSession } from "../utils/endSession";
@@ -12,14 +12,23 @@ import { setupAuth } from "../utils/setupAuth";
  * ta xin cái mới bằng refresh cookie (httpOnly). Đồng bộ đăng nhập/đăng xuất giữa các tab.
  */
 export function AuthInitializer() {
+  const initialized = useRef(false);
+
   useEffect(() => {
     setupAuth();
-    void initSession();
+
+    // Chỉ initSession một lần khi mount và khi chưa authenticated
+    if (!initialized.current) {
+      initialized.current = true;
+      if (useAuthStore.getState().status !== "authenticated") {
+        void initSession();
+      }
+    }
 
     return listenAuth((message) => {
       if (message === "logout") {
         clearLocalSession();
-      } else if (useAuthStore.getState().status !== "authenticated") {
+      } else if (message === "login" && useAuthStore.getState().status !== "authenticated") {
         void initSession();
       }
     });

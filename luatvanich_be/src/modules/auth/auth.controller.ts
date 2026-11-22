@@ -25,7 +25,7 @@ export class AuthController {
       secure: isProd,
       sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/api/v1/admin/auth',
+      path: '/',
     };
   }
 
@@ -78,7 +78,7 @@ export class AuthController {
   @HttpCode(200)
   @SwaggerDoc({ summary: 'Đăng xuất', bearerAuth: true })
   async logout(@CurrentUser('id') userId: string, @Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    res.clearCookie('refreshToken', { path: '/api/v1/admin/auth' });
+    res.clearCookie('refreshToken', { path: '/' });
     await this.authService.logout(userId);
     return ApiResponse.noContent('Đăng xuất thành công');
   }
@@ -99,7 +99,7 @@ export class AuthController {
     @Body() dto: ChangePasswordDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    res.clearCookie('refreshToken', { path: '/api/v1/admin/auth' });
+    res.clearCookie('refreshToken', { path: '/' });
     await this.authService.changePassword(userId, dto);
     return ApiResponse.noContent('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.');
   }
