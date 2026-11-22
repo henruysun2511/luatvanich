@@ -10,17 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { RoleBadge, AssignRoleDialog } from "@/features/roles";
 import { ResetPasswordDialog } from "./ResetPasswordDialog";
 import { DeleteUserDialog } from "./DeleteUserDialog";
-import { useUpdateUserStatus } from "../queries/useUsersQuery";
+import { ToggleUserStatusDialog } from "./ToggleUserStatusDialog";
 import { useMe } from "@/features/auth";
 import type { UserItem } from "../types/users.types";
 import {
   KeyRound,
   Trash2,
   ShieldAlert,
-  Power,
   User,
   Loader2,
 } from "lucide-react";
@@ -32,24 +32,12 @@ interface UserListTableProps {
 
 export function UserListTable({ users, isLoading }: UserListTableProps) {
   const { data: currentUser } = useMe();
-  const updateStatusMutation = useUpdateUserStatus();
 
   // State cho các Dialogs
   const [roleUser, setRoleUser] = useState<UserItem | null>(null);
   const [passwordUser, setPasswordUser] = useState<UserItem | null>(null);
   const [deleteUser, setDeleteUser] = useState<UserItem | null>(null);
-  const [togglingUserId, setTogglingUserId] = useState<string | null>(null);
-
-  const handleToggleStatus = (user: UserItem) => {
-    if (user.id === currentUser?.id) return;
-    setTogglingUserId(user.id);
-    updateStatusMutation.mutate(
-      { id: user.id, isActive: !user.isActive },
-      {
-        onSettled: () => setTogglingUserId(null),
-      },
-    );
-  };
+  const [statusUser, setStatusUser] = useState<UserItem | null>(null);
 
   if (isLoading && users.length === 0) {
     return (
@@ -88,7 +76,6 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
           <TableBody>
             {users.map((user) => {
               const isSelf = user.id === currentUser?.id;
-              const isToggling = togglingUserId === user.id;
 
               return (
                 <TableRow key={user.id} className="text-xs hover:bg-muted/30">
@@ -140,32 +127,31 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
                     <RoleBadge role={user.role} roleName={user.roleName} />
                   </TableCell>
 
-                  {/* Trạng thái & Toggle */}
+                  {/* Trạng thái (Switch) */}
                   <TableCell>
-                    <button
-                      type="button"
-                      onClick={() => handleToggleStatus(user)}
-                      disabled={isSelf || isToggling}
-                      title={
-                        isSelf
-                          ? "Bạn không thể tự khóa tài khoản của mình"
-                          : user.isActive
-                            ? "Bấm để khóa tài khoản"
-                            : "Bấm để kích hoạt tài khoản"
-                      }
-                      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all ${
-                        user.isActive
-                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800"
-                          : "bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 dark:bg-red-950 dark:text-red-300 dark:border-red-800"
-                      } ${isSelf ? "cursor-not-allowed opacity-80" : "cursor-pointer"}`}
-                    >
-                      {isToggling ? (
-                        <Loader2 className="size-3 animate-spin" />
-                      ) : (
-                        <Power className="size-3" />
-                      )}
-                      <span>{user.isActive ? "Hoạt động" : "Đã khóa"}</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={user.isActive}
+                        onCheckedChange={() => setStatusUser(user)}
+                        disabled={isSelf}
+                        title={
+                          isSelf
+                            ? "Bạn không thể tự khóa tài khoản của mình"
+                            : user.isActive
+                              ? "Gạt để khóa tài khoản"
+                              : "Gạt để kích hoạt tài khoản"
+                        }
+                      />
+                      <span
+                        className={`text-[11px] font-medium select-none ${
+                          user.isActive
+                            ? "text-emerald-700 dark:text-emerald-400"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {user.isActive ? "Hoạt động" : "Đã khóa"}
+                      </span>
+                    </div>
                   </TableCell>
 
                   {/* Ngày tạo */}
@@ -237,6 +223,13 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
         user={deleteUser}
         open={!!deleteUser}
         onOpenChange={(open) => !open && setDeleteUser(null)}
+      />
+
+      {/* Dialog Khóa / Mở khóa tài khoản */}
+      <ToggleUserStatusDialog
+        user={statusUser}
+        open={!!statusUser}
+        onOpenChange={(open) => !open && setStatusUser(null)}
       />
     </>
   );

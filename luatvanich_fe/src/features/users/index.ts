@@ -11,3 +11,4 @@ export * from "./components/UserPagination";
 export * from "./components/CreateUserDialog";
 export * from "./components/ResetPasswordDialog";
 export * from "./components/DeleteUserDialog";
+export * from "./components/ToggleUserStatusDialog";
