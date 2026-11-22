@@ -36,13 +36,6 @@ export class UsersService {
     return users.map(UserResponseDto.fromEntity);
   }
 
-  /** Lấy chi tiết một người dùng theo ID */
-  async findById(id: string): Promise<UserResponseDto> {
-    const user = await this.userRepo.findById(id);
-    if (!user) throw new UserNotFoundException(id);
-    return UserResponseDto.fromEntity(user);
-  }
-
   /** Lấy danh sách tất cả vai trò */
   async findAllRoles(): Promise<RoleResponseDto[]> {
     const roles = await this.roleRepo.findAll();

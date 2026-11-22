@@ -63,22 +63,6 @@ export class UsersController {
   }
 
   /**
-   * GET /api/v1/admin/users/:id
-   * Chi tiết người dùng theo ID
-   */
-  @Get(':id')
-  @RequirePermission(PERMISSIONS.USERS_READ)
-  @SwaggerDoc({
-    summary: 'Chi tiết người dùng theo ID',
-    responseType: UserResponseDto,
-    bearerAuth: true,
-  })
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.usersService.findById(id);
-    return ApiResponse.success(data, 'Lấy thông tin người dùng thành công');
-  }
-
-  /**
    * POST /api/v1/admin/users
    * Tạo tài khoản người dùng mới
    */
