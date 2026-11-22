@@ -1,13 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { usersService } from "../services/users.service";
-import { usersKeys } from "./users.keys";
 import type { UserQueryParams } from "../types/users.types";
 import type {
   CreateUserInput,
   AdminResetPasswordInput,
 } from "../schemas/users.schema";
 import { extractErrorMessage } from "@/lib/axios";
+
+export const usersKeys = {
+  all: ["users"] as const,
+  lists: () => [...usersKeys.all, "list"] as const,
+  list: (params?: UserQueryParams) => [...usersKeys.lists(), params] as const,
+};
 
 /** Lấy danh sách người dùng có tìm kiếm, lọc và phân trang */
 export const useUsers = (params?: UserQueryParams) => {

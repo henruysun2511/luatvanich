@@ -2,7 +2,6 @@ export * from "./types/roles.types";
 export * from "./constants/roles.constants";
 export * from "./schemas/roles.schema";
 export * from "./services/roles.service";
-export * from "./queries/roles.keys";
 export * from "./queries/useRolesQuery";
 export * from "./components/RoleBadge";
 export * from "./components/RoleSelect";

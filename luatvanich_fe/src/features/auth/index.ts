@@ -3,7 +3,6 @@ export * from "./constants/auth.constants";
 export * from "./schemas/auth.schema";
 export * from "./store/useAuthStore";
 export * from "./services/auth.service";
-export * from "./queries/auth.keys";
 export * from "./queries/useAuthQuery";
 export * from "./hooks/useRedirectAfterLogin";
 export * from "./components/AuthInitializer";

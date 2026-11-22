@@ -5,12 +5,16 @@ import { useAuthStore } from "../store/useAuthStore";
 import { applySession } from "../utils/refreshSession";
 import { broadcastAuth } from "../utils/authChannel";
 import { endSession } from "../utils/endSession";
-import { authKeys } from "./auth.keys";
 import { extractErrorMessage } from "@/lib/axios";
 import type {
   UpdateProfileInput,
   ChangePasswordInput,
 } from "../schemas/auth.schema";
+
+export const authKeys = {
+  all: ["auth"] as const,
+  me: ["auth", "me"] as const,
+};
 
 /** Thông tin user hiện tại. Tự động lấy từ cache TanStack Query */
 export const useMe = () => {

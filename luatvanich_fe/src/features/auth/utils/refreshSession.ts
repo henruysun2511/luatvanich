@@ -1,6 +1,6 @@
 import { LawFirmApiError } from "@/lib/axios";
 import { getSharedQueryClient } from "@/lib/query-client";
-import { authKeys } from "../queries/auth.keys";
+import { authKeys } from "../queries/useAuthQuery";
 import { authService } from "../services/auth.service";
 import { useAuthStore } from "../store/useAuthStore";
 import type { AuthResponse } from "../types/auth.types";

@@ -2,7 +2,6 @@ export * from "./types/users.types";
 export * from "./constants/users.constants";
 export * from "./schemas/users.schema";
 export * from "./services/users.service";
-export * from "./queries/users.keys";
 export * from "./queries/useUsersQuery";
 export * from "./hooks/useUserFilters";
 export * from "./components/UserListTable";

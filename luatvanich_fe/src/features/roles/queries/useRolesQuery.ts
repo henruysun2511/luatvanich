@@ -1,8 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { rolesService } from "../services/roles.service";
-import { rolesKeys } from "./roles.keys";
 import { extractErrorMessage } from "@/lib/axios";
+
+export const rolesKeys = {
+  all: ["roles"] as const,
+  list: () => [...rolesKeys.all, "list"] as const,
+};
 
 /** Lấy danh sách toàn bộ vai trò */
 export const useRoles = () => {
