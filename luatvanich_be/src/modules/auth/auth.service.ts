@@ -59,10 +59,26 @@ export class AuthService {
 
   async refresh(rawToken: string) {
     const tokenHash = this.hashToken(rawToken);
-    const stored = await this.refreshTokenRepo.findValidToken(tokenHash);
+    const stored = await this.refreshTokenRepo.findByTokenHash(tokenHash);
 
     if (!stored || stored.expiresAt < new Date()) {
-      throw new RefreshTokenExpiredException();
+      throw new RefreshTokenExpiredException('Phiên đăng nhập đã hết hạn');
+    }
+
+    // Grace period: Nếu token vừa bị thu hồi trong vòng 30 giây (do F5 nhanh, React StrictMode hoặc request đồng thời)
+    if (stored.isRevoked) {
+      const gracePeriodMs = 30 * 1000;
+      const revokedRecently =
+        stored.updatedAt && (Date.now() - new Date(stored.updatedAt).getTime() < gracePeriodMs);
+      if (revokedRecently) {
+        const { accessToken, refreshToken } = await this.generateTokenPair(stored.user);
+        return {
+          accessToken,
+          refreshToken,
+          user: this.formatUserResponse(stored.user),
+        };
+      }
+      throw new RefreshTokenExpiredException('Phiên đăng nhập không hợp lệ');
     }
 
     // Xoay vòng token: thu hồi token cũ, cấp token mới

@@ -7,6 +7,7 @@ import type {
   UpdateOfficeInput,
 } from "../types/offices.types";
 import { extractErrorMessage } from "@/lib/axios";
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
 
 export const officesKeys = {
   all: ["offices"] as const,
@@ -19,9 +20,11 @@ export const officesKeys = {
 
 /** Hook lấy danh sách văn phòng Admin */
 export const useAdminOffices = (params?: OfficeQueryParams) => {
+  const status = useAuthStore((s) => s.status);
   return useQuery({
     queryKey: officesKeys.list(params),
     queryFn: () => officesService.getAdminOffices(params),
+    enabled: status === "authenticated",
     placeholderData: (prev) => prev,
   });
 };

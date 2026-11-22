@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Eye, EyeOff, User, Lock, AlertCircle } from "lucide-react";
@@ -10,9 +11,12 @@ import { useLogin } from "../queries/useAuthQuery";
 import { loginSchema, type LoginInput } from "../schemas/auth.schema";
 import { AuthCard } from "./AuthCard";
 import { extractErrorMessage } from "@/lib/axios";
+import { DASHBOARD_PATH } from "../constants/auth.constants";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const loginMutation = useLogin();
 
   const {
@@ -29,7 +33,16 @@ export function LoginForm() {
   });
 
   const onSubmit = (values: LoginInput) => {
-    loginMutation.mutate(values);
+    loginMutation.mutate(values, {
+      onSuccess: () => {
+        const rawRedirect = searchParams.get("redirect");
+        const target =
+          rawRedirect && rawRedirect.startsWith("/admin") && rawRedirect !== "/admin/login"
+            ? rawRedirect
+            : DASHBOARD_PATH;
+        router.replace(target);
+      },
+    });
   };
 
   const handleFillDemo = (username: string, pass: string) => {
