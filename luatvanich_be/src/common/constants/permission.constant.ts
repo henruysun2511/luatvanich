@@ -20,6 +20,12 @@ export const PERMISSIONS = {
   SERVICES_PUBLISH: 'services:publish',
   SERVICES_DELETE: 'services:delete',
 
+  // Lawyers
+  LAWYERS_READ: 'lawyers:read',
+  LAWYERS_WRITE: 'lawyers:write',
+  LAWYERS_PUBLISH: 'lawyers:publish',
+  LAWYERS_DELETE: 'lawyers:delete',
+
   // Media
   MEDIA_READ: 'media:read',
   MEDIA_WRITE: 'media:write',
