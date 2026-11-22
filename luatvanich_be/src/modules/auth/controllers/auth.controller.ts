@@ -1,13 +1,13 @@
 import { Controller, Post, Body, Req, Res, HttpCode, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../common/response/api-response';
-import { Public } from '../../common/decorators/public.decorator';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { AuthResponseDto } from './dto/auth-response.dto';
+import { AuthService } from '../services/auth.service';
+import { LoginDto } from '../dto/login.dto';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../../common/response/api-response';
+import { Public } from '../../../common/decorators/public.decorator';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+import { AuthResponseDto } from '../dto/auth-response.dto';
 
 @ApiTags('Auth')
 @Controller({ path: 'admin/auth', version: '1' })

@@ -3,10 +3,10 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from '../users/entities/user.entity';
-import { RefreshToken } from './entities/refresh-token.entity';
-import { LoginDto } from './dto/login.dto';
-import { AppConfig } from '../../config/app.config';
+import { User } from '../../users/entities/user.entity';
+import { RefreshToken } from '../entities/refresh-token.entity';
+import { LoginDto } from '../dto/login.dto';
+import { AppConfig } from '../../../config/app.config';
 import { createHash } from 'crypto';
 
 @Injectable()
