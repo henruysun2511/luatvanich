@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/request/login.dto';
+import { ChangePasswordDto } from './dto/request/change-password.dto';
 import { AuthResponseDto } from './dto/response/auth-response.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
@@ -78,6 +79,27 @@ export class AuthController {
     res.clearCookie('refreshToken', { path: '/api/v1/admin/auth' });
     await this.authService.logout(userId);
     return ApiResponse.noContent('Đăng xuất thành công');
+  }
+
+  /**
+   * POST /api/v1/admin/auth/change-password
+   * Đổi mật khẩu tài khoản hiện tại
+   */
+  @Post('change-password')
+  @HttpCode(200)
+  @SwaggerDoc({
+    summary: 'Đổi mật khẩu tài khoản hiện tại',
+    bodyType: ChangePasswordDto,
+    bearerAuth: true,
+  })
+  async changePassword(
+    @CurrentUser('id') userId: string,
+    @Body() dto: ChangePasswordDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    res.clearCookie('refreshToken', { path: '/api/v1/admin/auth' });
+    await this.authService.changePassword(userId, dto);
+    return ApiResponse.noContent('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.');
   }
 
   /**

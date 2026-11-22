@@ -7,7 +7,6 @@ import { RoleRepository } from './repositories/role.repository';
 import { RefreshToken } from '../auth/entities/refresh-token.entity';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { AssignRoleDto } from './dto/request/assign-role.dto';
-import { ChangePasswordDto } from './dto/request/change-password.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { UserResponseDto } from './dto/response/user.dto';
 import { RoleResponseDto } from './dto/response/role.dto';
@@ -19,7 +18,6 @@ import {
   CannotDeleteSelfException,
   CannotDeleteSuperAdminException,
   CannotDowngradeSuperAdminException,
-  InvalidCurrentPasswordException,
 } from './exceptions/user.exception';
 import { SYSTEM_ROLES } from '../../common/constants/role.constant';
 
@@ -143,25 +141,6 @@ export class UsersService {
     await this.refreshTokenRepo.update({ userId: id }, { isRevoked: true });
 
     return UserResponseDto.fromEntity(saved);
-  }
-
-  /**
-   * Người dùng tự đổi mật khẩu cá nhân
-   */
-  async changePassword(currentUserId: string, dto: ChangePasswordDto): Promise<void> {
-    const user = await this.userRepo.findById(currentUserId);
-    if (!user) throw new UserNotFoundException(currentUserId);
-
-    // 1. Kiểm tra mật khẩu hiện tại
-    const isMatch = await bcrypt.compare(dto.currentPassword, user.passwordHash);
-    if (!isMatch) throw new InvalidCurrentPasswordException();
-
-    // 2. Hash mật khẩu mới và lưu
-    user.passwordHash = await bcrypt.hash(dto.newPassword, 12);
-    await this.userRepo.save(user);
-
-    // 3. Thu hồi toàn bộ refresh token cũ để ép đăng nhập lại trên các thiết bị khác
-    await this.refreshTokenRepo.update({ userId: currentUserId }, { isRevoked: true });
   }
 
   /**

@@ -5,13 +5,16 @@ import { createHash } from 'crypto';
 import { UserRepository } from '../users/repositories/user.repository';
 import { RefreshTokenRepository } from './repositories/refresh-token.repository';
 import { LoginDto } from './dto/request/login.dto';
+import { ChangePasswordDto } from './dto/request/change-password.dto';
 import { AppConfig } from '../../config/app.config';
 import { User } from '../users/entities/user.entity';
 import {
   InvalidCredentialsException,
   AccountInactiveException,
   RefreshTokenExpiredException,
+  InvalidCurrentPasswordException,
 } from './exceptions/auth.exception';
+import { UserNotFoundException } from '../users/exceptions/user.exception';
 
 @Injectable()
 export class AuthService {
@@ -74,6 +77,22 @@ export class AuthService {
     } else {
       await this.refreshTokenRepo.revokeAllUserTokens(userId);
     }
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.userRepo.findById(userId);
+    if (!user) throw new UserNotFoundException(userId);
+
+    // 1. Kiểm tra mật khẩu hiện tại
+    const isMatch = await bcrypt.compare(dto.currentPassword, user.passwordHash);
+    if (!isMatch) throw new InvalidCurrentPasswordException();
+
+    // 2. Hash mật khẩu mới và lưu
+    user.passwordHash = await bcrypt.hash(dto.newPassword, 12);
+    await this.userRepo.save(user);
+
+    // 3. Thu hồi toàn bộ refresh token cũ của user để bắt buộc đăng nhập lại
+    await this.refreshTokenRepo.revokeAllUserTokens(userId);
   }
 
   private async generateTokenPair(user: User, userAgent?: string, ipAddress?: string) {

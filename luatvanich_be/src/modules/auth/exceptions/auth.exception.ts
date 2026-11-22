@@ -41,3 +41,13 @@ export class RefreshTokenExpiredException extends AppError {
     });
   }
 }
+
+export class InvalidCurrentPasswordException extends AppError {
+  constructor() {
+    super({
+      code: AUTH_ERROR_CODE.INVALID_CURRENT_PASSWORD,
+      message: 'Mật khẩu hiện tại không chính xác',
+      statusCode: HttpStatus.BAD_REQUEST,
+    });
+  }
+}

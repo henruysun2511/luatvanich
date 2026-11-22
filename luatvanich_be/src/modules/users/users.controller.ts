@@ -16,7 +16,6 @@ import { UserResponseDto } from './dto/response/user.dto';
 import { RoleResponseDto } from './dto/response/role.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { AssignRoleDto } from './dto/request/assign-role.dto';
-import { ChangePasswordDto } from './dto/request/change-password.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
@@ -61,25 +60,6 @@ export class UsersController {
   async findAllRoles() {
     const data = await this.usersService.findAllRoles();
     return ApiResponse.success(data, 'Lấy danh sách vai trò thành công');
-  }
-
-  /**
-   * POST /api/v1/admin/users/change-password
-   * Người dùng hiện tại tự đổi mật khẩu cá nhân
-   */
-  @Post('change-password')
-  @HttpCode(HttpStatus.OK)
-  @SwaggerDoc({
-    summary: 'Tự đổi mật khẩu của tài khoản hiện tại',
-    bodyType: ChangePasswordDto,
-    bearerAuth: true,
-  })
-  async changePassword(
-    @CurrentUser('id') currentUserId: string,
-    @Body() dto: ChangePasswordDto,
-  ) {
-    await this.usersService.changePassword(currentUserId, dto);
-    return ApiResponse.noContent('Đổi mật khẩu thành công. Vui lòng đăng nhập lại với mật khẩu mới.');
   }
 
   /**
