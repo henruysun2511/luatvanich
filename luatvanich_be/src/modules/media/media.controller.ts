@@ -14,6 +14,7 @@ import { StorageService } from '../../infrastructures/storage/storage.service';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
 import { RequirePermission } from '../../common/decorators/require-permission.decorator';
+import { PERMISSIONS } from '../../common/constants/permission.constant';
 
 @ApiTags('Media')
 @Controller({ path: 'media', version: '1' })
@@ -21,7 +22,7 @@ export class MediaController {
   constructor(private readonly storageService: StorageService) {}
 
   @Post('upload')
-  @RequirePermission('media:write')
+  @RequirePermission(PERMISSIONS.MEDIA_WRITE)
   @UseInterceptors(
     FileInterceptor('file', {
       limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
@@ -48,7 +49,7 @@ export class MediaController {
   }
 
   @Delete()
-  @RequirePermission('media:delete')
+  @RequirePermission(PERMISSIONS.MEDIA_DELETE)
   @SwaggerDoc({ summary: 'Xóa tệp khỏi kho lưu trữ', bearerAuth: true })
   async deleteFile(@Query('key') key: string) {
     if (!key) throw new BadRequestException('Thiếu tham số key');

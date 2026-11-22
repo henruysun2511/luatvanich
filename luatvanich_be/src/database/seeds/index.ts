@@ -3,7 +3,7 @@
  * Chạy: npm run seed
  *
  * Thứ tự:
- * 1. Roles + Permissions
+ * 1. Roles + Permissions (từ DEFAULT_ROLE_DEFINITIONS)
  * 2. Admin user mặc định
  */
 import { DataSource } from 'typeorm';
@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import { Role } from '../../modules/users/entities/role.entity';
 import { User } from '../../modules/users/entities/user.entity';
+import { DEFAULT_ROLE_DEFINITIONS, SYSTEM_ROLES } from '../../common/constants/role.constant';
 
 dotenv.config();
 
@@ -26,53 +27,6 @@ const AppDataSource = new DataSource({
   synchronize: true, // Seed chạy synchronize để tạo bảng nếu chưa có
 });
 
-const ROLES = [
-  {
-    code: 'superadmin',
-    name: 'Super Admin',
-    isSystem: true,
-    permissions: ['*'], // Wildcard — PermissionsGuard sẽ cho qua tất cả
-  },
-  {
-    code: 'admin',
-    name: 'Quản trị viên',
-    isSystem: true,
-    permissions: [
-      'users:read', 'users:write',
-      'services:read', 'services:write', 'services:publish', 'services:delete',
-      'media:read', 'media:write', 'media:delete',
-      'pages:read', 'pages:write', 'pages:publish', 'pages:delete',
-      'posts:read', 'posts:write', 'posts:publish', 'posts:delete',
-      'consultations:read', 'consultations:write',
-      'settings:read', 'settings:write',
-      'theme:read', 'theme:write',
-    ],
-  },
-  {
-    code: 'editor',
-    name: 'Biên tập viên',
-    isSystem: true,
-    permissions: [
-      'services:read', 'services:write',
-      'media:read', 'media:write',
-      'pages:read', 'pages:write',
-      'posts:read', 'posts:write',
-      'consultations:read',
-    ],
-  },
-  {
-    code: 'viewer',
-    name: 'Xem',
-    isSystem: true,
-    permissions: [
-      'services:read',
-      'pages:read',
-      'posts:read',
-      'consultations:read',
-    ],
-  },
-];
-
 async function seed() {
   console.log('🌱 Bắt đầu seed dữ liệu...\n');
 
@@ -82,7 +36,7 @@ async function seed() {
 
   // ── Roles ────────────────────────────────────────────────────────────────
   const savedRoles: Record<string, Role> = {};
-  for (const roleDef of ROLES) {
+  for (const roleDef of DEFAULT_ROLE_DEFINITIONS) {
     let role = await roleRepo.findOne({ where: { code: roleDef.code } });
     if (!role) {
       role = roleRepo.create(roleDef);
@@ -105,7 +59,7 @@ async function seed() {
       email: adminEmail,
       fullName: 'Super Admin',
       passwordHash,
-      roleId: savedRoles['superadmin'].id,
+      roleId: savedRoles[SYSTEM_ROLES.SUPERADMIN].id,
       isActive: true,
     });
     await userRepo.save(admin);

@@ -2,6 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../../../common/decorators/require-permission.decorator';
 import { IS_PUBLIC_KEY } from '../../../common/decorators/public.decorator';
+import { SYSTEM_ROLES } from '../../../common/constants/role.constant';
 
 /**
  * PermissionsGuard — Kiểm tra user có quyền tương ứng không.
@@ -30,7 +31,7 @@ export class PermissionsGuard implements CanActivate {
     if (!user) return false;
 
     // Superadmin có tất cả quyền
-    if (user.role === 'superadmin') return true;
+    if (user.role === SYSTEM_ROLES.SUPERADMIN) return true;
 
     return requiredPermissions.every((p) => user.permissions?.includes(p));
   }
