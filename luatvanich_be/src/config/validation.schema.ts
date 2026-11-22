@@ -48,7 +48,7 @@ export function validateEnv() {
   const { error } = schema.validate(process.env, { allowUnknown: true, abortEarly: false });
   if (error) {
     throw new Error(
-      `❌ Biến môi trường không hợp lệ:\n${error.details.map((d) => `  • ${d.message}`).join('\n')}`,
+      `Biến môi trường không hợp lệ:\n${error.details.map((d) => `  • ${d.message}`).join('\n')}`,
     );
   }
 }

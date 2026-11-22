@@ -19,12 +19,9 @@ import { RequirePermission } from '../../common/decorators/require-permission.de
 @ApiTags('Media')
 @Controller({ path: 'admin/media', version: '1' })
 export class MediaController {
-  constructor(private readonly storageService: StorageService) {}
+  constructor(private readonly storageService: StorageService) { }
 
-  /**
-   * POST /api/v1/admin/media/upload
-   * Upload tệp công khai lên MinIO (Ảnh banner, đại diện dịch vụ, avatar luật sư)
-   */
+
   @Post('upload')
   @RequirePermission('media:write')
   @UseInterceptors(
@@ -42,7 +39,7 @@ export class MediaController {
       },
     },
   })
-  @SwaggerDoc({ summary: 'Admin: Upload tệp công khai lên MinIO/S3', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Admin: Tải lên tệp công khai', bearerAuth: true })
   async uploadPublic(
     @UploadedFile() file: Express.Multer.File,
     @Body('folder') folder?: string,
@@ -52,10 +49,7 @@ export class MediaController {
     return ApiResponse.created(result, 'Tải tệp lên thành công');
   }
 
-  /**
-   * POST /api/v1/admin/media/upload-private
-   * Upload tệp bảo mật (Hồ sơ tư vấn, hợp đồng, chứng minh thư)
-   */
+
   @Post('upload-private')
   @RequirePermission('media:write')
   @UseInterceptors(
@@ -73,7 +67,7 @@ export class MediaController {
       },
     },
   })
-  @SwaggerDoc({ summary: 'Admin: Upload tệp bảo mật (riêng tư) lên MinIO/S3', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Admin: Tải lên tệp bảo mật (riêng tư)', bearerAuth: true })
   async uploadPrivate(
     @UploadedFile() file: Express.Multer.File,
     @Body('folder') folder?: string,
@@ -89,20 +83,17 @@ export class MediaController {
    */
   @Get('presigned-url')
   @RequirePermission('media:read')
-  @SwaggerDoc({ summary: 'Admin: Tạo liên kết tạm thời (Presigned URL) cho tệp bảo mật', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Admin: Tạo liên kết truy cập tạm thời cho tệp bảo mật', bearerAuth: true })
   async getPresignedUrl(@Query('key') key: string) {
     if (!key) throw new BadRequestException('Thiếu tham số key');
     const url = await this.storageService.getPresignedUrl(key, 3600); // 1 giờ
     return ApiResponse.success({ url, expiresIn: 3600 }, 'Tạo liên kết thành công');
   }
 
-  /**
-   * DELETE /api/v1/admin/media
-   * Xóa tệp khỏi MinIO/S3
-   */
+
   @Delete()
   @RequirePermission('media:delete')
-  @SwaggerDoc({ summary: 'Admin: Xóa tệp khỏi MinIO/S3', bearerAuth: true })
+  @SwaggerDoc({ summary: 'Admin: Xóa tệp khỏi kho lưu trữ', bearerAuth: true })
   async deleteFile(
     @Query('key') key: string,
     @Query('isPrivate') isPrivate?: string,
