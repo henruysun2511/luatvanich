@@ -10,6 +10,10 @@ export const PERMISSIONS = {
   USERS_WRITE: 'users:write',
   USERS_DELETE: 'users:delete',
 
+  // Roles
+  ROLES_READ: 'roles:read',
+  ROLES_WRITE: 'roles:write',
+
   // Legal Services
   SERVICES_READ: 'services:read',
   SERVICES_WRITE: 'services:write',

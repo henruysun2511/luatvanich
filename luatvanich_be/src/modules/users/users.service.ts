@@ -6,10 +6,8 @@ import { UserRepository } from './repositories/user.repository';
 import { RoleRepository } from './repositories/role.repository';
 import { RefreshToken } from '../auth/entities/refresh-token.entity';
 import { CreateUserDto } from './dto/request/create-user.dto';
-import { AssignRoleDto } from './dto/request/assign-role.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { UserResponseDto } from './dto/response/user.dto';
-import { RoleResponseDto } from './dto/response/role.dto';
 import {
   UserNotFoundException,
   UserAlreadyExistsException,
@@ -17,7 +15,6 @@ import {
   RoleNotFoundException,
   CannotDeleteSelfException,
   CannotDeleteSuperAdminException,
-  CannotDowngradeSuperAdminException,
 } from './exceptions/user.exception';
 import { SYSTEM_ROLES } from '../../common/constants/role.constant';
 
@@ -34,12 +31,6 @@ export class UsersService {
   async findAll(): Promise<UserResponseDto[]> {
     const users = await this.userRepo.findAll();
     return users.map(UserResponseDto.fromEntity);
-  }
-
-  /** Lấy danh sách tất cả vai trò */
-  async findAllRoles(): Promise<RoleResponseDto[]> {
-    const roles = await this.roleRepo.findAll();
-    return roles.map(RoleResponseDto.fromEntity);
   }
 
   /**
@@ -106,34 +97,6 @@ export class UsersService {
 
     // 4. Thực hiện xóa user (TypeORM Cascade sẽ dọn dẹp các bản ghi liên quan)
     await this.userRepo.delete(id);
-  }
-
-  /**
-   * Gán vai trò (role) mới cho người dùng
-   */
-  async assignRole(id: string, dto: AssignRoleDto, currentUserId: string): Promise<UserResponseDto> {
-    const user = await this.userRepo.findById(id);
-    if (!user) throw new UserNotFoundException(id);
-
-    const newRole = await this.roleRepo.findByIdOrCode(dto.role);
-    if (!newRole) throw new RoleNotFoundException(dto.role);
-
-    // Nếu đang là Super Admin mà hạ xuống vai trò khác: kiểm tra còn Super Admin khác không
-    if (user.role?.code === SYSTEM_ROLES.SUPERADMIN && newRole.code !== SYSTEM_ROLES.SUPERADMIN) {
-      const superAdminCount = await this.userRepo.countSuperAdmins();
-      if (superAdminCount <= 1) {
-        throw new CannotDowngradeSuperAdminException();
-      }
-    }
-
-    user.roleId = newRole.id;
-    user.role = newRole;
-    const saved = await this.userRepo.save(user);
-
-    // Thu hồi refresh tokens để user bắt buộc cập nhật token mang quyền hạn mới
-    await this.refreshTokenRepo.update({ userId: id }, { isRevoked: true });
-
-    return UserResponseDto.fromEntity(saved);
   }
 
   /**

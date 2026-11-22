@@ -3,6 +3,7 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { InfrastructuresModule } from './infrastructures/infrastructures.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { RolesModule } from './modules/roles/roles.module';
 import { LegalServicesModule } from './modules/legal-services/legal-services.module';
 import { MediaModule } from './modules/media/media.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
@@ -14,6 +15,7 @@ import { LangMiddleware } from './common/middleware/lang.middleware';
     InfrastructuresModule,
     AuthModule,
     UsersModule,
+    RolesModule,
     LegalServicesModule,
     MediaModule,
     // TODO Phase 2+: thêm các module khác

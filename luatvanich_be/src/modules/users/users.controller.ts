@@ -13,9 +13,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dto/response/user.dto';
-import { RoleResponseDto } from './dto/response/role.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
-import { AssignRoleDto } from './dto/request/assign-role.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
@@ -43,23 +41,6 @@ export class UsersController {
   async findAll() {
     const data = await this.usersService.findAll();
     return ApiResponse.success(data, 'Lấy danh sách người dùng thành công');
-  }
-
-  /**
-   * GET /api/v1/admin/users/roles
-   * Danh sách tất cả vai trò trong hệ thống
-   */
-  @Get('roles')
-  @RequirePermission(PERMISSIONS.USERS_READ)
-  @SwaggerDoc({
-    summary: 'Danh sách tất cả vai trò',
-    responseType: RoleResponseDto,
-    isArray: true,
-    bearerAuth: true,
-  })
-  async findAllRoles() {
-    const data = await this.usersService.findAllRoles();
-    return ApiResponse.success(data, 'Lấy danh sách vai trò thành công');
   }
 
   /**
@@ -97,28 +78,6 @@ export class UsersController {
   ) {
     await this.usersService.delete(id, currentUserId);
     return ApiResponse.noContent('Xóa tài khoản người dùng thành công');
-  }
-
-  /**
-   * PATCH /api/v1/admin/users/:id/role
-   * Gán vai trò (role) cho người dùng
-   */
-  @Patch(':id/role')
-  @HttpCode(HttpStatus.OK)
-  @RequirePermission(PERMISSIONS.USERS_WRITE)
-  @SwaggerDoc({
-    summary: 'Gán vai trò mới cho người dùng',
-    bodyType: AssignRoleDto,
-    responseType: UserResponseDto,
-    bearerAuth: true,
-  })
-  async assignRole(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: AssignRoleDto,
-    @CurrentUser('id') currentUserId: string,
-  ) {
-    const data = await this.usersService.assignRole(id, dto, currentUserId);
-    return ApiResponse.success(data, 'Gán vai trò cho người dùng thành công');
   }
 
   /**
