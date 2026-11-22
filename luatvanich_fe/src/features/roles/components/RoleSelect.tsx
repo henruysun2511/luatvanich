@@ -46,12 +46,7 @@ export function RoleSelect({
         )}
         {roles.map((r) => (
           <SelectItem key={r.id} value={r.code}>
-            <div className="flex flex-col text-left">
-              <span className="font-medium text-xs text-foreground">{r.name}</span>
-              {r.description && (
-                <span className="text-[10px] text-muted-foreground">{r.description}</span>
-              )}
-            </div>
+            {r.name}
           </SelectItem>
         ))}
       </SelectContent>
