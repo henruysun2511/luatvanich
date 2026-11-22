@@ -24,6 +24,7 @@ import { useCreateOffice, useUpdateOffice } from "../queries/useOfficesQuery";
 import { officeFormSchema } from "../schemas/office.schema";
 import type { OfficeItem, CreateOfficeInput, OfficeStatus } from "../types/offices.types";
 import { Building2, Loader2, Globe, MapPin, PhoneCall } from "lucide-react";
+import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
 
 interface OfficeFormDialogProps {
   open: boolean;
@@ -68,6 +69,27 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
 
   const createMutation = useCreateOffice();
   const updateMutation = useUpdateOffice();
+
+  // Media lifecycle controllers
+  const imageController = useMediaLifecycle({
+    initialUrl: officeToEdit?.imageUrl,
+    onUrlChange: setImageUrl,
+    folder: "offices",
+  });
+
+  const wechatQrController = useMediaLifecycle({
+    initialUrl: officeToEdit?.wechatQrUrl,
+    onUrlChange: setWechatQrUrl,
+    folder: "offices",
+  });
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) {
+      void imageController.rollback();
+      void wechatQrController.rollback();
+    }
+    onOpenChange(nextOpen);
+  };
 
   // Populate data when editing
   useEffect(() => {
@@ -213,13 +235,18 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
       await createMutation.mutateAsync(payloadData);
     }
 
+    await Promise.all([
+      imageController.commit(),
+      wechatQrController.commit(),
+    ]);
+
     onOpenChange(false);
   };
 
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-primary font-serif">
@@ -466,54 +493,49 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    WeChat ID
-                  </label>
-                  <Input
-                    placeholder="VD: luatvanich_hanoi"
-                    value={wechatId}
-                    onChange={(e) => setWechatId(e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Link ảnh mã QR WeChat
-                  </label>
-                  <Input
-                    placeholder="https://res.cloudinary.com/.../wechat.png"
+              {/* Media Section: Ảnh văn phòng & Mã QR WeChat */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <SingleImageUpload
+                  label="Ảnh đại diện văn phòng"
+                  value={imageUrl}
+                  controller={imageController}
+                  aspectRatio="video"
+                  recommendedSize="Ảnh tỷ lệ 16:9, tối đa 5MB"
+                />
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                      WeChat ID
+                    </label>
+                    <Input
+                      placeholder="VD: luatvanich_hanoi"
+                      value={wechatId}
+                      onChange={(e) => setWechatId(e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <SingleImageUpload
+                    label="Mã QR WeChat"
                     value={wechatQrUrl}
-                    onChange={(e) => setWechatQrUrl(e.target.value)}
-                    className="mt-1"
+                    controller={wechatQrController}
+                    aspectRatio="square"
+                    recommendedSize="Ảnh vuông 1:1, tối đa 2MB"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Link ảnh văn phòng
-                  </label>
-                  <Input
-                    placeholder="https://res.cloudinary.com/.../office.jpg"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Thứ tự hiển thị
-                  </label>
-                  <Input
-                    type="number"
-                    value={displayOrder}
-                    onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                    className="mt-1"
-                  />
-                </div>
+              <div>
+                <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                  Thứ tự hiển thị
+                </label>
+                <Input
+                  type="number"
+                  value={displayOrder}
+                  onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
+                  className="mt-1 max-w-[200px]"
+                />
               </div>
 
               <div>
@@ -571,7 +593,7 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
             <Button
               type="button"
               variant="outline"
-              onClick={() => onOpenChange(false)}
+              onClick={() => handleOpenChange(false)}
               disabled={isPending}
             >
               Hủy
