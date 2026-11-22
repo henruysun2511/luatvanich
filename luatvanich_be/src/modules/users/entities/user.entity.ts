@@ -9,6 +9,10 @@ export class User extends BaseEntity {
   @Index('idx_users_email')
   email: string;
 
+  @Column({ unique: true, nullable: true, length: 50 })
+  @Index('idx_users_username')
+  username?: string;
+
   @Column({ name: 'full_name', length: 100 })
   fullName: string;
 

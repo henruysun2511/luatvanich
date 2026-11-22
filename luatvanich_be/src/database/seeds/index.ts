@@ -24,7 +24,7 @@ const AppDataSource = new DataSource({
   password: process.env.DB_PASS || 'postgres',
   entities: [Role, User],
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
-  synchronize: true, // Seed chạy synchronize để tạo bảng nếu chưa có
+  synchronize: true, // Seed chạy synchronize để tự động cập nhật cột mới (như username)
 });
 
 async function seed() {
@@ -50,6 +50,7 @@ async function seed() {
 
   // ── Admin User ────────────────────────────────────────────────────────────
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@luatvanich.vn';
+  const adminUsername = process.env.ADMIN_USERNAME || 'admin';
   const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@2026!';
 
   let admin = await userRepo.findOne({ where: { email: adminEmail } });
@@ -57,16 +58,24 @@ async function seed() {
     const passwordHash = await bcrypt.hash(adminPassword, 12);
     admin = userRepo.create({
       email: adminEmail,
+      username: adminUsername,
       fullName: 'Super Admin',
       passwordHash,
       roleId: savedRoles[SYSTEM_ROLES.SUPERADMIN].id,
       isActive: true,
     });
     await userRepo.save(admin);
-    console.log(`\n  ✅ Tạo admin: ${adminEmail} / ${adminPassword}`);
+    console.log(`\n  ✅ Tạo admin: ${adminUsername} (${adminEmail}) / ${adminPassword}`);
     console.log('  ⚠️  Hãy đổi mật khẩu ngay sau khi đăng nhập lần đầu!\n');
   } else {
-    console.log(`\n  ⏭  Admin đã tồn tại: ${adminEmail}`);
+    // Cập nhật username nếu chưa có
+    if (!admin.username) {
+      admin.username = adminUsername;
+      await userRepo.save(admin);
+      console.log(`\n  ✅ Cập nhật username "${adminUsername}" cho admin: ${adminEmail}`);
+    } else {
+      console.log(`\n  ⏭  Admin đã tồn tại: ${admin.username} (${adminEmail})`);
+    }
   }
 
   await AppDataSource.destroy();

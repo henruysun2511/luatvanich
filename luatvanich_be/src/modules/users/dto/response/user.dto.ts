@@ -7,6 +7,9 @@ export class UserResponseDto {
   @ApiProperty({ example: 'admin@luatvanich.vn' })
   email: string;
 
+  @ApiProperty({ example: 'admin', required: false })
+  username?: string;
+
   @ApiProperty({ example: 'Super Admin' })
   fullName: string;
 

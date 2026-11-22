@@ -22,8 +22,13 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginDto, userAgent?: string, ipAddress?: string) {
-    // BR1: Tìm user theo email
-    const user = await this.userRepo.findByEmail(dto.email);
+    const identifier = (dto.username || dto.email)?.trim();
+    if (!identifier) {
+      throw new InvalidCredentialsException('Vui lòng nhập tên đăng nhập hoặc email');
+    }
+
+    // BR1: Tìm user theo username hoặc email
+    const user = await this.userRepo.findByUsernameOrEmail(identifier);
     if (!user) throw new InvalidCredentialsException();
 
     // BR2: Kiểm tra tài khoản có hoạt động không
@@ -73,6 +78,7 @@ export class AuthService {
     const payload = {
       sub: user.id,
       email: user.email,
+      username: user.username,
       role: (user.role as any)?.code ?? 'editor',
       permissions,
     };
@@ -100,6 +106,7 @@ export class AuthService {
     return {
       id: user.id,
       email: user.email,
+      username: user.username,
       fullName: user.fullName,
       role: (user.role as any)?.code ?? 'editor',
       permissions: (user.role as any)?.permissions ?? [],
