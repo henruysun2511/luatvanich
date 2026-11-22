@@ -8,11 +8,23 @@ import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
 import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { RefreshTokenExpiredException } from './exceptions/auth.exception';
 
 @ApiTags('Auth')
 @Controller({ path: 'admin/auth', version: '1' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  private getCookieOptions() {
+    const isProd = process.env.NODE_ENV === 'production';
+    return {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/api/v1/admin/auth',
+    };
+  }
 
   /**
    * POST /api/v1/admin/auth/login
@@ -25,13 +37,7 @@ export class AuthController {
   async login(@Body() dto: LoginDto, @Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const result = await this.authService.login(dto, req.headers['user-agent'], req.ip);
 
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/api/v1/admin/auth/refresh',
-    });
+    res.cookie('refreshToken', result.refreshToken, this.getCookieOptions());
 
     return ApiResponse.success(
       { accessToken: result.accessToken, user: result.user },
@@ -50,19 +56,16 @@ export class AuthController {
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const rawToken = req.cookies?.refreshToken;
     if (!rawToken) {
-      return ApiResponse.success(null, 'Không có refresh token');
+      throw new RefreshTokenExpiredException('Không tìm thấy phiên đăng nhập');
     }
     const result = await this.authService.refresh(rawToken);
 
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/api/v1/admin/auth/refresh',
-    });
+    res.cookie('refreshToken', result.refreshToken, this.getCookieOptions());
 
-    return ApiResponse.success({ accessToken: result.accessToken }, 'Làm mới token thành công');
+    return ApiResponse.success(
+      { accessToken: result.accessToken, user: result.user },
+      'Làm mới token thành công',
+    );
   }
 
   /**
@@ -72,7 +75,7 @@ export class AuthController {
   @HttpCode(200)
   @SwaggerDoc({ summary: 'Đăng xuất', bearerAuth: true })
   async logout(@CurrentUser('id') userId: string, @Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    res.clearCookie('refreshToken', { path: '/api/v1/admin/auth/refresh' });
+    res.clearCookie('refreshToken', { path: '/api/v1/admin/auth' });
     await this.authService.logout(userId);
     return ApiResponse.noContent('Đăng xuất thành công');
   }

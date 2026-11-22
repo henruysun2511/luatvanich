@@ -9,14 +9,10 @@ import { initSession } from "../utils/refreshSession";
 import { FullPageLoader } from "./FullPageLoader";
 import { SessionError } from "./SessionError";
 
-/**
- * AuthGuard: Chỉ render children khi đã xác thực xong.
- * Nhờ đó không có query nào chạy khi chưa có token và không bị đá về /login
- * trong lúc đang khôi phục phiên ngầm (status = loading).
- */
+
 export function AuthGuard({ children }: { children: ReactNode }) {
   const status = useAuthStore((s) => s.status);
-  const { data: user, isError, refetch } = useMe();
+  const { data: user, isError, isLoading, refetch } = useMe();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -31,11 +27,15 @@ export function AuthGuard({ children }: { children: ReactNode }) {
     return <SessionError onRetry={() => void initSession()} />;
   }
 
+  if (status === "unauthenticated") {
+    return <FullPageLoader />;
+  }
+
   if (status === "authenticated" && !user && isError) {
     return <SessionError onRetry={() => void refetch()} />;
   }
 
-  if (status !== "authenticated" || !user) {
+  if (status === "loading" || (status === "authenticated" && isLoading && !user)) {
     return <FullPageLoader />;
   }
 

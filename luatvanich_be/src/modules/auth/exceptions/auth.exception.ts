@@ -33,10 +33,10 @@ export class AccountInactiveException extends AppError {
 }
 
 export class RefreshTokenExpiredException extends AppError {
-  constructor() {
+  constructor(message = 'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại') {
     super({
       code: AUTH_ERROR_CODE.REFRESH_TOKEN_EXPIRED,
-      message: 'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại',
+      message,
       statusCode: HttpStatus.UNAUTHORIZED,
     });
   }

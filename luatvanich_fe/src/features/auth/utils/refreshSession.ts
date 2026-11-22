@@ -4,7 +4,7 @@ import { authKeys } from "../queries/auth.keys";
 import { authService } from "../services/auth.service";
 import { useAuthStore } from "../store/useAuthStore";
 import type { AuthResponse } from "../types/auth.types";
-import { setSessionCookie } from "./sessionCookie";
+import { clearSessionCookie, setSessionCookie } from "./sessionCookie";
 
 /** Kiểm tra xem lỗi có phải do hết phiên (401/403) */
 export const isAuthFailure = (error: unknown) =>
@@ -14,7 +14,9 @@ export const isAuthFailure = (error: unknown) =>
 export function applySession({ accessToken, user }: AuthResponse) {
   useAuthStore.getState().setSession(accessToken);
   setSessionCookie();
-  getSharedQueryClient().setQueryData(authKeys.me, user);
+  if (user) {
+    getSharedQueryClient().setQueryData(authKeys.me, user);
+  }
 }
 
 let inflightRefresh: Promise<string> | null = null;
@@ -28,12 +30,16 @@ export function refreshSession(): Promise<string> {
     inflightRefresh = authService
       .refresh()
       .then((data) => {
+        if (!data?.accessToken) {
+          throw new LawFirmApiError("Không tìm thấy phiên làm việc hợp lệ.", 401);
+        }
         applySession(data);
         return data.accessToken;
       })
       .catch((error) => {
         if (isAuthFailure(error)) {
           useAuthStore.getState().clearSession();
+          clearSessionCookie();
         }
         throw error;
       })

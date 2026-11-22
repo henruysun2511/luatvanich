@@ -61,7 +61,11 @@ export class AuthService {
     await this.refreshTokenRepo.save(stored);
 
     const { accessToken, refreshToken } = await this.generateTokenPair(stored.user);
-    return { accessToken, refreshToken };
+    return {
+      accessToken,
+      refreshToken,
+      user: this.formatUserResponse(stored.user),
+    };
   }
 
   async logout(userId: string, tokenHash?: string) {
@@ -79,6 +83,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       username: user.username,
+      fullName: user.fullName,
       role: (user.role as any)?.code ?? 'editor',
       permissions,
     };
