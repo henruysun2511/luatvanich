@@ -1,17 +1,22 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LegalServicesModule } from '../legal-services/legal-services.module';
 import { PracticeArea } from './entities/practice-area.entity';
 import { PracticeAreaTranslation } from './entities/practice-area-translation.entity';
+import { PracticeAreaMapper } from './mapper/practice-area.mapper';
+import { PracticeAreasAdminController } from './practice-areas-admin.controller';
+import { PracticeAreasController } from './practice-areas.controller';
+import { PracticeAreasService } from './practice-areas.service';
+import { PracticeAreaRepository } from './repositories/practice-area.repository';
+import { PracticeAreaTranslationRepository } from './repositories/practice-area-translation.repository';
 
-/**
- * PracticeAreasModule — Quản lý lĩnh vực chuyên môn / lĩnh vực pháp lý.
- * Hiện tại chỉ chứa cấu hình Entity. Các tầng DTO, Service, Controller,
- * Repository, Mappers sẽ được hoàn thiện theo task được giao.
- */
 @Module({
   imports: [
     TypeOrmModule.forFeature([PracticeArea, PracticeAreaTranslation]),
+    LegalServicesModule,
   ],
+  controllers: [PracticeAreasController, PracticeAreasAdminController],
+  providers: [PracticeAreasService, PracticeAreaRepository, PracticeAreaTranslationRepository, PracticeAreaMapper],
   exports: [TypeOrmModule],
 })
 export class PracticeAreasModule {}

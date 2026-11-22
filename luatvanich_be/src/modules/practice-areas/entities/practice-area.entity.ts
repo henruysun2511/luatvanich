@@ -12,8 +12,8 @@ import { LegalService } from '../../legal-services/entities/legal-service.entity
 @Entity('practice_areas')
 export class PracticeArea extends BaseEntity {
   /** Icon hoặc hình minh họa lĩnh vực (SVG / URL ảnh Cloudinary) */
-  @Column({ name: 'icon_url', nullable: true, length: 500 })
-  iconUrl?: string;
+  @Column({ name: 'icon_url', type: 'varchar', nullable: true, length: 500 })
+  iconUrl?: string | null;
 
   /** Thứ tự sắp xếp hiển thị (kéo thả reorder) */
   @Column({ name: 'display_order', type: 'int', default: 0 })
