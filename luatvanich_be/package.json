@@ -7,7 +7,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "nest start --watch",
+    "start:dev": "nest start --watch",
     "start": "node dist/main",
+    "start:prod": "node dist/main",
     "build": "nest build",
     "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d ormconfig.ts",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ormconfig.ts",
