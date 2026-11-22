@@ -1,15 +1,6 @@
 import React from "react";
-import { Loader2 } from "lucide-react";
+import { PageLoader } from "@/components/common";
 
-export function FullPageLoader() {
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="flex min-h-screen flex-col items-center justify-center gap-3 bg-muted/20"
-    >
-      <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
-      <span className="text-sm font-medium text-muted-foreground">Đang xác thực hệ thống...</span>
-    </div>
-  );
+export function FullPageLoader({ message = "Đang xác thực hệ thống..." }: { message?: string }) {
+  return <PageLoader message={message} fullscreen />;
 }
