@@ -4,7 +4,7 @@ import React, { useEffect, type ReactNode } from "react";
 import { useRedirectAfterLogin } from "../hooks/useRedirectAfterLogin";
 import { useMe } from "../queries/useAuthQuery";
 import { useAuthStore } from "../store/useAuthStore";
-import { FullPageLoader } from "./FullPageLoader";
+import { PageLoader } from "@/components/common";
 
 /**
  * Dành cho trang /admin/login:
@@ -22,7 +22,7 @@ export function GuestOnly({ children }: { children: ReactNode }) {
   }, [status, user, redirectAfterLogin]);
 
   if (status === "loading" || status === "authenticated") {
-    return <FullPageLoader />;
+    return <PageLoader message="Đang kiểm tra phiên làm việc..." />;
   }
 
   return <>{children}</>;

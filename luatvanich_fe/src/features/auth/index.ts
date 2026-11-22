@@ -11,4 +11,3 @@ export * from "./components/AuthGuard";
 export * from "./components/GuestOnly";
 export * from "./components/LoginForm";
 export * from "./components/AuthCard";
-export * from "./components/FullPageLoader";

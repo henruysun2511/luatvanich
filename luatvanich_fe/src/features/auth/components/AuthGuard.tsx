@@ -6,7 +6,7 @@ import { LOGIN_PATH } from "../constants/auth.constants";
 import { useMe } from "../queries/useAuthQuery";
 import { useAuthStore } from "../store/useAuthStore";
 import { initSession } from "../utils/refreshSession";
-import { FullPageLoader } from "./FullPageLoader";
+import { PageLoader } from "@/components/common";
 import { SessionError } from "./SessionError";
 
 
@@ -28,7 +28,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
   }
 
   if (status === "unauthenticated") {
-    return <FullPageLoader />;
+    return <PageLoader message="Đang chuyển hướng đăng nhập..." />;
   }
 
   if (status === "authenticated" && !user && isError) {
@@ -36,7 +36,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
   }
 
   if (status === "loading" || (status === "authenticated" && isLoading && !user)) {
-    return <FullPageLoader />;
+    return <PageLoader message="Đang xác thực hệ thống..." />;
   }
 
   return <>{children}</>;
