@@ -1,19 +1,24 @@
 "use client";
 
 import React from "react";
-import { User, Bell, LogOut } from "lucide-react";
+import { User, Bell, LogOut, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLogout, useMe } from "@/features/auth";
 
 export function AdminHeader() {
+  const { data: user } = useMe();
+  const logoutMutation = useLogout();
+
   const handleLogout = () => {
-    localStorage.removeItem("lvi_admin_token");
-    window.location.href = "/admin/login";
+    logoutMutation.mutate();
   };
 
   return (
     <header className="h-14 border-b border-border bg-background px-6 flex items-center justify-between">
-      <div className="text-xs text-muted-foreground">
-        Hệ thống Quản trị Nội dung & Page Builder Song ngữ
+      <div className="text-xs text-muted-foreground flex items-center gap-2">
+        <span className="font-semibold text-foreground">Luật Vạn Ích CMS</span>
+        <span className="text-border">&bull;</span>
+        <span>Hệ thống Quản trị & Điều hành Nội dung</span>
       </div>
 
       <div className="flex items-center gap-3">
@@ -21,21 +26,33 @@ export function AdminHeader() {
           <Bell className="size-4 text-muted-foreground" />
         </Button>
 
-        <div className="flex items-center gap-2 pl-2 border-l border-border">
-          <div className="size-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold">
-            <User className="size-3.5" />
+        <div className="flex items-center gap-2.5 pl-2 border-l border-border">
+          <div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20">
+            <User className="size-4" />
           </div>
-          <span className="text-xs font-semibold text-foreground">Admin</span>
+          <div className="flex flex-col text-left">
+            <span className="text-xs font-semibold text-foreground leading-tight">
+              {user?.fullName || user?.username || "Admin"}
+            </span>
+            <span className="text-[10px] text-muted-foreground capitalize leading-tight">
+              {user?.role || "Super Admin"}
+            </span>
+          </div>
         </div>
 
         <Button
           variant="ghost"
           size="icon"
-          className="size-8 text-muted-foreground hover:text-destructive"
+          className="size-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
           onClick={handleLogout}
+          disabled={logoutMutation.isPending}
           title="Đăng xuất"
         >
-          <LogOut className="size-4" />
+          {logoutMutation.isPending ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <LogOut className="size-4" />
+          )}
         </Button>
       </div>
     </header>
