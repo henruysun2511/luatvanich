@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Body,
+  Query,
   ParseUUIDPipe,
   HttpCode,
   HttpStatus,
@@ -14,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dto/response/user.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
+import { UserQueryDto } from './dto/request/user-query.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
@@ -28,18 +30,19 @@ export class UsersController {
 
   /**
    * GET /api/v1/admin/users
-   * Danh sách người dùng
+   * Danh sách người dùng có tìm kiếm, bộ lọc và phân trang
    */
   @Get()
   @RequirePermission(PERMISSIONS.USERS_READ)
   @SwaggerDoc({
-    summary: 'Danh sách người dùng',
+    summary: 'Danh sách người dùng (tìm kiếm, lọc, phân trang)',
+    description: 'Hỗ trợ ?q= (từ khóa), ?role= (mã hoặc UUID vai trò), ?isActive= (true/false), ?sortBy=, ?sortOrder=, ?page=, ?limit=',
     responseType: UserResponseDto,
     isArray: true,
     bearerAuth: true,
   })
-  async findAll() {
-    const data = await this.usersService.findAll();
+  async findAll(@Query() query: UserQueryDto) {
+    const data = await this.usersService.findAll(query);
     return ApiResponse.success(data, 'Lấy danh sách người dùng thành công');
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
+import { UserQueryDto } from '../dto/request/user-query.dto';
 
 @Injectable()
 export class UserRepository {
@@ -33,6 +34,69 @@ export class UserRepository {
 
   async findAll(): Promise<User[]> {
     return this.repo.find({ relations: ['role'], order: { createdAt: 'DESC' } });
+  }
+
+  /**
+   * Truy vấn danh sách người dùng có tìm kiếm, lọc và phân trang
+   */
+  async findPaginated(query: UserQueryDto): Promise<[User[], number]> {
+    const {
+      page = 1,
+      limit = 10,
+      q,
+      role,
+      isActive,
+      sortBy = 'createdAt',
+      sortOrder = 'DESC',
+    } = query;
+    const skip = (page - 1) * limit;
+
+    const qb = this.repo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.role', 'role');
+
+    // 1. Tìm kiếm theo từ khóa (username, email, fullName, phoneNumber)
+    if (q && q.trim()) {
+      const keyword = `%${q.trim().toLowerCase()}%`;
+      qb.andWhere(
+        '(LOWER(user.email) LIKE :keyword OR LOWER(user.username) LIKE :keyword OR LOWER(user.fullName) LIKE :keyword OR user.phoneNumber LIKE :keyword)',
+        { keyword },
+      );
+    }
+
+    // 2. Lọc theo vai trò (roleCode hoặc roleId)
+    if (role && role.trim()) {
+      const cleanRole = role.trim();
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(cleanRole);
+      if (isUuid) {
+        qb.andWhere('role.id = :roleId', { roleId: cleanRole });
+      } else {
+        qb.andWhere('LOWER(role.code) = :roleCode', { roleCode: cleanRole.toLowerCase() });
+      }
+    }
+
+    // 3. Lọc theo trạng thái hoạt động (isActive)
+    if (typeof isActive === 'boolean') {
+      qb.andWhere('user.isActive = :isActive', { isActive });
+    }
+
+    // 4. Sắp xếp
+    const validSortColumns: Record<string, string> = {
+      createdAt: 'user.createdAt',
+      fullName: 'user.fullName',
+      username: 'user.username',
+      email: 'user.email',
+      lastLoginAt: 'user.lastLoginAt',
+    };
+    const sortField = validSortColumns[sortBy] || 'user.createdAt';
+    const direction = sortOrder?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+
+    qb.orderBy(sortField, direction);
+
+    // 5. Phân trang
+    qb.skip(skip).take(limit);
+
+    return qb.getManyAndCount();
   }
 
   async countSuperAdmins(): Promise<number> {

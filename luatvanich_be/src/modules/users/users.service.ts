@@ -6,8 +6,10 @@ import { UserRepository } from './repositories/user.repository';
 import { RoleRepository } from './repositories/role.repository';
 import { RefreshToken } from '../auth/entities/refresh-token.entity';
 import { CreateUserDto } from './dto/request/create-user.dto';
+import { UserQueryDto } from './dto/request/user-query.dto';
 import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
 import { UserResponseDto } from './dto/response/user.dto';
+import { PaginatedResponse } from '../../common/response/api-response';
 import {
   UserNotFoundException,
   UserAlreadyExistsException,
@@ -27,10 +29,13 @@ export class UsersService {
     private readonly refreshTokenRepo: Repository<RefreshToken>,
   ) {}
 
-  /** Lấy danh sách toàn bộ người dùng */
-  async findAll(): Promise<UserResponseDto[]> {
-    const users = await this.userRepo.findAll();
-    return users.map(UserResponseDto.fromEntity);
+  /** Lấy danh sách người dùng có tìm kiếm, lọc và phân trang */
+  async findAll(query: UserQueryDto): Promise<PaginatedResponse<UserResponseDto>> {
+    const page = query.page || 1;
+    const limit = query.limit || 10;
+    const [users, total] = await this.userRepo.findPaginated(query);
+    const items = users.map(UserResponseDto.fromEntity);
+    return PaginatedResponse.of(items, total, page, limit);
   }
 
   /**
