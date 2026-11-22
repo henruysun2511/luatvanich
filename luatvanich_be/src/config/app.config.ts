@@ -21,7 +21,15 @@ export const AppConfig = {
   get JWT_ACCESS_EXPIRES() { return process.env.JWT_ACCESS_EXPIRES || '15m'; },
   get JWT_REFRESH_EXPIRES() { return process.env.JWT_REFRESH_EXPIRES || '7d'; },
 
-  // MinIO / S3 Object Storage
+  // Storage Driver: 'cloudinary' | 's3' (Mặc định: cloudinary)
+  get STORAGE_DRIVER() { return process.env.STORAGE_DRIVER || 'cloudinary'; },
+
+  // Cloudinary Storage
+  get CLOUDINARY_CLOUD_NAME() { return process.env.CLOUDINARY_CLOUD_NAME || ''; },
+  get CLOUDINARY_API_KEY() { return process.env.CLOUDINARY_API_KEY || ''; },
+  get CLOUDINARY_API_SECRET() { return process.env.CLOUDINARY_API_SECRET || ''; },
+
+  // MinIO / S3 Object Storage (Khi dùng STORAGE_DRIVER=s3)
   get S3_ENDPOINT() { return process.env.S3_ENDPOINT || 'http://localhost:9000'; },
   get S3_REGION() { return process.env.S3_REGION || 'us-east-1'; },
   get S3_ACCESS_KEY() { return process.env.S3_ACCESS_KEY || 'admin_minio'; },

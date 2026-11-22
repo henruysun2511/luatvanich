@@ -16,6 +16,14 @@ const schema = Joi.object({
   JWT_ACCESS_EXPIRES: Joi.string().default('15m'),
   JWT_REFRESH_EXPIRES: Joi.string().default('7d'),
 
+  // Storage Driver: 'cloudinary' | 's3'
+  STORAGE_DRIVER: Joi.string().valid('cloudinary', 's3').default('cloudinary'),
+
+  // Cloudinary
+  CLOUDINARY_CLOUD_NAME: Joi.string().allow('').default(''),
+  CLOUDINARY_API_KEY: Joi.string().allow('').default(''),
+  CLOUDINARY_API_SECRET: Joi.string().allow('').default(''),
+
   // MinIO / S3
   S3_ENDPOINT: Joi.string().default('http://localhost:9000'),
   S3_REGION: Joi.string().default('us-east-1'),
