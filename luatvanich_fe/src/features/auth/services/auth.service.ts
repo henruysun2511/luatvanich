@@ -1,5 +1,9 @@
 import { apiClient } from "@/lib/axios";
-import type { LoginInput } from "../schemas/auth.schema";
+import type {
+  LoginInput,
+  UpdateProfileInput,
+  ChangePasswordInput,
+} from "../schemas/auth.schema";
 import type { AdminUser, AuthResponse } from "../types/auth.types";
 
 const AUTH_BASE_URL = "/admin/auth";
@@ -34,5 +38,28 @@ export const authService = {
       signal: cancelSignal,
     });
     return res.data.data;
+  },
+
+  /** Cập nhật thông tin cá nhân của tài khoản hiện tại */
+  updateProfile: async (input: UpdateProfileInput): Promise<AdminUser> => {
+    const res = await apiClient.patch<{ data: AdminUser }>(
+      `${AUTH_BASE_URL}/profile`,
+      input,
+    );
+    return res.data.data;
+  },
+
+  /** Đổi mật khẩu tài khoản hiện tại */
+  changePassword: async (
+    input: Pick<ChangePasswordInput, "currentPassword" | "newPassword">,
+  ): Promise<void> => {
+    await apiClient.post(
+      `${AUTH_BASE_URL}/change-password`,
+      {
+        currentPassword: input.currentPassword,
+        newPassword: input.newPassword,
+      },
+      NO_REFRESH,
+    );
   },
 };

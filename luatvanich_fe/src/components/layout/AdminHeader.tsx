@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { User, Bell, LogOut, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { User, Bell, LogOut, Loader2, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLogout, useMe } from "@/features/auth";
 
@@ -26,9 +27,22 @@ export function AdminHeader() {
           <Bell className="size-4 text-muted-foreground" />
         </Button>
 
-        <div className="flex items-center gap-2.5 pl-2 border-l border-border">
-          <div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20">
-            <User className="size-4" />
+        <Link
+          href="/admin/settings"
+          className="flex items-center gap-2.5 pl-2 border-l border-border hover:opacity-80 transition-opacity"
+          title="Cài đặt tài khoản"
+        >
+          <div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20 overflow-hidden">
+            {user?.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={user.avatarUrl}
+                alt={user.fullName || user.username}
+                className="size-full object-cover"
+              />
+            ) : (
+              <User className="size-4" />
+            )}
           </div>
           <div className="flex flex-col text-left">
             <span className="text-xs font-semibold text-foreground leading-tight">
@@ -38,7 +52,7 @@ export function AdminHeader() {
               {user?.role || "Super Admin"}
             </span>
           </div>
-        </div>
+        </Link>
 
         <Button
           variant="ghost"

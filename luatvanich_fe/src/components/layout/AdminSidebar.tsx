@@ -14,6 +14,7 @@ import {
   Palette,
   ExternalLink,
   ShieldCheck,
+  Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ const adminNavList = [
   { href: "/admin/consultations", title: "Yêu cầu tư vấn (Leads)", icon: MessageSquareText },
   { href: "/admin/media", title: "Thư viện Media", icon: Image },
   { href: "/admin/users", title: "Tài khoản quản trị", icon: ShieldCheck },
+  { href: "/admin/settings", title: "Cài đặt tài khoản", icon: Settings },
   { href: "/admin/theme", title: "Cài đặt Theme", icon: Palette },
 ];
 
