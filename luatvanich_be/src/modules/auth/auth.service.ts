@@ -6,6 +6,8 @@ import { UserRepository } from '../users/repositories/user.repository';
 import { RefreshTokenRepository } from './repositories/refresh-token.repository';
 import { LoginDto } from './dto/request/login.dto';
 import { ChangePasswordDto } from './dto/request/change-password.dto';
+import { UpdateProfileDto } from './dto/request/update-profile.dto';
+import { UserResponseDto } from '../users/dto/response/user.dto';
 import { AppConfig } from '../../config/app.config';
 import { User } from '../users/entities/user.entity';
 import {
@@ -14,7 +16,11 @@ import {
   RefreshTokenExpiredException,
   InvalidCurrentPasswordException,
 } from './exceptions/auth.exception';
-import { UserNotFoundException } from '../users/exceptions/user.exception';
+import {
+  UserNotFoundException,
+  UserAlreadyExistsException,
+  UsernameAlreadyExistsException,
+} from '../users/exceptions/user.exception';
 
 @Injectable()
 export class AuthService {
@@ -93,6 +99,45 @@ export class AuthService {
 
     // 3. Thu hồi toàn bộ refresh token cũ của user để bắt buộc đăng nhập lại
     await this.refreshTokenRepo.revokeAllUserTokens(userId);
+  }
+
+  async updateProfile(userId: string, dto: UpdateProfileDto): Promise<UserResponseDto> {
+    const user = await this.userRepo.findById(userId);
+    if (!user) throw new UserNotFoundException(userId);
+
+    // 1. Kiểm tra email nếu có thay đổi
+    if (dto.email && dto.email.trim().toLowerCase() !== user.email) {
+      const cleanEmail = dto.email.trim().toLowerCase();
+      const exist = await this.userRepo.findByEmail(cleanEmail);
+      if (exist && exist.id !== userId) {
+        throw new UserAlreadyExistsException(cleanEmail);
+      }
+      user.email = cleanEmail;
+    }
+
+    // 2. Kiểm tra username nếu có thay đổi
+    if (dto.username && dto.username.trim().toLowerCase() !== user.username) {
+      const cleanUsername = dto.username.trim().toLowerCase();
+      const exist = await this.userRepo.findByUsername(cleanUsername);
+      if (exist && exist.id !== userId) {
+        throw new UsernameAlreadyExistsException(cleanUsername);
+      }
+      user.username = cleanUsername;
+    }
+
+    // 3. Cập nhật các trường thông tin khác
+    if (dto.fullName !== undefined) {
+      user.fullName = dto.fullName.trim();
+    }
+    if (dto.phoneNumber !== undefined) {
+      user.phoneNumber = dto.phoneNumber?.trim() || undefined;
+    }
+    if (dto.avatarUrl !== undefined) {
+      user.avatarUrl = dto.avatarUrl?.trim() || undefined;
+    }
+
+    const saved = await this.userRepo.save(user);
+    return UserResponseDto.fromEntity(saved);
   }
 
   private async generateTokenPair(user: User, userAgent?: string, ipAddress?: string) {

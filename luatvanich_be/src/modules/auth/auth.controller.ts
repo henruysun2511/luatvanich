@@ -1,10 +1,12 @@
-import { Controller, Post, Body, Req, Res, HttpCode, Get } from '@nestjs/common';
+import { Controller, Post, Patch, Body, Req, Res, HttpCode, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/request/login.dto';
 import { ChangePasswordDto } from './dto/request/change-password.dto';
+import { UpdateProfileDto } from './dto/request/update-profile.dto';
 import { AuthResponseDto } from './dto/response/auth-response.dto';
+import { UserResponseDto } from '../users/dto/response/user.dto';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../common/response/api-response';
 import { Public } from '../../common/decorators/public.decorator';
@@ -109,5 +111,25 @@ export class AuthController {
   @SwaggerDoc({ summary: 'Thông tin tài khoản hiện tại', bearerAuth: true })
   me(@CurrentUser() user: any) {
     return ApiResponse.success(user, 'OK');
+  }
+
+  /**
+   * PATCH /api/v1/admin/auth/profile
+   * Cập nhật thông tin cá nhân của tài khoản hiện tại
+   */
+  @Patch('profile')
+  @HttpCode(200)
+  @SwaggerDoc({
+    summary: 'Cập nhật thông tin cá nhân',
+    bodyType: UpdateProfileDto,
+    responseType: UserResponseDto,
+    bearerAuth: true,
+  })
+  async updateProfile(
+    @CurrentUser('id') userId: string,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    const data = await this.authService.updateProfile(userId, dto);
+    return ApiResponse.success(data, 'Cập nhật thông tin cá nhân thành công');
   }
 }

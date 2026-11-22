@@ -9,7 +9,7 @@
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
-import { Role } from '../../modules/users/entities/role.entity';
+import { Role } from '../../modules/roles/entities/role.entity';
 import { User } from '../../modules/users/entities/user.entity';
 import { DEFAULT_ROLE_DEFINITIONS, SYSTEM_ROLES } from '../../common/constants/role.constant';
 

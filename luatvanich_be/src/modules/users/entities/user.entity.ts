@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseEntity } from '../../../common/entities/base.entity';
-import { Role } from './role.entity';
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
