@@ -6,18 +6,8 @@
   <title>Bộ Sưu Tập Giao Diện – Hãng Luật Vạn Ích (万益河内)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #ffffff;
-      --text-main: #111827;
-      --text-sub: #4b5563;
-      --red-card: #b3201b;
-      --red-hover: #981b17;
-      --red-dark: #801512;
-      --card-border: #991b17;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -26,8 +16,8 @@
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
+      background-color: #ffffff;
+      color: #111827;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -36,7 +26,7 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       width: 100%;
     }
@@ -50,14 +40,14 @@
       font-family: 'Noto Serif', serif;
       font-size: clamp(28px, 4vw, 40px);
       font-weight: 700;
-      color: #b3201b;
+      color: #0b1f4a;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
     }
 
     .subtitle {
       font-size: 16px;
-      color: var(--text-sub);
+      color: #4b5563;
       max-width: 650px;
       margin: 0 auto;
       line-height: 1.6;
@@ -65,76 +55,67 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 26px;
     }
 
+    /* Base Card Structure - Solid colors, no blur, no gradient */
     .card {
-      background-color: var(--red-card);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 28px;
+      border-radius: 14px;
+      padding: 30px 26px;
       display: flex;
       flex-direction: column;
       text-decoration: none;
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(179, 32, 27, 0.15);
-      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
     }
 
     .card:hover {
-      background-color: var(--red-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(179, 32, 27, 0.25);
+      transform: translateY(-6px);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .item-tag {
       font-size: 12px;
       font-weight: 700;
-      color: #b3201b;
-      background-color: #ffffff;
       padding: 4px 10px;
       border-radius: 6px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .card-badge {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .card-style {
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 14px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
 
-    .card-number {
-      font-size: 13px;
-      font-weight: 600;
-      color: #fef2f2;
-      opacity: 0.9;
-    }
-
-    .card-title {
-      font-family: 'Noto Serif', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 6px;
-    }
-
-    .card-style {
-      font-size: 14px;
-      font-weight: 600;
-      color: #fde68a;
-      margin-bottom: 12px;
-    }
-
     .card-desc {
       font-size: 14px;
-      line-height: 1.6;
-      color: #fef2f2;
-      margin-bottom: 24px;
+      line-height: 1.65;
+      margin-bottom: 26px;
       flex-grow: 1;
-      opacity: 0.95;
     }
 
     .card-btn {
@@ -142,19 +123,12 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 20px;
+      padding: 12px 18px;
       border-radius: 8px;
-      background-color: #ffffff;
-      color: #b3201b;
       font-size: 14px;
       font-weight: 700;
-      border: none;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .card:hover .card-btn {
-      background-color: #fef2f2;
-      color: var(--red-dark);
+      border: 1.5px solid transparent;
+      transition: all 0.2s ease;
     }
 
     .card-btn svg {
@@ -166,6 +140,211 @@
     .card:hover .card-btn svg {
       transform: translateX(4px);
     }
+
+    /* =========================================================
+       PHONG CÁCH 1: NAVY & VÀNG GOLD (vanich-navy-vang.html)
+       - Nền Navy quyền uy #0b1f4a, viền vàng gold #d9a441
+       - Typo Noto Serif, nút đỏ son #b3201b
+       ========================================================= */
+    .card-1 {
+      background-color: #0b1f4a;
+      border: 2px solid #d9a441;
+      color: #fffdf8;
+      box-shadow: 0 6px 18px rgba(11, 31, 74, 0.22);
+    }
+
+    .card-1:hover {
+      box-shadow: 0 14px 28px rgba(11, 31, 74, 0.35);
+      border-color: #f0c56e;
+    }
+
+    .card-1 .item-tag {
+      background-color: #d9a441;
+      color: #071433;
+    }
+
+    .card-1 .card-badge {
+      color: #f0c56e;
+    }
+
+    .card-1 .card-title {
+      font-family: 'Noto Serif', serif;
+      color: #f0c56e;
+    }
+
+    .card-1 .card-style {
+      color: #d9a441;
+    }
+
+    .card-1 .card-desc {
+      color: #e2e8f0;
+    }
+
+    .card-1 .card-btn {
+      background-color: #b3201b;
+      color: #ffffff;
+      border-color: #b3201b;
+    }
+
+    .card-1:hover .card-btn {
+      background-color: #8f1713;
+      border-color: #d9a441;
+    }
+
+    /* =========================================================
+       PHONG CÁCH 2: ĐỎ TRUNG HOA (vanich-do-trung-hoa.html)
+       - Nền Đỏ son truyền thống #a51d22, viền đồng brass #c79a45
+       - Typo Playfair/Noto Serif SC, nút vàng đồng thau #c79a45
+       ========================================================= */
+    .card-2 {
+      background-color: #a51d22;
+      border: 2px solid #c79a45;
+      color: #fbf5ef;
+      box-shadow: 0 6px 18px rgba(165, 29, 34, 0.22);
+    }
+
+    .card-2:hover {
+      box-shadow: 0 14px 28px rgba(165, 29, 34, 0.35);
+      border-color: #e8c47a;
+    }
+
+    .card-2 .item-tag {
+      background-color: #c79a45;
+      color: #4d0a0f;
+    }
+
+    .card-2 .card-badge {
+      color: #e8c47a;
+    }
+
+    .card-2 .card-title {
+      font-family: 'Noto Serif SC', 'Noto Serif', serif;
+      color: #ffffff;
+    }
+
+    .card-2 .card-style {
+      color: #e8c47a;
+    }
+
+    .card-2 .card-desc {
+      color: #fce7e7;
+    }
+
+    .card-2 .card-btn {
+      background-color: #ffffff;
+      color: #a51d22;
+      border-color: #ffffff;
+    }
+
+    .card-2:hover .card-btn {
+      background-color: #c79a45;
+      color: #4d0a0f;
+      border-color: #e8c47a;
+    }
+
+    /* =========================================================
+       PHONG CÁCH 3: THỦY MẶC Á ĐÔNG (vanich-thuy-mac.html)
+       - Nền Khói mực sẫm #1e242d, viền xám tro #3f4857
+       - Điểm nhấn đỏ son triện ấn #a8201a, typo thanh tao
+       ========================================================= */
+    .card-3 {
+      background-color: #1e242d;
+      border: 2px solid #3f4857;
+      color: #f8fafc;
+      box-shadow: 0 6px 18px rgba(30, 36, 45, 0.22);
+    }
+
+    .card-3:hover {
+      box-shadow: 0 14px 28px rgba(30, 36, 45, 0.35);
+      border-color: #a8201a;
+    }
+
+    .card-3 .item-tag {
+      background-color: #a8201a;
+      color: #ffffff;
+    }
+
+    .card-3 .card-badge {
+      color: #94a3b8;
+    }
+
+    .card-3 .card-title {
+      font-family: 'Playfair Display', serif;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .card-3 .card-style {
+      color: #cbd5e1;
+    }
+
+    .card-3 .card-desc {
+      color: #94a3b8;
+    }
+
+    .card-3 .card-btn {
+      background-color: #ffffff;
+      color: #16181d;
+      border-color: #ffffff;
+    }
+
+    .card-3:hover .card-btn {
+      background-color: #a8201a;
+      color: #ffffff;
+      border-color: #a8201a;
+    }
+
+    /* =========================================================
+       PHONG CÁCH 4: KANZLEI CHÂU ÂU (vanich-kanzlei.html)
+       - Nền Trắng kem tối giản phong cách Đức, viền đỏ bordeaux #7f1a1a
+       - Typo Serif dứt khoát, thanh lịch chuẩn Tây Âu
+       ========================================================= */
+    .card-4 {
+      background-color: #fafaf9;
+      border: 2px solid #7f1a1a;
+      color: #1c1917;
+      box-shadow: 0 6px 18px rgba(127, 26, 26, 0.12);
+    }
+
+    .card-4:hover {
+      box-shadow: 0 14px 28px rgba(127, 26, 26, 0.22);
+      border-color: #5f1212;
+      background-color: #ffffff;
+    }
+
+    .card-4 .item-tag {
+      background-color: #7f1a1a;
+      color: #ffffff;
+    }
+
+    .card-4 .card-badge {
+      color: #7f1a1a;
+      font-weight: 700;
+    }
+
+    .card-4 .card-title {
+      font-family: 'Playfair Display', 'Noto Serif', serif;
+      color: #7f1a1a;
+    }
+
+    .card-4 .card-style {
+      color: #57534e;
+    }
+
+    .card-4 .card-desc {
+      color: #44403c;
+    }
+
+    .card-4 .card-btn {
+      background-color: #7f1a1a;
+      color: #ffffff;
+      border-color: #7f1a1a;
+    }
+
+    .card-4:hover .card-btn {
+      background-color: #5f1212;
+      border-color: #5f1212;
+    }
   </style>
 </head>
 <body>
@@ -176,60 +355,60 @@
     </header>
 
     <div class="grid">
-      <!-- MẪU 1 -->
-      <a href="vanich-navy-vang.html" class="card">
+      <!-- MẪU 1: Navy & Vàng Gold -->
+      <a href="vanich-navy-vang.html" class="card card-1">
         <div class="card-top">
           <span class="item-tag">MẪU 1</span>
-          <span class="card-number">Template 01</span>
+          <span class="card-badge">Navy & Gold</span>
         </div>
         <h2 class="card-title">Mẫu 1</h2>
-        <div class="card-style">Navy & Vàng Gold</div>
-        <p class="card-desc">Phong cách chuẩn mực của các hãng luật quốc tế: Xanh Navy quyền uy đi cùng Vàng Kim và nền kem, toát lên sự đĩnh đạc và uy tín.</p>
+        <div class="card-style">Corporate Classic</div>
+        <p class="card-desc">Phong cách chuẩn mực của các hãng luật quốc tế: Xanh Navy quyền uy `#0B1F4A` kết hợp Vàng Kim `#D9A441` và sắc đỏ gạch sang trọng.</p>
         <div class="card-btn">
           <span>Xem giao diện Mẫu 1</span>
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </div>
       </a>
 
-      <!-- MẪU 2 -->
-      <a href="vanich-do-trung-hoa.html" class="card">
+      <!-- MẪU 2: Đỏ Trung Hoa -->
+      <a href="vanich-do-trung-hoa.html" class="card card-2">
         <div class="card-top">
           <span class="item-tag">MẪU 2</span>
-          <span class="card-number">Template 02</span>
+          <span class="card-badge">Oriental Red</span>
         </div>
         <h2 class="card-title">Mẫu 2</h2>
-        <div class="card-style">Đỏ Trung Hoa</div>
-        <p class="card-desc">Sử dụng sắc Đỏ son truyền thống đậm nét văn hóa Trung Hoa đi cùng sắc Vàng kim sang trọng, tạo cảm giác thân thuộc cho doanh nghiệp Trung Quốc.</p>
+        <div class="card-style">Đỏ Son Trung Hoa</div>
+        <p class="card-desc">Sử dụng sắc Đỏ son truyền thống `#A51D22` đi cùng sắc Vàng đồng thau cổ điển, tạo cảm giác thân thuộc cho doanh nghiệp Trung Quốc.</p>
         <div class="card-btn">
           <span>Xem giao diện Mẫu 2</span>
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </div>
       </a>
 
-      <!-- MẪU 3 -->
-      <a href="vanich-thuy-mac.html" class="card">
+      <!-- MẪU 3: Thủy Mặc Á Đông -->
+      <a href="vanich-thuy-mac.html" class="card card-3">
         <div class="card-top">
           <span class="item-tag">MẪU 3</span>
-          <span class="card-number">Template 03</span>
+          <span class="card-badge">Ink & Calligraphy</span>
         </div>
         <h2 class="card-title">Mẫu 3</h2>
         <div class="card-style">Thủy Mặc Á Đông</div>
-        <p class="card-desc">Cảm hứng từ nghệ thuật thư pháp và tranh Thủy mặc Á Đông. Tông màu khói mực thanh nhã, khoảng trắng thoáng đạt và sâu sắc.</p>
+        <p class="card-desc">Cảm hứng từ nghệ thuật thư pháp và tranh Thủy mặc: Tông màu khói mực sẫm `#1E242D` kết hợp ấn triện đỏ son, mang chiều sâu uyên bác.</p>
         <div class="card-btn">
           <span>Xem giao diện Mẫu 3</span>
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </div>
       </a>
 
-      <!-- MẪU 4 -->
-      <a href="vanich-kanzlei.html" class="card">
+      <!-- MẪU 4: Kanzlei Châu Âu -->
+      <a href="vanich-kanzlei.html" class="card card-4">
         <div class="card-top">
           <span class="item-tag">MẪU 4</span>
-          <span class="card-number">Template 04</span>
+          <span class="card-badge">German Kanzlei</span>
         </div>
         <h2 class="card-title">Mẫu 4</h2>
         <div class="card-style">Kanzlei Châu Âu</div>
-        <p class="card-desc">Lấy cảm hứng từ các văn phòng luật Kanzlei của Đức và Tây Âu: Thiết kế tối giản, bố cục dứt khoát, kiểu chữ Serif sắc sảo và hiện đại.</p>
+        <p class="card-desc">Lấy cảm hứng từ các văn phòng luật Kanzlei của Đức và Tây Âu: Thiết kế tối giản tinh tế, đường nét chuẩn xác cùng sắc Đỏ rượu vang `#7F1A1A`.</p>
         <div class="card-btn">
           <span>Xem giao diện Mẫu 4</span>
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
