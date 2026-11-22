@@ -109,7 +109,6 @@ export class AuthService {
       username: user.username,
       fullName: user.fullName,
       role: (user.role as any)?.code ?? 'editor',
-      permissions: (user.role as any)?.permissions ?? [],
     };
   }
 }

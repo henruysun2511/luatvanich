@@ -15,9 +15,6 @@ export class UserSummaryDto {
 
   @ApiProperty({ example: 'superadmin' })
   role: string;
-
-  @ApiProperty({ example: ['*'] })
-  permissions: string[];
 }
 
 export class AuthResponseDto {
