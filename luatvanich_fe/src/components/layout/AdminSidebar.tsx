@@ -13,6 +13,7 @@ import {
   Image,
   Palette,
   ExternalLink,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ const adminNavList = [
   { href: "/admin/posts", title: "Cẩm nang & Bài viết", icon: FileText },
   { href: "/admin/consultations", title: "Yêu cầu tư vấn (Leads)", icon: MessageSquareText },
   { href: "/admin/media", title: "Thư viện Media", icon: Image },
+  { href: "/admin/users", title: "Tài khoản quản trị", icon: ShieldCheck },
   { href: "/admin/theme", title: "Cài đặt Theme", icon: Palette },
 ];
 
