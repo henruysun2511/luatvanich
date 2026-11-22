@@ -1,7 +1,6 @@
 import {
   Controller,
   Post,
-  Get,
   Delete,
   UploadedFile,
   UseInterceptors,
@@ -19,8 +18,7 @@ import { RequirePermission } from '../../common/decorators/require-permission.de
 @ApiTags('Media')
 @Controller({ path: 'media', version: '1' })
 export class MediaController {
-  constructor(private readonly storageService: StorageService) { }
-
+  constructor(private readonly storageService: StorageService) {}
 
   @Post('upload')
   @RequirePermission('media:write')
@@ -39,8 +37,8 @@ export class MediaController {
       },
     },
   })
-  @SwaggerDoc({ summary: 'Tải lên tệp công khai', bearerAuth: true })
-  async uploadPublic(
+  @SwaggerDoc({ summary: 'Tải lên tệp', bearerAuth: true })
+  async upload(
     @UploadedFile() file: Express.Multer.File,
     @Body('folder') folder?: string,
   ) {
@@ -49,57 +47,12 @@ export class MediaController {
     return ApiResponse.created(result, 'Tải tệp lên thành công');
   }
 
-
-  @Post('upload-private')
-  @RequirePermission('media:write')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      limits: { fileSize: 25 * 1024 * 1024 }, // 25MB
-    }),
-  )
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: { type: 'string', format: 'binary' },
-        folder: { type: 'string', example: 'consultations' },
-      },
-    },
-  })
-  @SwaggerDoc({ summary: 'Tải lên tệp bảo mật (riêng tư)', bearerAuth: true })
-  async uploadPrivate(
-    @UploadedFile() file: Express.Multer.File,
-    @Body('folder') folder?: string,
-  ) {
-    if (!file) throw new BadRequestException('Vui lòng chọn tệp để tải lên');
-    const result = await this.storageService.uploadPrivate(file, folder || 'consultations');
-    return ApiResponse.created(result, 'Tải tệp bảo mật lên thành công');
-  }
-
-  /**
-   * GET /api/v1/media/presigned-url?key=...
-   * Tạo liên kết tạm thời để xem/tải tệp bảo mật
-   */
-  @Get('presigned-url')
-  @RequirePermission('media:read')
-  @SwaggerDoc({ summary: 'Tạo liên kết truy cập tạm thời cho tệp bảo mật', bearerAuth: true })
-  async getPresignedUrl(@Query('key') key: string) {
-    if (!key) throw new BadRequestException('Thiếu tham số key');
-    const url = await this.storageService.getPresignedUrl(key, 3600); // 1 giờ
-    return ApiResponse.success({ url, expiresIn: 3600 }, 'Tạo liên kết thành công');
-  }
-
-
   @Delete()
   @RequirePermission('media:delete')
   @SwaggerDoc({ summary: 'Xóa tệp khỏi kho lưu trữ', bearerAuth: true })
-  async deleteFile(
-    @Query('key') key: string,
-    @Query('isPrivate') isPrivate?: string,
-  ) {
+  async deleteFile(@Query('key') key: string) {
     if (!key) throw new BadRequestException('Thiếu tham số key');
-    await this.storageService.deleteFile(key, isPrivate === 'true');
+    await this.storageService.deleteFile(key);
     return ApiResponse.noContent('Xóa tệp thành công');
   }
 }
