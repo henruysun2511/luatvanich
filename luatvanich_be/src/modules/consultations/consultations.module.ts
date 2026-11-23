@@ -10,6 +10,7 @@ import { ConsultationMapper } from './mapper/consultation.mapper';
 import { ConsultationsService } from './services/consultations.service';
 import { ConsultationsController } from './controllers/consultations.controller';
 import { ConsultationsAdminController } from './controllers/consultations-admin.controller';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConsultationsAdminController } from './controllers/consultations-admin.
       ConsultationAttachment,
       ConsultationNote,
     ]),
+    NotificationsModule,
   ],
   controllers: [ConsultationsController, ConsultationsAdminController],
   providers: [

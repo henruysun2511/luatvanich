@@ -157,4 +157,20 @@ export class UsersService {
 
     return UserResponseDto.fromEntity(saved);
   }
+
+  /**
+   * Lấy danh sách email của tất cả tài khoản active có vai trò Admin hoặc SuperAdmin.
+   * Dùng cho hệ thống thông báo gửi email alert khi có lead mới.
+   */
+  async getAdminEmails(): Promise<string[]> {
+    const users = await this.userRepo.findAll();
+    return users
+      .filter(
+        (u) =>
+          u.isActive &&
+          u.email &&
+          (u.role?.code === SYSTEM_ROLES.SUPERADMIN || u.role?.code === SYSTEM_ROLES.ADMIN),
+      )
+      .map((u) => u.email.trim().toLowerCase());
+  }
 }

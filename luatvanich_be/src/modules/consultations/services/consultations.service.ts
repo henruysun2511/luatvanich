@@ -15,6 +15,7 @@ import {
 import { ConsultationPublicResponseDto } from '../dto/response/consultation-public.dto';
 import { ConsultationAdminDto } from '../dto/response/consultation-admin.dto';
 import { ConsultationNoteDto } from '../dto/response/consultation-note.dto';
+import { NotificationsService } from '../../notifications/services/notifications.service';
 
 @Injectable()
 export class ConsultationsService {
@@ -23,6 +24,7 @@ export class ConsultationsService {
     private readonly attachmentRepo: ConsultationAttachmentRepository,
     private readonly noteRepo: ConsultationNoteRepository,
     private readonly mapper: ConsultationMapper,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   /**
@@ -63,6 +65,32 @@ export class ConsultationsService {
         })),
       );
     }
+
+    // Kích hoạt gửi email thông báo cho Admin (Chạy ngầm bất đồng bộ Non-blocking)
+    setImmediate(async () => {
+      try {
+        const fullDetail = await this.requestRepo.findById(createdRequest.id);
+        const mappedDto = fullDetail ? this.mapper.toAdminDto(fullDetail) : null;
+
+        await this.notificationsService.notifyNewConsultation({
+          id: createdRequest.id,
+          fullName: createdRequest.fullName,
+          companyName: createdRequest.companyName,
+          phone: createdRequest.phone,
+          email: createdRequest.email,
+          contactChannel: createdRequest.contactChannel,
+          contactChannelId: createdRequest.contactChannelId,
+          preferredContactTime: createdRequest.preferredContactTime,
+          practiceAreaName: mappedDto?.practiceAreaName ?? null,
+          lawyerName: mappedDto?.lawyerName ?? null,
+          content: createdRequest.content,
+          attachmentCount: dto.attachments?.length || 0,
+          createdAt: createdRequest.createdAt,
+        });
+      } catch {
+        // Lỗi thông báo nền không bao giờ ảnh hưởng tới response của khách
+      }
+    });
 
     return {
       id: createdRequest.id,

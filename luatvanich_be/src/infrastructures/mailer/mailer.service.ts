@@ -1,46 +1,72 @@
 import { Injectable, Logger } from '@nestjs/common';
+import * as nodemailer from 'nodemailer';
 import { AppConfig } from '../../config/app.config';
-
-export interface SendMailOptions {
-  to: string | string[];
-  subject: string;
-  html: string;
-  text?: string;
-}
+import { SendMailOptions } from './interfaces/send-mail-options.interface';
 
 /**
- * MailerService — Gửi email qua SMTP.
- * Dùng cho: xác nhận tư vấn, thông báo admin khi có lead mới.
+ * MailerService — Tầng hạ tầng gửi email qua SMTP (Nodemailer).
  */
 @Injectable()
 export class MailerService {
   private readonly logger = new Logger(MailerService.name);
+  private transporter: nodemailer.Transporter | null = null;
 
-  async send(options: SendMailOptions): Promise<void> {
-    if (!AppConfig.MAIL_USER) {
-      this.logger.warn(`[DEV] Email bị bỏ qua (chưa cấu hình MAIL_USER): ${options.subject} → ${options.to}`);
+  constructor() {
+    this.initTransporter();
+  }
+
+  private initTransporter() {
+    if (!AppConfig.MAIL_USER || !AppConfig.MAIL_PASS) {
+      this.logger.warn(
+        '[Mailer] Chưa cấu hình MAIL_USER hoặc MAIL_PASS trong .env. Email sẽ được ghi log mô phỏng.',
+      );
       return;
     }
 
     try {
-      // TODO: Tích hợp nodemailer khi có SMTP config
-      this.logger.log(`Email gửi thành công: ${options.subject} → ${options.to}`);
+      this.transporter = nodemailer.createTransport({
+        host: AppConfig.MAIL_HOST,
+        port: AppConfig.MAIL_PORT,
+        secure: AppConfig.MAIL_PORT === 465,
+        auth: {
+          user: AppConfig.MAIL_USER,
+          pass: AppConfig.MAIL_PASS,
+        },
+      });
+      this.logger.log(`[Mailer] Khởi tạo kết nối SMTP thành công tới: ${AppConfig.MAIL_HOST}:${AppConfig.MAIL_PORT}`);
     } catch (err) {
-      this.logger.error(`Lỗi gửi email: ${err}`);
+      this.logger.error(`[Mailer] Lỗi khởi tạo SMTP Transporter: ${err}`);
     }
   }
 
-  async sendConsultationConfirmation(to: string, name: string): Promise<void> {
-    await this.send({
-      to,
-      subject: 'Luật Vạn Ích — Xác nhận yêu cầu tư vấn',
-      html: `
-        <h2>Kính gửi ${name},</h2>
-        <p>Chúng tôi đã nhận được yêu cầu tư vấn của quý khách.</p>
-        <p>Đội ngũ Luật Vạn Ích sẽ liên hệ trong vòng <strong>24 giờ làm việc</strong>.</p>
-        <br/>
-        <p>Trân trọng,<br/>Luật Vạn Ích</p>
-      `,
-    });
+  /**
+   * Gửi email chung
+   */
+  async send(options: SendMailOptions): Promise<boolean> {
+    const recipients = Array.isArray(options.to) ? options.to.join(', ') : options.to;
+
+    if (!this.transporter) {
+      this.logger.log(
+        `[Mailer MÔ PHỎNG] Bắn email tới: [${recipients}] | Tiêu đề: "${options.subject}"`,
+      );
+      return true;
+    }
+
+    try {
+      const info = await this.transporter.sendMail({
+        from: AppConfig.MAIL_FROM,
+        to: options.to,
+        subject: options.subject,
+        html: options.html,
+        text: options.text,
+        replyTo: options.replyTo,
+      });
+
+      this.logger.log(`[Mailer] Đã gửi email thành công: ${info.messageId} → [${recipients}]`);
+      return true;
+    } catch (err: any) {
+      this.logger.error(`[Mailer] Gửi email thất bại tới [${recipients}]: ${err.message || err}`);
+      return false;
+    }
   }
 }
