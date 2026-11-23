@@ -154,27 +154,4 @@ export class PracticeAreaRepository {
   async softDelete(id: string, manager?: EntityManager) {
     return this.getRepo(manager).softDelete(id);
   }
-
-  /**
-   * Kiểm tra liên kết an toàn tới bảng trung gian luật sư
-   */
-  async hasLinkedLawyers(id: string, manager?: EntityManager): Promise<boolean> {
-    const mgr = manager ?? this.repo.manager;
-    const [relation] = await mgr.query(
-      "SELECT to_regclass('lawyer_practice_areas') AS junction",
-    );
-    if (!relation?.junction) return false;
-
-    const [linked] = await mgr.query(
-      `
-      SELECT EXISTS (
-        SELECT 1 FROM lawyer_practice_areas link
-        JOIN lawyers lawyer ON lawyer.id = link.lawyer_id
-        WHERE link.practice_area_id = $1 AND lawyer.deleted_at IS NULL
-      ) AS present
-    `,
-      [id],
-    );
-    return Boolean(linked?.present);
-  }
 }

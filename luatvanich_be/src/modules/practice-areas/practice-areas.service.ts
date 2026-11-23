@@ -17,7 +17,6 @@ import {
   PracticeAreaPublicDto,
 } from './dto/response/practice-area-public.dto';
 import {
-  PracticeAreaHasLawyersException,
   PracticeAreaHasServicesException,
   PracticeAreaNotFoundException,
   PracticeAreaSlugAlreadyExistsException,
@@ -149,12 +148,9 @@ export class PracticeAreasService {
         throw new PracticeAreaHasServicesException(serviceCount);
       }
 
-      // 2. Kiểm tra nếu còn luật sư liên kết -> Chặn xóa
-      if (await this.areaRepo.hasLinkedLawyers(id, manager)) {
-        throw new PracticeAreaHasLawyersException();
-      }
+      // TODO: Khi module Lawyers được triển khai, kiểm tra ràng buộc luật sư thuộc lĩnh vực này
 
-      // 3. Thực hiện xóa mềm
+      // 2. Thực hiện xóa mềm
       await this.areaRepo.softDelete(id, manager);
     });
   }

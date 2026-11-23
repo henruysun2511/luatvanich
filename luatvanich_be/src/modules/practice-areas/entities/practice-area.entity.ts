@@ -7,7 +7,7 @@ import { LegalService } from '../../legal-services/entities/legal-service.entity
 /**
  * Bảng `practice_areas` — Dữ liệu lĩnh vực chuyên môn dùng chung mọi ngôn ngữ.
  * Nội dung văn bản theo ngôn ngữ (vi, zh-CN) nằm ở bảng `practice_area_translations`.
- * Đóng vai trò là nhóm cha của `services` và là nhãn chuyên môn của `lawyers`.
+ * Đóng vai trò là nhóm cha của các dịch vụ pháp lý (`services`).
  */
 @Entity('practice_areas')
 export class PracticeArea extends BaseEntity {

@@ -31,13 +31,3 @@ export class PracticeAreaHasServicesException extends AppError {
     });
   }
 }
-
-export class PracticeAreaHasLawyersException extends AppError {
-  constructor() {
-    super({
-      code: PRACTICE_AREA_ERROR_CODE.HAS_LAWYERS,
-      message: 'Không thể xóa lĩnh vực này vì vẫn còn luật sư đang liên kết',
-      statusCode: HttpStatus.BAD_REQUEST,
-    });
-  }
-}
