@@ -31,7 +31,10 @@ export class LegalServiceRepository {
   }
 
   async findById(id: string): Promise<LegalService | null> {
-    return this.repo.findOne({ where: { id }, relations: ['translations'] });
+    return this.repo.findOne({
+      where: { id },
+      relations: ['translations', 'practiceArea', 'practiceArea.translations'],
+    });
   }
 
   /**
@@ -39,7 +42,11 @@ export class LegalServiceRepository {
    */
   async findPaginatedAdmin(query: LegalServiceQueryDto): Promise<[LegalService[], number]> {
     const { page, limit, skip } = normalizePagination(query);
-    const qb = this.repo.createQueryBuilder('s').leftJoinAndSelect('s.translations', 't');
+    const qb = this.repo
+      .createQueryBuilder('s')
+      .leftJoinAndSelect('s.translations', 't')
+      .leftJoinAndSelect('s.practiceArea', 'pa')
+      .leftJoinAndSelect('pa.translations', 'pat');
 
     if (query.status) qb.andWhere('s.status = :status', { status: query.status });
     if (query.practiceAreaId) qb.andWhere('s.practiceAreaId = :practiceAreaId', { practiceAreaId: query.practiceAreaId });

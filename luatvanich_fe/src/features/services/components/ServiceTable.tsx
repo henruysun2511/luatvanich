@@ -1,10 +1,7 @@
 "use client";
 
-import React from "react";
-import { ArrowDown, ArrowUp, ArrowUpDown, Pencil, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import React, { useState } from "react";
+import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -13,141 +10,248 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SERVICE_STATUS_BADGES } from "../constants/service.constants";
-import type {
-  LegalServiceItem,
-  ServiceSortField,
-} from "../types/service.types";
-import { formatDate } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import {
+  useUpdateLegalService,
+  useUpdateLegalServiceStatus,
+} from "../queries/useServiceQuery";
+import type { LegalServiceItem } from "../types/service.types";
+import {
+  Briefcase,
+  Edit2,
+  Trash2,
+  Star,
+  Loader2,
+  Scale,
+} from "lucide-react";
 
 interface ServiceTableProps {
-  items: LegalServiceItem[];
+  services: LegalServiceItem[];
   isLoading: boolean;
-  skeletonCount?: number;
-  sortField?: ServiceSortField;
-  sortDirection?: "asc" | "desc";
-  onSortChange: (field: ServiceSortField) => void;
-  onEditItem: (item: LegalServiceItem) => void;
-  onDeleteItem: (item: LegalServiceItem) => void;
+  onEdit: (item: LegalServiceItem) => void;
+  onDelete: (item: LegalServiceItem) => void;
 }
 
 export function ServiceTable({
-  items,
+  services,
   isLoading,
-  skeletonCount = 5,
-  sortField,
-  sortDirection,
-  onSortChange,
-  onEditItem,
-  onDeleteItem,
+  onEdit,
+  onDelete,
 }: ServiceTableProps) {
-  const renderSortHeader = (field: ServiceSortField, label: string) => {
-    const isCurrent = sortField === field;
-    const Icon = !isCurrent
-      ? ArrowUpDown
-      : sortDirection === "desc"
-      ? ArrowDown
-      : ArrowUp;
+  const updateMutation = useUpdateLegalService();
+  const statusMutation = useUpdateLegalServiceStatus();
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
-    return (
-      <TableHead>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="-ml-3 h-8 text-xs font-semibold"
-          onClick={() => onSortChange(field)}
-        >
-          {label}
-          <Icon className="size-3.5 ml-1" />
-        </Button>
-      </TableHead>
-    );
+  const handleToggleStatus = async (item: LegalServiceItem) => {
+    const nextStatus = item.status === "published" ? "draft" : "published";
+    setUpdatingId(item.id);
+    try {
+      await statusMutation.mutateAsync({
+        id: item.id,
+        status: nextStatus,
+      });
+    } finally {
+      setUpdatingId(null);
+    }
   };
 
+  const handleToggleFeatured = async (item: LegalServiceItem) => {
+    setUpdatingId(item.id);
+    try {
+      await updateMutation.mutateAsync({
+        id: item.id,
+        payload: { isFeatured: !item.isFeatured },
+      });
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  if (isLoading && services.length === 0) {
+    return (
+      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+        <Loader2 className="size-6 animate-spin text-primary" />
+        <span className="text-sm text-muted-foreground">
+          Đang tải danh sách dịch vụ pháp lý...
+        </span>
+      </div>
+    );
+  }
+
+  if (services.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
+        <Briefcase className="size-12 text-muted-foreground/50 mb-3" />
+        <h3 className="font-semibold text-foreground text-base">
+          Chưa có dịch vụ pháp lý nào
+        </h3>
+        <p className="text-sm text-muted-foreground mt-1 max-w-sm">
+          Bấm nút "Thêm mới dịch vụ" để bắt đầu đăng tải các gói tư vấn chuyên sâu cho khách hàng.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="rounded-md border bg-card">
+    <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
       <Table>
-        <TableHeader>
+        <TableHeader className="bg-muted/50">
           <TableRow>
-            <TableHead className="w-16 text-center">STT</TableHead>
-            <TableHead className="w-24">Mã</TableHead>
-            {renderSortHeader("titleVi", "Tên dịch vụ")}
-            <TableHead>Lĩnh vực chuyên môn</TableHead>
-            <TableHead>Trạng thái</TableHead>
-            {renderSortHeader("createdAt", "Ngày tạo")}
-            <TableHead className="w-24 text-right">Thao tác</TableHead>
+            <TableHead className="w-14 text-center">#</TableHead>
+            <TableHead className="w-20 text-center">Ảnh bìa</TableHead>
+            <TableHead className="min-w-[260px]">Dịch vụ pháp lý</TableHead>
+            <TableHead className="min-w-[180px]">Lĩnh vực chuyên môn</TableHead>
+            <TableHead className="w-24 text-center">Nổi bật</TableHead>
+            <TableHead className="w-20 text-center">Thứ tự</TableHead>
+            <TableHead className="w-28 text-center">Trạng thái</TableHead>
+            <TableHead className="w-24 text-right pr-4">Thao tác</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {isLoading
-            ? Array.from({ length: skeletonCount }).map((_, idx) => (
-                <TableRow key={idx}>
-                  {Array.from({ length: 7 }).map((__, colIdx) => (
-                    <TableCell key={colIdx}>
-                      <Skeleton className="h-5 w-full" />
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            : items.map((service) => {
-                const statusConfig = SERVICE_STATUS_BADGES.find(
-                  (b) => b.value === service.status,
-                );
+          {services.map((item, idx) => {
+            const vi = item.translations?.find((t) => t.languageCode === "vi");
+            const zh = item.translations?.find((t) => t.languageCode === "zh-CN");
+            const isUpdating =
+              (updateMutation.isPending || statusMutation.isPending) &&
+              updatingId === item.id;
 
-                return (
-                  <TableRow key={service.id}>
-                    <TableCell className="text-center font-mono text-xs">
-                      {service.displayOrder}
-                    </TableCell>
-                    <TableCell className="font-mono text-xs font-semibold text-primary">
-                      {service.code}
-                    </TableCell>
-                    <TableCell>
-                      <div className="font-medium text-foreground">
-                        {service.titleVi}
-                      </div>
-                      {service.titleZh && (
-                        <div className="text-xs text-muted-foreground">
-                          {service.titleZh}
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-xs">
-                      <span className="inline-block px-2 py-0.5 rounded bg-muted">
-                        {service.practiceArea}
+            return (
+              <TableRow key={item.id} className="hover:bg-muted/30 transition-colors">
+                {/* 1. STT */}
+                <TableCell className="text-center text-xs text-muted-foreground font-mono">
+                  {idx + 1}
+                </TableCell>
+
+                {/* 2. Ảnh bìa */}
+                <TableCell className="text-center">
+                  <div className="size-12 rounded-md border border-border bg-muted/40 flex items-center justify-center mx-auto overflow-hidden relative">
+                    {item.coverImageUrl ? (
+                      <Image
+                        src={item.coverImageUrl}
+                        alt={vi?.title || "Cover"}
+                        width={48}
+                        height={48}
+                        className="object-cover size-12"
+                        unoptimized
+                      />
+                    ) : (
+                      <Briefcase className="size-5 text-muted-foreground/60" />
+                    )}
+                  </div>
+                </TableCell>
+
+                {/* 3. Tên dịch vụ & Slug */}
+                <TableCell>
+                  <div className="flex flex-col gap-1">
+                    <span className="font-semibold text-foreground text-sm">
+                      {vi?.title || "Chưa đặt tên"}
+                    </span>
+
+                    {zh?.title && (
+                      <span className="text-xs text-muted-foreground font-serif">
+                        {zh.title}
                       </span>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={statusConfig?.badgeStyle ?? "outline"}>
-                        {statusConfig?.text ?? service.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-xs text-muted-foreground">
-                      {formatDate(service.createdAt)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-8"
-                        onClick={() => onEditItem(service)}
-                        aria-label={`Sửa ${service.titleVi}`}
-                      >
-                        <Pencil className="size-3.5" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-8 text-destructive hover:text-destructive"
-                        onClick={() => onDeleteItem(service)}
-                        aria-label={`Xóa ${service.titleVi}`}
-                      >
-                        <Trash2 className="size-3.5" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                    )}
+
+                    {vi?.slug && (
+                      <span className="text-[11px] font-mono text-muted-foreground">
+                        /{vi.slug}
+                      </span>
+                    )}
+                  </div>
+                </TableCell>
+
+                {/* 4. Lĩnh vực chuyên môn */}
+                <TableCell>
+                  {item.practiceArea?.name ? (
+                    <Badge variant="outline" className="gap-1 font-normal text-xs bg-primary/5 text-primary border-primary/20">
+                      <Scale className="size-3 shrink-0" />
+                      <span>{item.practiceArea.name}</span>
+                    </Badge>
+                  ) : (
+                    <span className="text-xs text-muted-foreground italic">
+                      Chưa phân nhóm
+                    </span>
+                  )}
+                </TableCell>
+
+                {/* 5. Nổi bật */}
+                <TableCell className="text-center">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-8"
+                    onClick={() => handleToggleFeatured(item)}
+                    disabled={isUpdating}
+                    title={item.isFeatured ? "Đang nổi bật (Click để bỏ)" : "Đặt làm nổi bật"}
+                  >
+                    <Star
+                      className={`size-4 ${
+                        item.isFeatured
+                          ? "fill-amber-400 text-amber-500"
+                          : "text-muted-foreground/40"
+                      }`}
+                    />
+                  </Button>
+                </TableCell>
+
+                {/* 6. Thứ tự */}
+                <TableCell className="text-center font-mono text-xs text-muted-foreground">
+                  {item.displayOrder}
+                </TableCell>
+
+                {/* 7. Trạng thái */}
+                <TableCell className="text-center">
+                  <div className="flex items-center justify-center gap-2">
+                    <Switch
+                      checked={item.status === "published"}
+                      onCheckedChange={() => handleToggleStatus(item)}
+                      disabled={isUpdating}
+                    />
+                    <span
+                      className={`text-[11px] font-medium ${
+                        item.status === "published"
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : item.status === "draft"
+                          ? "text-amber-600 dark:text-amber-400"
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.status === "published"
+                        ? "Hiển thị"
+                        : item.status === "draft"
+                        ? "Bản nháp"
+                        : "Lưu trữ"}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* 8. Thao tác */}
+                <TableCell className="text-right pr-4">
+                  <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-foreground"
+                      onClick={() => onEdit(item)}
+                    >
+                      <Edit2 className="size-3.5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-destructive"
+                      onClick={() => onDelete(item)}
+                    >
+                      <Trash2 className="size-3.5" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

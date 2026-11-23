@@ -72,6 +72,8 @@ export class LegalServicesService {
     const entity = this.serviceRepo.create({
       practiceAreaId: dto.practiceAreaId,
       isFeatured: dto.isFeatured ?? false,
+      coverImageUrl: dto.coverImageUrl,
+      displayOrder: dto.displayOrder ?? 0,
       status: ContentStatus.DRAFT,
     });
     const saved = await this.serviceRepo.save(entity, dto.practiceAreaId);
@@ -109,6 +111,8 @@ export class LegalServicesService {
 
     if (dto.practiceAreaId !== undefined) service.practiceAreaId = dto.practiceAreaId;
     if (dto.isFeatured !== undefined) service.isFeatured = dto.isFeatured;
+    if (dto.coverImageUrl !== undefined) service.coverImageUrl = dto.coverImageUrl;
+    if (dto.displayOrder !== undefined) service.displayOrder = dto.displayOrder;
     await this.serviceRepo.save(service, dto.practiceAreaId);
 
     // Cập nhật bản dịch tiếng Việt nếu có

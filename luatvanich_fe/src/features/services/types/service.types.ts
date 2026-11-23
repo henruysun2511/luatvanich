@@ -1,38 +1,56 @@
 export type ServicePublishStatus = "published" | "draft" | "archived";
 
+export interface ServiceTranslationSummaryItem {
+  languageCode: "vi" | "zh-CN";
+  title: string;
+  slug: string;
+  isComplete: boolean;
+}
+
 export interface LegalServiceItem {
   id: string;
-  code: string;
-  titleVi: string;
-  titleZh?: string;
-  slugVi: string;
-  slugZh?: string;
-  practiceArea: string;
-  summaryVi: string;
-  summaryZh?: string;
-  displayOrder: number;
+  practiceAreaId?: string | null;
+  practiceArea?: {
+    id: string;
+    name: string;
+  } | null;
   status: ServicePublishStatus;
+  displayOrder: number;
   isFeatured: boolean;
+  coverImageUrl?: string | null;
+  translations: ServiceTranslationSummaryItem[];
   createdAt: string;
   updatedAt: string;
 }
 
-export type CreateServicePayload = Omit<
-  LegalServiceItem,
-  "id" | "createdAt" | "updatedAt"
->;
+export interface PaginatedLegalServicesResponse {
+  items: LegalServiceItem[];
+  total: number;
+  page: number;
+  limit: number;
+}
 
-export type UpdateServicePayload = Partial<CreateServicePayload>;
-
-export type ServiceSortField = "displayOrder" | "titleVi" | "createdAt";
-
-export interface ServiceFilterCriteria {
+export interface LegalServiceQueryParams {
   page?: number;
   limit?: number;
-  searchTerm?: string;
-  practiceArea?: string;
+  q?: string;
   status?: ServicePublishStatus;
-  sortField?: ServiceSortField;
-  sortDirection?: "asc" | "desc";
-  lang?: "vi" | "zh-CN";
+  practiceAreaId?: string;
+  isFeatured?: boolean;
 }
+
+export interface CreateLegalServiceInput {
+  practiceAreaId?: string | null;
+  coverImageUrl?: string | null;
+  displayOrder?: number;
+  isFeatured?: boolean;
+  titleVi: string;
+  slugVi?: string;
+  excerptVi?: string | null;
+  contentHtmlVi?: string | null;
+  titleZh?: string | null;
+  slugZh?: string | null;
+  excerptZh?: string | null;
+}
+
+export type UpdateLegalServiceInput = Partial<CreateLegalServiceInput>;

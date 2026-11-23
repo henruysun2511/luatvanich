@@ -1,7 +1,6 @@
 "use client";
 
-import React, { type MouseEvent } from "react";
-import { Loader2 } from "lucide-react";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,53 +13,64 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useDeleteLegalService } from "../queries/useServiceQuery";
 import type { LegalServiceItem } from "../types/service.types";
+import { Loader2, AlertTriangle } from "lucide-react";
 
 interface DeleteServiceDialogProps {
-  targetService: LegalServiceItem | null;
-  onDismiss: () => void;
-  onSuccessfullyDeleted?: () => void;
+  service: LegalServiceItem | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function DeleteServiceDialog({
-  targetService,
-  onDismiss,
-  onSuccessfullyDeleted,
+  service,
+  open,
+  onOpenChange,
 }: DeleteServiceDialogProps) {
-  const { mutate: executeDelete, isPending } = useDeleteLegalService();
+  const deleteMutation = useDeleteLegalService();
 
-  const handleConfirmDelete = (e: MouseEvent) => {
-    e.preventDefault();
-    if (!targetService) return;
+  if (!service) return null;
 
-    executeDelete(targetService.id, {
-      onSuccess: () => {
-        onDismiss();
-        onSuccessfullyDeleted?.();
-      },
-    });
+  const serviceTitle =
+    service.translations?.find((t) => t.languageCode === "vi")?.title ||
+    service.translations?.[0]?.title ||
+    "Dịch vụ này";
+
+  const handleDelete = async () => {
+    await deleteMutation.mutateAsync(service.id);
+    onOpenChange(false);
   };
 
   return (
-    <AlertDialog
-      open={Boolean(targetService)}
-      onOpenChange={(open) => !open && !isPending && onDismiss()}
-    >
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xác nhận xóa dịch vụ pháp lý?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Dịch vụ <strong>{targetService?.titleVi}</strong> (Mã: {targetService?.code}) sẽ bị xóa vĩnh viễn khỏi hệ thống.
+          <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+            <AlertTriangle className="size-5" />
+            Xác nhận xóa dịch vụ pháp lý
+          </AlertDialogTitle>
+          <AlertDialogDescription className="space-y-2">
+            <span>
+              Bạn có chắc chắn muốn xóa dịch vụ <strong>{serviceTitle}</strong>?
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              Thao tác này sẽ chuyển dịch vụ vào trạng thái xóa mềm. Lưu ý: dịch vụ đang xuất bản sẽ được tự động chuyển sang lưu trữ trước khi xóa.
+            </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Hủy bỏ</AlertDialogCancel>
+          <AlertDialogCancel disabled={deleteMutation.isPending}>Hủy</AlertDialogCancel>
           <AlertDialogAction
-            onClick={handleConfirmDelete}
-            disabled={isPending}
-            className="bg-destructive text-white hover:bg-destructive/90"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete();
+            }}
+            disabled={deleteMutation.isPending}
+            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
           >
-            {isPending && <Loader2 className="size-4 animate-spin mr-1" />}
-            Xóa vĩnh viễn
+            {deleteMutation.isPending && (
+              <Loader2 className="mr-2 size-4 animate-spin" />
+            )}
+            Xác nhận xóa
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

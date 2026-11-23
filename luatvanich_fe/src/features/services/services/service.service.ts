@@ -1,57 +1,92 @@
 import { apiClient } from "@/lib/axios";
-import type { PagedListResponse, SingleItemResponse } from "@/types/api";
 import type {
-  CreateServicePayload,
+  PaginatedLegalServicesResponse,
   LegalServiceItem,
-  ServiceFilterCriteria,
-  UpdateServicePayload,
+  LegalServiceQueryParams,
+  CreateLegalServiceInput,
+  UpdateLegalServiceInput,
+  ServicePublishStatus,
 } from "../types/service.types";
 
-const SERVICES_ENDPOINT = "/services";
+const SERVICES_ADMIN_URL = "/admin/services";
+const SERVICES_PUBLIC_URL = "/services";
 
-function cleanServiceFilterParams(criteria?: ServiceFilterCriteria) {
-  if (!criteria) return undefined;
-  return Object.fromEntries(
-    Object.entries(criteria).filter(
-      ([, val]) => val !== undefined && val !== null && val !== "",
-    ),
-  );
-}
-
-export const legalServicesApi = {
-  fetchList: async (criteria?: ServiceFilterCriteria, cancelSignal?: AbortSignal) => {
-    const { data } = await apiClient.get<PagedListResponse<LegalServiceItem>>(
-      SERVICES_ENDPOINT,
-      {
-        params: cleanServiceFilterParams(criteria),
-        signal: cancelSignal,
-      },
+export const legalServicesService = {
+  /** Admin: Lấy danh sách dịch vụ pháp lý phân trang */
+  getAdminServices: async (
+    params?: LegalServiceQueryParams,
+  ): Promise<PaginatedLegalServicesResponse> => {
+    const res = await apiClient.get<{ data: PaginatedLegalServicesResponse }>(
+      SERVICES_ADMIN_URL,
+      { params },
     );
-    return data;
+    return res.data.data;
   },
 
-  fetchById: async (serviceId: string, cancelSignal?: AbortSignal) => {
-    const { data } = await apiClient.get<SingleItemResponse<LegalServiceItem>>(
-      `${SERVICES_ENDPOINT}/${serviceId}`,
-      { signal: cancelSignal },
+  /** Admin: Chi tiết một dịch vụ */
+  getAdminServiceDetail: async (id: string): Promise<LegalServiceItem> => {
+    const res = await apiClient.get<{ data: LegalServiceItem }>(
+      `${SERVICES_ADMIN_URL}/${id}`,
     );
-    return data;
+    return res.data.data;
   },
 
-  createItem: async (payload: CreateServicePayload) => {
-    const { data } = await apiClient.post<LegalServiceItem>(SERVICES_ENDPOINT, payload);
-    return data;
-  },
-
-  updateItem: async (serviceId: string, payload: UpdateServicePayload) => {
-    const { data } = await apiClient.put<LegalServiceItem>(
-      `${SERVICES_ENDPOINT}/${serviceId}`,
+  /** Admin: Tạo mới dịch vụ */
+  createService: async (
+    payload: CreateLegalServiceInput,
+  ): Promise<LegalServiceItem> => {
+    const res = await apiClient.post<{ data: LegalServiceItem }>(
+      SERVICES_ADMIN_URL,
       payload,
     );
-    return data;
+    return res.data.data;
   },
 
-  removeItem: async (serviceId: string) => {
-    await apiClient.delete(`${SERVICES_ENDPOINT}/${serviceId}`);
+  /** Admin: Cập nhật dịch vụ */
+  updateService: async (
+    id: string,
+    payload: UpdateLegalServiceInput,
+  ): Promise<LegalServiceItem> => {
+    const res = await apiClient.patch<{ data: LegalServiceItem }>(
+      `${SERVICES_ADMIN_URL}/${id}`,
+      payload,
+    );
+    return res.data.data;
+  },
+
+  /** Admin: Cập nhật nhanh trạng thái */
+  updateStatus: async (
+    id: string,
+    status: ServicePublishStatus,
+  ): Promise<LegalServiceItem> => {
+    const res = await apiClient.patch<{ data: LegalServiceItem }>(
+      `${SERVICES_ADMIN_URL}/${id}/status`,
+      { status },
+    );
+    return res.data.data;
+  },
+
+  /** Admin: Đổi thứ tự hiển thị */
+  reorderServices: async (ids: string[]): Promise<void> => {
+    await apiClient.patch(`${SERVICES_ADMIN_URL}/reorder`, { ids });
+  },
+
+  /** Admin: Xóa mềm dịch vụ */
+  deleteService: async (id: string): Promise<void> => {
+    await apiClient.delete(`${SERVICES_ADMIN_URL}/${id}`);
+  },
+
+  /** Public: Lấy danh sách dịch vụ công khai */
+  getPublicServices: async (
+    lang = "vi",
+    practiceAreaId?: string,
+  ): Promise<LegalServiceItem[]> => {
+    const res = await apiClient.get<{ data: LegalServiceItem[] }>(
+      SERVICES_PUBLIC_URL,
+      {
+        params: { lang, practiceAreaId },
+      },
+    );
+    return res.data.data;
   },
 };

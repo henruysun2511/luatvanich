@@ -11,6 +11,7 @@ export class TranslationSummaryDto {
 export class LegalServiceAdminDto {
   @ApiProperty() id: string;
   @ApiPropertyOptional() practiceAreaId?: string;
+  @ApiPropertyOptional() practiceArea?: { id: string; name: string } | null;
   @ApiProperty({ enum: ContentStatus }) status: ContentStatus;
   @ApiProperty() displayOrder: number;
   @ApiProperty() isFeatured: boolean;

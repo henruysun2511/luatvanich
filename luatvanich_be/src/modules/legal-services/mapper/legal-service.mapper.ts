@@ -14,6 +14,15 @@ export class LegalServiceMapper {
     return {
       id: entity.id,
       practiceAreaId: entity.practiceAreaId,
+      practiceArea: entity.practiceArea
+        ? {
+            id: entity.practiceArea.id,
+            name:
+              entity.practiceArea.translations?.find((t) => t.languageCode === LangCode.VI)?.name ||
+              entity.practiceArea.translations?.[0]?.name ||
+              '',
+          }
+        : null,
       status: entity.status,
       displayOrder: entity.displayOrder,
       isFeatured: entity.isFeatured,

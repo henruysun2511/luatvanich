@@ -8,6 +8,16 @@ export class CreateLegalServiceDto {
   @IsOptional()
   practiceAreaId?: string;
 
+  @ApiPropertyOptional({ description: 'URL ảnh đại diện / ảnh bìa dịch vụ' })
+  @IsString()
+  @IsOptional()
+  @MaxLength(500)
+  coverImageUrl?: string;
+
+  @ApiPropertyOptional({ default: 0, description: 'Thứ tự sắp xếp hiển thị' })
+  @IsOptional()
+  displayOrder?: number;
+
   @ApiPropertyOptional({ default: false })
   @IsBoolean()
   @IsOptional()

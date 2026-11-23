@@ -1,15 +1,7 @@
-export { ServiceList } from "./components/ServiceList";
-export { legalServicesApi } from "./services/service.service";
-export {
-  serviceQueryKeys,
-  useLegalServices,
-  useLegalServiceDetail,
-  useCreateLegalService,
-  useUpdateLegalService,
-  useDeleteLegalService,
-} from "./queries/useServiceQuery";
-export type {
-  LegalServiceItem,
-  ServicePublishStatus,
-  ServiceFilterCriteria,
-} from "./types/service.types";
+export * from "./types/service.types";
+export * from "./schemas/service.schema";
+export * from "./services/service.service";
+export * from "./queries/useServiceQuery";
+export * from "./components/ServiceTable";
+export * from "./components/ServiceFormDialog";
+export * from "./components/DeleteServiceDialog";
