@@ -46,6 +46,7 @@ export const PERMISSIONS = {
   // Consultations / Leads
   CONSULTATIONS_READ: 'consultations:read',
   CONSULTATIONS_WRITE: 'consultations:write',
+  CONSULTATIONS_DELETE: 'consultations:delete',
 
   // Settings & Theme
   SETTINGS_READ: 'settings:read',
