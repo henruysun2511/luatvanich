@@ -74,7 +74,7 @@ export class LegalServicesService {
       isFeatured: dto.isFeatured ?? false,
       status: ContentStatus.DRAFT,
     });
-    const saved = await this.serviceRepo.save(entity);
+    const saved = await this.serviceRepo.save(entity, dto.practiceAreaId);
 
     // Tạo bản dịch tiếng Việt (bắt buộc)
     await this.translationRepo.upsert({
@@ -109,7 +109,7 @@ export class LegalServicesService {
 
     if (dto.practiceAreaId !== undefined) service.practiceAreaId = dto.practiceAreaId;
     if (dto.isFeatured !== undefined) service.isFeatured = dto.isFeatured;
-    await this.serviceRepo.save(service);
+    await this.serviceRepo.save(service, dto.practiceAreaId);
 
     // Cập nhật bản dịch tiếng Việt nếu có
     if (dto.titleVi) {

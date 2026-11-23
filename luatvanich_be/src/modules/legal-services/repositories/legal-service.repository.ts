@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PracticeArea } from '../../practice-areas/entities/practice-area.entity';
 import { LegalService } from '../entities/legal-service.entity';
 import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
 import { ContentStatus } from '../../../common/enums/content-status.enum';
@@ -17,8 +18,16 @@ export class LegalServiceRepository {
     return this.repo.create(data);
   }
 
-  async save(entity: LegalService): Promise<LegalService> {
-    return this.repo.save(entity);
+  async save(entity: LegalService, assignedAreaId?: string): Promise<LegalService> {
+    if (!assignedAreaId) return this.repo.save(entity);
+    return this.repo.manager.transaction(async (manager) => {
+      const area = await manager.findOne(PracticeArea, {
+        where: { id: assignedAreaId },
+        lock: { mode: 'pessimistic_read' },
+      });
+      if (!area) throw new BadRequestException('Lĩnh vực pháp lý không tồn tại hoặc đã bị xóa');
+      return manager.save(LegalService, entity);
+    });
   }
 
   async findById(id: string): Promise<LegalService | null> {

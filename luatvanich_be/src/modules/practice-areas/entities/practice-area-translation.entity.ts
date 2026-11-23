@@ -29,15 +29,15 @@ export class PracticeAreaTranslation {
 
   /** Mô tả khái quát về lĩnh vực pháp lý */
   @Column({ type: 'text', nullable: true })
-  description?: string;
+  description?: string | null;
 
   /** SEO meta title */
-  @Column({ name: 'meta_title', nullable: true, length: 70 })
-  metaTitle?: string;
+  @Column({ name: 'meta_title', type: 'varchar', nullable: true, length: 70 })
+  metaTitle?: string | null;
 
   /** SEO meta description */
-  @Column({ name: 'meta_description', nullable: true, length: 160 })
-  metaDescription?: string;
+  @Column({ name: 'meta_description', type: 'varchar', nullable: true, length: 160 })
+  metaDescription?: string | null;
 
   /** Bản dịch đã hoàn thiện hay đang nháp */
   @Column({ name: 'is_complete', default: false })
