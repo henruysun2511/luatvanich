@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager, QueryFailedError } from 'typeorm';
-import { ContentStatus } from '../../common/enums/content-status.enum';
 import { LangCode } from '../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../common/response/api-response';
 import { normalizePagination } from '../../common/utils/pagination.util';
 import { generateViSlug, generateZhSlug } from '../../common/utils/slug.util';
-import { LegalService } from '../legal-services/entities/legal-service.entity';
+import { LegalServiceRepository } from '../legal-services/repositories/legal-service.repository';
 import { LegalServiceMapper } from '../legal-services/mapper/legal-service.mapper';
 import { CreatePracticeAreaDto } from './dto/request/create-practice-area.dto';
 import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
 import { PracticeAreaOrderItemDto } from './dto/request/reorder-practice-area.dto';
 import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
 import { UpsertPracticeAreaTranslationDto } from './dto/request/upsert-practice-area-translation.dto';
-import {
-  PracticeAreaAdminDto,
-} from './dto/response/practice-area-admin.dto';
+import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
 import {
   PracticeAreaDetailPublicDto,
   PracticeAreaPublicDto,
 } from './dto/response/practice-area-public.dto';
-import { PracticeArea } from './entities/practice-area.entity';
-import { PracticeAreaTranslation } from './entities/practice-area-translation.entity';
 import {
   PracticeAreaHasLawyersException,
   PracticeAreaHasServicesException,
@@ -36,8 +31,9 @@ import { PracticeAreaTranslationRepository } from './repositories/practice-area-
 export class PracticeAreasService {
   constructor(
     private readonly dataSource: DataSource,
-    private readonly areas: PracticeAreaRepository,
-    private readonly translations: PracticeAreaTranslationRepository,
+    private readonly areaRepo: PracticeAreaRepository,
+    private readonly translationRepo: PracticeAreaTranslationRepository,
+    private readonly legalServiceRepo: LegalServiceRepository,
     private readonly mapper: PracticeAreaMapper,
     private readonly serviceMapper: LegalServiceMapper,
   ) {}
@@ -46,7 +42,7 @@ export class PracticeAreasService {
    * Danh sách lĩnh vực công khai (đã xuất bản)
    */
   async findAllPublic(lang: LangCode, featured?: boolean): Promise<PracticeAreaPublicDto[]> {
-    const list = await this.areas.findPublicList(lang, featured);
+    const list = await this.areaRepo.findPublicList(lang, featured);
     return list.map((area) => this.mapper.toPublicDto(area, lang));
   }
 
@@ -54,14 +50,10 @@ export class PracticeAreasService {
    * Chi tiết lĩnh vực theo slug và danh sách dịch vụ trực thuộc
    */
   async findBySlug(slug: string, lang: LangCode): Promise<PracticeAreaDetailPublicDto> {
-    const area = await this.areas.findBySlugAndLang(slug, lang);
+    const area = await this.areaRepo.findBySlugAndLang(slug, lang);
     if (!area) throw new PracticeAreaNotFoundException(slug);
 
-    const services = await this.dataSource.getRepository(LegalService).find({
-      where: { practiceAreaId: area.id, status: ContentStatus.PUBLISHED },
-      relations: { translations: true },
-      order: { displayOrder: 'ASC', id: 'ASC' },
-    });
+    const services = await this.legalServiceRepo.findPublishedByPracticeArea(area.id);
 
     return {
       ...this.mapper.toPublicDto(area, lang),
@@ -75,7 +67,7 @@ export class PracticeAreasService {
    */
   async findAllAdmin(query: PracticeAreaQueryDto): Promise<PaginatedResponse<PracticeAreaAdminDto>> {
     const { page, limit } = normalizePagination(query);
-    const [list, total] = await this.areas.findAdminList(query);
+    const [list, total] = await this.areaRepo.findAdminList(query);
     const items = list.map((area) => this.mapper.toAdminDto(area));
     return PaginatedResponse.of(items, total, page, limit);
   }
@@ -84,7 +76,7 @@ export class PracticeAreasService {
    * Chi tiết lĩnh vực quản trị theo ID
    */
   async findByIdAdmin(id: string, manager?: EntityManager): Promise<PracticeAreaAdminDto> {
-    const area = await this.areas.findWithTranslations(id, manager);
+    const area = await this.areaRepo.findWithTranslations(id, manager);
     if (!area) throw new PracticeAreaNotFoundException(id);
     return this.mapper.toAdminDto(area);
   }
@@ -95,9 +87,9 @@ export class PracticeAreasService {
   async create(dto: CreatePracticeAreaDto): Promise<PracticeAreaAdminDto> {
     return this.dataSource.transaction(async (manager) => {
       const { translations, ...fields } = dto;
-      const area = await manager.save(
-        PracticeArea,
-        manager.create(PracticeArea, fields),
+      const area = await this.areaRepo.save(
+        this.areaRepo.create(fields),
+        manager,
       );
 
       for (const translation of translations) {
@@ -113,11 +105,13 @@ export class PracticeAreasService {
    */
   async update(id: string, dto: UpdatePracticeAreaDto): Promise<PracticeAreaAdminDto> {
     return this.dataSource.transaction(async (manager) => {
-      const area = await this.lockArea(manager, id);
+      const area = await this.areaRepo.findByIdWithLock(id, manager);
+      if (!area) throw new PracticeAreaNotFoundException(id);
+
       const { translations, ...fields } = dto;
 
       if (Object.keys(fields).length > 0) {
-        await manager.update(PracticeArea, id, fields);
+        await this.areaRepo.update(id, fields, manager);
       }
 
       for (const translation of translations ?? []) {
@@ -137,7 +131,7 @@ export class PracticeAreasService {
         a.id.toLowerCase().localeCompare(b.id.toLowerCase()),
       );
       for (const { id, displayOrder } of ordered) {
-        const result = await this.areas.updateOrder(id, displayOrder, manager);
+        const result = await this.areaRepo.updateOrder(id, displayOrder, manager);
         if (!result.affected) throw new PracticeAreaNotFoundException(id);
       }
     });
@@ -148,21 +142,22 @@ export class PracticeAreasService {
    */
   async delete(id: string): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
-      await this.lockArea(manager, id);
+      const area = await this.areaRepo.findByIdWithLock(id, manager);
+      if (!area) throw new PracticeAreaNotFoundException(id);
 
       // 1. Kiểm tra nếu còn dịch vụ pháp lý trực thuộc -> Chặn xóa
-      const serviceCount = await manager.countBy(LegalService, { practiceAreaId: id });
+      const serviceCount = await this.legalServiceRepo.countByPracticeArea(id, manager);
       if (serviceCount > 0) {
         throw new PracticeAreaHasServicesException(serviceCount);
       }
 
       // 2. Kiểm tra nếu còn luật sư liên kết -> Chặn xóa
-      if (await this.hasLinkedLawyers(manager, id)) {
+      if (await this.areaRepo.hasLinkedLawyers(id, manager)) {
         throw new PracticeAreaHasLawyersException();
       }
 
       // 3. Thực hiện xóa mềm
-      await this.areas.softDelete(id, manager);
+      await this.areaRepo.softDelete(id, manager);
     });
   }
 
@@ -174,8 +169,11 @@ export class PracticeAreasService {
     practiceAreaId: string,
     input: UpsertPracticeAreaTranslationDto,
   ): Promise<void> {
-    const key = { practiceAreaId, languageCode: input.languageCode };
-    const current = await manager.findOneBy(PracticeAreaTranslation, key);
+    const current = await this.translationRepo.findByKey(
+      practiceAreaId,
+      input.languageCode,
+      manager,
+    );
 
     const generateSlug =
       input.languageCode === LangCode.VI ? generateViSlug : generateZhSlug;
@@ -184,7 +182,7 @@ export class PracticeAreasService {
       `linh-vuc-${practiceAreaId}-${input.languageCode.toLowerCase()}`;
     const slug = input.slug ?? current?.slug ?? generated;
 
-    const match = await this.translations.findBySlug(slug, manager);
+    const match = await this.translationRepo.findBySlug(slug, manager);
     if (
       match &&
       (match.practiceAreaId !== practiceAreaId || match.languageCode !== input.languageCode)
@@ -193,16 +191,15 @@ export class PracticeAreasService {
     }
 
     try {
-      await manager.save(
-        PracticeAreaTranslation,
-        manager.create(PracticeAreaTranslation, {
-          ...current,
-          ...input,
-          ...key,
-          slug,
-          updatedAt: new Date(),
-        }),
-      );
+      const entity = this.translationRepo.create({
+        ...current,
+        ...input,
+        practiceAreaId,
+        languageCode: input.languageCode,
+        slug,
+        updatedAt: new Date(),
+      });
+      await this.translationRepo.save(entity, manager);
     } catch (error) {
       if (
         error instanceof QueryFailedError &&
@@ -212,33 +209,5 @@ export class PracticeAreasService {
       }
       throw error;
     }
-  }
-
-  private async lockArea(manager: EntityManager, id: string): Promise<PracticeArea> {
-    const area = await manager.findOne(PracticeArea, {
-      where: { id },
-      lock: { mode: 'pessimistic_write' },
-    });
-    if (!area) throw new PracticeAreaNotFoundException(id);
-    return area;
-  }
-
-  private async hasLinkedLawyers(manager: EntityManager, id: string): Promise<boolean> {
-    const [relation] = await manager.query(
-      "SELECT to_regclass('lawyer_practice_areas') AS junction",
-    );
-    if (!relation?.junction) return false;
-
-    const [linked] = await manager.query(
-      `
-      SELECT EXISTS (
-        SELECT 1 FROM lawyer_practice_areas link
-        JOIN lawyers lawyer ON lawyer.id = link.lawyer_id
-        WHERE link.practice_area_id = $1 AND lawyer.deleted_at IS NULL
-      ) AS present
-    `,
-      [id],
-    );
-    return Boolean(linked?.present);
   }
 }

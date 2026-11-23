@@ -16,12 +16,15 @@ export class PracticeAreaRepository {
     private readonly repo: Repository<PracticeArea>,
   ) {}
 
+  private getRepo(manager?: EntityManager): Repository<PracticeArea> {
+    return manager ? manager.getRepository(PracticeArea) : this.repo;
+  }
+
   private withTranslations(
     publicOnly = false,
     manager?: EntityManager,
   ): SelectQueryBuilder<PracticeArea> {
-    const targetRepo = manager ? manager.getRepository(PracticeArea) : this.repo;
-    return targetRepo
+    return this.getRepo(manager)
       .createQueryBuilder('area')
       .leftJoinAndSelect('area.translations', 'translation')
       .loadRelationCountAndMap('area.servicesCount', 'area.services', 'service', (query) => {
@@ -39,6 +42,16 @@ export class PracticeAreaRepository {
     return this.withTranslations(false, manager)
       .where('area.id = :id', { id })
       .getOne() as Promise<PracticeAreaWithCount | null>;
+  }
+
+  async findByIdWithLock(
+    id: string,
+    manager?: EntityManager,
+  ): Promise<PracticeArea | null> {
+    return this.getRepo(manager).findOne({
+      where: { id },
+      lock: { mode: 'pessimistic_write' },
+    });
   }
 
   async findBySlugAndLang(
@@ -123,8 +136,7 @@ export class PracticeAreaRepository {
     displayOrder: number,
     manager?: EntityManager,
   ) {
-    const targetRepo = manager ? manager.getRepository(PracticeArea) : this.repo;
-    return targetRepo.update({ id, deletedAt: IsNull() }, { displayOrder });
+    return this.getRepo(manager).update({ id, deletedAt: IsNull() }, { displayOrder });
   }
 
   create(data: Partial<PracticeArea>): PracticeArea {
@@ -132,12 +144,37 @@ export class PracticeAreaRepository {
   }
 
   async save(entity: PracticeArea, manager?: EntityManager): Promise<PracticeArea> {
-    const targetRepo = manager ? manager.getRepository(PracticeArea) : this.repo;
-    return targetRepo.save(entity);
+    return this.getRepo(manager).save(entity);
+  }
+
+  async update(id: string, data: Partial<PracticeArea>, manager?: EntityManager) {
+    return this.getRepo(manager).update(id, data);
   }
 
   async softDelete(id: string, manager?: EntityManager) {
-    const targetRepo = manager ? manager.getRepository(PracticeArea) : this.repo;
-    return targetRepo.softDelete(id);
+    return this.getRepo(manager).softDelete(id);
+  }
+
+  /**
+   * Kiểm tra liên kết an toàn tới bảng trung gian luật sư
+   */
+  async hasLinkedLawyers(id: string, manager?: EntityManager): Promise<boolean> {
+    const mgr = manager ?? this.repo.manager;
+    const [relation] = await mgr.query(
+      "SELECT to_regclass('lawyer_practice_areas') AS junction",
+    );
+    if (!relation?.junction) return false;
+
+    const [linked] = await mgr.query(
+      `
+      SELECT EXISTS (
+        SELECT 1 FROM lawyer_practice_areas link
+        JOIN lawyers lawyer ON lawyer.id = link.lawyer_id
+        WHERE link.practice_area_id = $1 AND lawyer.deleted_at IS NULL
+      ) AS present
+    `,
+      [id],
+    );
+    return Boolean(linked?.present);
   }
 }

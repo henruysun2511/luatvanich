@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { PracticeArea } from '../../practice-areas/entities/practice-area.entity';
 import { LegalService } from '../entities/legal-service.entity';
 import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
@@ -98,5 +98,24 @@ export class LegalServiceRepository {
 
   async softDelete(id: string): Promise<void> {
     await this.repo.softDelete(id);
+  }
+
+  /**
+   * Lấy danh sách dịch vụ pháp lý đã xuất bản theo lĩnh vực chuyên môn
+   */
+  async findPublishedByPracticeArea(practiceAreaId: string): Promise<LegalService[]> {
+    return this.repo.find({
+      where: { practiceAreaId, status: ContentStatus.PUBLISHED },
+      relations: { translations: true },
+      order: { displayOrder: 'ASC', id: 'ASC' },
+    });
+  }
+
+  /**
+   * Đếm số lượng dịch vụ thuộc một lĩnh vực chuyên môn
+   */
+  async countByPracticeArea(practiceAreaId: string, manager?: EntityManager): Promise<number> {
+    const targetRepo = manager ? manager.getRepository(LegalService) : this.repo;
+    return targetRepo.count({ where: { practiceAreaId } });
   }
 }

@@ -18,6 +18,6 @@ import { LegalServiceMapper } from './mapper/legal-service.mapper';
     LegalServiceTranslationRepository,
     LegalServiceMapper,
   ],
-  exports: [LegalServicesService, LegalServiceMapper],
+  exports: [LegalServicesService, LegalServiceMapper, LegalServiceRepository],
 })
 export class LegalServicesModule {}
