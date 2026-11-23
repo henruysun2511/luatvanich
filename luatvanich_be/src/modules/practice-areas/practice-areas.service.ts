@@ -8,7 +8,7 @@ import { LegalServiceRepository } from '../legal-services/repositories/legal-ser
 import { LegalServiceMapper } from '../legal-services/mapper/legal-service.mapper';
 import { CreatePracticeAreaDto } from './dto/request/create-practice-area.dto';
 import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
-import { PracticeAreaOrderItemDto } from './dto/request/reorder-practice-area.dto';
+import { ReorderPracticeAreaDto } from './dto/request/reorder-practice-area.dto';
 import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
 import { UpsertPracticeAreaTranslationDto } from './dto/request/upsert-practice-area-translation.dto';
 import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
@@ -125,13 +125,11 @@ export class PracticeAreasService {
   /**
    * Sắp xếp lại thứ tự hiển thị (kéo thả)
    */
-  async reorder(items: PracticeAreaOrderItemDto[]): Promise<void> {
+  async reorder(dto: ReorderPracticeAreaDto): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
-      const ordered = [...items].sort((a, b) =>
-        a.id.toLowerCase().localeCompare(b.id.toLowerCase()),
-      );
-      for (const { id, displayOrder } of ordered) {
-        const result = await this.areaRepo.updateOrder(id, displayOrder, manager);
+      for (let index = 0; index < dto.ids.length; index++) {
+        const id = dto.ids[index];
+        const result = await this.areaRepo.updateOrder(id, index + 1, manager);
         if (!result.affected) throw new PracticeAreaNotFoundException(id);
       }
     });

@@ -10,32 +10,21 @@ import {
   Patch,
   Post,
   Query,
-  ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiExtraModels, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { PERMISSIONS } from '../../common/constants/permission.constant';
 import { RequirePermission } from '../../common/decorators/require-permission.decorator';
 import { ApiResponse } from '../../common/response/api-response';
 import { SwaggerDoc } from '../../common/swagger/swagger-doc';
 import { CreatePracticeAreaDto } from './dto/request/create-practice-area.dto';
 import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
-import {
-  PracticeAreaOrderItemDto,
-  ReorderPracticeAreaDto,
-} from './dto/request/reorder-practice-area.dto';
+import { ReorderPracticeAreaDto } from './dto/request/reorder-practice-area.dto';
 import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
 import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
 import { PRACTICE_AREA_ADMIN_ROUTE } from './practice-areas.constant';
 import { PracticeAreasService } from './practice-areas.service';
 
-const reorderValidation = new ValidationPipe({
-  transform: true,
-  whitelist: true,
-  forbidNonWhitelisted: true,
-});
-
 @ApiTags('Practice Areas (Admin)')
-@ApiExtraModels(ReorderPracticeAreaDto, PracticeAreaOrderItemDto)
 @Controller({ path: PRACTICE_AREA_ADMIN_ROUTE, version: '1' })
 export class PracticeAreasAdminController {
   constructor(private readonly service: PracticeAreasService) {}
@@ -99,22 +88,14 @@ export class PracticeAreasAdminController {
   @Patch('reorder')
   @HttpCode(HttpStatus.OK)
   @RequirePermission(PERMISSIONS.SERVICES_WRITE)
-  @ApiBody({
-    schema: {
-      oneOf: [
-        { type: 'array', items: { $ref: getSchemaPath(PracticeAreaOrderItemDto) } },
-        { $ref: getSchemaPath(ReorderPracticeAreaDto) },
-      ],
-    },
+  @SwaggerDoc({
+    summary: 'Đổi thứ tự hiển thị các lĩnh vực',
+    bodyType: ReorderPracticeAreaDto,
+    bearerAuth: true,
   })
-  @SwaggerDoc({ summary: 'Đổi thứ tự hiển thị các lĩnh vực', bearerAuth: true })
-  async reorder(@Body() body: ReorderPracticeAreaDto | PracticeAreaOrderItemDto[]) {
-    const dto: ReorderPracticeAreaDto = await reorderValidation.transform(
-      Array.isArray(body) ? { items: body } : body,
-      { type: 'body', metatype: ReorderPracticeAreaDto },
-    );
-    await this.service.reorder(dto.items);
-    return ApiResponse.noContent('Cập nhật thứ tự hiển thị thành công');
+  async reorder(@Body() dto: ReorderPracticeAreaDto) {
+    await this.service.reorder(dto);
+    return ApiResponse.success(null, 'Cập nhật thứ tự hiển thị thành công');
   }
 
   /**
