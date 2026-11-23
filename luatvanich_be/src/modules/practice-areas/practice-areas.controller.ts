@@ -9,12 +9,11 @@ import {
   PracticeAreaDetailPublicDto,
   PracticeAreaPublicDto,
 } from './dto/response/practice-area-public.dto';
-import { PRACTICE_AREA_ROUTE } from './practice-areas.constant';
 import { PracticeAreasService } from './practice-areas.service';
 
 @ApiTags('Practice Areas (Public)')
 @Public()
-@Controller({ path: PRACTICE_AREA_ROUTE, version: '1' })
+@Controller({ path: 'practice-areas', version: '1' })
 export class PracticeAreasController {
   constructor(private readonly service: PracticeAreasService) {}
 

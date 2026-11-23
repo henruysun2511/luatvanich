@@ -21,11 +21,10 @@ import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
 import { ReorderPracticeAreaDto } from './dto/request/reorder-practice-area.dto';
 import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
 import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
-import { PRACTICE_AREA_ADMIN_ROUTE } from './practice-areas.constant';
 import { PracticeAreasService } from './practice-areas.service';
 
 @ApiTags('Practice Areas (Admin)')
-@Controller({ path: PRACTICE_AREA_ADMIN_ROUTE, version: '1' })
+@Controller({ path: 'admin/practice-areas', version: '1' })
 export class PracticeAreasAdminController {
   constructor(private readonly service: PracticeAreasService) {}
 

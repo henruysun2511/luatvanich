@@ -22,7 +22,6 @@ import {
   PracticeAreaSlugAlreadyExistsException,
 } from './exceptions/practice-area.exception';
 import { PracticeAreaMapper } from './mapper/practice-area.mapper';
-import { PRACTICE_AREA_UNIQUE_VIOLATION } from './practice-areas.constant';
 import { PracticeAreaRepository } from './repositories/practice-area.repository';
 import { PracticeAreaTranslationRepository } from './repositories/practice-area-translation.repository';
 
@@ -197,7 +196,7 @@ export class PracticeAreasService {
     } catch (error) {
       if (
         error instanceof QueryFailedError &&
-        (error.driverError as any)?.code === PRACTICE_AREA_UNIQUE_VIOLATION
+        (error.driverError as any)?.code === '23505'
       ) {
         throw new PracticeAreaSlugAlreadyExistsException(slug);
       }
