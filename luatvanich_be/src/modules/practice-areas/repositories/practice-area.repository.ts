@@ -109,9 +109,9 @@ export class PracticeAreaRepository {
       query.andWhere('area.isFeatured = :isFeatured', { isFeatured: filters.isFeatured });
     }
 
-    const search = (filters.search ?? filters.q)?.trim();
+    const search = filters.q?.trim();
     if (search) {
-      const term = search.replace(/[!%_]/g, (char) => '!' + char);
+      const term = search.replace(/[!%_]/g, (char: string) => '!' + char);
       query.andWhere(
         `EXISTS (
           SELECT 1 FROM practice_area_translations searched

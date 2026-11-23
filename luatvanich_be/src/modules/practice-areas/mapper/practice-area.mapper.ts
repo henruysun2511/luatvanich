@@ -7,19 +7,19 @@ import { PracticeAreaWithCount } from '../repositories/practice-area.repository'
 @Injectable()
 export class PracticeAreaMapper {
   toPublicDto(entity: PracticeAreaWithCount, lang: LangCode): PracticeAreaPublicDto {
-    const localized = entity.translations.find((translation) => translation.languageCode === lang)
-      ?? entity.translations.find((translation) => translation.languageCode === DEFAULT_LANG)
-      ?? entity.translations[0];
+    const localized = entity.translations?.find((translation) => translation.languageCode === lang)
+      ?? entity.translations?.find((translation) => translation.languageCode === DEFAULT_LANG)
+      ?? entity.translations?.[0];
     return {
       id: entity.id,
-      slug: localized.slug,
-      name: localized.name,
+      slug: localized?.slug ?? '',
+      name: localized?.name ?? '',
       iconUrl: entity.iconUrl ?? undefined,
-      description: localized.description ?? undefined,
+      description: localized?.description ?? undefined,
       isFeatured: entity.isFeatured,
       servicesCount: entity.servicesCount,
-      metaTitle: localized.metaTitle ?? undefined,
-      metaDescription: localized.metaDescription ?? undefined,
+      metaTitle: localized?.metaTitle ?? undefined,
+      metaDescription: localized?.metaDescription ?? undefined,
     };
   }
 
@@ -33,7 +33,7 @@ export class PracticeAreaMapper {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       servicesCount: entity.servicesCount,
-      translations: entity.translations.map(({ languageCode, slug, name, description, metaTitle, metaDescription, isComplete, updatedAt }) => ({
+      translations: (entity.translations ?? []).map(({ languageCode, slug, name, description, metaTitle, metaDescription, isComplete, updatedAt }) => ({
         languageCode, slug, name, description, metaTitle, metaDescription, isComplete, updatedAt,
       })),
     };

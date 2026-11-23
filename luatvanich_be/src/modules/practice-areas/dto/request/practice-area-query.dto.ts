@@ -1,44 +1,45 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { BaseQueryDto } from '../../../../common/dto/base-query.dto';
 import { ContentStatus } from '../../../../common/enums/content-status.enum';
 
-function parseBoolean(value: unknown) {
-  if (value === 'true') return true;
-  if (value === 'false') return false;
-  return value;
-}
-
 export class PracticeAreaQueryDto extends BaseQueryDto {
-  @ApiPropertyOptional({ enum: ContentStatus })
+  @ApiPropertyOptional({
+    enum: ContentStatus,
+    description: 'Lọc theo trạng thái nội dung (draft, published, archived)',
+  })
   @IsOptional()
-  @IsEnum(ContentStatus)
+  @IsEnum(ContentStatus, { message: 'Trạng thái nội dung không hợp lệ' })
   status?: ContentStatus;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Lọc các lĩnh vực nổi bật ở trang chủ: true hoặc false',
+  })
   @IsOptional()
-  @Type(() => Object)
-  @Transform(({ value }) => parseBoolean(value))
-  @IsBoolean()
+  @IsBoolean({ message: 'isFeatured phải là giá trị boolean' })
+  @Transform(({ value }) => {
+    if (value === 'true' || value === true) return true;
+    if (value === 'false' || value === false) return false;
+    return undefined;
+  })
   isFeatured?: boolean;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  @MaxLength(200)
-  search?: string;
 }
 
 export class PublicPracticeAreaQueryDto {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Lọc các lĩnh vực nổi bật ở trang chủ',
+  })
   @IsOptional()
-  @Type(() => Object)
-  @Transform(({ value }) => parseBoolean(value))
   @IsBoolean()
+  @Transform(({ value }) => {
+    if (value === 'true' || value === true) return true;
+    if (value === 'false' || value === false) return false;
+    return undefined;
+  })
   featured?: boolean;
 
-  @ApiPropertyOptional({ example: 'zh-CN' })
+  @ApiPropertyOptional({ example: 'zh-CN', description: 'Mã ngôn ngữ: vi hoặc zh-CN' })
   @IsOptional()
   @IsString()
   lang?: string;

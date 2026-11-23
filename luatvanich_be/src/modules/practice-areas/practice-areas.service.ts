@@ -180,7 +180,7 @@ export class PracticeAreasService {
     const generated =
       generateSlug(input.name).slice(0, 220).replace(/-+$/, '') ||
       `linh-vuc-${practiceAreaId}-${input.languageCode.toLowerCase()}`;
-    const slug = input.slug ?? current?.slug ?? generated;
+    const slug = input.slug?.trim() || current?.slug || generated;
 
     const match = await this.translationRepo.findBySlug(slug, manager);
     if (
