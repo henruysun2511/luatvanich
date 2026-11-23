@@ -1,29 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager, QueryFailedError } from 'typeorm';
-import { LangCode } from '../../common/enums/lang.enum';
-import { PaginatedResponse } from '../../common/response/api-response';
-import { normalizePagination } from '../../common/utils/pagination.util';
-import { generateViSlug, generateZhSlug } from '../../common/utils/slug.util';
-import { LegalServiceRepository } from '../legal-services/repositories/legal-service.repository';
-import { LegalServiceMapper } from '../legal-services/mapper/legal-service.mapper';
-import { CreatePracticeAreaDto } from './dto/request/create-practice-area.dto';
-import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
-import { ReorderPracticeAreaDto } from './dto/request/reorder-practice-area.dto';
-import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
-import { UpsertPracticeAreaTranslationDto } from './dto/request/upsert-practice-area-translation.dto';
-import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
+import { LangCode } from '../../../common/enums/lang.enum';
+import { PaginatedResponse } from '../../../common/response/api-response';
+import { normalizePagination } from '../../../common/utils/pagination.util';
+import { generateViSlug, generateZhSlug } from '../../../common/utils/slug.util';
+import { LegalServiceRepository } from '../../legal-services/repositories/legal-service.repository';
+import { LegalServiceMapper } from '../../legal-services/mapper/legal-service.mapper';
+import { CreatePracticeAreaDto } from '../dto/request/create-practice-area.dto';
+import { PracticeAreaQueryDto } from '../dto/request/practice-area-query.dto';
+import { ReorderPracticeAreaDto } from '../dto/request/reorder-practice-area.dto';
+import { UpdatePracticeAreaDto } from '../dto/request/update-practice-area.dto';
+import { UpsertPracticeAreaTranslationDto } from '../dto/request/upsert-practice-area-translation.dto';
+import { PracticeAreaAdminDto } from '../dto/response/practice-area-admin.dto';
 import {
   PracticeAreaDetailPublicDto,
   PracticeAreaPublicDto,
-} from './dto/response/practice-area-public.dto';
+} from '../dto/response/practice-area-public.dto';
 import {
   PracticeAreaHasServicesException,
   PracticeAreaNotFoundException,
   PracticeAreaSlugAlreadyExistsException,
-} from './exceptions/practice-area.exception';
-import { PracticeAreaMapper } from './mapper/practice-area.mapper';
-import { PracticeAreaRepository } from './repositories/practice-area.repository';
-import { PracticeAreaTranslationRepository } from './repositories/practice-area-translation.repository';
+} from '../exceptions/practice-area.exception';
+import { PracticeAreaMapper } from '../mapper/practice-area.mapper';
+import { PracticeAreaRepository } from '../repositories/practice-area.repository';
+import { PracticeAreaTranslationRepository } from '../repositories/practice-area-translation.repository';
 
 @Injectable()
 export class PracticeAreasService {

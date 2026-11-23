@@ -12,16 +12,16 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { PERMISSIONS } from '../../common/constants/permission.constant';
-import { RequirePermission } from '../../common/decorators/require-permission.decorator';
-import { ApiResponse } from '../../common/response/api-response';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { CreatePracticeAreaDto } from './dto/request/create-practice-area.dto';
-import { PracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
-import { ReorderPracticeAreaDto } from './dto/request/reorder-practice-area.dto';
-import { UpdatePracticeAreaDto } from './dto/request/update-practice-area.dto';
-import { PracticeAreaAdminDto } from './dto/response/practice-area-admin.dto';
-import { PracticeAreasService } from './practice-areas.service';
+import { PERMISSIONS } from '../../../common/constants/permission.constant';
+import { RequirePermission } from '../../../common/decorators/require-permission.decorator';
+import { ApiResponse } from '../../../common/response/api-response';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { CreatePracticeAreaDto } from '../dto/request/create-practice-area.dto';
+import { PracticeAreaQueryDto } from '../dto/request/practice-area-query.dto';
+import { ReorderPracticeAreaDto } from '../dto/request/reorder-practice-area.dto';
+import { UpdatePracticeAreaDto } from '../dto/request/update-practice-area.dto';
+import { PracticeAreaAdminDto } from '../dto/response/practice-area-admin.dto';
+import { PracticeAreasService } from '../services/practice-areas.service';
 
 @ApiTags('Practice Areas (Admin)')
 @Controller({ path: 'admin/practice-areas', version: '1' })

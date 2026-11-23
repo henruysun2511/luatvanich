@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppError } from '../../../common/errors/app.error';
-import { PRACTICE_AREA_ERROR_CODE } from '../practice-areas.constant';
+import { PRACTICE_AREA_ERROR_CODE } from '../constants/practice-areas.constant';
 
 export class PracticeAreaNotFoundException extends AppError {
   constructor(idOrSlug: string) {

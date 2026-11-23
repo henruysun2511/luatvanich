@@ -1,15 +1,15 @@
 import { Controller, Get, Param, Query, Req } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { Public } from '../../common/decorators/public.decorator';
-import { ApiResponse } from '../../common/response/api-response';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { PublicPracticeAreaQueryDto } from './dto/request/practice-area-query.dto';
+import { Public } from '../../../common/decorators/public.decorator';
+import { ApiResponse } from '../../../common/response/api-response';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { PublicPracticeAreaQueryDto } from '../dto/request/practice-area-query.dto';
 import {
   PracticeAreaDetailPublicDto,
   PracticeAreaPublicDto,
-} from './dto/response/practice-area-public.dto';
-import { PracticeAreasService } from './practice-areas.service';
+} from '../dto/response/practice-area-public.dto';
+import { PracticeAreasService } from '../services/practice-areas.service';
 
 @ApiTags('Practice Areas (Public)')
 @Public()
