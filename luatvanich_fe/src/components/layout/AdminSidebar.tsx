@@ -16,12 +16,14 @@ import {
   ShieldCheck,
   Settings,
   Building2,
+  Scale,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const adminNavList = [
   { href: "/admin", title: "Tổng quan", icon: LayoutDashboard, exact: true },
   { href: "/admin/pages", title: "Quản lý trang & Builder", icon: Layers },
+  { href: "/admin/practice-areas", title: "Lĩnh vực chuyên môn", icon: Scale },
   { href: "/admin/services", title: "Dịch vụ pháp lý", icon: Briefcase },
   { href: "/admin/offices", title: "Văn phòng đại diện", icon: Building2 },
   { href: "/admin/lawyers", title: "Đội ngũ luật sư", icon: Users },
