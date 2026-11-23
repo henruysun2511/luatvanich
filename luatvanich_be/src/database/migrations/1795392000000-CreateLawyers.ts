@@ -9,9 +9,18 @@ export class CreateLawyers1795392000000 implements MigrationInterface {
 
       CREATE TABLE lawyers (
         id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+        office_id uuid REFERENCES offices(id) ON DELETE SET NULL,
+        user_id uuid UNIQUE REFERENCES users(id) ON DELETE SET NULL,
         team_group lawyer_team_group NOT NULL DEFAULT 'chinese_team',
         avatar_url varchar(500),
         license_number varchar(100),
+        license_image_url varchar(500),
+        bar_association varchar(255),
+        email varchar(255),
+        mobile_phone varchar(50),
+        office_phone varchar(50),
+        wechat_id varchar(100),
+        wechat_qr_url varchar(500),
         practice_start_date date,
         display_order int NOT NULL DEFAULT 0,
         is_featured boolean NOT NULL DEFAULT false,
@@ -20,6 +29,8 @@ export class CreateLawyers1795392000000 implements MigrationInterface {
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz
       );
+      CREATE INDEX idx_lawyers_office_id ON lawyers (office_id);
+      CREATE INDEX idx_lawyers_team_group ON lawyers (team_group);
       CREATE INDEX idx_lawyers_featured_order ON lawyers (status, is_featured, display_order);
 
       CREATE TABLE lawyer_translations (
@@ -29,12 +40,26 @@ export class CreateLawyers1795392000000 implements MigrationInterface {
         latin_name varchar(150),
         slug varchar(220) NOT NULL,
         title varchar(200),
+        secondary_title varchar(200),
         academic_title varchar(150),
+        affiliated_organization varchar(255),
         bio text,
+        meta_title varchar(70),
+        meta_description varchar(160),
+        is_complete boolean NOT NULL DEFAULT false,
         updated_at timestamptz NOT NULL DEFAULT now(),
         PRIMARY KEY (lawyer_id, language_code),
         CONSTRAINT uq_lawyer_slug UNIQUE (slug, language_code)
       );
+
+      CREATE TABLE lawyer_practice_areas (
+        lawyer_id uuid NOT NULL CONSTRAINT fk_lawyer_practice_area_lawyer REFERENCES lawyers(id) ON DELETE CASCADE,
+        practice_area_id uuid NOT NULL CONSTRAINT fk_lawyer_practice_area_area REFERENCES practice_areas(id) ON DELETE CASCADE,
+        is_primary boolean NOT NULL DEFAULT false,
+        display_order int NOT NULL DEFAULT 0,
+        PRIMARY KEY (lawyer_id, practice_area_id)
+      );
+      CREATE INDEX idx_lawyer_practice_areas_area ON lawyer_practice_areas (practice_area_id);
 
       CREATE TABLE lawyer_languages (
         lawyer_id uuid NOT NULL CONSTRAINT fk_lawyer_language_lawyer REFERENCES lawyers(id) ON DELETE CASCADE,
@@ -71,6 +96,7 @@ export class CreateLawyers1795392000000 implements MigrationInterface {
       DROP TABLE lawyer_credential_translations;
       DROP TABLE lawyer_credentials;
       DROP TABLE lawyer_languages;
+      DROP TABLE lawyer_practice_areas;
       DROP TABLE lawyer_translations;
       DROP TABLE lawyers;
       DROP TYPE credential_kind;
