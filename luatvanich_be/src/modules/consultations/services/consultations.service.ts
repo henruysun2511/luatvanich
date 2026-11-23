@@ -66,12 +66,27 @@ export class ConsultationsService {
       );
     }
 
-    // Kích hoạt gửi email thông báo cho Admin (Chạy ngầm bất đồng bộ Non-blocking)
+    // Kích hoạt gửi email & tạo thông báo in-app cho Admin (Chạy ngầm bất đồng bộ Non-blocking)
     setImmediate(async () => {
       try {
         const fullDetail = await this.requestRepo.findById(createdRequest.id);
         const mappedDto = fullDetail ? this.mapper.toAdminDto(fullDetail) : null;
 
+        // 1. Lưu bản ghi thông báo vào database bảng notifications
+        await this.notificationsService.createNotification({
+          type: 'consultation',
+          title: `Khách hàng mới: ${createdRequest.fullName}`,
+          message: `SĐT: ${createdRequest.phone}${mappedDto?.practiceAreaName ? ` • Lĩnh vực: ${mappedDto.practiceAreaName}` : ''}`,
+          link: '/admin/consultations',
+          metadata: {
+            consultationId: createdRequest.id,
+            fullName: createdRequest.fullName,
+            phone: createdRequest.phone,
+            email: createdRequest.email,
+          },
+        });
+
+        // 2. Gửi email thông báo cho Admin
         await this.notificationsService.notifyNewConsultation({
           id: createdRequest.id,
           fullName: createdRequest.fullName,

@@ -2,9 +2,10 @@
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { User, Bell, LogOut, Loader2, ChevronDown } from "lucide-react";
+import { User, LogOut, Loader2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLogout, useMe } from "@/features/auth";
+import { NotificationBellDropdown } from "./NotificationBellDropdown";
 import { cn } from "@/lib/utils";
 
 export function AdminHeader() {
@@ -38,9 +39,7 @@ export function AdminHeader() {
       </div>
 
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" className="size-8" aria-label="Thông báo">
-          <Bell className="size-4 text-muted-foreground" />
-        </Button>
+        <NotificationBellDropdown />
 
         {/* User Profile with Hover Dropdown */}
         <div
