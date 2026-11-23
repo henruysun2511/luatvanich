@@ -1,11 +1,11 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { OfficesService } from './offices.service';
-import { OfficePublicDto } from './dto/response/office-public.dto';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../common/response/api-response';
-import { Public } from '../../common/decorators/public.decorator';
-import { LangCode } from '../../common/enums/lang.enum';
+import { OfficesService } from '../services/offices.service';
+import { OfficePublicDto } from '../dto/response/office-public.dto';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../../common/response/api-response';
+import { Public } from '../../../common/decorators/public.decorator';
+import { LangCode } from '../../../common/enums/lang.enum';
 
 /**
  * Controller PUBLIC — không cần JWT.

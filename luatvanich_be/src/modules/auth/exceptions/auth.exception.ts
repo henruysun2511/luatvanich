@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppError } from '../../../common/errors/app.error';
-import { AUTH_ERROR_CODE } from '../auth.constant';
+import { AUTH_ERROR_CODE } from '../constants/auth.constant';
 
 export class InvalidCredentialsException extends AppError {
   constructor(message = 'Email hoặc mật khẩu không đúng') {

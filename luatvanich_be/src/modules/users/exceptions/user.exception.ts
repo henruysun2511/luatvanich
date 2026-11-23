@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppError } from '../../../common/errors/app.error';
-import { USER_ERROR_CODE } from '../users.constant';
+import { USER_ERROR_CODE } from '../constants/users.constant';
 
 export class UserNotFoundException extends AppError {
   constructor(identifier?: string) {

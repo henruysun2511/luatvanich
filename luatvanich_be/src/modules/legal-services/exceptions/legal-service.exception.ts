@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppError } from '../../../common/errors/app.error';
-import { LEGAL_SERVICE_ERROR_CODE } from '../legal-services.constant';
+import { LEGAL_SERVICE_ERROR_CODE } from '../constants/legal-services.constant';
 
 export class LegalServiceNotFoundException extends AppError {
   constructor(identifier: string) {

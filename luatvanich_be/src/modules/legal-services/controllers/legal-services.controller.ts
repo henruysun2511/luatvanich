@@ -1,12 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { LegalServicesService } from './legal-services.service';
-import { LegalServiceQueryDto } from './dto/request/legal-service-query.dto';
-import { LegalServicePublicDto } from './dto/response/legal-service-public.dto';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../common/response/api-response';
-import { Public } from '../../common/decorators/public.decorator';
-import { LangCode } from '../../common/enums/lang.enum';
+import { LegalServicesService } from '../services/legal-services.service';
+import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
+import { LegalServicePublicDto } from '../dto/response/legal-service-public.dto';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../../common/response/api-response';
+import { Public } from '../../../common/decorators/public.decorator';
+import { LangCode } from '../../../common/enums/lang.enum';
 
 /**
  * Controller PUBLIC — không cần JWT.

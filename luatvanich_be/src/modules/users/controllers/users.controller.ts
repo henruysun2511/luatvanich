@@ -12,17 +12,17 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { UsersService } from './users.service';
-import { UserResponseDto } from './dto/response/user.dto';
-import { CreateUserDto } from './dto/request/create-user.dto';
-import { UserQueryDto } from './dto/request/user-query.dto';
-import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
-import { UpdateUserStatusDto } from './dto/request/update-user-status.dto';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../common/response/api-response';
-import { RequirePermission } from '../../common/decorators/require-permission.decorator';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { PERMISSIONS } from '../../common/constants/permission.constant';
+import { UsersService } from '../services/users.service';
+import { UserResponseDto } from '../dto/response/user.dto';
+import { CreateUserDto } from '../dto/request/create-user.dto';
+import { UserQueryDto } from '../dto/request/user-query.dto';
+import { AdminResetPasswordDto } from '../dto/request/admin-reset-password.dto';
+import { UpdateUserStatusDto } from '../dto/request/update-user-status.dto';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../../common/response/api-response';
+import { RequirePermission } from '../../../common/decorators/require-permission.decorator';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+import { PERMISSIONS } from '../../../common/constants/permission.constant';
 
 @ApiTags('Users')
 @Controller({ path: 'admin/users', version: '1' })

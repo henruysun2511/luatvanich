@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsEnum } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { BaseQueryDto } from '../../../../common/dto/base-query.dto';
-import { UserSortBy } from '../../users.constant';
+import { UserSortBy } from '../../constants/users.constant';
 
 export { UserSortBy };
 

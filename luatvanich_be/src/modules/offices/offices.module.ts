@@ -5,9 +5,9 @@ import { OfficeTranslation } from './entities/office-translation.entity';
 import { OfficeRepository } from './repositories/office.repository';
 import { OfficeTranslationRepository } from './repositories/office-translation.repository';
 import { OfficeMapper } from './mapper/office.mapper';
-import { OfficesService } from './offices.service';
-import { OfficesController } from './offices.controller';
-import { OfficesAdminController } from './offices-admin.controller';
+import { OfficesService } from './services/offices.service';
+import { OfficesController } from './controllers/offices.controller';
+import { OfficesAdminController } from './controllers/offices-admin.controller';
 
 @Module({
   imports: [

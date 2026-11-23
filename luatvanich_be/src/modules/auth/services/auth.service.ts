@@ -2,25 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { createHash } from 'crypto';
-import { UserRepository } from '../users/repositories/user.repository';
-import { RefreshTokenRepository } from './repositories/refresh-token.repository';
-import { LoginDto } from './dto/request/login.dto';
-import { ChangePasswordDto } from './dto/request/change-password.dto';
-import { UpdateProfileDto } from './dto/request/update-profile.dto';
-import { UserResponseDto } from '../users/dto/response/user.dto';
-import { AppConfig } from '../../config/app.config';
-import { User } from '../users/entities/user.entity';
+import { UserRepository } from '../../users/repositories/user.repository';
+import { RefreshTokenRepository } from '../repositories/refresh-token.repository';
+import { LoginDto } from '../dto/request/login.dto';
+import { ChangePasswordDto } from '../dto/request/change-password.dto';
+import { UpdateProfileDto } from '../dto/request/update-profile.dto';
+import { UserResponseDto } from '../../users/dto/response/user.dto';
+import { AppConfig } from '../../../config/app.config';
+import { User } from '../../users/entities/user.entity';
 import {
   InvalidCredentialsException,
   AccountInactiveException,
   RefreshTokenExpiredException,
   InvalidCurrentPasswordException,
-} from './exceptions/auth.exception';
+} from '../exceptions/auth.exception';
 import {
   UserNotFoundException,
   UserAlreadyExistsException,
   UsernameAlreadyExistsException,
-} from '../users/exceptions/user.exception';
+} from '../../users/exceptions/user.exception';
 
 @Injectable()
 export class AuthService {

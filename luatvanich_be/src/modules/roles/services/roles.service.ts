@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RoleRepository } from './repositories/role.repository';
-import { UserRepository } from '../users/repositories/user.repository';
-import { RefreshToken } from '../auth/entities/refresh-token.entity';
-import { RoleResponseDto } from './dto/response/role.dto';
-import { UserResponseDto } from '../users/dto/response/user.dto';
+import { RoleRepository } from '../repositories/role.repository';
+import { UserRepository } from '../../users/repositories/user.repository';
+import { RefreshToken } from '../../auth/entities/refresh-token.entity';
+import { RoleResponseDto } from '../dto/response/role.dto';
+import { UserResponseDto } from '../../users/dto/response/user.dto';
 import {
   RoleNotFoundException,
   CannotDowngradeSuperAdminException,
-} from './exceptions/role.exception';
-import { UserNotFoundException } from '../users/exceptions/user.exception';
-import { SYSTEM_ROLES } from '../../common/constants/role.constant';
+} from '../exceptions/role.exception';
+import { UserNotFoundException } from '../../users/exceptions/user.exception';
+import { SYSTEM_ROLES } from '../../../common/constants/role.constant';
 
 @Injectable()
 export class RolesService {

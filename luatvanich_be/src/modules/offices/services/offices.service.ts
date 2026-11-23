@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { OfficeRepository } from './repositories/office.repository';
-import { OfficeTranslationRepository } from './repositories/office-translation.repository';
-import { OfficeMapper } from './mapper/office.mapper';
-import { CreateOfficeDto } from './dto/request/create-office.dto';
-import { UpdateOfficeDto } from './dto/request/update-office.dto';
-import { OfficeQueryDto } from './dto/request/office-query.dto';
-import { ReorderOfficeDto } from './dto/request/reorder-office.dto';
-import { OfficePublicDto } from './dto/response/office-public.dto';
-import { OfficeAdminDto } from './dto/response/office-admin.dto';
+import { OfficeRepository } from '../repositories/office.repository';
+import { OfficeTranslationRepository } from '../repositories/office-translation.repository';
+import { OfficeMapper } from '../mapper/office.mapper';
+import { CreateOfficeDto } from '../dto/request/create-office.dto';
+import { UpdateOfficeDto } from '../dto/request/update-office.dto';
+import { OfficeQueryDto } from '../dto/request/office-query.dto';
+import { ReorderOfficeDto } from '../dto/request/reorder-office.dto';
+import { OfficePublicDto } from '../dto/response/office-public.dto';
+import { OfficeAdminDto } from '../dto/response/office-admin.dto';
 import {
   OfficeNotFoundException,
   OfficeCodeAlreadyExistsException,
-} from './exceptions/office.exception';
-import { LangCode } from '../../common/enums/lang.enum';
+} from '../exceptions/office.exception';
+import { LangCode } from '../../../common/enums/lang.enum';
 
 @Injectable()
 export class OfficesService {

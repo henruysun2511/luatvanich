@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserRepository } from './repositories/user.repository';
-import { RoleRepository } from '../roles/repositories/role.repository';
-import { RefreshToken } from '../auth/entities/refresh-token.entity';
-import { CreateUserDto } from './dto/request/create-user.dto';
-import { UserQueryDto } from './dto/request/user-query.dto';
-import { AdminResetPasswordDto } from './dto/request/admin-reset-password.dto';
-import { UpdateUserStatusDto } from './dto/request/update-user-status.dto';
-import { UserResponseDto } from './dto/response/user.dto';
-import { PaginatedResponse } from '../../common/response/api-response';
+import { UserRepository } from '../repositories/user.repository';
+import { RoleRepository } from '../../roles/repositories/role.repository';
+import { RefreshToken } from '../../auth/entities/refresh-token.entity';
+import { CreateUserDto } from '../dto/request/create-user.dto';
+import { UserQueryDto } from '../dto/request/user-query.dto';
+import { AdminResetPasswordDto } from '../dto/request/admin-reset-password.dto';
+import { UpdateUserStatusDto } from '../dto/request/update-user-status.dto';
+import { UserResponseDto } from '../dto/response/user.dto';
+import { PaginatedResponse } from '../../../common/response/api-response';
 import {
   UserNotFoundException,
   UserAlreadyExistsException,
@@ -20,8 +20,8 @@ import {
   CannotDeleteSuperAdminException,
   CannotDeactivateSelfException,
   CannotDeactivateSuperAdminException,
-} from './exceptions/user.exception';
-import { SYSTEM_ROLES } from '../../common/constants/role.constant';
+} from '../exceptions/user.exception';
+import { SYSTEM_ROLES } from '../../../common/constants/role.constant';
 
 @Injectable()
 export class UsersService {

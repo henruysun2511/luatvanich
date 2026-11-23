@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppError } from '../../../common/errors/app.error';
-import { ROLE_ERROR_CODE } from '../roles.constant';
+import { ROLE_ERROR_CODE } from '../constants/roles.constant';
 
 export class RoleNotFoundException extends AppError {
   constructor(role: string) {

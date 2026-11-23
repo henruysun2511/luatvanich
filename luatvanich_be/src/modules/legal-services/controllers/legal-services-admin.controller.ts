@@ -3,19 +3,19 @@ import {
   Body, Param, Query, ParseUUIDPipe, HttpCode,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { LegalServicesService } from './legal-services.service';
-import { CreateLegalServiceDto } from './dto/request/create-legal-service.dto';
-import { UpdateLegalServiceDto } from './dto/request/update-legal-service.dto';
-import { LegalServiceQueryDto } from './dto/request/legal-service-query.dto';
-import { UpsertTranslationDto } from './dto/request/upsert-translation.dto';
-import { UpdateStatusDto } from './dto/request/update-status.dto';
-import { ReorderDto } from './dto/request/reorder.dto';
-import { LegalServiceAdminDto } from './dto/response/legal-service-admin.dto';
-import { SwaggerDoc } from '../../common/swagger/swagger-doc';
-import { ApiResponse } from '../../common/response/api-response';
-import { RequirePermission } from '../../common/decorators/require-permission.decorator';
-import { PERMISSIONS } from '../../common/constants/permission.constant';
-import { LangCode } from '../../common/enums/lang.enum';
+import { LegalServicesService } from '../services/legal-services.service';
+import { CreateLegalServiceDto } from '../dto/request/create-legal-service.dto';
+import { UpdateLegalServiceDto } from '../dto/request/update-legal-service.dto';
+import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
+import { UpsertTranslationDto } from '../dto/request/upsert-translation.dto';
+import { UpdateStatusDto } from '../dto/request/update-status.dto';
+import { ReorderDto } from '../dto/request/reorder.dto';
+import { LegalServiceAdminDto } from '../dto/response/legal-service-admin.dto';
+import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
+import { ApiResponse } from '../../../common/response/api-response';
+import { RequirePermission } from '../../../common/decorators/require-permission.decorator';
+import { PERMISSIONS } from '../../../common/constants/permission.constant';
+import { LangCode } from '../../../common/enums/lang.enum';
 
 @ApiTags('Legal Services (Admin)')
 @Controller({ path: 'admin/legal-services', version: '1' })
