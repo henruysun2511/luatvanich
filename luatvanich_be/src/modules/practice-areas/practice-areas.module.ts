@@ -16,7 +16,17 @@ import { PracticeAreaTranslationRepository } from './repositories/practice-area-
     LegalServicesModule,
   ],
   controllers: [PracticeAreasController, PracticeAreasAdminController],
-  providers: [PracticeAreasService, PracticeAreaRepository, PracticeAreaTranslationRepository, PracticeAreaMapper],
-  exports: [TypeOrmModule],
+  providers: [
+    PracticeAreasService,
+    PracticeAreaRepository,
+    PracticeAreaTranslationRepository,
+    PracticeAreaMapper,
+  ],
+  exports: [
+    TypeOrmModule,
+    PracticeAreasService,
+    PracticeAreaRepository,
+    PracticeAreaTranslationRepository,
+  ],
 })
 export class PracticeAreasModule {}
