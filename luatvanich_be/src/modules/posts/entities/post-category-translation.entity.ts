@@ -7,6 +7,7 @@ import { LangCode } from '../../../common/enums/lang.enum';
  * Khóa chính kép: (category_id, language_code).
  */
 @Entity('post_category_translations')
+@Index('uq_post_category_translations_slug_lang', ['languageCode', 'slug'], { unique: true })
 export class PostCategoryTranslation {
   @PrimaryColumn({ name: 'category_id', type: 'uuid' })
   categoryId: string;
@@ -24,7 +25,7 @@ export class PostCategoryTranslation {
 
   /** Đường dẫn tĩnh SEO duy nhất theo ngôn ngữ */
   @Column({ length: 220 })
-  @Index('idx_post_category_translations_slug')
+
   slug: string;
 
   /** Mô tả khái quát về chuyên mục */
