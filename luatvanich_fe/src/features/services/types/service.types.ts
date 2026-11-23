@@ -1,4 +1,4 @@
-export type ServicePublishStatus = "published" | "draft" | "archived";
+export type ServicePublishStatus = "published" | "draft";
 
 export interface ServiceTranslationSummaryItem {
   languageCode: "vi" | "zh-CN";

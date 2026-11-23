@@ -881,23 +881,23 @@ export function LawyerFormDialog({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Trạng thái hiển thị
-                  </label>
-                  <Select
-                    value={status}
-                    onValueChange={(val) => setStatus(val as LawyerStatus)}
-                  >
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Trạng thái" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="published">Xuất bản (Hiển thị)</SelectItem>
-                      <SelectItem value="draft">Bản nháp (Ẩn)</SelectItem>
-                      <SelectItem value="archived">Lưu trữ</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/20">
+                  <div>
+                    <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                      Trạng thái công khai
+                    </label>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      {status === "published"
+                        ? "Đang bật: Hiển thị công khai trên website"
+                        : "Đang tắt: Lưu dạng bản nháp nội bộ"}
+                    </p>
+                  </div>
+                  <Switch
+                    checked={status === "published"}
+                    onCheckedChange={(checked) =>
+                      setStatus(checked ? "published" : "draft")
+                    }
+                  />
                 </div>
 
                 <div>

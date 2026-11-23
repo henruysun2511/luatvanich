@@ -46,7 +46,7 @@ export const lawyerFormSchema = z.object({
   practiceStartDate: z.string().optional().nullable().or(z.literal("")),
   displayOrder: z.coerce.number().int().default(0),
   isFeatured: z.boolean().default(false),
-  status: z.enum(["published", "draft", "archived"]).default("draft"),
+  status: z.enum(["published", "draft"]).default("draft"),
   translations: z
     .array(lawyerTranslationSchema)
     .min(1, "Cần có ít nhất một bản dịch tiếng Việt"),

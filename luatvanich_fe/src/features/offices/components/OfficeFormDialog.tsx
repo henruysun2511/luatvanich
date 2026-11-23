@@ -439,20 +439,23 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
                   />
                   {errors.code && <p className="text-xs text-destructive mt-1">{errors.code}</p>}
                 </div>
-                <div>
-                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Trạng thái xuất bản
-                  </label>
-                  <Select value={status} onValueChange={(val) => setStatus(val as OfficeStatus)}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Chọn trạng thái" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="published">Xuất bản (Published)</SelectItem>
-                      <SelectItem value="draft">Bản nháp (Draft)</SelectItem>
-                      <SelectItem value="archived">Lưu trữ (Archived)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/20">
+                  <div>
+                    <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                      Trạng thái công khai
+                    </label>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      {status === "published"
+                        ? "Đang bật: Hiển thị công khai"
+                        : "Đang tắt: Lưu bản nháp"}
+                    </p>
+                  </div>
+                  <Switch
+                    checked={status === "published"}
+                    onCheckedChange={(checked) =>
+                      setStatus(checked ? "published" : "draft")
+                    }
+                  />
                 </div>
               </div>
 

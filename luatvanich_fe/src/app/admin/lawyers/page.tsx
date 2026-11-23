@@ -216,7 +216,6 @@ export default function LawyersManagementPage() {
               <SelectItem value="all">Tất cả trạng thái</SelectItem>
               <SelectItem value="published">Công khai</SelectItem>
               <SelectItem value="draft">Bản nháp</SelectItem>
-              <SelectItem value="archived">Lưu trữ</SelectItem>
             </SelectContent>
           </Select>
         </div>

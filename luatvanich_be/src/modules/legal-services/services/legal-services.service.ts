@@ -177,12 +177,6 @@ export class LegalServicesService {
     const service = await this.serviceRepo.findById(id);
     if (!service) throw new LegalServiceNotFoundException(id);
 
-    // BR3: Không xóa dịch vụ đang published — cần archive trước
-    if (service.status === ContentStatus.PUBLISHED) {
-      service.status = ContentStatus.ARCHIVED;
-      await this.serviceRepo.save(service);
-    }
-
     await this.serviceRepo.softDelete(id);
   }
 

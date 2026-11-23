@@ -1,4 +1,4 @@
-export type PracticeAreaStatus = 'draft' | 'published' | 'archived';
+export type PracticeAreaStatus = 'draft' | 'published';
 
 export interface PracticeAreaTranslationItem {
   languageCode: 'vi' | 'zh-CN';

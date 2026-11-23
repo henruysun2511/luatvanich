@@ -39,7 +39,7 @@ export const practiceAreaFormSchema = z.object({
     .nullable()
     .or(z.literal("")),
   displayOrder: z.coerce.number().int().default(0),
-  status: z.enum(["draft", "published", "archived"]).default("draft"),
+  status: z.enum(["draft", "published"]).default("draft"),
   isFeatured: z.boolean().default(false),
   translations: z
     .array(practiceAreaTranslationSchema)

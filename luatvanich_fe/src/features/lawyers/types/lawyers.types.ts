@@ -12,7 +12,7 @@ export type CredentialKind =
   | "notable_case"
   | "publication";
 
-export type LawyerStatus = "published" | "draft" | "archived";
+export type LawyerStatus = "published" | "draft";
 
 export interface LawyerTranslationItem {
   languageCode: "vi" | "zh-CN";

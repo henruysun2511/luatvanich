@@ -154,9 +154,8 @@ export default function ServicesManagementPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Tất cả trạng thái</SelectItem>
-              <SelectItem value="published">Đã xuất bản</SelectItem>
+              <SelectItem value="published">Đã xuất bản (Công khai)</SelectItem>
               <SelectItem value="draft">Bản nháp</SelectItem>
-              <SelectItem value="archived">Lưu trữ</SelectItem>
             </SelectContent>
           </Select>
         </div>

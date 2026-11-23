@@ -5,7 +5,7 @@ export const serviceFormSchema = z.object({
   practiceAreaId: z.string().optional().nullable().or(z.literal("")),
   coverImageUrl: z.string().optional().nullable().or(z.literal("")),
   displayOrder: z.coerce.number().int().default(0),
-  status: z.enum(["published", "draft", "archived"]).default("draft"),
+  status: z.enum(["published", "draft"]).default("draft"),
   isFeatured: z.boolean().default(false),
 
   // Tiếng Việt (bắt buộc)

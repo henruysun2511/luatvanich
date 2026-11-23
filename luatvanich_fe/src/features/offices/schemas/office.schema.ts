@@ -26,7 +26,7 @@ export const officeFormSchema = z.object({
   mapEmbedUrl: z.string().optional().or(z.literal("")),
   isHeadquarters: z.boolean().default(false),
   displayOrder: z.coerce.number().int().default(0),
-  status: z.enum(["draft", "published", "archived"]).default("draft"),
+  status: z.enum(["draft", "published"]).default("draft"),
   translations: z.array(officeTranslationSchema).min(1, "Cần ít nhất một bản dịch"),
 });
 

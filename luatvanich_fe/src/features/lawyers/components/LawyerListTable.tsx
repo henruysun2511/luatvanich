@@ -251,16 +251,10 @@ export function LawyerListTable({
                       className={`text-[11px] font-medium ${
                         item.status === "published"
                           ? "text-emerald-600 dark:text-emerald-400"
-                          : item.status === "draft"
-                          ? "text-amber-600 dark:text-amber-400"
-                          : "text-muted-foreground"
+                          : "text-amber-600 dark:text-amber-400"
                       }`}
                     >
-                      {item.status === "published"
-                        ? "Hiển thị"
-                        : item.status === "draft"
-                        ? "Bản nháp"
-                        : "Lưu trữ"}
+                      {item.status === "published" ? "Hiển thị" : "Bản nháp"}
                     </span>
                   </div>
                 </TableCell>

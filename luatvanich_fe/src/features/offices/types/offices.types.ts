@@ -1,4 +1,4 @@
-export type OfficeStatus = 'draft' | 'published' | 'archived';
+export type OfficeStatus = 'draft' | 'published';
 
 export interface OfficeTranslationItem {
   languageCode: 'vi' | 'zh-CN';

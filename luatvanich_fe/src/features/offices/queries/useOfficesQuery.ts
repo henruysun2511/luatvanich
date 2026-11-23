@@ -5,6 +5,7 @@ import type {
   OfficeQueryParams,
   CreateOfficeInput,
   UpdateOfficeInput,
+  OfficeStatus,
 } from "../types/offices.types";
 import { extractErrorMessage } from "@/lib/axios";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
@@ -85,7 +86,7 @@ export const useUpdateOfficeStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, status }: { id: string; status: 'draft' | 'published' | 'archived' }) =>
+    mutationFn: ({ id, status }: { id: string; status: OfficeStatus }) =>
       officesService.updateOffice(id, { status }),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: officesKeys.lists() });
