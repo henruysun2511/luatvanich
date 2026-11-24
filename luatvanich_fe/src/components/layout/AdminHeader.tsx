@@ -2,14 +2,16 @@
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { User, LogOut, Loader2, Shield, ExternalLink } from "lucide-react";
+import { User, LogOut, Loader2, ExternalLink, Menu } from "lucide-react";
 import { useLogout, useMe } from "@/features/auth";
 import { NotificationBellDropdown } from "./NotificationBellDropdown";
+import { useAdminSidebar } from "./AdminSidebarContext";
 import { cn } from "@/lib/utils";
 
 export function AdminHeader() {
   const { data: user } = useMe();
   const logoutMutation = useLogout();
+  const { isCollapsed, toggleSidebar } = useAdminSidebar();
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -34,8 +36,16 @@ export function AdminHeader() {
       {/* Dải gradient đỉnh hoàng gia 4px đồng bộ Header trang chủ */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#85151b] via-[#a3171e] to-[#c29a45]" />
 
-      <div className="flex items-center gap-2 text-xs text-[#06122b]/80 font-sans">
-        <Shield className="size-4 text-[#c29a45]" />
+      <div className="flex items-center gap-2.5 text-xs text-[#06122b]/80 font-sans">
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          className="p-1.5 -ml-1.5 text-[#06122b] hover:text-[#a3171e] hover:bg-[#fbf7ee] border border-transparent hover:border-[#e7dcc3] transition-colors cursor-pointer select-none"
+          title={isCollapsed ? "Mở rộng thanh điều hướng" : "Thu gọn thanh điều hướng"}
+          aria-label={isCollapsed ? "Mở rộng thanh điều hướng" : "Thu gọn thanh điều hướng"}
+        >
+          <Menu className="size-4.5 text-[#c29a45] hover:text-[#a3171e] transition-colors" />
+        </button>
         <span className="font-semibold tracking-wide">
           Hệ thống Quản trị & Điều hành Nội dung
         </span>
