@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RoleBadge } from "@/features/roles";
-import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
+import { useMediaLifecycle } from "@/features/media";
 import { useMe, useUpdateProfile } from "../queries/useAuthQuery";
 import { updateProfileSchema } from "../schemas/auth.schema";
-import { User, Loader2, Save, Mail, Phone, AtSign } from "lucide-react";
+import { User, Loader2, Save, Mail, Phone, AtSign, Camera, X } from "lucide-react";
 
 export function ProfileForm() {
   const { data: user, isLoading: isUserLoading } = useMe();
   const updateProfileMutation = useUpdateProfile();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -60,6 +61,31 @@ export function ProfileForm() {
     }
   };
 
+  const handleAvatarClick = () => {
+    if (avatarController.isUploading) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+    try {
+      await avatarController.upload(file);
+    } catch {
+      // Thông báo lỗi đã được useMediaQuery quản lý
+    }
+  };
+
+  const handleRemoveAvatar = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await avatarController.remove();
+    } catch {
+      //
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = updateProfileSchema.safeParse(formData);
@@ -93,26 +119,80 @@ export function ProfileForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Input file ẩn phục vụ upload avatar */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/gif"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       {/* Khối Ảnh đại diện & Thông tin vai trò */}
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-lg border border-border bg-muted/20">
-        <div className="size-20 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 ring-2 ring-primary/20 overflow-hidden font-bold text-lg">
-          {formData.avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={formData.avatarUrl}
-              alt={formData.fullName || formData.username}
-              className="size-full object-cover"
-              onError={(e) => {
-                // Nếu ảnh lỗi thì ẩn ảnh đi
-                (e.target as HTMLElement).style.display = "none";
-              }}
-            />
-          ) : (
-            <User className="size-9" />
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 p-5 rounded-xl border border-border bg-muted/20">
+        {/* Hình tròn Avatar tương tác trực tiếp */}
+        <div className="relative group shrink-0">
+          <button
+            type="button"
+            onClick={handleAvatarClick}
+            disabled={avatarController.isUploading}
+            className="relative size-24 rounded-full bg-primary/10 text-primary flex items-center justify-center ring-2 ring-primary/20 hover:ring-primary/50 transition-all duration-200 overflow-hidden font-bold text-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-primary/30"
+            title="Nhấp để tải lên hoặc đổi ảnh đại diện"
+          >
+            {formData.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={formData.avatarUrl}
+                alt={formData.fullName || formData.username}
+                className="size-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = "none";
+                }}
+              />
+            ) : (
+              <User className="size-11" />
+            )}
+
+            {/* Overlay loading hoặc overlay hover */}
+            {avatarController.isUploading ? (
+              <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white text-[10px] gap-1 z-10">
+                <Loader2 className="size-5 animate-spin" />
+                <span>Đang tải...</span>
+              </div>
+            ) : (
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity duration-200 text-[10px] gap-1">
+                <Camera className="size-5" />
+                <span className="font-medium">Đổi ảnh</span>
+              </div>
+            )}
+          </button>
+
+          {/* Icon máy ảnh ở góc dưới */}
+          <button
+            type="button"
+            onClick={handleAvatarClick}
+            disabled={avatarController.isUploading}
+            className="absolute -bottom-1 -right-1 size-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer border-2 border-background"
+            title="Chọn ảnh mới"
+          >
+            <Camera className="size-3.5" />
+          </button>
+
+          {/* Nút xóa ảnh nếu đã có avatar */}
+          {Boolean(formData.avatarUrl && !avatarController.isUploading) && (
+            <button
+              type="button"
+              onClick={handleRemoveAvatar}
+              className="absolute -top-1 -right-1 size-6 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer border-2 border-background"
+              title="Gỡ ảnh đại diện"
+            >
+              <X className="size-3" />
+            </button>
           )}
         </div>
 
-        <div className="flex-1 space-y-1.5 text-center sm:text-left">
+        {/* Thông tin hiển thị cạnh avatar */}
+        <div className="flex-1 space-y-1.5 text-center sm:text-left pt-1">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <h3 className="font-semibold text-foreground text-base">
               {formData.fullName || formData.username || "Chưa đặt tên"}
@@ -126,9 +206,13 @@ export function ProfileForm() {
           <p className="text-xs text-muted-foreground">
             @{formData.username} &bull; {formData.email}
           </p>
-          <p className="text-[11px] text-muted-foreground/80 italic pt-0.5">
-            * Quyền hạn và vai trò hệ thống do Super Admin chỉ định, không thể tự chỉnh sửa.
-          </p>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 text-[11px] text-muted-foreground">
+            <span className="inline-flex items-center gap-1 text-primary font-medium">
+              <Camera className="size-3" /> Nhấp vào ảnh để thay đổi
+            </span>
+            <span>&bull;</span>
+            <span>Ảnh vuông 1:1, tối đa 2MB</span>
+          </div>
         </div>
       </div>
 
@@ -202,27 +286,13 @@ export function ProfileForm() {
             <p className="text-[11px] text-destructive">{errors.phoneNumber}</p>
           )}
         </div>
-
-        {/* Upload Ảnh đại diện (Avatar) */}
-        <div className="space-y-1.5 md:col-span-2">
-          <SingleImageUpload
-            label="Ảnh đại diện (Avatar)"
-            value={formData.avatarUrl}
-            controller={avatarController}
-            aspectRatio="square"
-            recommendedSize="Khuyến nghị ảnh vuông 1:1, dung lượng tối đa 2MB"
-          />
-          {errors.avatarUrl && (
-            <p className="text-[11px] text-destructive">{errors.avatarUrl}</p>
-          )}
-        </div>
       </div>
 
       {/* Submit Button */}
       <div className="flex justify-end pt-2">
         <Button
           type="submit"
-          disabled={updateProfileMutation.isPending}
+          disabled={updateProfileMutation.isPending || avatarController.isUploading}
           className="gap-2 text-xs h-9 min-w-[140px]"
         >
           {updateProfileMutation.isPending ? (
