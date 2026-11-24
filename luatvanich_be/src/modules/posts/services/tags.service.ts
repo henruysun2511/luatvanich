@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, EntityManager } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
@@ -16,7 +15,6 @@ import { TagRepository } from '../repositories/tag.repository';
 @Injectable()
 export class TagsService {
   constructor(
-    private readonly dataSource: DataSource,
     private readonly tags: TagRepository,
     private readonly translations: TagTranslationRepository,
     private readonly mapper: TagMapper,
@@ -46,41 +44,37 @@ export class TagsService {
     );
   }
 
-  async findByIdAdmin(id: string, manager?: EntityManager) {
-    const tag = await this.tags.findById(id, manager);
+  async findByIdAdmin(id: string) {
+    const tag = await this.tags.findById(id);
     if (!tag) throw new TagNotFoundException(id);
     return this.mapper.toAdminResponse(tag);
   }
 
-  create(dto: CreateTagDto) {
-    return this.dataSource.transaction(async (manager) => {
-      const { translations, ...fields } = dto;
-      const tag = await this.tags.save(fields, manager);
-      await this.saveTranslations(tag.id, translations, manager);
-      return this.findByIdAdmin(tag.id, manager);
-    });
+  async create(dto: CreateTagDto) {
+    const { translations, ...fields } = dto;
+    const tag = await this.tags.save(fields);
+    await this.saveTranslations(tag.id, translations);
+    return this.findByIdAdmin(tag.id);
   }
 
-  update(id: string, dto: UpdateTagDto) {
-    return this.dataSource.transaction(async (manager) => {
-      const current = await this.tags.findForWrite(id, manager);
-      if (!current) throw new TagNotFoundException(id);
-      const { translations, ...fields } = dto;
-      await this.tags.save({ ...current, ...fields }, manager);
-      if (translations) await this.saveTranslations(id, translations, manager);
-      return this.findByIdAdmin(id, manager);
-    });
+  async update(id: string, dto: UpdateTagDto) {
+    const current = await this.tags.findById(id);
+    if (!current) throw new TagNotFoundException(id);
+    const { translations, ...fields } = dto;
+    await this.tags.save({ ...current, ...fields });
+    if (translations) await this.saveTranslations(id, translations);
+    return this.findByIdAdmin(id);
   }
 
-  private async saveTranslations(id: string, translations: UpsertTagTranslationDto[], manager: EntityManager) {
+  private async saveTranslations(id: string, translations: UpsertTagTranslationDto[]) {
     for (const input of translations) {
-      const current = await this.translations.find(id, input.languageCode, manager);
+      const current = await this.translations.find(id, input.languageCode);
       let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
       if (!slug) {
         const generated = input.languageCode === LangCode.VI ? generateViSlug(input.name) : generateZhSlug(input.name);
         slug = generated || id;
       }
-      await this.translations.save({ ...current, ...input, tagId: id, slug, updatedAt: new Date() }, manager);
+      await this.translations.save({ ...current, ...input, tagId: id, slug, updatedAt: new Date() });
     }
   }
 

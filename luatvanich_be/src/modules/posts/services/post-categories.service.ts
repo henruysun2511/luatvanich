@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, EntityManager } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
@@ -24,7 +23,6 @@ import { PostRepository } from '../repositories/post.repository';
 @Injectable()
 export class PostCategoriesService {
   constructor(
-    private readonly dataSource: DataSource,
     private readonly categories: PostCategoryRepository,
     private readonly translations: PostCategoryTranslationRepository,
     private readonly posts: PostRepository,
@@ -58,46 +56,39 @@ export class PostCategoriesService {
     );
   }
 
-  async findByIdAdmin(id: string, manager?: EntityManager) {
-    const category = await this.categories.findById(id, manager);
+  async findByIdAdmin(id: string) {
+    const category = await this.categories.findById(id);
     if (!category) throw new PostCategoryNotFoundException(id);
     return this.mapper.toAdminResponse(category);
   }
 
-  create(dto: CreatePostCategoryDto) {
-    return this.dataSource.transaction(async (manager) => {
-      await this.categories.lockHierarchy(manager);
-      const { translations, ...fields } = dto;
-      await this.validateParent(fields.section, fields.parentId, undefined, manager);
-      const category = await this.categories.save(fields, manager);
-      await this.saveTranslations(category.id, translations, manager);
-      return this.findByIdAdmin(category.id, manager);
-    });
+  async create(dto: CreatePostCategoryDto) {
+    const { translations, ...fields } = dto;
+    await this.validateParent(fields.section, fields.parentId);
+    const category = await this.categories.save(fields);
+    await this.saveTranslations(category.id, translations);
+    return this.findByIdAdmin(category.id);
   }
 
-  update(id: string, dto: UpdatePostCategoryDto) {
-    return this.dataSource.transaction(async (manager) => {
-      await this.categories.lockHierarchy(manager);
-      const current = await this.categories.findForWrite(id, manager);
-      if (!current) throw new PostCategoryNotFoundException(id);
-      const { translations, ...fields } = dto;
-      const section = fields.section ?? current.section;
-      if (section !== current.section && (await this.categories.countChildren(id, manager))) {
-        throw new PostCategoryHierarchyException('Không thể đổi phân vùng khi chuyên mục còn chuyên mục con');
-      }
-      const parentId = fields.parentId === undefined ? current.parentId : fields.parentId;
-      await this.validateParent(section, parentId, id, manager);
-      await this.categories.save({ ...current, ...fields }, manager);
-      if (translations) await this.saveTranslations(id, translations, manager);
-      return this.findByIdAdmin(id, manager);
-    });
+  async update(id: string, dto: UpdatePostCategoryDto) {
+    const current = await this.categories.findById(id);
+    if (!current) throw new PostCategoryNotFoundException(id);
+    const { translations, ...fields } = dto;
+    const section = fields.section ?? current.section;
+    if (section !== current.section && (await this.categories.countChildren(id))) {
+      throw new PostCategoryHierarchyException('Không thể đổi phân vùng khi chuyên mục còn chuyên mục con');
+    }
+    const parentId = fields.parentId === undefined ? current.parentId : fields.parentId;
+    await this.validateParent(section, parentId, id);
+    await this.categories.save({ ...current, ...fields });
+    if (translations) await this.saveTranslations(id, translations);
+    return this.findByIdAdmin(id);
   }
 
   private async validateParent(
     section: PostSection,
     parentId: string | null | undefined,
-    categoryId: string | undefined,
-    manager: EntityManager,
+    categoryId?: string,
   ) {
     const visited = new Set<string>();
     if (categoryId) visited.add(categoryId.toLowerCase());
@@ -105,7 +96,7 @@ export class PostCategoriesService {
       const key = parentId.toLowerCase();
       if (visited.has(key)) throw new PostCategoryHierarchyException('Cây chuyên mục không được có vòng lặp');
       visited.add(key);
-      const parent = await this.categories.findForWrite(parentId, manager);
+      const parent = await this.categories.findById(parentId);
       if (!parent) throw new PostCategoryNotFoundException(parentId);
       if (parent.section !== section) throw new PostCategoryHierarchyException('Chuyên mục cha và con phải cùng phân vùng');
       parentId = parent.parentId;
@@ -115,37 +106,31 @@ export class PostCategoriesService {
   private async saveTranslations(
     id: string,
     translations: UpsertPostCategoryTranslationDto[],
-    manager: EntityManager,
   ) {
     for (const input of translations) {
-      const current = await this.translations.find(id, input.languageCode, manager);
+      const current = await this.translations.find(id, input.languageCode);
       let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
       if (!slug) {
         const generated = input.languageCode === LangCode.VI ? generateViSlug(input.name) : generateZhSlug(input.name);
         slug = generated || id;
       }
-      await this.translations.save({ ...current, ...input, categoryId: id, slug, updatedAt: new Date() }, manager);
+      await this.translations.save({ ...current, ...input, categoryId: id, slug, updatedAt: new Date() });
     }
   }
 
   async reorder(dto: ReorderPostCategoriesDto) {
-    await this.dataSource.transaction(async (manager) => {
-      await this.categories.lockHierarchy(manager);
-      for (const [index, id] of dto.ids.entries()) {
-        const result = await this.categories.updateOrder(id, index + 1, manager);
-        if (!result.affected) throw new PostCategoryNotFoundException(id);
-      }
-    });
+    for (const [index, id] of dto.ids.entries()) {
+      const result = await this.categories.updateOrder(id, index + 1);
+      if (!result.affected) throw new PostCategoryNotFoundException(id);
+    }
   }
 
   async delete(id: string) {
-    await this.dataSource.transaction(async (manager) => {
-      await this.categories.lockHierarchy(manager);
-      if (!(await this.categories.findForWrite(id, manager))) throw new PostCategoryNotFoundException(id);
-      const count = await this.posts.countByCategory(id, false, manager);
-      if (count) throw new PostCategoryHasPostsException(count);
-      if (await this.categories.countChildren(id, manager)) throw new PostCategoryHasChildrenException();
-      await this.categories.softDelete(id, manager);
-    });
+    const current = await this.categories.findById(id);
+    if (!current) throw new PostCategoryNotFoundException(id);
+    const count = await this.posts.countByCategory(id, false);
+    if (count) throw new PostCategoryHasPostsException(count);
+    if (await this.categories.countChildren(id)) throw new PostCategoryHasChildrenException();
+    await this.categories.softDelete(id);
   }
 }

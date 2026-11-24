@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, LessThanOrEqual, Repository, SelectQueryBuilder } from 'typeorm';
+import { LessThanOrEqual, Repository, SelectQueryBuilder } from 'typeorm';
 import { ContentStatus } from '../../../common/enums/content-status.enum';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { normalizePagination } from '../../../common/utils/pagination.util';
@@ -12,26 +12,30 @@ import { PostStatus } from '../enums/post-status.enum';
 
 @Injectable()
 export class PostRepository {
-  constructor(@InjectRepository(Post) private readonly repo: Repository<Post>) {}
+  constructor(
+    @InjectRepository(Post) private readonly repo: Repository<Post>,
+    @InjectRepository(PostTag) private readonly postTagRepo: Repository<PostTag>,
+    @InjectRepository(PostService) private readonly postServiceRepo: Repository<PostService>,
+  ) {}
 
-  private getRepo(manager?: EntityManager): Repository<Post> {
-    return manager ? manager.getRepository(Post) : this.repo;
+  create(fields: Partial<Post>): Post {
+    return this.repo.create(fields);
   }
 
-  findById(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({
+  save(entity: Post | Partial<Post>): Promise<Post> {
+    return this.repo.save(entity);
+  }
+
+  findById(id: string): Promise<Post | null> {
+    return this.repo.findOne({
       where: { id },
       relations: { translations: true, postTags: true, postServices: true },
       relationLoadStrategy: 'query',
     });
   }
 
-  findForWrite(id: string, manager: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
-  }
-
-  countByCategory(categoryId: string, publishedOnly = false, manager?: EntityManager): Promise<number> {
-    return this.getRepo(manager).count({
+  countByCategory(categoryId: string, publishedOnly = false): Promise<number> {
+    return this.repo.count({
       where: {
         categoryId,
         ...(publishedOnly ? { status: PostStatus.PUBLISHED } : {}),
@@ -39,32 +43,21 @@ export class PostRepository {
     });
   }
 
-  save(fields: Partial<Post>, manager?: EntityManager) {
-    const repo = this.getRepo(manager);
-    return repo.save(repo.create(fields));
-  }
-
-  async setTags(postId: string, tagIds: string[], manager: EntityManager) {
-    await manager.delete(PostTag, { postId });
+  async setTags(postId: string, tagIds: string[]): Promise<void> {
+    await this.postTagRepo.delete({ postId });
     if (tagIds.length) {
-      await manager.insert(
-        PostTag,
-        tagIds.map((tagId) => ({ postId, tagId })),
-      );
+      await this.postTagRepo.insert(tagIds.map((tagId) => ({ postId, tagId })));
     }
   }
 
-  async setServices(postId: string, serviceIds: string[], manager: EntityManager) {
-    await manager.delete(PostService, { postId });
+  async setServices(postId: string, serviceIds: string[]): Promise<void> {
+    await this.postServiceRepo.delete({ postId });
     if (serviceIds.length) {
-      await manager.insert(
-        PostService,
-        serviceIds.map((serviceId) => ({ postId, serviceId })),
-      );
+      await this.postServiceRepo.insert(serviceIds.map((serviceId) => ({ postId, serviceId })));
     }
   }
 
-  private listQuery() {
+  private listQuery(): SelectQueryBuilder<Post> {
     return this.repo
       .createQueryBuilder('post')
       .leftJoin('post.translations', 'translation')
@@ -81,7 +74,7 @@ export class PostRepository {
       ]);
   }
 
-  private withSearch(query: SelectQueryBuilder<Post>, raw?: string, lang?: LangCode) {
+  private withSearch(query: SelectQueryBuilder<Post>, raw?: string, lang?: LangCode): void {
     const search = raw?.trim();
     if (!search) return;
     const term = search.replace(/[!%_]/g, (char) => '!' + char);
@@ -108,7 +101,7 @@ export class PostRepository {
     }
   }
 
-  private withDisplayedLanguage(query: SelectQueryBuilder<Post>, alias: string, lang: LangCode) {
+  private withDisplayedLanguage(query: SelectQueryBuilder<Post>, alias: string, lang: LangCode): void {
     query
       .andWhere(
         `(${alias}.language_code = :lang OR (${alias}.language_code = :fallback AND NOT EXISTS (
@@ -120,7 +113,7 @@ export class PostRepository {
       .andWhere(`${alias}.is_complete = true`);
   }
 
-  private publicQuery(lang: LangCode) {
+  private publicQuery(lang: LangCode): SelectQueryBuilder<Post> {
     const query = this.listQuery()
       .innerJoin('post.category', 'category')
       .leftJoin('post.author', 'author', 'author.status = :authorStatus', { authorStatus: ContentStatus.PUBLISHED })
@@ -180,7 +173,7 @@ export class PostRepository {
       .getManyAndCount();
   }
 
-  async findPublicBySlug(slug: string, lang: LangCode) {
+  async findPublicBySlug(slug: string, lang: LangCode): Promise<Post | null> {
     const query = this.repo
       .createQueryBuilder('post')
       .innerJoin('post.category', 'category')
@@ -193,7 +186,7 @@ export class PostRepository {
     return query.getOne();
   }
 
-  findPublicDetail(id: string) {
+  findPublicDetail(id: string): Promise<Post | null> {
     return this.repo.findOne({
       where: { id, status: PostStatus.PUBLISHED },
       relationLoadStrategy: 'query',
@@ -207,7 +200,7 @@ export class PostRepository {
     });
   }
 
-  findRelated(post: Post, tagIds: string[], lang: LangCode, limit: number) {
+  findRelated(post: Post, tagIds: string[], lang: LangCode, limit: number): Promise<Post[]> {
     const query = this.publicQuery(lang).andWhere('post.id <> :id', { id: post.id });
     const sameCategory = 'post.categoryId = :categoryId';
     query.setParameter('categoryId', post.categoryId);
@@ -230,7 +223,7 @@ export class PostRepository {
       .getMany();
   }
 
-  findAdminList(filters: AdminPostQueryDto) {
+  findAdminList(filters: AdminPostQueryDto): Promise<[Post[], number]> {
     const { skip, limit } = normalizePagination(filters);
     const query = this.listQuery();
     if (filters.status) query.andWhere('post.status = :status', { status: filters.status });
@@ -252,8 +245,8 @@ export class PostRepository {
       .getManyAndCount();
   }
 
-  async countViews(id: string, manager?: EntityManager) {
-    const result = await this.getRepo(manager)
+  async countViews(id: string): Promise<number | undefined> {
+    const result = await this.repo
       .createQueryBuilder()
       .update(Post)
       .set({ viewsCount: () => '"views_count" + 1', updatedAt: () => '"updated_at"' })
@@ -264,8 +257,8 @@ export class PostRepository {
     return result.raw[0]?.views_count as number | undefined;
   }
 
-  publishDue(now: Date, manager?: EntityManager) {
-    return this.getRepo(manager)
+  publishDue(now: Date) {
+    return this.repo
       .createQueryBuilder()
       .update(Post)
       .set({ status: PostStatus.PUBLISHED })
@@ -274,7 +267,7 @@ export class PostRepository {
       .execute();
   }
 
-  softDelete(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).softDelete(id);
+  softDelete(id: string) {
+    return this.repo.softDelete(id);
   }
 }

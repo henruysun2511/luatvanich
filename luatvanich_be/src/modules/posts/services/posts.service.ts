@@ -1,5 +1,4 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
-import { DataSource, EntityManager } from 'typeorm';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
@@ -33,7 +32,6 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   private publicationTimer?: NodeJS.Timeout;
 
   constructor(
-    private readonly dataSource: DataSource,
     private readonly posts: PostRepository,
     private readonly categories: PostCategoryRepository,
     private readonly tags: TagRepository,
@@ -127,93 +125,82 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     );
   }
 
-  async findByIdAdmin(id: string, manager?: EntityManager) {
-    const post = await this.posts.findById(id, manager);
+  async findByIdAdmin(id: string) {
+    const post = await this.posts.findById(id);
     if (!post) throw new PostNotFoundException(id);
     return this.mapper.toAdminResponse(post);
   }
 
   async create(dto: CreatePostDto) {
     if (dto.thumbnailUrl) validatePostThumbnail(dto.thumbnailUrl);
-    return this.dataSource.transaction(async (manager) => {
-      const { translations, tagIds, serviceIds, ...fields } = dto;
-      await this.validateReferences(fields.categoryId, fields.authorLawyerId, manager);
-      const post = await this.posts.save(fields, manager);
-      await this.saveTranslations(post.id, translations, manager);
-      await this.updateLinks(post.id, tagIds, serviceIds, manager);
-      return this.findByIdAdmin(post.id, manager);
-    });
+    const { translations, tagIds, serviceIds, ...fields } = dto;
+    await this.validateReferences(fields.categoryId, fields.authorLawyerId);
+    const post = await this.posts.save(fields);
+    await this.saveTranslations(post.id, translations);
+    await this.updateLinks(post.id, tagIds, serviceIds);
+    return this.findByIdAdmin(post.id);
   }
 
   async update(id: string, dto: UpdatePostDto) {
-    if (dto.thumbnailUrl) {
-      const current = await this.posts.findById(id);
-      if (!current) throw new PostNotFoundException(id);
-      if (current.thumbnailUrl !== dto.thumbnailUrl) validatePostThumbnail(dto.thumbnailUrl);
+    const post = await this.posts.findById(id);
+    if (!post) throw new PostNotFoundException(id);
+
+    if (dto.thumbnailUrl && dto.thumbnailUrl !== post.thumbnailUrl) {
+      validatePostThumbnail(dto.thumbnailUrl);
     }
 
-    return this.dataSource.transaction(async (manager) => {
-      const post = await this.requireForWrite(id, manager);
-      const { translations, tagIds, serviceIds, ...fields } = dto;
-      await this.validateReferences(fields.categoryId, fields.authorLawyerId, manager);
-      await this.posts.save({ ...post, ...fields }, manager);
-      if (translations) await this.saveTranslations(id, translations, manager);
-      await this.updateLinks(id, tagIds, serviceIds, manager);
-      const result = await this.findByIdAdmin(id, manager);
-      if (result.status === PostStatus.PUBLISHED || result.status === PostStatus.SCHEDULED) {
-        this.assertCompleteTranslation(result.translations);
-      }
-      return result;
-    });
+    const { translations, tagIds, serviceIds, ...fields } = dto;
+    await this.validateReferences(fields.categoryId, fields.authorLawyerId);
+    await this.posts.save({ ...post, ...fields });
+    if (translations) await this.saveTranslations(id, translations);
+    await this.updateLinks(id, tagIds, serviceIds);
+    const result = await this.findByIdAdmin(id);
+    if (result.status === PostStatus.PUBLISHED || result.status === PostStatus.SCHEDULED) {
+      this.assertCompleteTranslation(result.translations);
+    }
+    return result;
   }
 
-  updateStatus(id: string, dto: UpdatePostStatusDto) {
-    return this.dataSource.transaction(async (manager) => {
-      const post = await this.requireForWrite(id, manager);
-      const now = new Date();
-      let publishAt: Date | null = null;
-      if (dto.status === PostStatus.SCHEDULED) {
-        const scheduled = dto.publishAt ? new Date(dto.publishAt) : null;
-        if (!scheduled || !Number.isFinite(scheduled.getTime()) || scheduled <= now) {
-          throw new PostPublicationException('Thời điểm đăng theo lịch phải ở tương lai');
-        }
-        publishAt = scheduled;
+  async updateStatus(id: string, dto: UpdatePostStatusDto) {
+    const post = await this.posts.findById(id);
+    if (!post) throw new PostNotFoundException(id);
+
+    const now = new Date();
+    let publishAt: Date | null = null;
+    if (dto.status === PostStatus.SCHEDULED) {
+      const scheduled = dto.publishAt ? new Date(dto.publishAt) : null;
+      if (!scheduled || !Number.isFinite(scheduled.getTime()) || scheduled <= now) {
+        throw new PostPublicationException('Thời điểm đăng theo lịch phải ở tương lai');
       }
-      if (dto.status === PostStatus.PUBLISHED) {
-        publishAt = post.status === PostStatus.PUBLISHED ? post.publishAt ?? now : now;
-      }
-      if (dto.status === PostStatus.PUBLISHED || dto.status === PostStatus.SCHEDULED) {
-        const detail = await this.findByIdAdmin(id, manager);
-        this.assertCompleteTranslation(detail.translations);
-      }
-      await this.posts.save({ ...post, status: dto.status, publishAt }, manager);
-      return this.findByIdAdmin(id, manager);
-    });
+      publishAt = scheduled;
+    }
+    if (dto.status === PostStatus.PUBLISHED) {
+      publishAt = post.status === PostStatus.PUBLISHED ? post.publishAt ?? now : now;
+    }
+    if (dto.status === PostStatus.PUBLISHED || dto.status === PostStatus.SCHEDULED) {
+      const detail = await this.findByIdAdmin(id);
+      this.assertCompleteTranslation(detail.translations);
+    }
+    await this.posts.save({ ...post, status: dto.status, publishAt });
+    return this.findByIdAdmin(id);
   }
 
   async delete(id: string) {
-    await this.dataSource.transaction(async (manager) => {
-      await this.requireForWrite(id, manager);
-      await this.posts.softDelete(id, manager);
-    });
-  }
-
-  private async requireForWrite(id: string, manager: EntityManager) {
-    const post = await this.posts.findForWrite(id, manager);
+    const post = await this.posts.findById(id);
     if (!post) throw new PostNotFoundException(id);
-    return post;
+    await this.posts.softDelete(id);
   }
 
   private async validateReferences(
     categoryId: string | undefined,
     authorId: string | null | undefined,
-    manager: EntityManager,
   ) {
-    if (categoryId && !(await this.categories.findActiveReference(categoryId, manager))) {
-      throw new PostCategoryNotFoundException(categoryId);
+    if (categoryId) {
+      const cat = await this.categories.findById(categoryId);
+      if (!cat) throw new PostCategoryNotFoundException(categoryId);
     }
     if (authorId) {
-      const lawyer = await this.lawyerRepo.findById(authorId, manager);
+      const lawyer = await this.lawyerRepo.findById(authorId);
       if (!lawyer) {
         throw new PostRelationException('Luật sư tác giả không tồn tại');
       }
@@ -224,28 +211,27 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     id: string,
     tagIds: string[] | undefined,
     serviceIds: string[] | undefined,
-    manager: EntityManager,
   ) {
     if (tagIds) {
-      if (tagIds.length && (await this.tags.findIdsForLink(tagIds, manager)).length !== tagIds.length) {
+      if (tagIds.length && (await this.tags.findIdsForLink(tagIds)).length !== tagIds.length) {
         throw new PostRelationException('Có thẻ bài viết không tồn tại');
       }
-      await this.posts.setTags(id, tagIds, manager);
+      await this.posts.setTags(id, tagIds);
     }
     if (serviceIds) {
       if (serviceIds.length) {
-        const foundServices = await this.legalServiceRepo.findByIds(serviceIds, manager);
+        const foundServices = await this.legalServiceRepo.findByIds(serviceIds);
         if (foundServices.length !== serviceIds.length) {
           throw new PostRelationException('Có dịch vụ pháp lý không tồn tại');
         }
       }
-      await this.posts.setServices(id, serviceIds, manager);
+      await this.posts.setServices(id, serviceIds);
     }
   }
 
-  private async saveTranslations(id: string, translations: UpsertPostTranslationDto[], manager: EntityManager) {
+  private async saveTranslations(id: string, translations: UpsertPostTranslationDto[]) {
     for (const input of translations) {
-      const current = await this.translations.find(id, input.languageCode, manager);
+      const current = await this.translations.find(id, input.languageCode);
       let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
       if (!slug) {
         const generated = input.languageCode === LangCode.VI ? generateViSlug(input.title) : generateZhSlug(input.title);
@@ -258,7 +244,6 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
       }
       await this.translations.save(
         { ...current, ...input, postId: id, slug, contentHtml, updatedAt: new Date() },
-        manager,
       );
     }
   }

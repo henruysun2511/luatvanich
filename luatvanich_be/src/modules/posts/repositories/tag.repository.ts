@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, In, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { normalizePagination } from '../../../common/utils/pagination.util';
 import { TagQueryDto } from '../dto/request/tag-query.dto';
@@ -11,33 +11,27 @@ import { Tag } from '../entities/tag.entity';
 export class TagRepository {
   constructor(@InjectRepository(Tag) private readonly repo: Repository<Tag>) {}
 
-  private getRepo(manager?: EntityManager) {
-    return manager?.getRepository(Tag) ?? this.repo;
+  create(fields: Partial<Tag>): Tag {
+    return this.repo.create(fields);
   }
 
-  findById(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, relations: { translations: true } });
+  save(fields: Tag | Partial<Tag>): Promise<Tag> {
+    return this.repo.save(fields);
   }
 
-  findForWrite(id: string, manager: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
+  findById(id: string): Promise<Tag | null> {
+    return this.repo.findOne({ where: { id }, relations: { translations: true } });
   }
 
-  findIdsForLink(ids: string[], manager: EntityManager) {
-    return this.getRepo(manager).find({
+  findIdsForLink(ids: string[]): Promise<Tag[]> {
+    return this.repo.find({
       select: { id: true },
       where: { id: In(ids) },
       order: { id: 'ASC' },
-      lock: { mode: 'pessimistic_read' },
     });
   }
 
-  save(fields: Partial<Tag>, manager?: EntityManager) {
-    const repo = this.getRepo(manager);
-    return repo.save(repo.create(fields));
-  }
-
-  findPublicList(lang: LangCode) {
+  findPublicList(lang: LangCode): Promise<Tag[]> {
     return this.repo
       .createQueryBuilder('tag')
       .leftJoinAndSelect('tag.translations', 'translation')
@@ -64,7 +58,7 @@ export class TagRepository {
       .getOne();
   }
 
-  findAdminList(filters: TagQueryDto) {
+  findAdminList(filters: TagQueryDto): Promise<[Tag[], number]> {
     const { skip, limit } = normalizePagination(filters);
     const query = this.repo.createQueryBuilder('tag').leftJoinAndSelect('tag.translations', 'translation');
     const search = filters.q?.trim();
@@ -83,7 +77,7 @@ export class TagRepository {
       .getManyAndCount();
   }
 
-  delete(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).delete(id);
+  delete(id: string) {
+    return this.repo.delete(id);
   }
 }

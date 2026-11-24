@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, QueryFailedError, Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { PostTranslation } from '../entities/post-translation.entity';
 import { PostSlugAlreadyExistsException } from '../exceptions/post.exception';
@@ -9,20 +9,15 @@ import { PostSlugAlreadyExistsException } from '../exceptions/post.exception';
 export class PostTranslationRepository {
   constructor(@InjectRepository(PostTranslation) private readonly repo: Repository<PostTranslation>) {}
 
-  private getRepo(manager?: EntityManager) {
-    return manager?.getRepository(PostTranslation) ?? this.repo;
+  find(postId: string, languageCode: LangCode): Promise<PostTranslation | null> {
+    return this.repo.findOneBy({ postId, languageCode });
   }
 
-  find(postId: string, languageCode: LangCode, manager?: EntityManager) {
-    return this.getRepo(manager).findOneBy({ postId, languageCode });
-  }
-
-  async save(fields: Partial<PostTranslation> & { postId: string; languageCode: LangCode; slug: string }, manager?: EntityManager) {
-    const repo = this.getRepo(manager);
+  async save(fields: Partial<PostTranslation> & { postId: string; languageCode: LangCode; slug: string }): Promise<PostTranslation> {
     try {
-      return await repo.save(repo.create(fields));
+      return await this.repo.save(this.repo.create(fields));
     } catch (error) {
-      if (error instanceof QueryFailedError && error.driverError.code === '23505') {
+      if (error instanceof QueryFailedError && (error as any).driverError?.code === '23505') {
         throw new PostSlugAlreadyExistsException(fields.slug);
       }
       throw error;

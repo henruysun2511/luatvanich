@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, IsNull, Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { normalizePagination } from '../../../common/utils/pagination.util';
 import { PostCategoryQueryDto } from '../dto/request/post-category-query.dto';
@@ -11,32 +11,19 @@ import { PostSection } from '../enums/post-section.enum';
 export class PostCategoryRepository {
   constructor(@InjectRepository(PostCategory) private readonly repo: Repository<PostCategory>) {}
 
-  private getRepo(manager?: EntityManager) {
-    return manager?.getRepository(PostCategory) ?? this.repo;
+  create(fields: Partial<PostCategory>): PostCategory {
+    return this.repo.create(fields);
   }
 
-  async lockHierarchy(manager: EntityManager) {
-    await manager.query('LOCK TABLE post_categories IN SHARE ROW EXCLUSIVE MODE');
+  save(fields: PostCategory | Partial<PostCategory>): Promise<PostCategory> {
+    return this.repo.save(fields);
   }
 
-  findById(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, relations: { translations: true } });
+  findById(id: string): Promise<PostCategory | null> {
+    return this.repo.findOne({ where: { id }, relations: { translations: true } });
   }
 
-  findForWrite(id: string, manager: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
-  }
-
-  findActiveReference(id: string, manager: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id }, lock: { mode: 'pessimistic_read' } });
-  }
-
-  save(fields: Partial<PostCategory>, manager?: EntityManager) {
-    const repo = this.getRepo(manager);
-    return repo.save(repo.create(fields));
-  }
-
-  findPublicTree(section?: PostSection) {
+  findPublicTree(section?: PostSection): Promise<PostCategory[]> {
     return this.repo.find({
       where: { section },
       relations: { translations: true },
@@ -53,7 +40,7 @@ export class PostCategoryRepository {
       .getOne();
   }
 
-  findAdminList(filters: PostCategoryQueryDto) {
+  findAdminList(filters: PostCategoryQueryDto): Promise<[PostCategory[], number]> {
     const { skip, limit } = normalizePagination(filters);
     const query = this.repo.createQueryBuilder('category').leftJoinAndSelect('category.translations', 'translation');
     if (filters.section) query.andWhere('category.section = :section', { section: filters.section });
@@ -74,15 +61,15 @@ export class PostCategoryRepository {
       .getManyAndCount();
   }
 
-  countChildren(parentId: string, manager?: EntityManager) {
-    return this.getRepo(manager).countBy({ parentId });
+  countChildren(parentId: string): Promise<number> {
+    return this.repo.countBy({ parentId });
   }
 
-  updateOrder(id: string, displayOrder: number, manager?: EntityManager) {
-    return this.getRepo(manager).update({ id, deletedAt: IsNull() }, { displayOrder });
+  updateOrder(id: string, displayOrder: number) {
+    return this.repo.update({ id, deletedAt: IsNull() }, { displayOrder });
   }
 
-  softDelete(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).softDelete(id);
+  softDelete(id: string) {
+    return this.repo.softDelete(id);
   }
 }
