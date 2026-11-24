@@ -335,7 +335,7 @@ export function PostFormDialog({
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5 pt-1">
             {/* HÀNG 1: CHUYÊN MỤC + LUẬT SƯ + ẢNH BÌA */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl border border-border bg-muted/20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
               {/* Cột 1 & 2: Thuộc tính cơ bản */}
               <div className="md:col-span-2 space-y-3">
                 {/* Chọn chuyên mục */}
@@ -450,7 +450,7 @@ export function PostFormDialog({
             </div>
 
             {/* TRẠNG THÁI & HẸN GIỜ XUẤT BẢN */}
-            <div className="p-4 rounded-xl border border-border bg-card space-y-3">
+            <div className="p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
@@ -509,7 +509,7 @@ export function PostFormDialog({
 
             {/* DỊCH VỤ PHÁP LÝ LIÊN QUAN */}
             {legalServices.length > 0 && (
-              <div className="space-y-1.5 p-3 rounded-lg border border-border bg-card">
+              <div className="space-y-1.5 p-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9]">
                 <label className="text-xs font-medium text-foreground">
                   Dịch vụ pháp lý liên kết (Hiển thị gợi ý dưới chân bài viết)
                 </label>
@@ -525,10 +525,10 @@ export function PostFormDialog({
                         type="button"
                         key={svc.id}
                         onClick={() => toggleService(svc.id)}
-                        className={`text-[11px] px-2.5 py-1 rounded-md border transition-colors cursor-pointer ${
+                        className={`text-[11px] px-2.5 py-1 rounded-none border transition-colors cursor-pointer ${
                           isSelected
                             ? "bg-primary text-primary-foreground border-primary font-medium"
-                            : "bg-muted/40 text-muted-foreground border-border hover:bg-muted"
+                            : "bg-muted/40 text-muted-foreground border-[#e7dcc3] hover:bg-muted"
                         }`}
                       >
                         {isSelected && "✓ "}
@@ -542,7 +542,7 @@ export function PostFormDialog({
 
             {/* TABS SONG NGỮ NỘI DUNG */}
             <div className="space-y-3">
-              <div className="flex border-b border-border">
+              <div className="flex border-b border-[#e7dcc3]">
                 <button
                   type="button"
                   onClick={() => setActiveTab("vi")}
@@ -661,7 +661,7 @@ export function PostFormDialog({
                   </div>
 
                   {/* SEO meta */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-lg border border-border bg-muted/10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9]">
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-foreground">Tiêu đề SEO</label>
                       <Input
@@ -744,7 +744,7 @@ export function PostFormDialog({
                   </div>
 
                   {/* SEO meta */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-lg border border-border bg-muted/10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9]">
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-foreground">Tiêu đề SEO</label>
                       <Input

@@ -53,7 +53,7 @@ export function PostDetailDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
         {/* Header */}
-        <DialogHeader className="p-6 pb-4 border-b border-border bg-muted/20 shrink-0">
+        <DialogHeader className="p-6 pb-4 border-b border-[#e7dcc3] bg-[#fbf7ee] shrink-0">
           <div className="flex items-center justify-between gap-3 mr-6">
             <div className="flex items-center gap-2 flex-wrap">
               <DialogTitle className="text-base font-semibold">
@@ -102,7 +102,7 @@ export function PostDetailDialog({
             <>
               {/* Thông tin lên lịch đăng bài */}
               {post.status === "scheduled" && post.publishAt && (
-                <div className="flex items-center gap-2.5 p-3 rounded-lg border border-purple-200 bg-purple-50 dark:bg-purple-950/30 text-purple-900 dark:text-purple-200 text-xs">
+                <div className="flex items-center gap-2.5 p-3 rounded-none border border-purple-200 bg-purple-50 dark:bg-purple-950/30 text-purple-900 dark:text-purple-200 text-xs">
                   <CalendarClock className="size-4 text-purple-600 shrink-0" />
                   <span>
                     Bài viết đã được <strong>lên lịch tự động xuất bản</strong> vào lúc{" "}
@@ -121,7 +121,7 @@ export function PostDetailDialog({
 
               {/* Ảnh bìa */}
               {post.thumbnailUrl ? (
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border bg-muted/40">
+                <div className="relative aspect-video w-full rounded-none overflow-hidden border border-[#e7dcc3] bg-[#fbf7ee]">
                   <Image
                     src={post.thumbnailUrl}
                     alt={vi?.title || "Thumbnail"}
@@ -131,7 +131,7 @@ export function PostDetailDialog({
                   />
                 </div>
               ) : (
-                <div className="aspect-video w-full rounded-lg border border-dashed border-border flex flex-col items-center justify-center text-muted-foreground/60 gap-1 bg-muted/20">
+                <div className="aspect-video w-full rounded-none border border-dashed border-[#e7dcc3] flex flex-col items-center justify-center text-muted-foreground/60 gap-1 bg-[#fbf7ee]">
                   <ImageIcon className="size-8" />
                   <span className="text-xs">Chưa có ảnh bìa</span>
                 </div>
@@ -143,7 +143,7 @@ export function PostDetailDialog({
                 onValueChange={(val) => setActiveTab(val as "vi" | "zh-CN")}
                 className="w-full"
               >
-                <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+                <div className="flex items-center justify-between border-b border-[#e7dcc3] pb-2 mb-4">
                   <TabsList className="h-8">
                     <TabsTrigger value="vi" className="text-xs gap-1.5 px-3">
                       <Globe className="size-3.5 text-blue-500" /> Tiếng Việt
@@ -178,14 +178,14 @@ export function PostDetailDialog({
 
                       {/* Tóm tắt */}
                       {currentTrans.summary && (
-                        <div className="p-3.5 rounded-md bg-muted/40 border-l-4 border-primary text-xs text-foreground/90 italic leading-relaxed">
+                        <div className="p-3.5 rounded-none bg-[#fbf7ee] border-l-4 border-primary text-xs text-foreground/90 italic leading-relaxed">
                           {currentTrans.summary}
                         </div>
                       )}
 
                       {/* Toàn bộ nội dung Rich HTML */}
                       {currentTrans.contentHtml ? (
-                        <div className="border border-border/80 rounded-lg p-5 bg-card">
+                        <div className="border border-[#e7dcc3]/80 rounded-none p-5 bg-[#fcfbf9]">
                           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
                             Nội dung chi tiết
                           </h4>
@@ -195,14 +195,14 @@ export function PostDetailDialog({
                           />
                         </div>
                       ) : (
-                        <div className="p-4 text-center text-xs text-muted-foreground border border-dashed rounded-md">
+                        <div className="p-4 text-center text-xs text-muted-foreground border border-dashed rounded-none">
                           Chưa có nội dung chi tiết cho ngôn ngữ này.
                         </div>
                       )}
 
                       {/* Hộp SEO Meta */}
                       {(currentTrans.metaTitle || currentTrans.metaDescription) && (
-                        <div className="rounded-lg border border-border p-4 bg-muted/20 space-y-2">
+                        <div className="rounded-none border border-[#e7dcc3] p-4 bg-[#fbf7ee] space-y-2">
                           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
                             <ExternalLink className="size-3.5" /> Thẻ SEO Meta
                           </h4>
@@ -231,7 +231,7 @@ export function PostDetailDialog({
 
               {/* Danh sách Thẻ Tags */}
               {post.tags && post.tags.length > 0 && (
-                <div className="space-y-2 pt-2 border-t border-border">
+                <div className="space-y-2 pt-2 border-t border-[#e7dcc3]">
                   <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
                     <TagIcon className="size-3" /> Thẻ từ khóa (Tags):
                   </span>
@@ -258,7 +258,7 @@ export function PostDetailDialog({
         </div>
 
         {/* Footer */}
-        <DialogFooter className="p-4 border-t border-border bg-muted/10 shrink-0 flex items-center justify-between sm:justify-between">
+        <DialogFooter className="p-4 border-t border-[#e7dcc3] bg-muted/10 shrink-0 flex items-center justify-between sm:justify-between">
           <Button
             type="button"
             variant="outline"

@@ -143,7 +143,7 @@ export function SchedulePostDialog({
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-1">
           {/* Tóm tắt bài viết */}
-          <div className="p-3 rounded-lg border border-border bg-muted/30 space-y-1">
+          <div className="p-3 rounded-none border border-border bg-muted/30 space-y-1">
             <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
               Bài viết được chọn:
             </span>
@@ -152,7 +152,7 @@ export function SchedulePostDialog({
 
           {/* Cảnh báo chưa hoàn thiện bản dịch */}
           {!hasCompleteTranslation && (
-            <div className="p-2.5 rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2">
+            <div className="p-2.5 rounded-none border border-amber-200 bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2">
               <AlertCircle className="size-4 shrink-0 mt-0.5 text-amber-600" />
               <span>
                 Bài viết này chưa có bản dịch nào được đánh dấu <strong>Hoàn thiện</strong>. Hãy chỉnh
@@ -227,7 +227,7 @@ export function SchedulePostDialog({
 
           {/* Thông báo lỗi */}
           {errorMessage && (
-            <div className="p-2.5 rounded-lg border border-destructive/20 bg-destructive/10 text-destructive text-xs">
+            <div className="p-2.5 rounded-none border border-destructive/20 bg-destructive/10 text-destructive text-xs">
               {errorMessage}
             </div>
           )}

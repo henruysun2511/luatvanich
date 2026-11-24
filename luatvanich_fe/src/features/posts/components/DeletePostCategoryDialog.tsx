@@ -52,7 +52,7 @@ export function DeletePostCategoryDialog({
             <span>
               Bạn có chắc chắn muốn xóa chuyên mục <strong>&quot;{viName}&quot;</strong>?
             </span>
-            <span className="block text-amber-600 bg-amber-50 p-2 rounded border border-amber-200 text-[11px]">
+            <span className="block text-amber-600 bg-amber-50 p-2 rounded-none border border-amber-200 text-[11px]">
               <strong>Lưu ý quan trọng:</strong> Hệ thống sẽ từ chối xóa nếu chuyên mục này vẫn còn bài viết trực thuộc hoặc đang có các chuyên mục con phụ thuộc.
             </span>
           </AlertDialogDescription>

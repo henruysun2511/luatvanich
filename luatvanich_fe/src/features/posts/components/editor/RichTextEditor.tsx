@@ -104,7 +104,7 @@ export function RichTextEditor({
         inline: false,
         allowBase64: false,
         HTMLAttributes: {
-          class: "rounded-lg max-w-full h-auto my-3 border border-border shadow-xs object-cover",
+          class: "rounded-none max-w-full h-auto my-3 border border-border shadow-xs object-cover",
         },
       }),
       TextAlign.configure({
@@ -145,7 +145,7 @@ export function RichTextEditor({
         nocookie: true,
         allowFullscreen: true,
         HTMLAttributes: {
-          class: "w-full max-w-2xl aspect-video rounded-lg my-4 shadow-sm border border-border",
+          class: "w-full max-w-2xl aspect-video rounded-none my-4 shadow-sm border border-border",
         },
       }),
     ],
@@ -165,7 +165,7 @@ export function RichTextEditor({
           "[&_blockquote]:border-l-4 [&_blockquote]:border-primary/60 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-3.5 [&_blockquote]:text-muted-foreground",
           "[&_hr]:my-4 [&_hr]:border-border",
           "[&_code]:bg-muted/50 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono",
-          "[&_pre]:bg-muted/80 [&_pre]:p-3 [&_pre]:rounded-lg [&_pre]:my-3 [&_pre]:overflow-x-auto",
+          "[&_pre]:bg-muted/80 [&_pre]:p-3 [&_pre]:rounded-none [&_pre]:my-3 [&_pre]:overflow-x-auto",
         ),
         style: isFullscreen ? "min-height: calc(100vh - 120px);" : `min-height: ${minHeight};`,
       },
@@ -234,7 +234,7 @@ export function RichTextEditor({
   return (
     <div
       className={cn(
-        "flex flex-col border border-border rounded-lg bg-card overflow-hidden shadow-2xs transition-all",
+        "flex flex-col border border-border rounded-none bg-card overflow-hidden shadow-2xs transition-all",
         isFullscreen
           ? "fixed inset-0 z-50 rounded-none border-0 h-screen w-screen flex flex-col bg-background"
           : "relative",

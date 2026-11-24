@@ -118,7 +118,7 @@ export function ConsultationListTable({
 
   if (isLoading && consultations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-muted-foreground bg-card rounded-lg border border-border">
+      <div className="flex flex-col items-center justify-center p-12 text-muted-foreground bg-card rounded-none border border-border">
         <Loader2 className="size-6 animate-spin mb-2" />
         <span className="text-sm">Đang tải danh sách yêu cầu tư vấn...</span>
       </div>
@@ -127,7 +127,7 @@ export function ConsultationListTable({
 
   if (!isLoading && consultations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-muted-foreground bg-card rounded-lg border border-border">
+      <div className="flex flex-col items-center justify-center p-12 text-muted-foreground bg-card rounded-none border border-border">
         <MessageSquare className="size-8 mb-2 opacity-50" />
         <span className="text-sm font-medium">Chưa có yêu cầu tư vấn nào</span>
         <span className="text-xs text-muted-foreground mt-1">
@@ -144,7 +144,7 @@ export function ConsultationListTable({
     <div className="space-y-3">
       {/* Thanh Thao tác hàng loạt (Bulk Actions Bar) */}
       {selectedIds.length > 0 && (
-        <div className="flex items-center justify-between p-2.5 px-4 bg-muted/60 border border-border rounded-lg text-xs transition-all">
+        <div className="flex items-center justify-between p-2.5 px-4 bg-muted/60 border border-border rounded-none text-xs transition-all">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-foreground">
               Đã chọn {selectedIds.length} yêu cầu

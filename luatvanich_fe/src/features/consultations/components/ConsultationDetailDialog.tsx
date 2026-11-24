@@ -207,11 +207,11 @@ export function ConsultationDetailDialog({
             Không tìm thấy thông tin hồ sơ này.
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-border">
+          <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-[#e7dcc3]">
             {/* CỘT TRÁI (7 Cột): Thông tin khách hàng & Nội dung yêu cầu */}
             <div className="md:col-span-7 p-5 space-y-5">
               {/* Box Thông tin liên hệ */}
-              <div className="bg-muted/30 p-4 rounded-lg border border-border space-y-3">
+              <div className="bg-[#fcfbf9] p-4 rounded-none border border-[#e7dcc3] space-y-3">
                 <h3 className="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-1.5">
                   <User className="size-3.5 text-primary" />
                   Thông tin người gửi yêu cầu
@@ -272,7 +272,7 @@ export function ConsultationDetailDialog({
                   </div>
 
                   {detail.contactChannelId && (
-                    <div className="flex items-center gap-1.5 bg-background px-2 py-1 rounded border border-border">
+                    <div className="flex items-center gap-1.5 bg-background px-2 py-1 rounded-none border border-border">
                       <span className="text-muted-foreground text-[11px]">ID kênh:</span>
                       <code className="text-foreground font-mono font-bold text-[11px]">
                         {detail.contactChannelId}
@@ -303,7 +303,7 @@ export function ConsultationDetailDialog({
 
               {/* Lĩnh vực & Luật sư yêu cầu */}
               {(detail.practiceAreaName || detail.lawyerName) && (
-                <div className="grid grid-cols-2 gap-3 text-xs bg-muted/20 p-3 rounded-lg border border-border">
+                <div className="grid grid-cols-2 gap-3 text-xs bg-[#fcfbf9] p-3 rounded-none border border-[#e7dcc3]">
                   {detail.practiceAreaName && (
                     <div>
                       <span className="text-muted-foreground block text-[11px]">Lĩnh vực tư vấn:</span>
@@ -334,12 +334,12 @@ export function ConsultationDetailDialog({
                 </h3>
 
                 {detail.title && (
-                  <h4 className="font-semibold text-sm text-foreground bg-muted/40 p-2 rounded">
+                  <h4 className="font-semibold text-sm text-[#06122b] bg-[#fbf7ee] p-2 rounded-none border border-[#e7dcc3]">
                     {detail.title}
                   </h4>
                 )}
 
-                <div className="p-3.5 rounded-lg border border-border bg-card text-xs text-foreground leading-relaxed whitespace-pre-wrap max-h-56 overflow-y-auto">
+                <div className="p-3.5 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] text-xs text-foreground leading-relaxed whitespace-pre-wrap max-h-56 overflow-y-auto">
                   {detail.content}
                 </div>
               </div>
@@ -356,7 +356,7 @@ export function ConsultationDetailDialog({
                     {detail.attachments.map((att) => (
                       <div
                         key={att.id}
-                        className="flex items-center justify-between p-2 px-3 rounded-md border border-border bg-muted/20 hover:bg-muted/40 transition-colors text-xs"
+                        className="flex items-center justify-between p-2 px-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] hover:bg-[#fbf7ee] transition-colors text-xs"
                       >
                         <div className="flex items-center gap-2 truncate">
                           <Paperclip className="size-3.5 text-muted-foreground shrink-0" />
@@ -438,7 +438,7 @@ export function ConsultationDetailDialog({
                   detail.notes.map((note) => (
                     <div
                       key={note.id}
-                      className="p-3 rounded-lg border border-border bg-card text-xs space-y-1 relative group"
+                      className="p-3 rounded-none border border-border bg-card text-xs space-y-1 relative group"
                     >
                       <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                         <strong className="text-foreground font-semibold">

@@ -98,19 +98,19 @@ export const puckConfig: Config<PageBuilderProps> = {
       render: (props) => (
         <section className="max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="bg-card border p-6 rounded-md shadow-sm">
+            <div className="bg-card border p-6 rounded-none shadow-sm">
               <div className="font-serif text-3xl font-bold text-primary">{props.stat1Number}</div>
               <div className="text-xs text-muted-foreground mt-1">{props.stat1Label}</div>
             </div>
-            <div className="bg-card border p-6 rounded-md shadow-sm">
+            <div className="bg-card border p-6 rounded-none shadow-sm">
               <div className="font-serif text-3xl font-bold text-accent">{props.stat2Number}</div>
               <div className="text-xs text-muted-foreground mt-1">{props.stat2Label}</div>
             </div>
-            <div className="bg-card border p-6 rounded-md shadow-sm">
+            <div className="bg-card border p-6 rounded-none shadow-sm">
               <div className="font-serif text-3xl font-bold text-primary">{props.stat3Number}</div>
               <div className="text-xs text-muted-foreground mt-1">{props.stat3Label}</div>
             </div>
-            <div className="bg-card border p-6 rounded-md shadow-sm">
+            <div className="bg-card border p-6 rounded-none shadow-sm">
               <div className="font-serif text-3xl font-bold text-accent">{props.stat4Number}</div>
               <div className="text-xs text-muted-foreground mt-1">{props.stat4Label}</div>
             </div>
@@ -135,17 +135,17 @@ export const puckConfig: Config<PageBuilderProps> = {
             <p className="text-xs text-muted-foreground">{subheading}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border bg-card p-6 rounded-md text-center space-y-2">
+            <div className="border bg-card p-6 rounded-none text-center space-y-2">
               <ShieldCheck className="size-8 mx-auto text-primary" />
               <h3 className="font-bold text-base">Bảo mật tuyệt đối</h3>
               <p className="text-xs text-muted-foreground">Mọi hồ sơ và dữ liệu kinh doanh được cam kết bảo mật theo tiêu chuẩn quốc tế.</p>
             </div>
-            <div className="border bg-card p-6 rounded-md text-center space-y-2">
+            <div className="border bg-card p-6 rounded-none text-center space-y-2">
               <Scale className="size-8 mx-auto text-accent" />
               <h3 className="font-bold text-base">Chuyên nghiệp & Tận tâm</h3>
               <p className="text-xs text-muted-foreground">Quy trình xử lý hồ sơ minh bạch, báo cáo tiến độ định kỳ cho khách hàng.</p>
             </div>
-            <div className="border bg-card p-6 rounded-md text-center space-y-2">
+            <div className="border bg-card p-6 rounded-none text-center space-y-2">
               <Award className="size-8 mx-auto text-primary" />
               <h3 className="font-bold text-base">Hiệu quả pháp lý</h3>
               <p className="text-xs text-muted-foreground">Đưa ra phương án tối ưu về chi phí và thời gian cho doanh nghiệp.</p>
@@ -165,7 +165,7 @@ export const puckConfig: Config<PageBuilderProps> = {
         description: "Để lại thông tin, luật sư chuyên trách của chúng tôi sẽ liên hệ trong 24 giờ làm việc.",
       },
       render: ({ title, description }) => (
-        <section className="bg-primary text-primary-foreground py-12 px-4 rounded-lg max-w-7xl mx-auto my-8">
+        <section className="bg-primary text-primary-foreground py-12 px-4 rounded-none max-w-7xl mx-auto my-8">
           <div className="max-w-2xl mx-auto text-center space-y-4">
             <h2 className="font-serif text-2xl font-bold">{title}</h2>
             <p className="text-xs text-gray-300">{description}</p>

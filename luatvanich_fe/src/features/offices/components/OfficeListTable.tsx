@@ -77,7 +77,7 @@ export function OfficeListTable({
 
   if (isLoading && offices.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+      <div className="rounded-none border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
         <Loader2 className="size-6 animate-spin text-primary" />
         <span className="text-sm text-muted-foreground">Đang tải danh sách văn phòng...</span>
       </div>
@@ -86,7 +86,7 @@ export function OfficeListTable({
 
   if (offices.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
+      <div className="rounded-none border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
         <Building2 className="size-12 text-muted-foreground/50 mb-3" />
         <h3 className="font-semibold text-foreground text-base">Chưa có văn phòng đại diện nào</h3>
         <p className="text-sm text-muted-foreground mt-1 max-w-sm">

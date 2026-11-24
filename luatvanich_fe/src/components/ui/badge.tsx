@@ -8,18 +8,25 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
+          "border-[#06122b] bg-[#06122b] text-white shadow-xs",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-[#e7dcc3] bg-[#fbf7ee] text-[#06122b]",
         destructive:
-          "border-[#a3171e]/30 bg-[#a3171e]/10 text-[#a3171e] shadow-xs",
-        outline: "text-foreground border-[#e7dcc3]",
-        accent: "border-transparent bg-accent text-accent-foreground font-bold",
-        royal: "border-[#c29a45]/40 bg-[#06122b] text-[#f0d28a] shadow-xs",
-        gold: "border-[#c29a45]/50 bg-[#fbf7ee] text-[#855e14]",
-        emerald: "border-emerald-300 bg-emerald-50 text-emerald-800",
-        amber: "border-amber-300 bg-amber-50 text-amber-800",
-        vermilion: "border-red-300 bg-red-50 text-[#a3171e]",
+          "border-[#b3201b]/40 bg-[#b3201b]/10 text-[#b3201b] shadow-xs",
+        outline:
+          "border-[#e7dcc3] bg-white text-[#06122b]",
+        accent:
+          "border-transparent bg-accent text-accent-foreground font-bold",
+        royal:
+          "border-[#c29a45]/40 bg-[#06122b] text-[#f0d28a] shadow-xs",
+        gold:
+          "border-[#c29a45]/50 bg-[#fbf7ee] text-[#855e14]",
+        emerald:
+          "border-emerald-600/30 bg-emerald-50 text-emerald-800",
+        amber:
+          "border-amber-600/30 bg-amber-50 text-amber-800",
+        vermilion:
+          "border-[#b3201b]/40 bg-[#b3201b]/10 text-[#b3201b] font-semibold",
       },
     },
     defaultVariants: {

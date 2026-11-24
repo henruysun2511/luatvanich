@@ -97,7 +97,7 @@ export function SingleImageUpload({
       {/* Khung hiển thị / Upload */}
       <div
         className={cn(
-          "relative overflow-hidden rounded-xl border border-dashed transition-all",
+          "relative overflow-hidden rounded-none border border-dashed transition-all",
           ASPECT_RATIO_CLASSES[aspectRatio],
           isDragOver
             ? "border-[#C9A24B] bg-[#C9A24B]/10 ring-2 ring-[#C9A24B]/30"
@@ -198,7 +198,7 @@ export function SingleImageUpload({
         <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
           <DialogContent className="max-w-3xl p-2 bg-transparent border-none shadow-none">
             <DialogTitle className="sr-only">Xem ảnh xem trước</DialogTitle>
-            <div className="relative w-full h-[70vh] rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
+            <div className="relative w-full h-[70vh] rounded-none overflow-hidden bg-black/80 flex items-center justify-center">
               <Image
                 src={value}
                 alt="Enlarged preview"

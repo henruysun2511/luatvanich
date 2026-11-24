@@ -102,7 +102,7 @@ export function PostCategoryListTable({
 
   if (isLoading && categories.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+      <div className="rounded-none border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
         <Loader2 className="size-6 animate-spin text-primary" />
         <span className="text-xs text-muted-foreground">Đang tải danh sách chuyên mục...</span>
       </div>
@@ -111,7 +111,7 @@ export function PostCategoryListTable({
 
   if (categories.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
+      <div className="rounded-none border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
         <FolderTree className="size-10 text-muted-foreground/60 mb-2" />
         <h3 className="font-semibold text-foreground text-sm">Chưa có chuyên mục nào</h3>
         <p className="text-xs text-muted-foreground mt-1 max-w-sm">
@@ -182,7 +182,7 @@ export function PostCategoryListTable({
                     {depth > 0 && (
                       <CornerDownRight className="size-4 text-muted-foreground/60 shrink-0" />
                     )}
-                    <div className="size-7 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <div className="size-7 rounded-none bg-primary/10 text-primary flex items-center justify-center shrink-0">
                       <FolderTree className="size-4" />
                     </div>
                     <div>
@@ -204,7 +204,7 @@ export function PostCategoryListTable({
                 {/* Phân vùng (Section) */}
                 <TableCell>
                   <span
-                    className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium border ${sectionMeta.color}`}
+                    className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-medium border ${sectionMeta.color}`}
                   >
                     {sectionMeta.label}
                   </span>

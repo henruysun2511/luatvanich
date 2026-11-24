@@ -46,7 +46,7 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
 
   if (isLoading && users.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+      <div className="rounded-none border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
         <Loader2 className="size-6 animate-spin text-primary" />
         <span className="text-xs text-muted-foreground">Đang tải danh sách người dùng...</span>
       </div>
@@ -55,7 +55,7 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
 
   if (users.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 text-center">
+      <div className="rounded-none border border-border bg-card p-12 text-center">
         <p className="text-sm font-medium text-foreground">Không tìm thấy người dùng nào</p>
         <p className="text-xs text-muted-foreground mt-1">
           Hãy thử thay đổi từ khóa tìm kiếm hoặc bộ lọc trạng thái.
@@ -105,7 +105,7 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
                             {user.fullName || user.username}
                           </span>
                           {isSelf && (
-                            <span className="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-accent text-accent-foreground">
+                            <span className="px-1.5 py-0.2 rounded-none text-[10px] font-semibold bg-accent text-accent-foreground">
                               Bạn
                             </span>
                           )}
@@ -245,7 +245,7 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
         }
       >
         {pendingRoleChange && (
-          <div className="rounded-lg border border-border bg-muted/40 p-3 text-xs space-y-1.5">
+          <div className="rounded-none border border-border bg-muted/40 p-3 text-xs space-y-1.5">
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">Tài khoản:</span>
               <span className="font-semibold text-foreground">

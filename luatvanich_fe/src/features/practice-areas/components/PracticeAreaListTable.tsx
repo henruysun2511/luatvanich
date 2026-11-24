@@ -96,7 +96,7 @@ export function PracticeAreaListTable({
 
   if (isLoading && practiceAreas.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+      <div className="rounded-none border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
         <Loader2 className="size-6 animate-spin text-primary" />
         <span className="text-sm text-muted-foreground">
           Đang tải danh sách lĩnh vực chuyên môn...
@@ -107,7 +107,7 @@ export function PracticeAreaListTable({
 
   if (practiceAreas.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
+      <div className="rounded-none border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
         <Scale className="size-12 text-muted-foreground/50 mb-3" />
         <h3 className="font-semibold text-foreground text-base">
           Chưa có lĩnh vực chuyên môn nào
@@ -149,7 +149,7 @@ export function PracticeAreaListTable({
 
                 {/* 2. Biểu tượng */}
                 <TableCell className="text-center">
-                  <div className="size-10 rounded-md border border-border bg-muted/40 flex items-center justify-center mx-auto overflow-hidden relative">
+                  <div className="size-10 rounded-none border border-border bg-muted/40 flex items-center justify-center mx-auto overflow-hidden relative">
                     {item.iconUrl ? (
                       <Image
                         src={item.iconUrl}

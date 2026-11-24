@@ -92,7 +92,7 @@ export function LawyerDetailDialog({
             </div>
 
             {lawyer?.experienceYears && (
-              <span className="text-xs text-muted-foreground font-mono bg-muted/60 px-2 py-0.5 rounded border border-border">
+              <span className="text-xs text-[#855e14] font-mono bg-[#fbf7ee] px-2 py-0.5 rounded-none border border-[#e7dcc3]">
                 {lawyer.experienceYears} năm kinh nghiệm
               </span>
             )}
@@ -113,9 +113,9 @@ export function LawyerDetailDialog({
           ) : (
             <>
               {/* Khối Thông tin tổng quan (Ảnh thẻ 4:5 + Liên hệ) */}
-              <div className="flex flex-col sm:flex-row gap-5 p-4 rounded-xl border border-border bg-card shadow-xs">
+              <div className="flex flex-col sm:flex-row gap-5 p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] shadow-xs">
                 {/* Ảnh thẻ 4:5 */}
-                <div className="w-28 h-36 rounded-lg overflow-hidden border border-border bg-muted/40 shrink-0 relative shadow-xs">
+                <div className="w-28 h-36 rounded-none overflow-hidden border-2 border-[#c29a45]/40 bg-[#fbf7ee] shrink-0 relative shadow-xs">
                   {lawyer.avatarUrl ? (
                     <Image
                       src={lawyer.avatarUrl}
@@ -246,7 +246,7 @@ export function LawyerDetailDialog({
                   {currentTrans ? (
                     <>
                       {/* Chức vụ & Học vị */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs p-3.5 rounded-lg border border-border bg-muted/20">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs p-3.5 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
                         {currentTrans.secondaryTitle && (
                           <div>
                             <span className="text-muted-foreground">Chức vụ kiêm nhiệm: </span>
@@ -269,7 +269,7 @@ export function LawyerDetailDialog({
 
                       {/* Tiểu sử chi tiết */}
                       {currentTrans.bio ? (
-                        <div className="border border-border/80 rounded-lg p-5 bg-card">
+                        <div className="border border-[#e7dcc3] rounded-none p-5 bg-[#fcfbf9]">
                           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2.5">
                             Tiểu sử & Quá trình công tác
                           </h4>
@@ -278,14 +278,14 @@ export function LawyerDetailDialog({
                           </p>
                         </div>
                       ) : (
-                        <div className="p-4 text-center text-xs text-muted-foreground border border-dashed rounded-md">
+                        <div className="p-4 text-center text-xs text-muted-foreground border border-dashed border-[#e7dcc3] rounded-none">
                           Chưa có tiểu sử giới thiệu cho ngôn ngữ này.
                         </div>
                       )}
 
                       {/* SEO Meta */}
                       {(currentTrans.metaTitle || currentTrans.metaDescription) && (
-                        <div className="rounded-lg border border-border p-4 bg-muted/20 space-y-2">
+                        <div className="rounded-none border border-[#e7dcc3] p-4 bg-[#fbf7ee] space-y-2">
                           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
                             <ExternalLink className="size-3.5" /> Thẻ SEO Meta
                           </h4>
@@ -314,7 +314,7 @@ export function LawyerDetailDialog({
 
               {/* Danh sách Bằng cấp / Giải thưởng (Credentials) */}
               {lawyer.credentials && lawyer.credentials.length > 0 && (
-                <div className="space-y-3 pt-2 border-t border-border">
+                <div className="space-y-3 pt-2 border-t border-[#e7dcc3]">
                   <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
                     <GraduationCap className="size-4 text-primary" /> Bằng cấp, Chứng chỉ & Thành tích
                   </h4>
@@ -332,9 +332,9 @@ export function LawyerDetailDialog({
                       return (
                         <div
                           key={cred.id || idx}
-                          className="flex items-start gap-3 p-3 rounded-lg border border-border bg-card text-xs"
+                          className="flex items-start gap-3 p-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] text-xs"
                         >
-                          <div className="size-7 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                          <div className="size-7 rounded-none bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
                             <CredIcon className="size-3.5" />
                           </div>
                           <div className="flex-1 space-y-0.5">

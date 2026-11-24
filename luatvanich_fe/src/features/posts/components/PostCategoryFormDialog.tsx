@@ -187,7 +187,7 @@ export function PostCategoryFormDialog({
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-2">
           {/* Cấu hình chung: Phân vùng + Chuyên mục cha */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-lg border border-border bg-muted/20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
             {/* Phân vùng */}
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">
@@ -250,7 +250,7 @@ export function PostCategoryFormDialog({
 
           {/* TABS SONG NGỮ */}
           <div className="space-y-3 pt-1">
-            <div className="flex border-b border-border">
+            <div className="flex border-b border-[#e7dcc3]">
               <button
                 type="button"
                 onClick={() => setActiveTab("vi")}

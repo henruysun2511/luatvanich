@@ -388,7 +388,7 @@ export function PostEditorForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Top Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e7dcc3]">
         <div className="flex items-center gap-3">
           <Button
             type="button"
@@ -452,8 +452,8 @@ export function PostEditorForm({
         {/* CỘT TRÁI: NỘI DUNG SOẠN THẢO (lg:col-span-8) */}
         <div className="lg:col-span-8 space-y-6">
           {/* TABS SONG NGỮ NỘI DUNG */}
-          <div className="bg-card border border-border rounded-xl p-5 shadow-xs space-y-4">
-            <div className="flex border-b border-border pb-1">
+          <div className="bg-white border border-[#e7dcc3] rounded-none p-5 shadow-xs space-y-4">
+            <div className="flex border-b border-[#e7dcc3] pb-1">
               <button
                 type="button"
                 onClick={() => setActiveTab("vi")}
@@ -579,7 +579,7 @@ export function PostEditorForm({
                 </div>
 
                 {/* Cấu hình SEO */}
-                <div className="p-4 rounded-lg border border-border bg-muted/10 space-y-3">
+                <div className="p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] space-y-3">
                   <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                     <Sparkles className="size-3.5 text-amber-500" />
                     Tối ưu hóa SEO (Tiếng Việt)
@@ -674,7 +674,7 @@ export function PostEditorForm({
                 </div>
 
                 {/* Cấu hình SEO */}
-                <div className="p-4 rounded-lg border border-border bg-muted/10 space-y-3 font-sans">
+                <div className="p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] space-y-3 font-sans">
                   <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                     <Sparkles className="size-3.5 text-amber-500" />
                     Tối ưu hóa SEO (Tiếng Trung)
@@ -708,7 +708,7 @@ export function PostEditorForm({
         {/* CỘT PHẢI: THUỘC TÍNH & CÀI ĐẶT SIDEBAR (lg:col-span-4) */}
         <div className="lg:col-span-4 space-y-5">
           {/* 1. Trạng thái xuất bản & Lên lịch */}
-          <div className="bg-card border border-border rounded-xl p-4 shadow-xs space-y-3">
+          <div className="bg-white border border-[#e7dcc3] rounded-none p-4 shadow-xs space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
               <CalendarClock className="size-3.5 text-primary" />
               Xuất bản & Lên lịch
@@ -739,7 +739,7 @@ export function PostEditorForm({
             </div>
 
             {status === "scheduled" && (
-              <div className="space-y-1.5 p-3 rounded-lg border border-purple-200 bg-purple-50/50 dark:bg-purple-950/20">
+              <div className="space-y-1.5 p-3 rounded-none border border-purple-200 bg-purple-50/50 dark:bg-purple-950/20">
                 <label className="text-xs font-medium text-purple-700 dark:text-purple-300 flex items-center gap-1.5">
                   <Calendar className="size-3.5" />
                   Thời gian xuất bản dự kiến <span className="text-destructive">*</span>
@@ -768,7 +768,7 @@ export function PostEditorForm({
             )}
 
             {/* Ghim tiêu điểm */}
-            <div className="flex items-center gap-2 pt-2 border-t border-border">
+            <div className="flex items-center gap-2 pt-2 border-t border-[#e7dcc3]">
               <Switch checked={isFeatured} onCheckedChange={setIsFeatured} id="isFeatured" />
               <label
                 htmlFor="isFeatured"
@@ -781,7 +781,7 @@ export function PostEditorForm({
           </div>
 
           {/* 2. Ảnh bìa đại diện */}
-          <div className="bg-card border border-border rounded-xl p-4 shadow-xs space-y-2">
+          <div className="bg-white border border-[#e7dcc3] rounded-none p-4 shadow-xs space-y-2">
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Ảnh bìa bài viết
             </h3>
@@ -795,7 +795,7 @@ export function PostEditorForm({
           </div>
 
           {/* 3. Phân loại & Tác giả */}
-          <div className="bg-card border border-border rounded-xl p-4 shadow-xs space-y-3">
+          <div className="bg-white border border-[#e7dcc3] rounded-none p-4 shadow-xs space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Phân loại & Tác giả
             </h3>
@@ -870,13 +870,13 @@ export function PostEditorForm({
                   {tags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] bg-primary/10 text-primary border border-primary/20"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-none text-[11px] bg-[#fbf7ee] text-[#06122b] border border-[#e7dcc3]"
                     >
                       #{t}
                       <button
                         type="button"
                         onClick={() => handleRemoveTag(t)}
-                        className="size-3.5 rounded-full hover:bg-primary/20 flex items-center justify-center cursor-pointer"
+                        className="size-3.5 rounded-none hover:bg-[#a3171e] hover:text-white flex items-center justify-center cursor-pointer"
                       >
                         <X className="size-2.5" />
                       </button>
@@ -889,7 +889,7 @@ export function PostEditorForm({
 
           {/* 4. Dịch vụ pháp lý liên quan */}
           {legalServices.length > 0 && (
-            <div className="bg-card border border-border rounded-xl p-4 shadow-xs space-y-2">
+            <div className="bg-white border border-[#e7dcc3] rounded-none p-4 shadow-xs space-y-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Dịch vụ pháp lý liên kết
               </h3>
@@ -908,10 +908,10 @@ export function PostEditorForm({
                       type="button"
                       key={svc.id}
                       onClick={() => toggleService(svc.id)}
-                      className={`text-[11px] px-2.5 py-1 rounded-md border transition-colors cursor-pointer ${
+                      className={`text-[11px] px-2.5 py-1 rounded-none border transition-colors cursor-pointer ${
                         isSelected
                           ? "bg-primary text-primary-foreground border-primary font-medium"
-                          : "bg-muted/40 text-muted-foreground border-border hover:bg-muted"
+                          : "bg-[#fbf7ee] text-[#06122b] border-[#e7dcc3] hover:bg-[#f6f1e8]"
                       }`}
                     >
                       {isSelected && "✓ "}

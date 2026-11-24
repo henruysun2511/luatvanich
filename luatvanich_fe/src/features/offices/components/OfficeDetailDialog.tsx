@@ -49,7 +49,7 @@ export function OfficeDetailDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-2xl max-h-[85vh] flex flex-col p-0 gap-0 overflow-hidden">
         {/* Header */}
-        <DialogHeader className="p-6 pb-4 border-b border-border bg-muted/20 shrink-0">
+        <DialogHeader className="p-6 pb-4 border-b border-[#e7dcc3] bg-[#fbf7ee] shrink-0">
           <div className="flex items-center justify-between gap-3 mr-6">
             <div className="flex items-center gap-2 flex-wrap">
               <DialogTitle className="text-base font-semibold">
@@ -101,7 +101,7 @@ export function OfficeDetailDialog({
             <>
               {/* Ảnh đại diện tòa nhà */}
               {office.imageUrl ? (
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border bg-muted/40 max-h-52">
+                <div className="relative aspect-video w-full rounded-none overflow-hidden border border-[#e7dcc3] bg-[#fbf7ee] max-h-52">
                   <Image
                     src={office.imageUrl}
                     alt={vi?.name || "Office"}
@@ -111,7 +111,7 @@ export function OfficeDetailDialog({
                   />
                 </div>
               ) : (
-                <div className="aspect-video w-full max-h-28 rounded-lg border border-dashed border-border flex flex-col items-center justify-center text-muted-foreground/60 gap-1 bg-muted/20">
+                <div className="aspect-video w-full max-h-28 rounded-none border border-dashed border-[#e7dcc3] flex flex-col items-center justify-center text-muted-foreground/60 gap-1 bg-[#fbf7ee]">
                   <Building2 className="size-6" />
                   <span className="text-xs">Chưa có ảnh tòa nhà văn phòng</span>
                 </div>
@@ -123,7 +123,7 @@ export function OfficeDetailDialog({
                 onValueChange={(val) => setActiveTab(val as "vi" | "zh-CN")}
                 className="w-full"
               >
-                <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+                <div className="flex items-center justify-between border-b border-[#e7dcc3] pb-2 mb-4">
                   <TabsList className="h-8">
                     <TabsTrigger value="vi" className="text-xs gap-1.5 px-3">
                       <Globe className="size-3.5 text-blue-500" /> Tiếng Việt
@@ -151,13 +151,13 @@ export function OfficeDetailDialog({
                       </div>
 
                       {/* Địa chỉ & Giờ làm việc */}
-                      <div className="space-y-2.5 p-3.5 rounded-lg border border-border bg-muted/20 text-xs">
+                      <div className="space-y-2.5 p-3.5 rounded-none border border-[#e7dcc3] bg-[#fbf7ee] text-xs">
                         <div className="flex items-start gap-2 text-foreground/90">
                           <MapPin className="size-4 text-primary shrink-0 mt-0.5" />
                           <span className="leading-relaxed">{currentTrans.address}</span>
                         </div>
                         {currentTrans.workingHours && (
-                          <div className="flex items-center gap-2 text-muted-foreground pt-1 border-t border-border/60">
+                          <div className="flex items-center gap-2 text-muted-foreground pt-1 border-t border-[#e7dcc3]/60">
                             <Clock className="size-3.5 shrink-0" />
                             <span>{currentTrans.workingHours}</span>
                           </div>
@@ -166,7 +166,7 @@ export function OfficeDetailDialog({
 
                       {/* Mô tả giới thiệu */}
                       {currentTrans.description && (
-                        <div className="border border-border/80 rounded-lg p-4 bg-card">
+                        <div className="border border-[#e7dcc3]/80 rounded-none p-4 bg-[#fcfbf9]">
                           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                             Giới thiệu văn phòng
                           </h4>
@@ -185,7 +185,7 @@ export function OfficeDetailDialog({
               </Tabs>
 
               {/* Thông tin liên hệ & WeChat */}
-              <div className="p-4 rounded-lg border border-border bg-card space-y-3">
+              <div className="p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] space-y-3">
                 <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
                   <Phone className="size-3.5 text-primary" /> Thông tin liên hệ trực tiếp
                 </h4>
@@ -218,8 +218,8 @@ export function OfficeDetailDialog({
 
                 {/* QR Code WeChat */}
                 {office.wechatQrUrl && (
-                  <div className="pt-2 border-t border-border flex items-center gap-3">
-                    <div className="size-16 relative rounded-md border border-border bg-white overflow-hidden p-1 shrink-0">
+                  <div className="pt-2 border-t border-[#e7dcc3] flex items-center gap-3">
+                    <div className="size-16 relative rounded-none border border-[#e7dcc3] bg-white overflow-hidden p-1 shrink-0">
                       <Image
                         src={office.wechatQrUrl}
                         alt="WeChat QR"
@@ -238,7 +238,7 @@ export function OfficeDetailDialog({
 
               {/* Tọa độ GPS & Bản đồ Google Maps */}
               {(office.latitude || office.mapEmbedUrl) && (
-                <div className="p-4 rounded-lg border border-border bg-card space-y-3">
+                <div className="p-4 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] space-y-3">
                   <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
                     <Navigation className="size-3.5 text-primary" /> Vị trí bản đồ
                   </h4>
@@ -248,7 +248,7 @@ export function OfficeDetailDialog({
                     </p>
                   )}
                   {office.mapEmbedUrl && (
-                    <div className="w-full h-48 rounded-lg overflow-hidden border border-border bg-muted/20">
+                    <div className="w-full h-48 rounded-none overflow-hidden border border-[#e7dcc3] bg-[#fbf7ee]">
                       <iframe
                         src={office.mapEmbedUrl}
                         className="w-full h-full border-0"
@@ -264,7 +264,7 @@ export function OfficeDetailDialog({
         </div>
 
         {/* Footer */}
-        <DialogFooter className="p-4 border-t border-border bg-muted/10 shrink-0 flex items-center justify-between sm:justify-between">
+        <DialogFooter className="p-4 border-t border-[#e7dcc3] bg-muted/10 shrink-0 flex items-center justify-between sm:justify-between">
           <Button
             type="button"
             variant="outline"

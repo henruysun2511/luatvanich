@@ -259,7 +259,7 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
         </DialogHeader>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-border gap-2 pt-2">
+        <div className="flex border-b border-[#e7dcc3] gap-2 pt-2">
           <button
             type="button"
             onClick={() => setActiveTab("vi")}
@@ -439,7 +439,7 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
                   />
                   {errors.code && <p className="text-xs text-destructive mt-1">{errors.code}</p>}
                 </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/20">
+                <div className="flex items-center justify-between p-3 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
                   <div>
                     <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
                       Trạng thái công khai
@@ -592,7 +592,7 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
             </div>
           )}
 
-          <DialogFooter className="pt-4 border-t border-border">
+          <DialogFooter className="pt-4 border-t border-[#e7dcc3]">
             <Button
               type="button"
               variant="outline"

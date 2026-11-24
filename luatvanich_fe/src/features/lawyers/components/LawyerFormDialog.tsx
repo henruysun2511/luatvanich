@@ -379,7 +379,7 @@ export function LawyerFormDialog({
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-primary/10 text-primary">
+            <div className="p-2 rounded-none bg-primary/10 text-primary">
               <User className="size-5" />
             </div>
             <div>
@@ -394,7 +394,7 @@ export function LawyerFormDialog({
         </DialogHeader>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-border my-2">
+        <div className="flex border-b border-[#e7dcc3] my-2">
           <button
             type="button"
             onClick={() => setActiveTab("vi")}
@@ -834,7 +834,7 @@ export function LawyerFormDialog({
                 <label className="text-xs font-semibold text-foreground uppercase tracking-wider block mb-2">
                   Lĩnh vực chuyên môn phụ trách
                 </label>
-                <div className="grid grid-cols-2 gap-2 p-3 rounded-lg border border-border bg-muted/10 max-h-44 overflow-y-auto">
+                <div className="grid grid-cols-2 gap-2 p-3 rounded-none border border-[#e7dcc3] bg-[#fcfbf9] max-h-44 overflow-y-auto">
                   {practiceAreas.map((pa) => {
                     const name =
                       pa.translations?.find((t) => t.languageCode === "vi")?.name ||
@@ -881,7 +881,7 @@ export function LawyerFormDialog({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/20">
+                <div className="flex items-center justify-between p-3 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
                   <div>
                     <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
                       Trạng thái công khai
@@ -913,7 +913,7 @@ export function LawyerFormDialog({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/20">
+              <div className="flex items-center justify-between p-3 rounded-none border border-[#e7dcc3] bg-[#fbf7ee]">
                 <div className="space-y-0.5">
                   <span className="text-xs font-semibold text-foreground uppercase tracking-wider">
                     Ghim nổi bật trang chủ
@@ -930,7 +930,7 @@ export function LawyerFormDialog({
             </div>
           )}
 
-          <DialogFooter className="pt-4 border-t border-border flex items-center justify-between">
+          <DialogFooter className="pt-4 border-t border-[#e7dcc3] flex items-center justify-between">
             <Button
               type="button"
               variant="outline"

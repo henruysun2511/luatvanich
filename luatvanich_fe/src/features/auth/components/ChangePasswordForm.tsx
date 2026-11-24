@@ -57,7 +57,7 @@ export function ChangePasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Cảnh báo bảo mật */}
-      <div className="flex items-start gap-3 p-3.5 rounded-lg border border-amber-200 bg-amber-50/60 dark:border-amber-900/50 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300">
+      <div className="flex items-start gap-3 p-3.5 rounded-none border border-amber-200 bg-amber-50/60 dark:border-amber-900/50 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300">
         <AlertCircle className="size-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
         <div className="space-y-1">
           <p className="font-semibold leading-none">Chính sách bảo mật tài khoản</p>

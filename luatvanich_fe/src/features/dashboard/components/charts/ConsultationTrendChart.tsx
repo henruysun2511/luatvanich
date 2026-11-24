@@ -92,7 +92,7 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
                   if (active && payload && payload.length) {
                     const item = payload[0].payload as { fullDate: string; count: number };
                     return (
-                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-1 text-white">
+                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-none shadow-xl text-xs space-y-1 text-white">
                         <div className="flex items-center gap-1.5 text-[#f0d28a] font-mono text-[11px]">
                           <Calendar className="size-3" />
                           <span>{item.fullDate}</span>

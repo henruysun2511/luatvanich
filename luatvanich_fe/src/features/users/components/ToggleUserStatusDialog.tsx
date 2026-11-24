@@ -73,7 +73,7 @@ export function ToggleUserStatusDialog({
         </DialogHeader>
 
         {/* Thông tin tài khoản */}
-        <div className="my-2 rounded-lg border border-border bg-muted/30 p-3 text-xs space-y-1.5">
+        <div className="my-2 rounded-none border border-[#e7dcc3] bg-[#fbf7ee] p-3 text-xs space-y-1.5">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Họ và tên:</span>
             <span className="font-medium text-foreground">{user.fullName || "—"}</span>

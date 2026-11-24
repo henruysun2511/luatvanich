@@ -76,7 +76,7 @@ export function ColorPickerMenu({ editor, disabled = false }: ColorPickerMenuPro
               <button
                 key={col.value}
                 type="button"
-                className="size-6 rounded border border-border flex items-center justify-center transition-transform hover:scale-110 focus:outline-none"
+                className="size-6 rounded-none border border-border flex items-center justify-center transition-transform hover:scale-110 focus:outline-none"
                 style={{ backgroundColor: col.value === "inherit" ? "#ffffff" : col.value }}
                 title={col.label}
                 onClick={() => {
@@ -144,7 +144,7 @@ export function ColorPickerMenu({ editor, disabled = false }: ColorPickerMenuPro
               <button
                 key={col.value}
                 type="button"
-                className="size-6 rounded border border-border flex items-center justify-center transition-transform hover:scale-110 focus:outline-none"
+                className="size-6 rounded-none border border-border flex items-center justify-center transition-transform hover:scale-110 focus:outline-none"
                 style={{ backgroundColor: col.value === "none" ? "#ffffff" : col.value }}
                 title={col.label}
                 onClick={() => {

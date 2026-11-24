@@ -36,7 +36,7 @@ export function UserFiltersBar({
   const isFiltered = !!searchInput || !!role || status !== "ALL";
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-card p-3 rounded-lg border border-border shadow-sm">
+    <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-white p-3 rounded-none border border-[#e7dcc3] shadow-xs">
       {/* Search Input */}
       <div className="relative flex-1 max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />

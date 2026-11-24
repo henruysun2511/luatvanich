@@ -57,7 +57,7 @@ export function DeletePracticeAreaDialog({
             </span>
 
             {hasServices ? (
-              <div className="flex items-start gap-2 p-3 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-medium">
+              <div className="flex items-start gap-2 p-3 rounded-none bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-medium">
                 <ShieldAlert className="size-4 shrink-0 mt-0.5" />
                 <span>
                   <strong>Không thể xóa:</strong> Lĩnh vực này hiện có{" "}

@@ -103,7 +103,7 @@ export function PostListTable({
 
   if (isLoading && posts.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
+      <div className="rounded-none border border-border bg-card p-12 flex flex-col items-center justify-center gap-2">
         <Loader2 className="size-6 animate-spin text-primary" />
         <span className="text-xs text-muted-foreground">Đang tải danh sách bài viết...</span>
       </div>
@@ -112,7 +112,7 @@ export function PostListTable({
 
   if (posts.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
+      <div className="rounded-none border border-dashed border-border bg-card p-12 flex flex-col items-center justify-center text-center">
         <FileText className="size-10 text-muted-foreground/60 mb-2" />
         <h3 className="font-semibold text-foreground text-sm">Chưa có bài viết nào</h3>
         <p className="text-xs text-muted-foreground mt-1 max-w-sm">
@@ -148,7 +148,7 @@ export function PostListTable({
               <TableRow key={post.id} className="hover:bg-muted/30">
                 {/* Ảnh bìa */}
                 <TableCell>
-                  <div className="relative size-12 rounded-md overflow-hidden bg-muted/60 border border-border flex items-center justify-center shrink-0">
+                  <div className="relative size-12 rounded-none overflow-hidden bg-muted/60 border border-border flex items-center justify-center shrink-0">
                     {post.thumbnailUrl ? (
                       <Image
                         src={post.thumbnailUrl}
@@ -172,7 +172,7 @@ export function PostListTable({
                     <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                       <span className="font-mono truncate max-w-[200px]">/{vi?.slug || zh?.slug}</span>
                       {zh && (
-                        <span className="text-[10px] text-blue-600 bg-blue-50 px-1 rounded border border-blue-200">
+                        <span className="text-[10px] text-blue-600 bg-blue-50 px-1 rounded-none border border-blue-200">
                           ZH
                         </span>
                       )}
@@ -194,7 +194,7 @@ export function PostListTable({
                       post.tags!.slice(0, 2).map((t) => (
                         <span
                           key={t.id}
-                          className="text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-mono"
+                          className="text-[10px] bg-muted px-1.5 py-0.5 rounded-none text-muted-foreground font-mono"
                         >
                           #{t.name}
                         </span>

@@ -129,7 +129,7 @@ export function ProfileForm() {
       />
 
       {/* Khối Ảnh đại diện & Thông tin vai trò */}
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-xl border border-border bg-card shadow-xs">
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-none border border-border bg-card shadow-xs">
         {/* Khung hình tròn Avatar cố định kích thước, chống phình to */}
         <div className="relative shrink-0">
           <div
