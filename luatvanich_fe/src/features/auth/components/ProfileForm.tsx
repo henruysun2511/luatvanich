@@ -137,18 +137,18 @@ export function ProfileForm() {
             className="group relative size-24 min-w-[96px] min-h-[96px] max-w-[96px] max-h-[96px] rounded-full ring-4 ring-primary/20 hover:ring-primary/40 shadow-sm overflow-hidden bg-primary/10 flex items-center justify-center cursor-pointer transition-all duration-200 select-none"
             title="Nhấp để tải lên hoặc đổi ảnh đại diện"
           >
-            {formData.avatarUrl ? (
+            <User className="size-10 text-primary/60" />
+            {formData.avatarUrl && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={formData.avatarUrl}
                 alt={formData.fullName || formData.username}
-                className="w-full h-full size-full object-cover rounded-full pointer-events-none block"
+                className="absolute inset-0 w-full h-full size-full object-cover rounded-full pointer-events-none block z-0"
+                referrerPolicy="no-referrer"
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = "none";
                 }}
               />
-            ) : (
-              <User className="size-10 text-primary/60" />
             )}
 
             {/* Overlay loading hoặc overlay hover */}

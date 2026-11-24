@@ -5,6 +5,11 @@ import type {
   ChangePasswordInput,
 } from "../schemas/auth.schema";
 import type { AdminUser, AuthResponse } from "../types/auth.types";
+import {
+  getStoredRefreshToken,
+  setStoredRefreshToken,
+  clearStoredRefreshToken,
+} from "../utils/refreshTokenStorage";
 
 const AUTH_BASE_URL = "/admin/auth";
 const NO_REFRESH = { skipAuthRefresh: true } as const;
@@ -16,21 +21,41 @@ export const authService = {
       input,
       NO_REFRESH,
     );
-    return res.data.data;
+    const data = res.data.data;
+    if (data?.refreshToken) {
+      setStoredRefreshToken(data.refreshToken);
+    }
+    return data;
   },
 
-  /** Refresh token nằm trong httpOnly cookie, trình duyệt tự gửi kèm */
+  /** 
+   * Refresh access token: Ưu tiên httpOnly cookie, 
+   * đồng thời gửi kèm token fallback trong body & header nếu cookie bị chặn cross-port 
+   */
   refresh: async (): Promise<AuthResponse> => {
+    const fallbackToken = getStoredRefreshToken();
+    const headers = fallbackToken ? { "x-refresh-token": fallbackToken } : undefined;
     const res = await apiClient.post<{ data: AuthResponse }>(
       `${AUTH_BASE_URL}/refresh`,
-      undefined,
-      NO_REFRESH,
+      fallbackToken ? { refreshToken: fallbackToken } : undefined,
+      {
+        ...NO_REFRESH,
+        headers,
+      },
     );
-    return res.data.data;
+    const data = res.data.data;
+    if (data?.refreshToken) {
+      setStoredRefreshToken(data.refreshToken);
+    }
+    return data;
   },
 
   logout: async (): Promise<void> => {
-    await apiClient.post(`${AUTH_BASE_URL}/logout`, undefined, NO_REFRESH);
+    try {
+      await apiClient.post(`${AUTH_BASE_URL}/logout`, undefined, NO_REFRESH);
+    } finally {
+      clearStoredRefreshToken();
+    }
   },
 
   me: async (cancelSignal?: AbortSignal): Promise<AdminUser> => {

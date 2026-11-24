@@ -194,13 +194,7 @@ export class AuthService {
     return createHash('sha256').update(token).digest('hex');
   }
 
-  private formatUserResponse(user: User) {
-    return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      fullName: user.fullName,
-      role: (user.role as any)?.code ?? 'editor',
-    };
+  private formatUserResponse(user: User): UserResponseDto {
+    return UserResponseDto.fromEntity(user);
   }
 }

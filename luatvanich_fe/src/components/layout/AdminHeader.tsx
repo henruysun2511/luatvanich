@@ -49,18 +49,18 @@ export function AdminHeader() {
         >
           <div className="flex items-center gap-2.5 pl-2 border-l border-border cursor-pointer py-1.5 select-none group">
             <div className="size-8 min-w-8 min-h-8 max-w-8 max-h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20 overflow-hidden shrink-0 relative">
-              {user?.avatarUrl ? (
+              <User className="size-4 text-primary" />
+              {user?.avatarUrl && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={user.avatarUrl}
                   alt={user.fullName || user.username}
-                  className="w-full h-full size-full object-cover rounded-full block"
+                  className="absolute inset-0 w-full h-full size-full object-cover rounded-full block"
+                  referrerPolicy="no-referrer"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = "none";
                   }}
                 />
-              ) : (
-                <User className="size-4" />
               )}
             </div>
             <div className="flex flex-col text-left">

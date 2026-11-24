@@ -5,15 +5,19 @@ import { authService } from "../services/auth.service";
 import { useAuthStore } from "../store/useAuthStore";
 import type { AuthResponse } from "../types/auth.types";
 import { clearSessionCookie, setSessionCookie } from "./sessionCookie";
+import { setStoredRefreshToken, clearStoredRefreshToken } from "./refreshTokenStorage";
 
 /** Kiểm tra xem lỗi có phải do hết phiên (401/403) */
 export const isAuthFailure = (error: unknown) =>
   error instanceof LawFirmApiError && (error.statusCode === 401 || error.statusCode === 403);
 
 /** Ghi nhận phiên mới: token vào store, user vào cache của Query, set cookie cho middleware */
-export function applySession({ accessToken, user }: AuthResponse) {
+export function applySession({ accessToken, refreshToken, user }: AuthResponse) {
   useAuthStore.getState().setSession(accessToken);
   setSessionCookie();
+  if (refreshToken) {
+    setStoredRefreshToken(refreshToken);
+  }
   if (user) {
     getSharedQueryClient().setQueryData(authKeys.me, user);
   }
@@ -40,6 +44,7 @@ export function refreshSession(): Promise<string> {
         if (isAuthFailure(error)) {
           useAuthStore.getState().clearSession();
           clearSessionCookie();
+          clearStoredRefreshToken();
         }
         throw error;
       })

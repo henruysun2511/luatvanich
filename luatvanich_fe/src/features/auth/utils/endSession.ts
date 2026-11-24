@@ -3,11 +3,13 @@ import { LOGIN_PATH, isAuthPath } from "../constants/auth.constants";
 import { useAuthStore } from "../store/useAuthStore";
 import { broadcastAuth } from "./authChannel";
 import { clearSessionCookie } from "./sessionCookie";
+import { clearStoredRefreshToken } from "./refreshTokenStorage";
 
 /** Xóa phiên cục bộ */
 export function clearLocalSession({ redirectBack = false }: { redirectBack?: boolean } = {}) {
   useAuthStore.getState().clearSession();
   clearSessionCookie();
+  clearStoredRefreshToken();
   getSharedQueryClient().clear();
 
   if (typeof window === "undefined") return;

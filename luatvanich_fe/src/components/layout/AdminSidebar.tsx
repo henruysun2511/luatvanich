@@ -28,7 +28,7 @@ const adminNavList = [
   { href: "/admin/offices", title: "Văn phòng đại diện", icon: Building2 },
   { href: "/admin/lawyers", title: "Đội ngũ luật sư", icon: Users },
   { href: "/admin/posts", title: "Cẩm nang & Bài viết", icon: FileText },
-  { href: "/admin/consultations", title: "Yêu cầu tư vấn (Leads)", icon: MessageSquareText },
+  { href: "/admin/consultations", title: "Yêu cầu tư vấn", icon: MessageSquareText },
   { href: "/admin/media", title: "Thư viện Media", icon: Image },
   { href: "/admin/users", title: "Tài khoản quản trị", icon: ShieldCheck },
   { href: "/admin/settings", title: "Cài đặt tài khoản", icon: Settings },

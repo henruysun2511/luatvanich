@@ -31,7 +31,7 @@ export class AuthController {
 
   /**
    * POST /api/v1/admin/auth/login
-   * Đăng nhập email + password → accessToken + refreshToken (httpOnly cookie)
+   * Đăng nhập email + password → accessToken + refreshToken (httpOnly cookie & response body)
    */
   @Post('login')
   @Public()
@@ -43,21 +43,28 @@ export class AuthController {
     res.cookie('refreshToken', result.refreshToken, this.getCookieOptions());
 
     return ApiResponse.success(
-      { accessToken: result.accessToken, user: result.user },
+      { accessToken: result.accessToken, refreshToken: result.refreshToken, user: result.user },
       'Đăng nhập thành công',
     );
   }
 
   /**
    * POST /api/v1/admin/auth/refresh
-   * Đổi refresh token (từ cookie) lấy access token mới
+   * Đổi refresh token (từ cookie hoặc body/header) lấy access token mới
    */
   @Post('refresh')
   @Public()
   @HttpCode(200)
-  @SwaggerDoc({ summary: 'Làm mới access token' })
-  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const rawToken = req.cookies?.refreshToken;
+  @SwaggerDoc({ summary: 'Làm mới access token', responseType: AuthResponseDto })
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @Body('refreshToken') bodyToken?: string,
+  ) {
+    const rawToken =
+      req.cookies?.refreshToken ||
+      bodyToken ||
+      (req.headers['x-refresh-token'] as string);
     if (!rawToken) {
       throw new RefreshTokenExpiredException('Không tìm thấy phiên đăng nhập');
     }
@@ -66,7 +73,7 @@ export class AuthController {
     res.cookie('refreshToken', result.refreshToken, this.getCookieOptions());
 
     return ApiResponse.success(
-      { accessToken: result.accessToken, user: result.user },
+      { accessToken: result.accessToken, refreshToken: result.refreshToken, user: result.user },
       'Làm mới token thành công',
     );
   }

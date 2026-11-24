@@ -54,6 +54,7 @@ async function bootstrap() {
       'Authorization',
       'X-Requested-With',
       'Accept-Language',
+      'x-refresh-token',
     ],
   });
 

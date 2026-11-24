@@ -10,6 +10,7 @@ export interface AdminUser {
 
 export interface AuthResponse {
   accessToken: string;
+  refreshToken?: string;
   user: AdminUser;
 }
 
