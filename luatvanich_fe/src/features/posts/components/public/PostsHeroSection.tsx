@@ -82,28 +82,8 @@ export function PostsHeroSection({ lang }: PostsHeroSectionProps) {
                 : "Tổng hợp các bài phân tích chính sách đầu tư mới nhất, bình luận án lệ, chuẩn mực soạn thảo hợp đồng thương mại và cẩm nang phòng ngừa rủi ro pháp lý cho nhà đầu tư tại Việt Nam."}
             </p>
 
-            {/* Checklist bài viết học thuật */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#2d3748]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#85151b]/15 text-[#85151b] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "外资准入与并购合规专题" : "Pháp luật FDI & Thẩm định M&A"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#85151b]/15 text-[#85151b] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "中越双语合同风险防控指南" : "Bộ chuẩn hợp đồng song ngữ Việt - Trung"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#85151b]/15 text-[#85151b] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "涉外争议仲裁典型判例分析" : "Án lệ trọng tài & giải quyết tranh chấp"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#85151b]/15 text-[#85151b] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "持续更新2026最新政策动态" : "Cập nhật chính sách mới năm 2026"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#thuatngu`} className="btn-royal shadow-lg">
                 {isZh ? "查阅中越法律词典" : "Tra cứu từ điển pháp lý"} &rarr;
               </Link>
@@ -114,6 +94,19 @@ export function PostsHeroSection({ lang }: PostsHeroSectionProps) {
                 {isZh ? "浏览最新发表分析" : "Đọc các bài viết mới nhất"}
               </Link>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#5a6882]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#85151b] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#85151b] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#85151b] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Cuốn Thư Điển Lệ & Báo Cáo Chiến Lược (Legal Gazette & Dossier Card) */}

@@ -82,28 +82,8 @@ export function OfficesHeroSection({ lang }: OfficesHeroSectionProps) {
                 : "Hệ thống văn phòng đại diện và cơ sở liên kết chiến lược tại các trung tâm kinh tế và cửa khẩu mậu dịch trọng yếu, sẵn sàng tiếp nhận và hỗ trợ khách hàng trực tiếp tại chỗ."}
             </p>
 
-            {/* Checklist bảo chứng */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "河内总部直接调度两地资源" : "Trụ sở Hà Nội điều phối toàn hệ thống"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "中国南宁办公室紧密衔接" : "Văn phòng Nam Ninh kết nối trực tiếp"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "东兴边境口岸驻点紧急响应" : "Cửa khẩu Đông Hưng hỗ trợ thông quan"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "24小时应急涉外法律援助" : "Đường dây nóng phản hồi trong 24 giờ"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
                 {isZh ? "联系最近的办公室" : "Liên hệ văn phòng gần nhất"} &rarr;
               </Link>
@@ -114,6 +94,19 @@ export function OfficesHeroSection({ lang }: OfficesHeroSectionProps) {
                 Hotline: +86 152 7702 0681
               </a>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Thẻ Bản Đồ Tọa Độ 4 Trụ Sở (Bilateral Network Coordinates Card) */}

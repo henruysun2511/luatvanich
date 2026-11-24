@@ -82,28 +82,8 @@ export function LegalServicesHeroSection({ lang }: LegalServicesHeroSectionProps
                 : "Hơn 28 năm kinh nghiệm thực chiến hỗ trợ nhà đầu tư nước ngoài tại Việt Nam, rà soát đối chiếu song ngữ Việt – Trung chuẩn xác, bảo vệ quyền lợi tối đa trong mọi giao dịch và tranh chấp."}
             </p>
 
-            {/* Checklist bảo chứng chuẩn hoàng gia */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#c29a45]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "100% 中越双语法律文书互校" : "100% Hồ sơ song ngữ đối chiếu chuẩn"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#c29a45]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "河内与南宁团队无缝协同" : "Hà Nội • TP.HCM • Nam Ninh"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#c29a45]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "透明报价，明确工期节点" : "Minh bạch chi phí & tiến độ thụ lý"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#c29a45]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "国际商事仲裁实战专家主理" : "Trọng tài viên quốc tế trực tiếp phụ trách"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
                 {isZh ? "预约律师咨询" : "Đặt lịch tư vấn dịch vụ"} &rarr;
               </Link>
@@ -114,6 +94,19 @@ export function LegalServicesHeroSection({ lang }: LegalServicesHeroSectionProps
                 {isZh ? "查阅6大核心业务" : "Khám phá các khối dịch vụ"}
               </Link>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Bảng Ma Trận Dịch Vụ Hoàng Gia (Imperial Practice Matrix Card) */}

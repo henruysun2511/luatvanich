@@ -82,28 +82,8 @@ export function CorridorHeroSection({ lang }: CorridorHeroSectionProps) {
                 : "Nền tảng bảo trợ pháp lý vững chắc cho chuỗi cung ứng sản xuất, logistics xuyên biên giới và các dự án hợp tác kinh tế dọc tuyến 'Hai hành lang, một vành đai' giữa Việt Nam và Trung Quốc."}
             </p>
 
-            {/* Checklist bảo chứng */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "南宁-河内-胡志明市全线协同" : "Quảng Tây, Vân Nam ⇋ Hà Nội, Hải Phòng, TP.HCM"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "双边商事仲裁与投资保护对接" : "Trọng tài thương mại & Bảo hộ đầu tư song phương"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "边境海关与通关合规护航" : "Thủ tục Hải quan & Thông quan cửa khẩu"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "跨境知识产权与技术转移保护" : "Bảo hộ sở hữu trí tuệ & chuyển giao công nghệ"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
                 {isZh ? "咨询跨境走廊法务" : "Tư vấn dự án hành lang"} &rarr;
               </Link>
@@ -114,6 +94,19 @@ export function CorridorHeroSection({ lang }: CorridorHeroSectionProps) {
                 {isZh ? "查看走廊雷达拓扑" : "Xem radar bản đồ hành lang"}
               </Link>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Sơ Đồ Kết Nối Tuyến Đường Động (Corridor Vector Gateway Card) */}

@@ -83,28 +83,8 @@ export function LawyersHeroSection({ lang }: LawyersHeroSectionProps) {
                 : "Hội tụ các luật sư thành viên, trọng tài viên thương mại quốc tế và chuyên gia tư vấn song ngữ am hiểu sâu sắc hệ thống tư pháp, tập quán thương mại và rào cản ngôn ngữ của cả hai quốc gia."}
             </p>
 
-            {/* Checklist bảo chứng */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "国际商事仲裁员主理案件" : "Trọng tài viên & Luật sư sáng lập"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "中国与越南双向执业背景" : "Kinh nghiệm tư vấn song phương"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "胜诉及成功和解率领先" : "Tỷ lệ hòa giải & bảo vệ thành công cao"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "全程保密，恪守职业道德" : "Bảo mật tuyệt đối thông tin khách hàng"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
                 {isZh ? "预约指定律师" : "Gặp gỡ luật sư chuyên trách"} &rarr;
               </Link>
@@ -115,6 +95,19 @@ export function LawyersHeroSection({ lang }: LawyersHeroSectionProps) {
                 {isZh ? "浏览在册律师名录" : "Xem danh bạ luật sư"}
               </Link>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Thẻ Phẩm Hàm Luật Gia (Senior Counsel Insignia Card) */}

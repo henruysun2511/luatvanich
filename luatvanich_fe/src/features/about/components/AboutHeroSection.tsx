@@ -83,28 +83,8 @@ export function AboutHeroSection({ lang }: AboutHeroSectionProps) {
                 : "Khởi nguồn từ năm 1996, Hãng luật Vạn Ích là đơn vị tiên phong trong lĩnh vực tư vấn pháp lý thương mại và đầu tư giữa Việt Nam và Trung Quốc, bảo vệ tối đa quyền lợi và an toàn dòng vốn xuyên biên giới."}
             </p>
 
-            {/* Checklist bảo chứng giá trị */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#fae1e1]">
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "跨国法律实务28年深厚沉淀" : "28 năm liên tục đồng hành cùng FDI"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "深刻理解中越两地制度差异" : "Thấu hiểu sâu sắc thể chế song phương"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "务实笃行，捍卫客户商业利益" : "Hành động vì lợi ích bền vững của khách hàng"}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
-                <span>{isZh ? "万事以益，益己益人立所初心" : "Triết lý pháp lý Vạn sự dĩ ích"}</span>
-              </li>
-            </ul>
-
             {/* Nút hành động */}
-            <div className="flex flex-wrap items-center gap-5 pt-4">
+            <div className="flex flex-wrap items-center gap-5 pt-2">
               <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
                 {isZh ? "与我们建立联系" : "Kết nối cùng Vạn Ích"} &rarr;
               </Link>
@@ -115,6 +95,19 @@ export function AboutHeroSection({ lang }: AboutHeroSectionProps) {
                 {isZh ? "了解中越走廊战略" : "Khám phá Hành lang pháp lý"}
               </Link>
             </div>
+
+            {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#fae1e1]">
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+              </li>
+            </ul>
           </div>
 
           {/* CỘT PHẢI: Kim Ấn Vạn Ích & Niên Biểu 1996 (1996 Golden Charter & Seal Stamp) */}
