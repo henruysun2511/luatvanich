@@ -1,66 +1,98 @@
-import Link from "next/link";
-import { Briefcase, MessageSquareText, FileText, Layers, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import React, { useState } from "react";
+import {
+  DashboardHeader,
+  DashboardStatCards,
+  ConsultationTrendChart,
+  ConsultationStatusDonutChart,
+  TopServicesPopularityChart,
+  ContentCategoryDistributionChart,
+  RecentConsultationsWidget,
+  UpcomingScheduledPostsWidget,
+  useDashboardStats,
+  useDashboardCharts,
+  useDashboardRecent,
+} from "@/features/dashboard";
 
 export default function AdminDashboardPage() {
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="font-serif text-2xl font-bold tracking-tight">
-            Bảng điều khiển Quản trị
-          </h1>
-          <p className="text-xs text-muted-foreground">
-            Tổng quan tình trạng website, yêu cầu tư vấn mới và nội dung xuất bản.
-          </p>
-        </div>
+  const [days, setDays] = useState<number>(14);
 
-        <div className="flex gap-2">
-          <Button variant="accent" size="sm" asChild>
-            <Link href="/admin/services">
-              <Plus className="size-4 mr-1" /> Thêm dịch vụ mới
-            </Link>
-          </Button>
+  const {
+    data: stats,
+    isLoading: isLoadingStats,
+    refetch: refetchStats,
+    isFetching: isFetchingStats,
+  } = useDashboardStats();
+
+  const {
+    data: charts,
+    isLoading: isLoadingCharts,
+    refetch: refetchCharts,
+    isFetching: isFetchingCharts,
+  } = useDashboardCharts(days);
+
+  const {
+    data: recent,
+    isLoading: isLoadingRecent,
+    refetch: refetchRecent,
+    isFetching: isFetchingRecent,
+  } = useDashboardRecent();
+
+  const isRefreshing = isFetchingStats || isFetchingCharts || isFetchingRecent;
+
+  const handleRefresh = async () => {
+    await Promise.all([refetchStats(), refetchCharts(), refetchRecent()]);
+  };
+
+  return (
+    <div className="space-y-6 pb-12">
+      {/* 1. Header Bảng điều khiển */}
+      <DashboardHeader
+        days={days}
+        onDaysChange={setDays}
+        onRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+      />
+
+      {/* 2. Dãy 4 Thẻ KPI Tổng quan */}
+      <DashboardStatCards stats={stats} isLoading={isLoadingStats} />
+
+      {/* 3. Cụm Biểu đồ Hàng 1: Xu hướng tiếp nhận (Area) & Phân bố trạng thái (Donut) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="lg:col-span-7">
+          <ConsultationTrendChart data={charts?.trend} isLoading={isLoadingCharts} />
+        </div>
+        <div className="lg:col-span-5">
+          <ConsultationStatusDonutChart
+            data={charts?.statusBreakdown}
+            isLoading={isLoadingCharts}
+          />
         </div>
       </div>
 
-      {/* Thẻ thống kê 4 cột */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-card border p-4 rounded-md shadow-sm space-y-1">
-          <div className="flex justify-between items-center text-muted-foreground">
-            <span className="text-xs font-medium">Yêu cầu tư vấn mới</span>
-            <MessageSquareText className="size-4 text-accent" />
-          </div>
-          <div className="text-2xl font-bold text-foreground">12</div>
-          <span className="text-[11px] text-green-600 font-medium">+3 yêu cầu hôm nay</span>
-        </div>
+      {/* 4. Cụm Biểu đồ Hàng 2: Top Lĩnh vực (Horizontal Bar) & Cơ cấu Bài viết (Grouped Bar) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <TopServicesPopularityChart
+          data={charts?.topPracticeAreas}
+          isLoading={isLoadingCharts}
+        />
+        <ContentCategoryDistributionChart
+          data={charts?.contentDistribution}
+          isLoading={isLoadingCharts}
+        />
+      </div>
 
-        <div className="bg-card border p-4 rounded-md shadow-sm space-y-1">
-          <div className="flex justify-between items-center text-muted-foreground">
-            <span className="text-xs font-medium">Dịch vụ pháp lý</span>
-            <Briefcase className="size-4 text-primary" />
-          </div>
-          <div className="text-2xl font-bold text-foreground">12</div>
-          <span className="text-[11px] text-muted-foreground">Đang hiển thị công khai</span>
-        </div>
-
-        <div className="bg-card border p-4 rounded-md shadow-sm space-y-1">
-          <div className="flex justify-between items-center text-muted-foreground">
-            <span className="text-xs font-medium">Bài viết cẩm nang</span>
-            <FileText className="size-4 text-secondary" />
-          </div>
-          <div className="text-2xl font-bold text-foreground">48</div>
-          <span className="text-[11px] text-muted-foreground">Song ngữ Việt - Trung</span>
-        </div>
-
-        <div className="bg-card border p-4 rounded-md shadow-sm space-y-1">
-          <div className="flex justify-between items-center text-muted-foreground">
-            <span className="text-xs font-medium">Trang dựng bằng Puck</span>
-            <Layers className="size-4 text-accent" />
-          </div>
-          <div className="text-2xl font-bold text-foreground">6</div>
-          <span className="text-[11px] text-muted-foreground">Trang chủ, Giới thiệu, Landing</span>
-        </div>
+      {/* 5. Cụm Tác vụ Thực tế: Yêu cầu tư vấn mới & Bài viết hẹn giờ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <RecentConsultationsWidget
+          items={recent?.recentConsultations}
+          isLoading={isLoadingRecent}
+        />
+        <UpcomingScheduledPostsWidget
+          items={recent?.upcomingScheduledPosts}
+          isLoading={isLoadingRecent}
+        />
       </div>
     </div>
   );
