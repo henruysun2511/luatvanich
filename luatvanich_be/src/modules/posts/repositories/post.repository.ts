@@ -29,7 +29,11 @@ export class PostRepository {
   findById(id: string): Promise<Post | null> {
     return this.repo.findOne({
       where: { id },
-      relations: { translations: true, postTags: true, postServices: true },
+      relations: {
+        translations: true,
+        postTags: { tag: { translations: true } },
+        postServices: true,
+      },
       relationLoadStrategy: 'query',
     });
   }

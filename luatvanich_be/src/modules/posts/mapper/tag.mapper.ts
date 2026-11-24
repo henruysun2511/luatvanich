@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { LangCode } from '../../../common/enums/lang.enum';
-import { TagAdminDto, TagPublicDto } from '../dto/response/tag-response.dto';
+import { TagPublicDto } from '../dto/response/tag-response.dto';
 import { Tag } from '../entities/tag.entity';
 import { selectTranslation } from './localized-translation';
 
@@ -13,18 +13,6 @@ export class TagMapper {
       name: translation?.name ?? '',
       slug: translation?.slug ?? tag.id,
       colorHex: tag.colorHex ?? null,
-    };
-  }
-
-  toAdminResponse(tag: Tag): TagAdminDto {
-    return {
-      id: tag.id,
-      colorHex: tag.colorHex ?? null,
-      createdAt: tag.createdAt,
-      updatedAt: tag.updatedAt,
-      translations: (tag.translations ?? []).map(({ languageCode, name, slug, updatedAt }) => ({
-        languageCode, name, slug, updatedAt,
-      })),
     };
   }
 }

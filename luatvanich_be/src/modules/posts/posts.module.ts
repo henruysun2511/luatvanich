@@ -6,7 +6,6 @@ import { PostCategoriesAdminController } from './controllers/post-categories-adm
 import { PostCategoriesController } from './controllers/post-categories.controller';
 import { PostsAdminController } from './controllers/posts-admin.controller';
 import { PostsController } from './controllers/posts.controller';
-import { TagsAdminController } from './controllers/tags-admin.controller';
 import { TagsController } from './controllers/tags.controller';
 import { PostCategoryTranslation } from './entities/post-category-translation.entity';
 import { PostCategory } from './entities/post-category.entity';
@@ -40,7 +39,7 @@ import { TagsService } from './services/tags.service';
   ],
   controllers: [
     PostsController, PostsAdminController, PostCategoriesController, PostCategoriesAdminController,
-    TagsController, TagsAdminController,
+    TagsController,
   ],
   providers: [
     PostsService, PostCategoriesService, TagsService, PostMapper, PostCategoryMapper, TagMapper,

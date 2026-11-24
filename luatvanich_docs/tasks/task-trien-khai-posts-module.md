@@ -175,17 +175,12 @@ src/modules/posts/
 
 ### 4.2 Thẻ Tag (Tags)
 
+- **Cơ chế hoạt động**: Không duy trì menu quản trị CRUD Thẻ Tag riêng biệt. Thẻ tag được tự động xử lý theo cơ chế **Find or Create** ngay trong form bài viết (thông qua trường `tags: string[]`). Nếu thẻ đã tồn tại (khớp tên hoặc slug) thì tái sử dụng thẻ cũ; nếu chưa có thì hệ thống tự động tạo mới ngầm và gán vào bài viết.
+
 #### Public API (`tags.controller.ts`)
 *Prefix: `/tags`*
 - `GET /tags`: Lấy danh sách thẻ đang có bài viết.
 - `GET /tags/:slug/posts`: Lấy danh sách bài viết thuộc thẻ tag.
-
-#### Admin API (`tags-admin.controller.ts`)
-*Prefix: `/admin/tags` (Yêu cầu JWT Guard + `@Permissions('posts:write')`)*
-- `GET /admin/tags`: Danh sách thẻ quản trị.
-- `POST /admin/tags`: Tạo mới thẻ tag kèm bản dịch.
-- `PATCH /admin/tags/:id`: Sửa thẻ tag.
-- `DELETE /admin/tags/:id`: Xóa thẻ tag (gỡ liên kết trong `post_tags`).
 
 ---
 

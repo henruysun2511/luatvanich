@@ -23,6 +23,7 @@ import { PostCategoryRepository } from '../repositories/post-category.repository
 import { PostTranslationRepository } from '../repositories/post-translation.repository';
 import { PostRepository } from '../repositories/post.repository';
 import { TagRepository } from '../repositories/tag.repository';
+import { TagsService } from './tags.service';
 import { hasPostContent, sanitizePostHtml } from '../utils/post-html.util';
 import { validatePostThumbnail } from '../utils/post-thumbnail.util';
 
@@ -35,6 +36,7 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     private readonly posts: PostRepository,
     private readonly categories: PostCategoryRepository,
     private readonly tags: TagRepository,
+    private readonly tagsService: TagsService,
     private readonly translations: PostTranslationRepository,
     private readonly lawyerRepo: LawyerRepository,
     private readonly legalServiceRepo: LegalServiceRepository,
@@ -133,11 +135,12 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
 
   async create(dto: CreatePostDto) {
     if (dto.thumbnailUrl) validatePostThumbnail(dto.thumbnailUrl);
-    const { translations, tagIds, serviceIds, ...fields } = dto;
+    const { translations, tags, tagIds, serviceIds, ...fields } = dto;
     await this.validateReferences(fields.categoryId, fields.authorLawyerId);
     const post = await this.posts.save(fields);
     await this.saveTranslations(post.id, translations);
-    await this.updateLinks(post.id, tagIds, serviceIds);
+    const resolvedTagIds = await this.resolveTags(tags, tagIds);
+    await this.updateLinks(post.id, resolvedTagIds, serviceIds);
     return this.findByIdAdmin(post.id);
   }
 
@@ -149,11 +152,13 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
       validatePostThumbnail(dto.thumbnailUrl);
     }
 
-    const { translations, tagIds, serviceIds, ...fields } = dto;
+    const { translations, tags, tagIds, serviceIds, ...fields } = dto;
     await this.validateReferences(fields.categoryId, fields.authorLawyerId);
     await this.posts.save({ ...post, ...fields });
     if (translations) await this.saveTranslations(id, translations);
-    await this.updateLinks(id, tagIds, serviceIds);
+    const hasTagUpdates = tags !== undefined || tagIds !== undefined;
+    const resolvedTagIds = hasTagUpdates ? await this.resolveTags(tags, tagIds) : undefined;
+    await this.updateLinks(id, resolvedTagIds, serviceIds);
     const result = await this.findByIdAdmin(id);
     if (result.status === PostStatus.PUBLISHED || result.status === PostStatus.SCHEDULED) {
       this.assertCompleteTranslation(result.translations);
@@ -205,6 +210,18 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
         throw new PostRelationException('Luật sư tác giả không tồn tại');
       }
     }
+  }
+
+  private async resolveTags(tags?: string[], tagIds?: string[]): Promise<string[]> {
+    const ids = new Set<string>();
+    if (tagIds?.length) {
+      tagIds.forEach((id) => ids.add(id));
+    }
+    if (tags?.length) {
+      const createdIds = await this.tagsService.findOrCreateByNames(tags);
+      createdIds.forEach((id) => ids.add(id));
+    }
+    return Array.from(ids);
   }
 
   private async updateLinks(

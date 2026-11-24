@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
-import { PaginatedResponse } from '../../../common/response/api-response';
-import { normalizePagination } from '../../../common/utils/pagination.util';
-import { generateViSlug, generateZhSlug } from '../../../common/utils/slug.util';
-import { CreateTagDto } from '../dto/request/create-tag.dto';
-import { TagQueryDto } from '../dto/request/tag-query.dto';
-import { UpdateTagDto } from '../dto/request/update-tag.dto';
-import { UpsertTagTranslationDto } from '../dto/request/upsert-tag-translation.dto';
+import { generateViSlug } from '../../../common/utils/slug.util';
 import { TagNotFoundException } from '../exceptions/post.exception';
 import { TagMapper } from '../mapper/tag.mapper';
 import { TagTranslationRepository } from '../repositories/tag-translation.repository';
@@ -33,53 +27,27 @@ export class TagsService {
     return tag.id;
   }
 
-  async findAllAdmin(query: TagQueryDto) {
-    const { page, limit } = normalizePagination(query);
-    const [items, total] = await this.tags.findAdminList(query);
-    return PaginatedResponse.of(
-      items.map((tag) => this.mapper.toAdminResponse(tag)),
-      total,
-      page,
-      limit,
-    );
-  }
+  async findOrCreateByNames(names: string[]): Promise<string[]> {
+    const trimmed = Array.from(new Set(names.map((n) => n.trim()).filter((n) => n.length > 0)));
+    if (!trimmed.length) return [];
 
-  async findByIdAdmin(id: string) {
-    const tag = await this.tags.findById(id);
-    if (!tag) throw new TagNotFoundException(id);
-    return this.mapper.toAdminResponse(tag);
-  }
-
-  async create(dto: CreateTagDto) {
-    const { translations, ...fields } = dto;
-    const tag = await this.tags.save(fields);
-    await this.saveTranslations(tag.id, translations);
-    return this.findByIdAdmin(tag.id);
-  }
-
-  async update(id: string, dto: UpdateTagDto) {
-    const current = await this.tags.findById(id);
-    if (!current) throw new TagNotFoundException(id);
-    const { translations, ...fields } = dto;
-    await this.tags.save({ ...current, ...fields });
-    if (translations) await this.saveTranslations(id, translations);
-    return this.findByIdAdmin(id);
-  }
-
-  private async saveTranslations(id: string, translations: UpsertTagTranslationDto[]) {
-    for (const input of translations) {
-      const current = await this.translations.find(id, input.languageCode);
-      let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
-      if (!slug) {
-        const generated = input.languageCode === LangCode.VI ? generateViSlug(input.name) : generateZhSlug(input.name);
-        slug = generated || id;
+    const tagIds: string[] = [];
+    for (const name of trimmed) {
+      const slug = generateViSlug(name) || name.toLowerCase();
+      const existing = await this.translations.findByNameOrSlug(name, slug);
+      if (existing) {
+        tagIds.push(existing.tagId);
+      } else {
+        const tag = await this.tags.save({});
+        await this.translations.save({
+          tagId: tag.id,
+          languageCode: LangCode.VI,
+          name,
+          slug,
+        });
+        tagIds.push(tag.id);
       }
-      await this.translations.save({ ...current, ...input, tagId: id, slug, updatedAt: new Date() });
     }
-  }
-
-  async delete(id: string) {
-    const result = await this.tags.delete(id);
-    if (!result.affected) throw new TagNotFoundException(id);
+    return tagIds;
   }
 }

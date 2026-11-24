@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
-import { normalizePagination } from '../../../common/utils/pagination.util';
-import { TagQueryDto } from '../dto/request/tag-query.dto';
 import { PostStatus } from '../enums/post-status.enum';
 import { Tag } from '../entities/tag.entity';
 
@@ -56,28 +54,5 @@ export class TagRepository {
       .innerJoin('tag.translations', 'match', 'match.slug = :slug', { slug })
       .orderBy('CASE WHEN match.languageCode = :lang THEN 0 ELSE 1 END', 'ASC')
       .getOne();
-  }
-
-  findAdminList(filters: TagQueryDto): Promise<[Tag[], number]> {
-    const { skip, limit } = normalizePagination(filters);
-    const query = this.repo.createQueryBuilder('tag').leftJoinAndSelect('tag.translations', 'translation');
-    const search = filters.q?.trim();
-    if (search) {
-      const term = search.replace(/[!%_]/g, (char) => '!' + char);
-      query.andWhere(
-        'EXISTS (SELECT 1 FROM tag_translations match WHERE match.tag_id = tag.id AND match.name ILIKE :term ESCAPE \'!\')',
-        { term: `%${term}%` },
-      );
-    }
-    return query
-      .orderBy('tag.createdAt', filters.sortOrder ?? 'DESC')
-      .addOrderBy('tag.id', 'ASC')
-      .skip(skip)
-      .take(limit)
-      .getManyAndCount();
-  }
-
-  delete(id: string) {
-    return this.repo.delete(id);
   }
 }

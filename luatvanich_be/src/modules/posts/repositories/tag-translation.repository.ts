@@ -13,6 +13,14 @@ export class TagTranslationRepository {
     return this.repo.findOneBy({ tagId, languageCode });
   }
 
+  async findByNameOrSlug(name: string, slug: string): Promise<TagTranslation | null> {
+    return this.repo
+      .createQueryBuilder('trans')
+      .where('LOWER(trans.name) = LOWER(:name)', { name: name.trim() })
+      .orWhere('trans.slug = :slug', { slug })
+      .getOne();
+  }
+
   async save(
     fields: Partial<TagTranslation> & { tagId: string; languageCode: LangCode; slug: string },
   ): Promise<TagTranslation> {

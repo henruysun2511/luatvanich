@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { LangCode } from '../../../../common/enums/lang.enum';
 import { PostStatus } from '../../enums/post-status.enum';
+import { TagPublicDto } from './tag-response.dto';
 
 export class PostTranslationDto {
   @ApiProperty({ description: 'Ngôn ngữ', example: "vi", enum: LangCode })
@@ -64,6 +65,9 @@ export class PostAdminDto {
 
   @ApiPropertyOptional({ description: 'ID các thẻ', example: ["a3da8be5-519e-4459-930f-ea3bd1eaf15c"], type: [String] })
   tagIds?: string[];
+
+  @ApiPropertyOptional({ description: 'Danh sách thẻ kèm tên', type: () => [TagPublicDto] })
+  tags?: TagPublicDto[];
 
   @ApiPropertyOptional({ description: 'ID các dịch vụ', example: ["a3da8be5-519e-4459-930f-ea3bd1eaf15c"], type: [String] })
   serviceIds?: string[];

@@ -51,7 +51,18 @@ export class CreatePostDto {
   isFeatured?: boolean;
 
   @ApiPropertyOptional({
-    description: 'Danh sách thẻ',
+    description: 'Danh sách tên thẻ (hệ thống tự động tìm thẻ có sẵn hoặc tạo mới)',
+    example: ['Đầu tư FDI', 'Luật Doanh Nghiệp'],
+    type: [String],
+  })
+  @ValidateIf((_, value) => value !== undefined)
+  @IsArray({ message: 'Danh sách thẻ phải là mảng' })
+  @ArrayMaxSize(50, { message: 'Danh sách thẻ tối đa 50 mục' })
+  @MaxLength(100, { each: true, message: 'Tên thẻ tối đa 100 ký tự' })
+  tags?: string[];
+
+  @ApiPropertyOptional({
+    description: 'Danh sách ID thẻ (nếu có sẵn ID)',
     example: ['a3da8be5-519e-4459-930f-ea3bd1eaf15c'],
     type: [String],
   })

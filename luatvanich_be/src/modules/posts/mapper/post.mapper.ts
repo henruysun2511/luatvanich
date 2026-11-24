@@ -79,6 +79,9 @@ export class PostMapper {
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
       tagIds: post.postTags?.map(({ tagId }) => tagId),
+      tags: (post.postTags ?? [])
+        .map(({ tag }) => (tag ? this.tags.toPublicResponse(tag, DEFAULT_LANG) : null))
+        .filter(Boolean) as any,
       serviceIds: post.postServices?.map(({ serviceId }) => serviceId),
       translations: (post.translations ?? []).map((translation) => ({
         languageCode: translation.languageCode,
