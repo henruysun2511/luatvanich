@@ -51,7 +51,7 @@ export function PostDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
+      <DialogContent className="w-[95vw] sm:max-w-4xl lg:max-w-5xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
         {/* Header */}
         <DialogHeader className="p-6 pb-4 border-b border-[#e7dcc3] bg-[#fbf7ee] shrink-0">
           <div className="flex items-center justify-between gap-3 mr-6">
