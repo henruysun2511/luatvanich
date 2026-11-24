@@ -12,9 +12,9 @@ interface RecentConsultationsWidgetProps {
 }
 
 const STATUS_BADGES: Record<string, { label: string; className: string }> = {
-  new: { label: "Mới tiếp nhận", className: "bg-blue-50 text-blue-700 border-blue-200" },
-  in_progress: { label: "Đang xử lý", className: "bg-amber-50 text-amber-700 border-amber-200" },
-  done: { label: "Đã hoàn thành", className: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  new: { label: "Mới tiếp nhận", className: "bg-red-50 text-[#a3171e] border-red-200" },
+  in_progress: { label: "Đang xử lý", className: "bg-[#fbf7ee] text-[#855e14] border-[#c29a45]/50" },
+  done: { label: "Đã hoàn thành", className: "bg-emerald-50 text-emerald-800 border-emerald-300" },
   spam: { label: "Spam", className: "bg-slate-100 text-slate-600 border-slate-200" },
 };
 
@@ -74,11 +74,11 @@ export function RecentConsultationsWidget({
               return (
                 <div
                   key={item.id}
-                  className="py-3 flex items-start justify-between gap-3 hover:bg-muted/30 transition-colors rounded-lg px-2"
+                  className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors rounded-lg px-2.5"
                 >
                   <div className="space-y-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-semibold text-foreground truncate">
+                      <span className="text-xs font-royal font-bold text-[#06122b] truncate">
                         {item.fullName}
                       </span>
                       <span
@@ -88,27 +88,27 @@ export function RecentConsultationsWidget({
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-muted-foreground">
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-[#718096]">
                       {item.companyName && (
                         <span className="flex items-center gap-1 truncate max-w-[180px]">
-                          <Building className="size-3 shrink-0" />
+                          <Building className="size-3 shrink-0 text-[#c29a45]" />
                           {item.companyName}
                         </span>
                       )}
-                      <span className="flex items-center gap-1 font-mono text-foreground/80">
-                        <Phone className="size-3 shrink-0 text-muted-foreground" />
+                      <span className="flex items-center gap-1 font-mono text-[#06122b]">
+                        <Phone className="size-3 shrink-0 text-[#a3171e]" />
                         {item.phone}
                       </span>
                       {item.practiceAreaName && (
-                        <Badge variant="outline" className="text-[10px] py-0 h-4 border-border font-normal">
+                        <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] text-[#718096] font-normal bg-white">
                           {item.practiceAreaName}
                         </Badge>
                       )}
                     </div>
                   </div>
 
-                  <span className="text-[10px] text-muted-foreground font-mono shrink-0 flex items-center gap-1 mt-0.5">
-                    <Clock className="size-3" />
+                  <span className="text-[10px] text-[#718096] font-mono shrink-0 flex items-center gap-1 mt-0.5">
+                    <Clock className="size-3 text-[#c29a45]" />
                     {new Date(item.createdAt).toLocaleDateString("vi-VN", {
                       day: "2-digit",
                       month: "2-digit",
@@ -121,12 +121,12 @@ export function RecentConsultationsWidget({
         </div>
       </div>
 
-      <div className="pt-3 border-t border-border/60 mt-3">
+      <div className="pt-3.5 border-t border-[#e7dcc3] mt-3">
         <Link
           href="/admin/consultations?status=new"
-          className="text-xs font-medium text-primary hover:text-primary/80 flex items-center justify-center gap-1.5 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors"
+          className="text-xs font-semibold text-[#06122b] hover:text-[#a3171e] flex items-center justify-center gap-1.5 py-1 transition-colors font-sans"
         >
-          Xử lý các yêu cầu chưa phân công
+          <span>Xử lý các yêu cầu chưa phân công</span>
           <ArrowRight className="size-3.5" />
         </Link>
       </div>

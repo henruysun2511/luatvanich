@@ -68,20 +68,20 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
             <AreaChart data={formattedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="consultationGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#c29a45" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#c29a45" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.6} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e7dcc3" opacity={0.6} />
               <XAxis
                 dataKey="date"
-                stroke="#94A3B8"
+                stroke="#718096"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
-                stroke="#94A3B8"
+                stroke="#718096"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
@@ -92,12 +92,12 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
                   if (active && payload && payload.length) {
                     const item = payload[0].payload as { fullDate: string; count: number };
                     return (
-                      <div className="bg-popover border border-border p-2.5 rounded-lg shadow-md text-xs space-y-1">
-                        <div className="flex items-center gap-1.5 text-muted-foreground font-mono text-[11px]">
+                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-1 text-white">
+                        <div className="flex items-center gap-1.5 text-[#f0d28a] font-mono text-[11px]">
                           <Calendar className="size-3" />
                           <span>{item.fullDate}</span>
                         </div>
-                        <div className="font-semibold text-foreground">
+                        <div className="font-royal font-bold text-sm text-white">
                           {item.count} yêu cầu tư vấn
                         </div>
                       </div>
@@ -109,7 +109,7 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
               <Area
                 type="monotone"
                 dataKey="count"
-                stroke="#2563EB"
+                stroke="#c29a45"
                 strokeWidth={2.5}
                 fillOpacity={1}
                 fill="url(#consultationGradient)"

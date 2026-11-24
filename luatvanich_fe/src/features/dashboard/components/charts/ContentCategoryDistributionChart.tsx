@@ -59,16 +59,16 @@ export function ContentCategoryDistributionChart({
               data={chartData}
               margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.6} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e7dcc3" opacity={0.6} />
               <XAxis
                 dataKey="name"
-                stroke="#64748B"
+                stroke="#718096"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
-                stroke="#64748B"
+                stroke="#718096"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
@@ -78,16 +78,16 @@ export function ContentCategoryDistributionChart({
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="bg-popover border border-border p-2.5 rounded-lg shadow-md text-xs space-y-1">
-                        <span className="font-semibold text-foreground">{label}</span>
+                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-1 text-white">
+                        <span className="font-royal font-bold text-sm text-[#f0d28a]">{label}</span>
                         {payload.map((p) => (
                           <div key={p.name} className="flex items-center gap-2">
                             <span
                               className="size-2 rounded-full"
                               style={{ backgroundColor: p.color }}
                             />
-                            <span className="text-muted-foreground">{p.name}:</span>
-                            <span className="font-mono font-semibold text-foreground">
+                            <span className="text-[#a0aec0] font-sans">{p.name}:</span>
+                            <span className="font-mono font-bold text-white">
                               {p.value} bài
                             </span>
                           </div>
@@ -103,8 +103,8 @@ export function ContentCategoryDistributionChart({
                 iconType="circle"
                 iconSize={8}
               />
-              <Bar dataKey="Tiếng Việt" fill="#1B2A49" radius={[4, 4, 0, 0]} barSize={20} />
-              <Bar dataKey="Tiếng Trung" fill="#8B5CF6" radius={[4, 4, 0, 0]} barSize={20} />
+              <Bar dataKey="Tiếng Việt" fill="#06122b" radius={[4, 4, 0, 0]} barSize={20} />
+              <Bar dataKey="Tiếng Trung" fill="#c29a45" radius={[4, 4, 0, 0]} barSize={20} />
             </BarChart>
           </ResponsiveContainer>
         )}

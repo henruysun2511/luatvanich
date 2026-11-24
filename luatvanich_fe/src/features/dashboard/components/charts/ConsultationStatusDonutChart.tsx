@@ -58,9 +58,9 @@ export function ConsultationStatusDonutChart({
                       if (active && payload && payload.length) {
                         const item = payload[0].payload as StatusBreakdownItem;
                         return (
-                          <div className="bg-popover border border-border p-2 rounded-lg shadow-md text-xs space-y-0.5">
-                            <span className="font-semibold text-foreground">{item.label}</span>
-                            <div className="text-muted-foreground">
+                          <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-0.5 text-white">
+                            <span className="font-royal font-bold text-sm text-[#f0d28a]">{item.label}</span>
+                            <div className="text-[#a0aec0] font-mono">
                               {item.count} hồ sơ ({item.percentage}%)
                             </div>
                           </div>

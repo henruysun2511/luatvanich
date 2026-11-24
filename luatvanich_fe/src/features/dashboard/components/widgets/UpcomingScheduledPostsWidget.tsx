@@ -61,26 +61,26 @@ export function UpcomingScheduledPostsWidget({
             items.map((post) => (
               <div
                 key={post.id}
-                className="py-3 flex items-start justify-between gap-3 hover:bg-muted/30 transition-colors rounded-lg px-2"
+                className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors rounded-lg px-2.5"
               >
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <FileText className="size-3.5 text-muted-foreground shrink-0" />
-                    <span className="text-xs font-semibold text-foreground line-clamp-1">
+                    <FileText className="size-3.5 text-[#c29a45] shrink-0" />
+                    <span className="text-xs font-royal font-bold text-[#06122b] line-clamp-1">
                       {post.title}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                    <Badge variant="outline" className="text-[10px] py-0 h-4 border-border font-normal">
+                  <div className="flex items-center gap-2 text-[11px] text-[#718096]">
+                    <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] font-normal text-[#718096] bg-white">
                       {post.categoryName}
                     </Badge>
                   </div>
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className="flex items-center gap-1 text-[11px] font-mono font-medium text-purple-700 dark:text-purple-300">
-                    <Clock className="size-3" />
+                  <div className="flex items-center gap-1 text-[11px] font-mono font-semibold text-[#855e14] bg-[#fbf7ee] px-2 py-0.5 rounded border border-[#c29a45]/30">
+                    <Clock className="size-3 text-[#c29a45]" />
                     <span>
                       {new Date(post.publishAt).toLocaleString("vi-VN", {
                         day: "2-digit",
@@ -90,7 +90,7 @@ export function UpcomingScheduledPostsWidget({
                       })}
                     </span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground">Hẹn giờ phát hành</span>
+                  <span className="text-[10px] text-[#718096] mt-0.5 block">Hẹn giờ phát hành</span>
                 </div>
               </div>
             ))
@@ -98,12 +98,12 @@ export function UpcomingScheduledPostsWidget({
         </div>
       </div>
 
-      <div className="pt-3 border-t border-border/60 mt-3">
+      <div className="pt-3.5 border-t border-[#e7dcc3] mt-3">
         <Link
           href="/admin/posts"
-          className="text-xs font-medium text-primary hover:text-primary/80 flex items-center justify-center gap-1.5 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors"
+          className="text-xs font-semibold text-[#06122b] hover:text-[#a3171e] flex items-center justify-center gap-1.5 py-1 transition-colors font-sans"
         >
-          Quản lý toàn bộ cẩm nang & bài viết
+          <span>Quản lý toàn bộ cẩm nang & bài viết</span>
           <ArrowRight className="size-3.5" />
         </Link>
       </div>

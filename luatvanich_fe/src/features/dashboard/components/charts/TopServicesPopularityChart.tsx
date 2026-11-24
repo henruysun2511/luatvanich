@@ -73,9 +73,9 @@ export function TopServicesPopularityChart({
                   if (active && payload && payload.length) {
                     const item = payload[0].payload as { fullName: string; count: number };
                     return (
-                      <div className="bg-popover border border-border p-2 rounded-lg shadow-md text-xs space-y-0.5">
-                        <span className="font-semibold text-foreground">{item.fullName}</span>
-                        <div className="text-muted-foreground font-mono">
+                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-1 text-white">
+                        <span className="font-royal font-bold text-sm text-[#f0d28a]">{item.fullName}</span>
+                        <div className="text-[#a0aec0] font-mono">
                           {item.count} yêu cầu quan tâm
                         </div>
                       </div>
@@ -86,7 +86,7 @@ export function TopServicesPopularityChart({
               />
               <Bar
                 dataKey="count"
-                fill="#C9A24B"
+                fill="#c29a45"
                 radius={[0, 6, 6, 0]}
                 barSize={18}
               />
