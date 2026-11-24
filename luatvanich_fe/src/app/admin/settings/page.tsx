@@ -37,7 +37,7 @@ export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState<SettingsTab>("site");
 
   return (
-    <div className="space-y-6 max-w-6xl">
+    <div className="space-y-6 w-full">
       {/* Page Header */}
       <PageHeader
         icon={Settings}
