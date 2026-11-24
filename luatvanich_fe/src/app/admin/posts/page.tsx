@@ -190,94 +190,92 @@ export default function PostsManagementPage() {
       {activeTab === "posts" && (
         <div className="space-y-4">
           {/* Thanh công cụ tìm kiếm và bộ lọc */}
-          <div className="flex flex-col lg:flex-row gap-2.5 items-stretch lg:items-center justify-between p-3.5 rounded-lg border border-border bg-card shadow-xs">
-            <div className="flex flex-1 flex-col sm:flex-row gap-2.5 items-center">
-              {/* Tìm kiếm */}
-              <div className="relative w-full sm:w-64">
-                <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
-                <Input
-                  placeholder="Tìm theo tiêu đề, slug..."
-                  value={postSearch}
-                  onChange={(e) => {
-                    setPostSearch(e.target.value);
-                    setPostPage(1);
-                  }}
-                  className="pl-8 text-xs h-8.5"
-                />
-              </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-lg border border-border bg-card shadow-xs flex-wrap">
+            {/* Tìm kiếm */}
+            <div className="relative flex-1 min-w-[220px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
+              <Input
+                placeholder="Tìm theo tiêu đề bài viết, slug..."
+                value={postSearch}
+                onChange={(e) => {
+                  setPostSearch(e.target.value);
+                  setPostPage(1);
+                }}
+                className="pl-9 h-9 text-sm"
+              />
+            </div>
 
-              {/* Lọc Chuyên mục */}
-              <div className="w-full sm:w-48">
-                <Select
-                  value={postCategoryId}
-                  onValueChange={(val) => {
-                    setPostCategoryId(val);
-                    setPostPage(1);
-                  }}
-                >
-                  <SelectTrigger className="text-xs h-8.5">
-                    <SelectValue placeholder="Tất cả chuyên mục" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tất cả chuyên mục</SelectItem>
-                    {categories.map((c) => {
-                      const name =
-                        c.translations.find((t) => t.languageCode === "vi")?.name ||
-                        c.translations[0]?.name ||
-                        "Chuyên mục";
-                      return (
-                        <SelectItem key={c.id} value={c.id}>
-                          {c.parentId ? `— ${name}` : name}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </div>
+            {/* Lọc Chuyên mục */}
+            <div className="w-full sm:w-48">
+              <Select
+                value={postCategoryId}
+                onValueChange={(val) => {
+                  setPostCategoryId(val);
+                  setPostPage(1);
+                }}
+              >
+                <SelectTrigger className="text-xs h-9">
+                  <SelectValue placeholder="Tất cả chuyên mục" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tất cả chuyên mục</SelectItem>
+                  {categories.map((c) => {
+                    const name =
+                      c.translations.find((t) => t.languageCode === "vi")?.name ||
+                      c.translations[0]?.name ||
+                      "Chuyên mục";
+                    return (
+                      <SelectItem key={c.id} value={c.id}>
+                        {c.parentId ? `— ${name}` : name}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
 
-              {/* Lọc Trạng thái */}
-              <div className="w-full sm:w-36">
-                <Select
-                  value={postStatus}
-                  onValueChange={(val) => {
-                    setPostStatus(val);
-                    setPostPage(1);
-                  }}
-                >
-                  <SelectTrigger className="text-xs h-8.5">
-                    <SelectValue placeholder="Trạng thái" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tất cả trạng thái</SelectItem>
-                    <SelectItem value="draft">Bản nháp</SelectItem>
-                    <SelectItem value="in_review">Chờ duyệt</SelectItem>
-                    <SelectItem value="scheduled">Đã lên lịch</SelectItem>
-                    <SelectItem value="published">Đã xuất bản</SelectItem>
-                    <SelectItem value="archived">Lưu trữ</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            {/* Lọc Trạng thái */}
+            <div className="w-full sm:w-40">
+              <Select
+                value={postStatus}
+                onValueChange={(val) => {
+                  setPostStatus(val);
+                  setPostPage(1);
+                }}
+              >
+                <SelectTrigger className="text-xs h-9">
+                  <SelectValue placeholder="Trạng thái" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tất cả trạng thái</SelectItem>
+                  <SelectItem value="draft">Bản nháp</SelectItem>
+                  <SelectItem value="in_review">Chờ duyệt</SelectItem>
+                  <SelectItem value="scheduled">Đã lên lịch</SelectItem>
+                  <SelectItem value="published">Đã xuất bản</SelectItem>
+                  <SelectItem value="archived">Lưu trữ</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-              {/* Lọc Phân vùng */}
-              <div className="w-full sm:w-36">
-                <Select
-                  value={postSection}
-                  onValueChange={(val) => {
-                    setPostSection(val);
-                    setPostPage(1);
-                  }}
-                >
-                  <SelectTrigger className="text-xs h-8.5">
-                    <SelectValue placeholder="Phân vùng" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tất cả phân vùng</SelectItem>
-                    <SelectItem value="news">Tin tức</SelectItem>
-                    <SelectItem value="handbook">Cẩm nang</SelectItem>
-                    <SelectItem value="knowledge_base">Kiến thức</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            {/* Lọc Phân vùng */}
+            <div className="w-full sm:w-36">
+              <Select
+                value={postSection}
+                onValueChange={(val) => {
+                  setPostSection(val);
+                  setPostPage(1);
+                }}
+              >
+                <SelectTrigger className="text-xs h-9">
+                  <SelectValue placeholder="Phân vùng" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tất cả phân vùng</SelectItem>
+                  <SelectItem value="news">Tin tức</SelectItem>
+                  <SelectItem value="handbook">Cẩm nang</SelectItem>
+                  <SelectItem value="knowledge_base">Kiến thức</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Nút đặt lại bộ lọc */}
@@ -286,7 +284,7 @@ export default function PostsManagementPage() {
                 variant="ghost"
                 size="sm"
                 onClick={handleResetPostFilters}
-                className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-8.5"
+                className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-9"
               >
                 <RotateCcw className="size-3.5" />
                 Đặt lại
@@ -331,42 +329,40 @@ export default function PostsManagementPage() {
       {activeTab === "categories" && (
         <div className="space-y-4">
           {/* Bộ lọc chuyên mục */}
-          <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between p-3.5 rounded-lg border border-border bg-card shadow-xs">
-            <div className="flex flex-1 flex-col sm:flex-row gap-2.5 items-center">
-              {/* Tìm kiếm */}
-              <div className="relative w-full sm:w-64">
-                <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
-                <Input
-                  placeholder="Tìm chuyên mục..."
-                  value={categorySearch}
-                  onChange={(e) => {
-                    setCategorySearch(e.target.value);
-                    setCategoryPage(1);
-                  }}
-                  className="pl-8 text-xs h-8.5"
-                />
-              </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-lg border border-border bg-card shadow-xs flex-wrap">
+            {/* Tìm kiếm */}
+            <div className="relative flex-1 min-w-[220px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
+              <Input
+                placeholder="Tìm tên chuyên mục, slug..."
+                value={categorySearch}
+                onChange={(e) => {
+                  setCategorySearch(e.target.value);
+                  setCategoryPage(1);
+                }}
+                className="pl-9 h-9 text-sm"
+              />
+            </div>
 
-              {/* Lọc Phân vùng */}
-              <div className="w-full sm:w-48">
-                <Select
-                  value={categorySection}
-                  onValueChange={(val) => {
-                    setCategorySection(val);
-                    setCategoryPage(1);
-                  }}
-                >
-                  <SelectTrigger className="text-xs h-8.5">
-                    <SelectValue placeholder="Phân vùng" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Tất cả phân vùng</SelectItem>
-                    <SelectItem value="news">Tin tức (News)</SelectItem>
-                    <SelectItem value="handbook">Cẩm nang (Handbook)</SelectItem>
-                    <SelectItem value="knowledge_base">Kiến thức (Knowledge Base)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            {/* Lọc Phân vùng */}
+            <div className="w-full sm:w-48">
+              <Select
+                value={categorySection}
+                onValueChange={(val) => {
+                  setCategorySection(val);
+                  setCategoryPage(1);
+                }}
+              >
+                <SelectTrigger className="text-xs h-9">
+                  <SelectValue placeholder="Phân vùng" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tất cả phân vùng</SelectItem>
+                  <SelectItem value="news">Tin tức (News)</SelectItem>
+                  <SelectItem value="handbook">Cẩm nang (Handbook)</SelectItem>
+                  <SelectItem value="knowledge_base">Kiến thức (Knowledge Base)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Nút đặt lại */}
@@ -375,7 +371,7 @@ export default function PostsManagementPage() {
                 variant="ghost"
                 size="sm"
                 onClick={handleResetCategoryFilters}
-                className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-8.5"
+                className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-9"
               >
                 <RotateCcw className="size-3.5" />
                 Đặt lại
