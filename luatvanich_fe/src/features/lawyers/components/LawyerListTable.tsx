@@ -26,11 +26,13 @@ import {
   Loader2,
   Building2,
   Scale,
+  Eye,
 } from "lucide-react";
 
 interface LawyerListTableProps {
   lawyers: LawyerItem[];
   isLoading: boolean;
+  onViewDetail: (item: LawyerItem) => void;
   onEdit: (item: LawyerItem) => void;
   onDelete: (item: LawyerItem) => void;
 }
@@ -45,6 +47,7 @@ const TEAM_GROUP_LABELS: Record<LawyerTeamGroup, { label: string; color: string 
 export function LawyerListTable({
   lawyers,
   isLoading,
+  onViewDetail,
   onEdit,
   onDelete,
 }: LawyerListTableProps) {
@@ -262,6 +265,15 @@ export function LawyerListTable({
                 {/* 9. Thao tác */}
                 <TableCell className="text-right pr-4">
                   <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-foreground"
+                      onClick={() => onViewDetail(item)}
+                      title="Xem chi tiết hồ sơ"
+                    >
+                      <Eye className="size-3.5" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

@@ -6,6 +6,7 @@ export * from "./services/post-categories.service";
 export * from "./queries/usePostsQuery";
 export * from "./queries/usePostCategoriesQuery";
 export * from "./components/PostStatusBadge";
+export * from "./components/PostDetailDialog";
 export * from "./components/PostListTable";
 export * from "./components/PostFormDialog";
 export * from "./components/DeletePostDialog";

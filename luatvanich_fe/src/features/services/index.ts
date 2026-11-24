@@ -3,5 +3,6 @@ export * from "./schemas/service.schema";
 export * from "./services/service.service";
 export * from "./queries/useServiceQuery";
 export * from "./components/ServiceTable";
+export * from "./components/ServiceDetailDialog";
 export * from "./components/ServiceFormDialog";
 export * from "./components/DeleteServiceDialog";

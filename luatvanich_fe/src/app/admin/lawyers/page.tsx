@@ -13,6 +13,7 @@ import {
 import { Pagination } from "@/components/common";
 import {
   LawyerListTable,
+  LawyerDetailDialog,
   LawyerFormDialog,
   DeleteLawyerDialog,
   useAdminLawyers,
@@ -38,6 +39,7 @@ export default function LawyersManagementPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [lawyerToEdit, setLawyerToEdit] = useState<LawyerItem | null>(null);
   const [lawyerToDelete, setLawyerToDelete] = useState<LawyerItem | null>(null);
+  const [lawyerToView, setLawyerToView] = useState<LawyerItem | null>(null);
 
   // Danh sách Văn phòng & Lĩnh vực phục vụ bộ lọc
   const { data: officesData } = useAdminOffices({ limit: 100 });
@@ -256,6 +258,7 @@ export default function LawyersManagementPage() {
       <LawyerListTable
         lawyers={lawyers}
         isLoading={isLoading}
+        onViewDetail={setLawyerToView}
         onEdit={handleOpenEdit}
         onDelete={(item) => setLawyerToDelete(item)}
       />
@@ -271,6 +274,18 @@ export default function LawyersManagementPage() {
           }}
         />
       )}
+
+      {/* Modal Xem chi tiết Hồ sơ */}
+      <LawyerDetailDialog
+        open={Boolean(lawyerToView)}
+        onOpenChange={(open) => !open && setLawyerToView(null)}
+        lawyerId={lawyerToView?.id}
+        onEdit={() => {
+          if (lawyerToView) {
+            handleOpenEdit(lawyerToView);
+          }
+        }}
+      />
 
       {/* Modal Thêm / Chỉnh sửa */}
       <LawyerFormDialog

@@ -22,11 +22,13 @@ import {
   Star,
   Loader2,
   Layers,
+  Eye,
 } from "lucide-react";
 
 interface PracticeAreaListTableProps {
   practiceAreas: PracticeAreaItem[];
   isLoading: boolean;
+  onViewDetail: (item: PracticeAreaItem) => void;
   onEdit: (item: PracticeAreaItem) => void;
   onDelete: (item: PracticeAreaItem) => void;
 }
@@ -34,6 +36,7 @@ interface PracticeAreaListTableProps {
 export function PracticeAreaListTable({
   practiceAreas,
   isLoading,
+  onViewDetail,
   onEdit,
   onDelete,
 }: PracticeAreaListTableProps) {
@@ -215,6 +218,15 @@ export function PracticeAreaListTable({
                 {/* 8. Thao tác */}
                 <TableCell className="text-right pr-4">
                   <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-foreground"
+                      onClick={() => onViewDetail(item)}
+                      title="Xem chi tiết lĩnh vực"
+                    >
+                      <Eye className="size-3.5" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

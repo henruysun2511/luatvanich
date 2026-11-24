@@ -13,6 +13,7 @@ import {
 import { Pagination } from "@/components/common";
 import {
   PostListTable,
+  PostDetailDialog,
   PostFormDialog,
   DeletePostDialog,
   PostCategoryListTable,
@@ -43,6 +44,7 @@ export default function PostsManagementPage() {
   const [isPostFormOpen, setIsPostFormOpen] = useState(false);
   const [postIdToEdit, setPostIdToEdit] = useState<string | null>(null);
   const [postToDelete, setPostToDelete] = useState<PostItem | null>(null);
+  const [postToView, setPostToView] = useState<PostItem | null>(null);
 
   // ==========================================
   // STATE TAB 2: CHUYÊN MỤC (CATEGORIES)
@@ -297,6 +299,7 @@ export default function PostsManagementPage() {
             posts={posts}
             categories={categories}
             isLoading={isLoadingPosts}
+            onViewDetail={setPostToView}
             onEdit={handleOpenEditPost}
             onDelete={setPostToDelete}
           />
@@ -412,6 +415,23 @@ export default function PostsManagementPage() {
       {/* ========================================================= */}
       {/* MODALS VÀ DIALOGS */}
       {/* ========================================================= */}
+
+      {/* Dialog Xem chi tiết Bài viết */}
+      <PostDetailDialog
+        open={Boolean(postToView)}
+        onOpenChange={(open) => !open && setPostToView(null)}
+        postId={postToView?.id}
+        categoryName={
+          postToView
+            ? categories.find((c) => c.id === postToView.categoryId)?.translations.find((t) => t.languageCode === "vi")?.name || ""
+            : ""
+        }
+        onEdit={() => {
+          if (postToView) {
+            handleOpenEditPost(postToView);
+          }
+        }}
+      />
 
       {/* Modal Thêm/Sửa Bài viết */}
       <PostFormDialog

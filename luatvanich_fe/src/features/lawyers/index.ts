@@ -3,5 +3,6 @@ export * from "./schemas/lawyer.schema";
 export * from "./services/lawyers.service";
 export * from "./queries/useLawyersQuery";
 export * from "./components/LawyerListTable";
+export * from "./components/LawyerDetailDialog";
 export * from "./components/LawyerFormDialog";
 export * from "./components/DeleteLawyerDialog";

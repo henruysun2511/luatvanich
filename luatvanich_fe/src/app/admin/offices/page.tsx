@@ -13,6 +13,7 @@ import {
 import { Pagination } from "@/components/common";
 import {
   OfficeListTable,
+  OfficeDetailDialog,
   OfficeFormDialog,
   DeleteOfficeDialog,
   useAdminOffices,
@@ -32,6 +33,7 @@ export default function OfficesManagementPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [officeToEdit, setOfficeToEdit] = useState<OfficeItem | null>(null);
   const [officeToDelete, setOfficeToDelete] = useState<OfficeItem | null>(null);
+  const [officeToView, setOfficeToView] = useState<OfficeItem | null>(null);
 
   // Fetch offices
   const queryParams = {
@@ -159,6 +161,7 @@ export default function OfficesManagementPage() {
       <OfficeListTable
         offices={offices}
         isLoading={isLoading}
+        onViewDetail={setOfficeToView}
         onEdit={handleOpenEdit}
         onDelete={(office) => setOfficeToDelete(office)}
       />
@@ -176,6 +179,18 @@ export default function OfficesManagementPage() {
           itemLabel="văn phòng"
         />
       )}
+
+      {/* Detail Dialog */}
+      <OfficeDetailDialog
+        open={Boolean(officeToView)}
+        onOpenChange={(open) => !open && setOfficeToView(null)}
+        office={officeToView}
+        onEdit={() => {
+          if (officeToView) {
+            handleOpenEdit(officeToView);
+          }
+        }}
+      />
 
       {/* Modal Form: Create / Edit */}
       <OfficeFormDialog

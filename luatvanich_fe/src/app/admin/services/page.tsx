@@ -13,6 +13,7 @@ import {
 import { Pagination } from "@/components/common";
 import {
   ServiceTable,
+  ServiceDetailDialog,
   ServiceFormDialog,
   DeleteServiceDialog,
   useAdminLegalServices,
@@ -34,6 +35,7 @@ export default function ServicesManagementPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [serviceToEdit, setServiceToEdit] = useState<LegalServiceItem | null>(null);
   const [serviceToDelete, setServiceToDelete] = useState<LegalServiceItem | null>(null);
+  const [serviceToView, setServiceToView] = useState<LegalServiceItem | null>(null);
 
   // Lấy danh sách lĩnh vực cho dropdown bộ lọc
   const { data: areasData } = useAdminPracticeAreas({ limit: 100 });
@@ -198,6 +200,7 @@ export default function ServicesManagementPage() {
       <ServiceTable
         services={services}
         isLoading={isLoading}
+        onViewDetail={setServiceToView}
         onEdit={handleOpenEdit}
         onDelete={(item) => setServiceToDelete(item)}
       />
@@ -215,6 +218,18 @@ export default function ServicesManagementPage() {
           itemLabel="dịch vụ"
         />
       )}
+
+      {/* Detail Dialog */}
+      <ServiceDetailDialog
+        open={Boolean(serviceToView)}
+        onOpenChange={(open) => !open && setServiceToView(null)}
+        serviceId={serviceToView?.id}
+        onEdit={() => {
+          if (serviceToView) {
+            handleOpenEdit(serviceToView);
+          }
+        }}
+      />
 
       {/* Form Dialog: Create & Edit */}
       <ServiceFormDialog

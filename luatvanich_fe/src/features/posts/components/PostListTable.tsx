@@ -37,6 +37,7 @@ interface PostListTableProps {
   posts: PostItem[];
   categories: PostCategoryItem[];
   isLoading: boolean;
+  onViewDetail: (post: PostItem) => void;
   onEdit: (post: PostItem) => void;
   onDelete: (post: PostItem) => void;
 }
@@ -45,6 +46,7 @@ export function PostListTable({
   posts,
   categories,
   isLoading,
+  onViewDetail,
   onEdit,
   onDelete,
 }: PostListTableProps) {
@@ -246,6 +248,15 @@ export function PostListTable({
                 {/* Thao tác */}
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7 text-muted-foreground hover:text-foreground"
+                      onClick={() => onViewDetail(post)}
+                      title="Xem chi tiết bài viết"
+                    >
+                      <Eye className="size-3.5" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

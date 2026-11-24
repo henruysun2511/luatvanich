@@ -25,11 +25,13 @@ import {
   Star,
   Loader2,
   Scale,
+  Eye,
 } from "lucide-react";
 
 interface ServiceTableProps {
   services: LegalServiceItem[];
   isLoading: boolean;
+  onViewDetail: (item: LegalServiceItem) => void;
   onEdit: (item: LegalServiceItem) => void;
   onDelete: (item: LegalServiceItem) => void;
 }
@@ -37,6 +39,7 @@ interface ServiceTableProps {
 export function ServiceTable({
   services,
   isLoading,
+  onViewDetail,
   onEdit,
   onDelete,
 }: ServiceTableProps) {
@@ -225,6 +228,15 @@ export function ServiceTable({
                 {/* 8. Thao tác */}
                 <TableCell className="text-right pr-4">
                   <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-foreground"
+                      onClick={() => onViewDetail(item)}
+                      title="Xem chi tiết dịch vụ"
+                    >
+                      <Eye className="size-3.5" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

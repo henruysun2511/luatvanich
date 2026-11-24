@@ -25,11 +25,13 @@ import {
   QrCode,
   CheckCircle2,
   Clock,
+  Eye,
 } from "lucide-react";
 
 interface OfficeListTableProps {
   offices: OfficeItem[];
   isLoading: boolean;
+  onViewDetail: (office: OfficeItem) => void;
   onEdit: (office: OfficeItem) => void;
   onDelete: (office: OfficeItem) => void;
 }
@@ -37,6 +39,7 @@ interface OfficeListTableProps {
 export function OfficeListTable({
   offices,
   isLoading,
+  onViewDetail,
   onEdit,
   onDelete,
 }: OfficeListTableProps) {
@@ -187,6 +190,15 @@ export function OfficeListTable({
                 {/* 7. Thao tác */}
                 <TableCell className="text-right pr-4">
                   <div className="flex items-center justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-muted-foreground hover:text-foreground"
+                      title="Xem chi tiết văn phòng"
+                      onClick={() => onViewDetail(office)}
+                    >
+                      <Eye className="size-4" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"

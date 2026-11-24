@@ -13,6 +13,7 @@ import {
 import { Pagination } from "@/components/common";
 import {
   PracticeAreaListTable,
+  PracticeAreaDetailDialog,
   PracticeAreaFormDialog,
   DeletePracticeAreaDialog,
   useAdminPracticeAreas,
@@ -32,6 +33,7 @@ export default function PracticeAreasManagementPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [areaToEdit, setAreaToEdit] = useState<PracticeAreaItem | null>(null);
   const [areaToDelete, setAreaToDelete] = useState<PracticeAreaItem | null>(null);
+  const [areaToView, setAreaToView] = useState<PracticeAreaItem | null>(null);
 
   // Fetch data
   const queryParams = {
@@ -162,6 +164,7 @@ export default function PracticeAreasManagementPage() {
       <PracticeAreaListTable
         practiceAreas={practiceAreas}
         isLoading={isLoading}
+        onViewDetail={setAreaToView}
         onEdit={handleOpenEdit}
         onDelete={(item) => setAreaToDelete(item)}
       />
@@ -179,6 +182,18 @@ export default function PracticeAreasManagementPage() {
           itemLabel="lĩnh vực"
         />
       )}
+
+      {/* Detail Dialog */}
+      <PracticeAreaDetailDialog
+        open={Boolean(areaToView)}
+        onOpenChange={(open) => !open && setAreaToView(null)}
+        area={areaToView}
+        onEdit={() => {
+          if (areaToView) {
+            handleOpenEdit(areaToView);
+          }
+        }}
+      />
 
       {/* Form Dialog: Create & Edit */}
       <PracticeAreaFormDialog
