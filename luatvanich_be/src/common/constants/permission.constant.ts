@@ -40,6 +40,7 @@ export const PERMISSIONS = {
   // Posts / Knowledge Base
   POSTS_READ: 'posts:read',
   POSTS_WRITE: 'posts:write',
+  POSTS_MANAGE: 'posts:manage',
   POSTS_PUBLISH: 'posts:publish',
   POSTS_DELETE: 'posts:delete',
 

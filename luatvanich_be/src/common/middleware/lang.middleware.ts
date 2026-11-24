@@ -18,7 +18,7 @@ declare global {
 @Injectable()
 export class LangMiddleware implements NestMiddleware {
   use(req: Request, _res: Response, next: NextFunction) {
-    const queryLang = req.query?.lang as string;
+    const queryLang = typeof req.query?.lang === 'string' ? req.query.lang : undefined;
     const headerLang = req.headers['accept-language']?.split(',')[0]?.trim();
     const raw = queryLang || headerLang || 'vi';
 

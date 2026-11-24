@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, JoinColumn, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity';
 import { PostSection } from '../enums/post-section.enum';
 import { PostCategoryTranslation } from './post-category-translation.entity';
@@ -12,11 +12,12 @@ import { Post } from './post.entity';
 @Entity('post_categories')
 export class PostCategory extends BaseEntity {
   /** Phân vùng nội dung lớn (Tin tức, Cẩm nang, Cơ sở tri thức) */
-  @Column({ type: 'enum', enum: PostSection, default: PostSection.NEWS })
+  @Column({ type: 'enum', enum: PostSection, enumName: 'post_categories_section_enum', default: PostSection.NEWS })
   section: PostSection;
 
   /** Chuyên mục cha (self-referencing FK) */
   @Column({ name: 'parent_id', type: 'uuid', nullable: true })
+  @Index('idx_post_categories_parent_id')
   parentId?: string | null;
 
   @ManyToOne(() => PostCategory, (c) => c.children, { nullable: true, onDelete: 'SET NULL' })

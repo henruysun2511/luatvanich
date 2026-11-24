@@ -7,6 +7,7 @@ import { LangCode } from '../../../common/enums/lang.enum';
  * Khóa chính kép: (tag_id, language_code).
  */
 @Entity('tag_translations')
+@Index('uq_tag_translations_slug_lang', ['languageCode', 'slug'], { unique: true })
 export class TagTranslation {
   @PrimaryColumn({ name: 'tag_id', type: 'uuid' })
   tagId: string;
@@ -24,7 +25,7 @@ export class TagTranslation {
 
   /** Đường dẫn tĩnh SEO của thẻ tag */
   @Column({ length: 120 })
-  @Index('idx_tag_translations_slug')
+
   slug: string;
 
   @Column({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

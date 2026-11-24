@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, ManyToOne, JoinColumn, PrimaryColumn, Index } from 'typeorm';
 import { Post } from './post.entity';
 import { Tag } from './tag.entity';
 
@@ -12,6 +12,7 @@ export class PostTag {
   postId: string;
 
   @PrimaryColumn({ name: 'tag_id', type: 'uuid' })
+  @Index('idx_post_tags_tag_id')
   tagId: string;
 
   @ManyToOne(() => Post, (p) => p.postTags, { onDelete: 'CASCADE' })
