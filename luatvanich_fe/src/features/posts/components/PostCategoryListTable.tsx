@@ -122,10 +122,10 @@ export function PostCategoryListTable({
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden shadow-xs">
+    <div className="rounded-none overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted/50 hover:bg-muted/50">
+          <TableRow>
             <TableHead className="w-[80px] text-center">Thứ tự</TableHead>
             <TableHead>Tên chuyên mục</TableHead>
             <TableHead className="w-[140px]">Phân vùng</TableHead>

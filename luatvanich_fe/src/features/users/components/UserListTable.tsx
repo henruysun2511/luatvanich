@@ -66,10 +66,10 @@ export function UserListTable({ users, isLoading }: UserListTableProps) {
 
   return (
     <>
-      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+      <div className="rounded-none overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/40 hover:bg-muted/40 text-xs">
+            <TableRow>
               <TableHead className="w-[280px]">Người dùng</TableHead>
               <TableHead className="w-[220px]">Liên hệ</TableHead>
               <TableHead className="w-[180px]">Vai trò</TableHead>

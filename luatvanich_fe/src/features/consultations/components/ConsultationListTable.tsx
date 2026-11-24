@@ -198,9 +198,9 @@ export function ConsultationListTable({
       )}
 
       {/* Main Table */}
-      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+      <div className="rounded-none overflow-hidden">
         <Table>
-          <TableHeader className="bg-muted/40">
+          <TableHeader>
             <TableRow>
               <TableHead className="w-10 text-center">
                 <Checkbox

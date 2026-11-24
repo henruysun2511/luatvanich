@@ -120,9 +120,9 @@ export function PracticeAreaListTable({
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+    <div className="rounded-none overflow-hidden">
       <Table>
-        <TableHeader className="bg-muted/50">
+        <TableHeader>
           <TableRow>
             <TableHead className="w-14 text-center">#</TableHead>
             <TableHead className="w-16 text-center">Biểu tượng</TableHead>

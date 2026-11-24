@@ -123,10 +123,10 @@ export function PostListTable({
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden shadow-xs">
+    <div className="rounded-none overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted/50 hover:bg-muted/50">
+          <TableRow>
             <TableHead className="w-[80px]">Ảnh bìa</TableHead>
             <TableHead>Tiêu đề bài viết</TableHead>
             <TableHead className="w-[160px]">Chuyên mục</TableHead>
