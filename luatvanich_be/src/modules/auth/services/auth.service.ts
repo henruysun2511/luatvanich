@@ -117,6 +117,12 @@ export class AuthService {
     await this.refreshTokenRepo.revokeAllUserTokens(userId);
   }
 
+  async getProfile(userId: string): Promise<UserResponseDto> {
+    const user = await this.userRepo.findById(userId);
+    if (!user) throw new UserNotFoundException(userId);
+    return UserResponseDto.fromEntity(user);
+  }
+
   async updateProfile(userId: string, dto: UpdateProfileDto): Promise<UserResponseDto> {
     const user = await this.userRepo.findById(userId);
     if (!user) throw new UserNotFoundException(userId);
@@ -166,6 +172,7 @@ export class AuthService {
       fullName: user.fullName,
       role: (user.role as any)?.code ?? 'editor',
       permissions,
+      avatarUrl: user.avatarUrl,
     };
 
     const accessToken = this.jwtService.sign(payload);

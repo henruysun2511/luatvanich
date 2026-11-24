@@ -108,8 +108,9 @@ export class AuthController {
    * GET /api/v1/admin/auth/me
    */
   @Get('me')
-  @SwaggerDoc({ summary: 'Thông tin tài khoản hiện tại', bearerAuth: true })
-  me(@CurrentUser() user: any) {
+  @SwaggerDoc({ summary: 'Thông tin tài khoản hiện tại', responseType: UserResponseDto, bearerAuth: true })
+  async me(@CurrentUser('id') userId: string) {
+    const user = await this.authService.getProfile(userId);
     return ApiResponse.success(user, 'OK');
   }
 

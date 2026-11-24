@@ -65,6 +65,7 @@ export const useUpdateProfile = () => {
     onSuccess: (updatedUser) => {
       // Cập nhật lại cache query user hiện tại
       queryClient.setQueryData(authKeys.me, updatedUser);
+      queryClient.invalidateQueries({ queryKey: authKeys.me });
       toast.success("Cập nhật thông tin cá nhân thành công!", {
         description: "Thông tin hồ sơ của bạn đã được lưu.",
       });

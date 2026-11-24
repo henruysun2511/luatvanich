@@ -129,14 +129,12 @@ export function ProfileForm() {
       />
 
       {/* Khối Ảnh đại diện & Thông tin vai trò */}
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 p-5 rounded-xl border border-border bg-muted/20">
-        {/* Hình tròn Avatar tương tác trực tiếp */}
-        <div className="relative group shrink-0">
-          <button
-            type="button"
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-xl border border-border bg-card shadow-xs">
+        {/* Khung hình tròn Avatar cố định kích thước, chống phình to */}
+        <div className="relative shrink-0">
+          <div
             onClick={handleAvatarClick}
-            disabled={avatarController.isUploading}
-            className="relative size-24 rounded-full bg-primary/10 text-primary flex items-center justify-center ring-2 ring-primary/20 hover:ring-primary/50 transition-all duration-200 overflow-hidden font-bold text-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-primary/30"
+            className="group relative size-24 min-w-[96px] min-h-[96px] max-w-[96px] max-h-[96px] rounded-full ring-4 ring-primary/20 hover:ring-primary/40 shadow-sm overflow-hidden bg-primary/10 flex items-center justify-center cursor-pointer transition-all duration-200 select-none"
             title="Nhấp để tải lên hoặc đổi ảnh đại diện"
           >
             {formData.avatarUrl ? (
@@ -144,57 +142,45 @@ export function ProfileForm() {
               <img
                 src={formData.avatarUrl}
                 alt={formData.fullName || formData.username}
-                className="size-full object-cover"
+                className="w-full h-full size-full object-cover rounded-full pointer-events-none block"
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = "none";
                 }}
               />
             ) : (
-              <User className="size-11" />
+              <User className="size-10 text-primary/60" />
             )}
 
             {/* Overlay loading hoặc overlay hover */}
             {avatarController.isUploading ? (
-              <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white text-[10px] gap-1 z-10">
+              <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white text-[10px] gap-1 z-20">
                 <Loader2 className="size-5 animate-spin" />
                 <span>Đang tải...</span>
               </div>
             ) : (
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity duration-200 text-[10px] gap-1">
-                <Camera className="size-5" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity duration-200 text-[10px] gap-1 z-10">
+                <Camera className="size-4" />
                 <span className="font-medium">Đổi ảnh</span>
               </div>
             )}
-          </button>
+          </div>
 
-          {/* Icon máy ảnh ở góc dưới */}
+          {/* Nút icon Camera ở góc dưới */}
           <button
             type="button"
             onClick={handleAvatarClick}
             disabled={avatarController.isUploading}
-            className="absolute -bottom-1 -right-1 size-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer border-2 border-background"
-            title="Chọn ảnh mới"
+            className="absolute -bottom-1 -right-1 size-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer border-2 border-background z-20"
+            title="Tải ảnh mới"
           >
             <Camera className="size-3.5" />
           </button>
-
-          {/* Nút xóa ảnh nếu đã có avatar */}
-          {Boolean(formData.avatarUrl && !avatarController.isUploading) && (
-            <button
-              type="button"
-              onClick={handleRemoveAvatar}
-              className="absolute -top-1 -right-1 size-6 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer border-2 border-background"
-              title="Gỡ ảnh đại diện"
-            >
-              <X className="size-3" />
-            </button>
-          )}
         </div>
 
-        {/* Thông tin hiển thị cạnh avatar */}
-        <div className="flex-1 space-y-1.5 text-center sm:text-left pt-1">
+        {/* Thông tin cá nhân & nút thao tác bên cạnh */}
+        <div className="flex-1 space-y-2 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <h3 className="font-semibold text-foreground text-base">
+            <h3 className="font-bold text-foreground text-base">
               {formData.fullName || formData.username || "Chưa đặt tên"}
             </h3>
             {user?.role && (
@@ -203,16 +189,41 @@ export function ProfileForm() {
               </div>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-mono">
             @{formData.username} &bull; {formData.email}
           </p>
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 text-[11px] text-muted-foreground">
-            <span className="inline-flex items-center gap-1 text-primary font-medium">
-              <Camera className="size-3" /> Nhấp vào ảnh để thay đổi
-            </span>
-            <span>&bull;</span>
-            <span>Ảnh vuông 1:1, tối đa 2MB</span>
+
+          {/* Các nút hành động cho avatar */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleAvatarClick}
+              disabled={avatarController.isUploading}
+              className="h-7 text-xs gap-1.5"
+            >
+              <Camera className="size-3.5" />
+              {formData.avatarUrl ? "Đổi ảnh đại diện" : "Tải ảnh lên"}
+            </Button>
+
+            {Boolean(formData.avatarUrl && !avatarController.isUploading) && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={handleRemoveAvatar}
+                className="h-7 text-xs text-destructive hover:text-destructive hover:bg-destructive/10 gap-1.5"
+              >
+                <X className="size-3.5" />
+                Gỡ ảnh
+              </Button>
+            )}
           </div>
+
+          <p className="text-[11px] text-muted-foreground pt-0.5">
+            Hỗ trợ JPG, PNG, WEBP. Tối đa 2MB. Ảnh sẽ tự động được hiển thị dạng tròn tỷ lệ 1:1.
+          </p>
         </div>
       </div>
 

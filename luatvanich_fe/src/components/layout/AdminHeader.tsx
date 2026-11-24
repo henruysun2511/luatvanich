@@ -48,13 +48,16 @@ export function AdminHeader() {
           onMouseLeave={handleMouseLeave}
         >
           <div className="flex items-center gap-2.5 pl-2 border-l border-border cursor-pointer py-1.5 select-none group">
-            <div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20 overflow-hidden shrink-0">
+            <div className="size-8 min-w-8 min-h-8 max-w-8 max-h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20 overflow-hidden shrink-0 relative">
               {user?.avatarUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={user.avatarUrl}
                   alt={user.fullName || user.username}
-                  className="size-full object-cover"
+                  className="w-full h-full size-full object-cover rounded-full block"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = "none";
+                  }}
                 />
               ) : (
                 <User className="size-4" />
