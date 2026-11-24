@@ -100,29 +100,32 @@ export function NotificationBellDropdown() {
         variant="ghost"
         size="icon"
         className={cn(
-          "relative size-8 transition-colors",
-          isOpen && "bg-accent text-accent-foreground",
+          "relative size-9 rounded-lg transition-colors hover:bg-[#fbf7ee] text-[#06122b]",
+          isOpen && "bg-[#fbf7ee] text-[#a3171e]",
         )}
         aria-label="Thông báo"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <Bell className="size-4 text-muted-foreground" />
+        <Bell className="size-4.5" />
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-red-600 rounded-full ring-2 ring-background animate-pulse">
+          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-royal font-bold text-white bg-gradient-to-b from-[#c4252c] to-[#8f1218] rounded-full ring-2 ring-white shadow-xs animate-pulse">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
       </Button>
 
-      {/* Popover Dropdown Container */}
+      {/* Popover Dropdown Container chuẩn phong cách .dd trang chủ */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl border border-border bg-popover shadow-xl z-50 overflow-hidden text-popover-foreground animate-in fade-in-0 zoom-in-95 duration-150">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-[#e7dcc3] border-t-[3px] border-t-[#c29a45] shadow-[0_22px_44px_rgba(10,26,58,0.2)] z-50 overflow-hidden text-[#06122b] animate-in fade-in-0 zoom-in-95 duration-150">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border/80 bg-muted/30">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#e7dcc3] bg-[#fcfbf7]">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm">Thông báo</span>
+              <span className="font-royal text-base font-bold text-[#06122b]">Thông báo</span>
+              <em className="font-hanzi text-xs font-bold not-italic text-[#c29a45]">
+                消息中心
+              </em>
               {unreadCount > 0 && (
-                <span className="px-1.5 py-0.5 text-[11px] font-medium bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300 rounded-full">
+                <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-[#a3171e] text-white rounded-full">
                   {unreadCount} mới
                 </span>
               )}
@@ -133,12 +136,12 @@ export function NotificationBellDropdown() {
                 type="button"
                 onClick={handleMarkAllAsRead}
                 disabled={markAllReadMutation.isPending}
-                className="text-xs text-primary hover:text-primary/80 transition-colors flex items-center gap-1 font-medium disabled:opacity-50"
+                className="text-xs text-[#06122b] hover:text-[#a3171e] transition-colors flex items-center gap-1 font-semibold disabled:opacity-50"
               >
                 {markAllReadMutation.isPending ? (
-                  <Loader2 className="size-3 animate-spin" />
+                  <Loader2 className="size-3 animate-spin text-[#c29a45]" />
                 ) : (
-                  <CheckCheck className="size-3.5" />
+                  <CheckCheck className="size-3.5 text-[#c29a45]" />
                 )}
                 <span>Đã đọc tất cả</span>
               </button>
@@ -146,19 +149,19 @@ export function NotificationBellDropdown() {
           </div>
 
           {/* Body: Danh sách thông báo */}
-          <div className="max-h-[380px] overflow-y-auto divide-y divide-border/50">
+          <div className="max-h-[380px] overflow-y-auto divide-y divide-[#e7dcc3]/50">
             {isLoading ? (
               <div className="py-12 flex flex-col items-center justify-center text-muted-foreground gap-2">
-                <Loader2 className="size-5 animate-spin text-primary" />
-                <span className="text-xs">Đang tải thông báo...</span>
+                <Loader2 className="size-5 animate-spin text-[#c29a45]" />
+                <span className="text-xs font-sans">Đang tải thông báo...</span>
               </div>
             ) : items.length === 0 ? (
               <div className="py-12 flex flex-col items-center justify-center text-muted-foreground text-center px-4">
-                <div className="size-10 rounded-full bg-muted flex items-center justify-center mb-2">
-                  <Inbox className="size-5 text-muted-foreground/60" />
+                <div className="size-10 rounded-full bg-[#fbf7ee] flex items-center justify-center mb-2 border border-[#e7dcc3]">
+                  <Inbox className="size-5 text-[#c29a45]" />
                 </div>
-                <p className="text-xs font-medium text-foreground">Không có thông báo nào</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">
+                <p className="text-xs font-semibold text-[#06122b]">Không có thông báo mới nào</p>
+                <p className="text-[11px] text-[#718096] mt-0.5">
                   Các yêu cầu tư vấn mới từ khách hàng sẽ hiển thị tại đây.
                 </p>
               </div>
@@ -172,8 +175,8 @@ export function NotificationBellDropdown() {
                     className={cn(
                       "p-3.5 flex items-start gap-3 transition-colors cursor-pointer text-left select-none",
                       isUnread
-                        ? "bg-primary/[0.04] hover:bg-primary/[0.08]"
-                        : "hover:bg-muted/60 opacity-80 hover:opacity-100",
+                        ? "bg-[#fbf7ee]/70 hover:bg-[#fbf7ee]"
+                        : "hover:bg-[#fbf7ee]/40 opacity-80 hover:opacity-100",
                     )}
                   >
                     {/* Icon loại thông báo */}
@@ -181,8 +184,8 @@ export function NotificationBellDropdown() {
                       className={cn(
                         "size-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5",
                         isUnread
-                          ? "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400"
-                          : "bg-muted text-muted-foreground",
+                          ? "bg-[#06122b] text-[#f0d28a]"
+                          : "bg-[#e7dcc3]/40 text-[#718096]",
                       )}
                     >
                       <MessageSquareText className="size-4" />
@@ -195,23 +198,23 @@ export function NotificationBellDropdown() {
                           className={cn(
                             "text-xs truncate",
                             isUnread
-                              ? "font-semibold text-foreground"
-                              : "font-medium text-foreground/80",
+                              ? "font-semibold text-[#06122b]"
+                              : "font-medium text-[#718096]",
                           )}
                         >
                           {item.title}
                         </p>
                         {isUnread && (
-                          <span className="size-2 rounded-full bg-primary shrink-0" />
+                          <span className="size-2 rounded-full bg-[#a3171e] shrink-0" />
                         )}
                       </div>
 
-                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-[#718096] mt-0.5 line-clamp-2 leading-relaxed">
                         {item.message}
                       </p>
 
-                      <div className="flex items-center gap-1 mt-1 text-[10px] text-muted-foreground/80">
-                        <Clock className="size-3" />
+                      <div className="flex items-center gap-1 mt-1 text-[10px] text-[#718096]">
+                        <Clock className="size-3 text-[#c29a45]" />
                         <span>{formatRelativeTime(item.createdAt)}</span>
                       </div>
                     </div>
@@ -222,14 +225,14 @@ export function NotificationBellDropdown() {
           </div>
 
           {/* Footer */}
-          <div className="p-2 border-t border-border/80 bg-muted/20 text-center">
+          <div className="p-2.5 border-t border-[#e7dcc3] bg-[#fcfbf7] text-center">
             <button
               type="button"
               onClick={() => {
                 setIsOpen(false);
                 router.push("/admin/consultations");
               }}
-              className="w-full py-1.5 text-xs text-primary hover:text-primary/80 font-medium flex items-center justify-center gap-1.5 rounded-md hover:bg-primary/5 transition-colors"
+              className="w-full py-1.5 text-xs text-[#06122b] hover:text-[#a3171e] font-semibold flex items-center justify-center gap-1.5 transition-colors font-sans"
             >
               <span>Xem tất cả yêu cầu tư vấn</span>
               <ArrowRight className="size-3" />
