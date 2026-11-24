@@ -54,6 +54,30 @@ const config: Config = {
           DEFAULT: "hsl(var(--surface))",
           alt: "hsl(var(--surface-alt))",
         },
+        // Hệ màu Nhận diện Thương hiệu Vạn Ích (Vanich Royal Palette)
+        vanich: {
+          navy: {
+            DEFAULT: "#0b1d3f",
+            deep: "#06122b",
+            light: "#16336a",
+          },
+          gold: {
+            DEFAULT: "#c29a45",
+            light: "#f0d28a",
+            soft: "#f6dc98",
+          },
+          red: {
+            DEFAULT: "#a3171e",
+            dark: "#7c1015",
+          },
+          paper: {
+            DEFAULT: "#fbf7ee",
+            alt: "#fffaf0",
+          },
+          line: "#e7dcc3",
+          mute: "#5b6174",
+          ink: "#0f1b33",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -61,8 +85,28 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "sans-serif"],
-        serif: ["var(--font-serif)", "serif"],
+        sans: ["var(--font-sans)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        royal: ["var(--font-royal)", "Georgia", "serif"],
+        hanzi: ["var(--font-hanzi)", "serif"],
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "radar-pulse": {
+          "0%": { transform: "scale(1)", opacity: "0.8" },
+          "100%": { transform: "scale(3.2)", opacity: "0" },
+        },
+        "dash-flow": {
+          to: { strokeDashoffset: "-240" },
+        },
+      },
+      animation: {
+        marquee: "marquee 36s linear infinite",
+        "radar-pulse": "radar-pulse 3s ease-out infinite",
+        "dash-flow": "dash-flow 14s linear infinite",
       },
     },
   },

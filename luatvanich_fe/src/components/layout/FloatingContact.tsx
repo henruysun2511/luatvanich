@@ -30,7 +30,7 @@ export function FloatingContact() {
 
         {/* Nút Zalo */}
         <a
-          href="https://zalo.me/0988xxxxxx"
+          href="https://zalo.me/0900123456"
           target="_blank"
           rel="noopener noreferrer"
           className="size-11 rounded-full bg-[#0068FF] text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
@@ -40,11 +40,11 @@ export function FloatingContact() {
           <MessageCircle className="size-5" />
         </a>
 
-        {/* Nút Hotline Click-to-call */}
+        {/* Nút Hotline Click-to-call Hoàng gia */}
         <a
-          href="tel:0988xxxxxx"
-          className="size-11 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:scale-110 transition-transform animate-bounce"
-          title="Gọi Hotline tư vấn"
+          href="tel:0900123456"
+          className="size-11 rounded-full bg-[#a3171e] text-white border-2 border-[#f0d28a] shadow-[0_6px_20px_rgba(163,23,30,0.45)] flex items-center justify-center hover:scale-110 transition-transform animate-pulse"
+          title="Gọi Hotline tư vấn 0900.123.456"
           aria-label="Gọi điện thoại Hotline"
         >
           <Phone className="size-5" />
@@ -53,7 +53,7 @@ export function FloatingContact() {
         {/* Nút cuộn trang lên đầu */}
         <button
           onClick={scrollToTop}
-          className="size-9 rounded-full bg-muted/80 text-foreground border shadow hover:bg-muted transition-colors flex items-center justify-center mt-1"
+          className="size-9 rounded-full bg-white/90 text-[#0b1d3f] border border-[#e7dcc3] shadow hover:bg-[#fbf7ee] transition-colors flex items-center justify-center mt-1"
           title="Cuộn lên đầu trang"
           aria-label="Cuộn lên đầu trang"
         >
@@ -61,33 +61,43 @@ export function FloatingContact() {
         </button>
       </aside>
 
-      {/* Modal hiển thị mã QR WeChat */}
+      {/* Modal QR Code WeChat */}
       {wechatModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-card border border-border rounded-lg max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative animate-in zoom-in-95">
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in"
+        >
+          <div className="bg-white rounded-lg p-6 max-w-sm w-full space-y-4 border border-[#e7dcc3] shadow-2xl relative text-center">
             <button
               onClick={() => setWechatModalOpen(false)}
-              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 p-1"
+              aria-label="Đóng"
             >
               <X className="size-5" />
             </button>
-            <h3 className="font-bold text-base text-foreground">
-              Quét mã WeChat (微信二维码)
-            </h3>
-            <p className="text-xs text-muted-foreground">
-              Mở WeChat quét mã QR hoặc tìm ID: <strong>luatvanich_law</strong> để được luật sư chuyên trách hỗ trợ trực tiếp.
-            </p>
-            <div className="size-48 mx-auto bg-muted border-2 border-dashed border-accent/60 rounded flex items-center justify-center text-xs text-muted-foreground">
-              [ Ảnh QR Code WeChat ]
+            <div className="font-serif font-bold text-lg text-[#0b1d3f]">
+              Quét mã WeChat (微信咨询)
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full"
-              onClick={() => setWechatModalOpen(false)}
-            >
-              Đóng
-            </Button>
+            <p className="text-xs text-[#5b6174]">
+              Mở ứng dụng WeChat và quét mã QR dưới đây để kết nối trực tiếp với Luật sư thụ lý hồ sơ.
+            </p>
+            <div className="border border-[#e7dcc3] rounded-md p-4 bg-[#fbf7ee] inline-block shadow-inner">
+              <div className="size-48 bg-white border border-gray-200 flex flex-col items-center justify-center text-xs text-gray-500 gap-2 mx-auto">
+                <QrCode className="size-20 text-[#07C160]" />
+                <span className="text-[11px] font-mono text-[#0b1d3f]">ID: LuatVanIch_Law</span>
+              </div>
+            </div>
+            <div className="pt-2">
+              <Button
+                variant="royal"
+                size="sm"
+                className="w-full"
+                onClick={() => setWechatModalOpen(false)}
+              >
+                Đã hiểu
+              </Button>
+            </div>
           </div>
         </div>
       )}
