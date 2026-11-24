@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Pagination } from "@/components/common";
+import { Pagination, PageHeader } from "@/components/common";
 import {
   ServiceTable,
   ServiceDetailDialog,
@@ -77,33 +77,28 @@ export default function ServicesManagementPage() {
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
-        <div className="flex items-center gap-3">
-          <div className="size-10 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
-            <Briefcase className="size-5" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold font-royal text-[#06122b] leading-tight">
-              Quản lý dịch vụ pháp lý
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5 font-sans">
-              Danh mục các gói tư vấn chuyên sâu của Hãng luật Vạn Ích (Việt Nam & Trung Quốc){" "}
-              <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
-                &bull; 法律服务
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleOpenCreate}
-          variant="royal"
-          className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
-        >
-          <Plus className="size-4" />
-          Thêm mới dịch vụ
-        </Button>
-      </div>
+      <PageHeader
+        icon={Briefcase}
+        title="Quản lý dịch vụ pháp lý"
+        description={
+          <>
+            Danh mục các gói tư vấn chuyên sâu của Hãng luật Vạn Ích (Việt Nam & Trung Quốc){" "}
+            <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+              &bull; 法律服务
+            </span>
+          </>
+        }
+        actions={
+          <Button
+            onClick={handleOpenCreate}
+            variant="royal"
+            className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
+          >
+            <Plus className="size-4" />
+            Thêm mới dịch vụ
+          </Button>
+        }
+      />
 
       {/* Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white p-3 border border-[#e7dcc3] shadow-xs flex-wrap">

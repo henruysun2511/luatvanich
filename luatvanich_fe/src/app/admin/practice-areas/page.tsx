@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Pagination } from "@/components/common";
+import { Pagination, PageHeader } from "@/components/common";
 import {
   PracticeAreaListTable,
   PracticeAreaDetailDialog,
@@ -69,33 +69,28 @@ export default function PracticeAreasManagementPage() {
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
-        <div className="flex items-center gap-3">
-          <div className="size-10 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
-            <Scale className="size-5" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold font-royal text-[#06122b] leading-tight">
-              Quản lý lĩnh vực chuyên môn
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5 font-sans">
-              Danh mục lĩnh vực pháp lý trọng điểm để phân nhóm các dịch vụ tư vấn của Luật Vạn Ích{" "}
-              <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
-                &bull; 业务领域
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleOpenCreate}
-          variant="royal"
-          className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
-        >
-          <Plus className="size-4" />
-          Thêm mới lĩnh vực
-        </Button>
-      </div>
+      <PageHeader
+        icon={Scale}
+        title="Quản lý lĩnh vực chuyên môn"
+        description={
+          <>
+            Danh mục lĩnh vực pháp lý trọng điểm để phân nhóm các dịch vụ tư vấn của Luật Vạn Ích{" "}
+            <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+              &bull; 业务领域
+            </span>
+          </>
+        }
+        actions={
+          <Button
+            onClick={handleOpenCreate}
+            variant="royal"
+            className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
+          >
+            <Plus className="size-4" />
+            Thêm mới lĩnh vực
+          </Button>
+        }
+      />
 
       {/* Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white p-3 border border-[#e7dcc3] shadow-xs">

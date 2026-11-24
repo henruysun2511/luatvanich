@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Pagination } from "@/components/common";
+import { Pagination, PageHeader } from "@/components/common";
 import {
   PostListTable,
   PostDetailDialog,
@@ -123,25 +123,19 @@ export default function PostsManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header trang & Nút thêm mới */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
-        <div>
-          <h1 className="text-2xl font-bold font-royal text-[#06122b] tracking-tight flex items-center gap-2.5">
-            <div className="size-9 rounded-none bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
-              <FileText className="size-5" />
-            </div>
-            Cẩm nang & Bài viết
-          </h1>
-          <p className="text-xs text-muted-foreground mt-1 font-sans">
+      <PageHeader
+        icon={FileText}
+        title="Cẩm nang & Bài viết"
+        description={
+          <>
             Quản lý kho bài viết kiến thức, cẩm nang pháp lý và danh mục phân loại bài viết{" "}
             <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
               &bull; 文章资讯
             </span>
-          </p>
-        </div>
-
-        {/* Nút thêm mới động theo tab */}
-        <div>
-          {activeTab === "posts" ? (
+          </>
+        }
+        actions={
+          activeTab === "posts" ? (
             <Button
               asChild
               variant="royal"
@@ -163,9 +157,9 @@ export default function PostsManagementPage() {
               <Plus className="size-4" />
               Thêm chuyên mục mới
             </Button>
-          )}
-        </div>
-      </div>
+          )
+        }
+      />
 
       {/* TAB BAR ĐIỀU HƯỚNG */}
       <div className="flex border-b border-[#e7dcc3]">

@@ -11,6 +11,7 @@ import {
   Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PageHeader } from "@/components/common";
 import { SiteSettingsTab } from "@/features/settings/components/tabs/SiteSettingsTab";
 import { CompanyStatsTab } from "@/features/settings/components/tabs/CompanyStatsTab";
 import { PartnersTab } from "@/features/settings/components/tabs/PartnersTab";
@@ -35,21 +36,11 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6 max-w-6xl">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e7dcc3]">
-        <div className="flex items-center gap-3">
-          <div className="size-10 rounded-none bg-[#06122b] text-[#f0d28a] flex items-center justify-center shrink-0 border border-[#c29a45]/40 shadow-xs">
-            <Settings className="size-5" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold font-royal text-[#06122b] uppercase tracking-wider leading-tight">
-              Trung tâm Cài đặt Hệ thống & Website
-            </h1>
-            <p className="text-xs text-[#718096] mt-0.5 font-sans">
-              Quản lý toàn diện thông tin liên hệ, hotline, đối tác, FAQs, nhận diện thương hiệu và bảo mật.
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        icon={Settings}
+        title="Trung tâm Cài đặt Hệ thống & Website"
+        description="Quản lý toàn diện thông tin liên hệ, hotline, đối tác, FAQs, nhận diện thương hiệu và bảo mật."
+      />
 
       {/* 6 Tabs Navigation (Royal Style) */}
       <div className="flex items-center gap-1 border-b border-[#e7dcc3] overflow-x-auto scrollbar-none font-sans">

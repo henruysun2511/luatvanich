@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Pagination } from "@/components/common";
+import { Pagination, PageHeader } from "@/components/common";
 import {
   LawyerListTable,
   LawyerDetailDialog,
@@ -87,33 +87,28 @@ export default function LawyersManagementPage() {
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
-        <div className="flex items-center gap-3">
-          <div className="size-10 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
-            <Users className="size-5" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold font-royal text-[#06122b] leading-tight">
-              Quản lý đội ngũ luật sư & chuyên gia
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5 font-sans">
-              Hồ sơ lý lịch, học vấn, kinh nghiệm và mạng lưới liên hệ của luật sư Vạn Ích{" "}
-              <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
-                &bull; 律师团队
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleOpenCreate}
-          variant="royal"
-          className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
-        >
-          <Plus className="size-4" />
-          Thêm hồ sơ luật sư
-        </Button>
-      </div>
+      <PageHeader
+        icon={Users}
+        title="Quản lý đội ngũ luật sư & chuyên gia"
+        description={
+          <>
+            Hồ sơ lý lịch, học vấn, kinh nghiệm và mạng lưới liên hệ của luật sư Vạn Ích{" "}
+            <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+              &bull; 律师团队
+            </span>
+          </>
+        }
+        actions={
+          <Button
+            onClick={handleOpenCreate}
+            variant="royal"
+            className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
+          >
+            <Plus className="size-4" />
+            Thêm hồ sơ luật sư
+          </Button>
+        }
+      />
 
       {/* Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white p-3 border border-[#e7dcc3] shadow-xs flex-wrap">

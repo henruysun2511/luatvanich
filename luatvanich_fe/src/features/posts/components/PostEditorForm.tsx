@@ -395,7 +395,7 @@ export function PostEditorForm({
             variant="ghost"
             size="icon"
             onClick={handleCancel}
-            className="size-8 text-muted-foreground hover:text-foreground shrink-0"
+            className="size-10 rounded-none bg-[#06122b]/5 hover:bg-[#06122b] text-[#06122b] hover:text-[#f0d28a] border border-[#e7dcc3] shrink-0 transition-colors"
             title="Quay lại danh sách bài viết"
           >
             <ArrowLeft className="size-4" />
@@ -403,16 +403,16 @@ export function PostEditorForm({
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold font-serif text-foreground leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold font-royal text-[#06122b] tracking-wide leading-tight">
                 {isEdit ? "Chỉnh sửa bài viết" : "Tạo bài viết mới"}
               </h1>
               {isEdit && postDetail && (
-                <Badge variant="outline" className="text-[11px] font-mono">
+                <Badge variant="outline" className="text-[11px] font-mono border-[#c29a45]/40 text-[#06122b] bg-[#fbf7ee]">
                   ID: {postDetail.id.slice(0, 8)}...
                 </Badge>
               )}
             </div>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-[#718096] mt-0.5 font-sans">
               Soạn thảo nội dung cẩm nang pháp luật, liên kết chuyên mục, tác giả luật sư và dịch vụ.
             </p>
           </div>
