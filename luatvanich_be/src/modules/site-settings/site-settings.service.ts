@@ -44,6 +44,51 @@ const DEFAULT_SETTINGS: Array<Partial<SiteSetting>> = [
   { key: 'seo_meta_description', value: 'Tư vấn đầu tư FDI, hợp đồng song ngữ, tranh tụng trọng tài thương mại Việt - Trung trọn gói.', group: 'seo', isPublic: true },
   { key: 'script_ga_id', value: '', group: 'seo', isPublic: false },
   { key: 'script_pixel_id', value: '', group: 'seo', isPublic: false },
+
+  // Homepage Content (Từ điển, Quy trình, Dải từ khóa)
+  {
+    key: 'homepage_marquee_keywords',
+    value: JSON.stringify([
+      { vi: 'Hợp đồng', zh: '合同' },
+      { vi: 'Đầu tư', zh: '投资' },
+      { vi: 'Trọng tài', zh: '仲裁' },
+      { vi: 'Thu hồi nợ', zh: '债务追收' },
+      { vi: 'Sở hữu trí tuệ', zh: '知识产权' },
+      { vi: 'Lao động', zh: '劳动' },
+      { vi: 'M&A', zh: '并购' },
+      { vi: 'Thuế', zh: '税务' },
+    ]),
+    group: 'content',
+    isPublic: true,
+  },
+  {
+    key: 'homepage_legal_glossary',
+    value: JSON.stringify([
+      { vi: 'Hợp đồng', zh: '合同', pinyin: 'hétong', note: 'Ghi rõ tên pháp nhân đầy đủ ở cả hai bản.' },
+      { vi: 'Đầu tư', zh: '投资', pinyin: 'tóuzī', note: 'Phân biệt đầu tư trực tiếp và gián tiếp.' },
+      { vi: 'Thanh toán', zh: '付款', pinyin: 'fùkuǎn', note: 'Nêu rõ tiền tệ, thời hạn và phương thức.' },
+      { vi: 'Phạt vi phạm', zh: '违约金', pinyin: 'wéiyuējīn', note: 'Mức phạt có trần theo luật Việt Nam (tối đa 8%).' },
+      { vi: 'Bất khả kháng', zh: '不可抗力', pinyin: 'bùkě kànglì', note: 'Quy định rõ các sự kiện, thời hạn gửi thông báo.' },
+      { vi: 'Trọng tài', zh: '仲裁', pinyin: 'zhòngcái', note: 'Chọn trung tâm trọng tài và luật áp dụng rõ ràng.' },
+      { vi: 'Chủ sở hữu hưởng lợi', zh: '实益所有人', pinyin: 'shíyì suǒyǒurén', note: 'Chú ý nghĩa vụ kê khai thông tin theo quy định mới.' },
+      { vi: 'Giấy phép lao động', zh: '工作许可', pinyin: 'gōngzuò xǔkě', note: 'Kiểm tra điều kiện bằng cấp, kinh nghiệm từng vị trí.' },
+      { vi: 'Đặt cọc', zh: '定金', pinyin: 'dìngjīn', note: 'Phân biệt rõ đặt cọc và tiền trả trước trong hợp đồng.' },
+      { vi: 'Thẩm quyền tài phán', zh: '管辖权', pinyin: 'guǎnxiáquán', note: 'Quy định rõ tòa án hoặc trọng tài có thẩm quyền giải quyết khi có tranh chấp.' },
+    ]),
+    group: 'content',
+    isPublic: true,
+  },
+  {
+    key: 'homepage_legal_workflow',
+    value: JSON.stringify([
+      { time: 'Ngày 1', tag: 'Tiếp nhận', title: 'Nghe trình bày vụ việc', desc: 'Luật sư chuyên trách xác định mục tiêu cốt lõi, đánh giá rủi ro sơ bộ và lập danh mục tài liệu cần thu thập.' },
+      { time: 'Ngày 2 – 5', tag: 'Rà soát', title: 'Đọc hồ sơ ở cả hai ngôn ngữ', desc: 'Đối chiếu tỉ mỉ bản Việt và bản Trung, đánh dấu các điều khoản bất lợi, lệch nghĩa hoặc tiềm ẩn tranh chấp.' },
+      { time: 'Tuần 2', tag: 'Phương án', title: 'Đề xuất phương án & ký hợp đồng', desc: 'Báo cáo pháp lý bằng văn bản kèm đề xuất xử lý tối ưu, thống nhất lộ trình và kinh phí với khách hàng.' },
+      { time: 'Từ ngày 6', tag: 'Thực hiện', title: 'Báo cáo tiến độ định kỳ', desc: 'Triển khai công việc, cập nhật tiến độ song ngữ hàng tuần và bàn giao kết quả pháp lý chuẩn xác.' },
+    ]),
+    group: 'content',
+    isPublic: true,
+  },
 ];
 
 @Injectable()

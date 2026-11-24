@@ -9,21 +9,24 @@ import {
   Palette,
   ShieldCheck,
   Settings,
+  BookOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/common";
 import { SiteSettingsTab } from "@/features/settings/components/tabs/SiteSettingsTab";
 import { CompanyStatsTab } from "@/features/settings/components/tabs/CompanyStatsTab";
+import { HomepageContentTab } from "@/features/settings/components/tabs/HomepageContentTab";
 import { PartnersTab } from "@/features/settings/components/tabs/PartnersTab";
 import { FaqsTab } from "@/features/settings/components/tabs/FaqsTab";
 import { ThemeBrandingTab } from "@/features/settings/components/tabs/ThemeBrandingTab";
 import { AccountSecurityTab } from "@/features/settings/components/tabs/AccountSecurityTab";
 
-type SettingsTab = "site" | "company" | "partners" | "faqs" | "theme" | "account";
+type SettingsTab = "site" | "company" | "content" | "partners" | "faqs" | "theme" | "account";
 
 const TABS: { id: SettingsTab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { id: "site", label: "Cấu hình Website", icon: Globe },
   { id: "company", label: "Giới thiệu & Số liệu", icon: Award },
+  { id: "content", label: "Từ điển & Quy trình", icon: BookOpen },
   { id: "partners", label: "Logo Đối tác", icon: Building },
   { id: "faqs", label: "Câu hỏi thường gặp", icon: HelpCircle },
   { id: "theme", label: "Giao diện & Thương hiệu", icon: Palette },
@@ -76,6 +79,7 @@ export default function AdminSettingsPage() {
       <div className="pt-2 animate-in fade-in-50 duration-200">
         {activeTab === "site" && <SiteSettingsTab />}
         {activeTab === "company" && <CompanyStatsTab />}
+        {activeTab === "content" && <HomepageContentTab />}
         {activeTab === "partners" && <PartnersTab />}
         {activeTab === "faqs" && <FaqsTab />}
         {activeTab === "theme" && <ThemeBrandingTab />}

@@ -8,3 +8,4 @@ export * from "./components/tabs/PartnersTab";
 export * from "./components/tabs/FaqsTab";
 export * from "./components/tabs/ThemeBrandingTab";
 export * from "./components/tabs/AccountSecurityTab";
+export * from "./components/tabs/HomepageContentTab";
