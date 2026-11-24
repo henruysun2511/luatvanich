@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, GitFork, ArrowLeftRight, Landmark, ShieldCheck } from "lucide-react";
+import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
+import { ChevronRight, ArrowLeftRight, Landmark, ShieldCheck, GitFork, ArrowUpRight } from "lucide-react";
 
 interface CorridorHeroSectionProps {
   lang: string;
@@ -10,83 +13,161 @@ export function CorridorHeroSection({ lang }: CorridorHeroSectionProps) {
   const isZh = lang === "zh-CN";
 
   return (
-    <div className="w-full bg-[#0a1b3a]">
-      <section className="relative overflow-hidden border-b border-[#c29a45]/40 bg-gradient-to-b from-[#0a1b3a] via-[#102347] to-[#1a1528] py-16 md:py-24 lg:py-28 text-white">
-        {/* Hán tự Watermark chìm phía sau */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-4 -bottom-10 select-none font-serif text-[190px] md:text-[300px] font-bold text-[#c29a45]/10 leading-none"
-        >
-          廊
+    <section className="relative bg-gradient-to-br from-[#06142a] via-[#0d2244] to-[#2e0e15] text-white overflow-hidden py-20 lg:py-28 min-h-[620px] flex items-center">
+      {/* 1. Lưới hình học đa hướng */}
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #f0d28a 1px, transparent 0)`,
+          backgroundSize: "36px 36px",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 2. Chữ Hán rỗng nét khổng lồ 廊 (Lang) */}
+      <div
+        className="absolute -right-8 -bottom-20 font-serif font-bold text-[240px] lg:text-[380px] text-transparent select-none pointer-events-none z-[1] leading-none whitespace-nowrap"
+        style={{ WebkitTextStroke: "1px rgba(240, 210, 138, 0.18)" }}
+        aria-hidden="true"
+      >
+        廊
+      </div>
+
+      {/* 3. Dải viền hoàng gia trên đỉnh */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#85151b] via-[#c29a45] to-[#f6dc98]" />
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 relative z-[2] w-full">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-xs text-[#9ba8c2] mb-8 font-sans">
+          <Link href={`/${lang}`} className="hover:text-[#f0d28a] transition-colors">
+            {isZh ? "首页" : "Trang chủ"}
+          </Link>
+          <ChevronRight className="size-3 text-[#c29a45]" />
+          <span className="text-[#f0d28a] font-medium tracking-wide">
+            {isZh ? "中越法治走廊" : "Hành lang pháp lý Việt – Trung"}
+          </span>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* CỘT TRÁI: Typography Hoàng Gia & Thông điệp */}
+          <div className="lg:col-span-7 space-y-6">
+            <EyebrowBadge
+              hz={isZh ? "两廊一圈" : "CHIẾN LƯỢC HAI HÀNH LANG"}
+              text={isZh ? "跨境产业法治协同走廊" : "HÀNH LANG PHÁP LÝ CHIẾN LƯỢC VIỆT – TRUNG"}
+              variant="tag"
+            />
+
+            <h1 className="font-royal text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.12] tracking-tight text-white">
+              {isZh ? (
+                <>
+                  中越经贸与跨境产业合作{" "}
+                  <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                    综合法治走廊
+                  </i>
+                </>
+              ) : (
+                <>
+                  Hành lang Pháp lý{" "}
+                  <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                    Kết nối Giao thương
+                  </i>{" "}
+                  &amp; Đầu tư Song phương
+                </>
+              )}
+            </h1>
+
+            <p className="text-sm sm:text-base text-[#b6c0d6] max-w-xl leading-relaxed">
+              {isZh
+                ? "依托中国（广西、云南）至越南（河内、海防、胡志明市）的陆海国际大通道，万益打造跨境法治协同平台，致力于保障跨国供应链畅通、大型基础设施合规落地与国际争端化解。"
+                : "Nền tảng bảo trợ pháp lý vững chắc cho chuỗi cung ứng sản xuất, logistics xuyên biên giới và các dự án hợp tác kinh tế dọc tuyến 'Hai hành lang, một vành đai' giữa Việt Nam và Trung Quốc."}
+            </p>
+
+            {/* Checklist bảo chứng */}
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "南宁-河内-胡志明市全线协同" : "Quảng Tây, Vân Nam ⇋ Hà Nội, Hải Phòng, TP.HCM"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "双边商事仲裁与投资保护对接" : "Trọng tài thương mại & Bảo hộ đầu tư song phương"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "边境海关与通关合规护航" : "Thủ tục Hải quan & Thông quan cửa khẩu"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "跨境知识产权与技术转移保护" : "Bảo hộ sở hữu trí tuệ & chuyển giao công nghệ"}</span>
+              </li>
+            </ul>
+
+            {/* Nút hành động */}
+            <div className="flex flex-wrap items-center gap-5 pt-4">
+              <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
+                {isZh ? "咨询跨境走廊法务" : "Tư vấn dự án hành lang"} &rarr;
+              </Link>
+              <Link
+                href={`/${lang}#hanhlang`}
+                className="font-medium text-xs sm:text-sm text-[#f0d28a] border-b border-[#f0d28a]/60 hover:text-white hover:border-white transition-colors pb-0.5"
+              >
+                {isZh ? "查看走廊雷达拓扑" : "Xem radar bản đồ hành lang"}
+              </Link>
+            </div>
+          </div>
+
+          {/* CỘT PHẢI: Sơ Đồ Kết Nối Tuyến Đường Động (Corridor Vector Gateway Card) */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-full max-w-md bg-gradient-to-b from-[#0b1d3d] to-[#1c070c] border border-[#f0d28a]/45 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.55)] relative backdrop-blur-xs">
+              {/* Header thẻ */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#f0d28a]/30">
+                <div className="flex items-center gap-2.5">
+                  <GitFork className="size-4 text-[#f0d28a]" />
+                  <span className="font-royal font-bold text-sm text-[#f0d28a] tracking-wider uppercase">
+                    {isZh ? "走廊互联拓扑" : "TRỤC LIÊN KẾT PHÁP LÝ"}
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-[#85151b] text-white">
+                  ASEAN &bull; CHINA
+                </span>
+              </div>
+
+              {/* Trục liên kết song phương */}
+              <div className="space-y-3 py-5">
+                <div className="p-3 bg-[#061226]/80 border border-[#f0d28a]/25 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Vân Nam &bull; Quảng Tây (Trung Quốc)</p>
+                    <p className="text-[10px] text-[#8d9bb5]">Đầu mối sản xuất, công nghệ &amp; cung ứng</p>
+                  </div>
+                  <ArrowLeftRight className="size-4 text-[#f0d28a]" />
+                </div>
+
+                <div className="p-3 bg-[#170407]/80 border border-[#f0d28a]/25 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Hà Nội &bull; Hải Phòng &bull; TP.HCM</p>
+                    <p className="text-[10px] text-[#8d9bb5]">Thủ phủ tiêu dùng, FDI &amp; xuất khẩu</p>
+                  </div>
+                  <Landmark className="size-4 text-[#f0d28a]" />
+                </div>
+
+                <div className="p-3 bg-[#0c1830]/80 border border-[#f0d28a]/25 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Cơ chế Trọng tài Song phương</p>
+                    <p className="text-[10px] text-[#8d9bb5]">VIAC &bull; CIETAC &bull; HKIAC</p>
+                  </div>
+                  <ShieldCheck className="size-4 text-[#f0d28a]" />
+                </div>
+              </div>
+
+              {/* Chân thẻ */}
+              <div className="pt-3.5 border-t border-[#f0d28a]/30 flex items-center justify-between text-xs">
+                <span className="text-[#9ba8c2]">Quy chuẩn áp dụng:</span>
+                <span className="font-royal font-bold text-[#f0d28a]">Hiệp ước Đầu tư Song phương (BIT)</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Hoa văn dải viền hoàng gia trên đỉnh */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#85151b] via-[#c29a45] to-[#f0d28a]" />
-
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-[#8d9bb5] mb-6 font-sans">
-            <Link
-              href={`/${lang}`}
-              className="hover:text-[#f0d28a] transition-colors"
-            >
-              {isZh ? "首页" : "Trang chủ"}
-            </Link>
-            <ChevronRight className="size-3 text-[#c29a45]" />
-            <span className="text-[#f0d28a] font-medium">
-              {isZh ? "中越法治走廊" : "Hành lang pháp lý Việt – Trung"}
-            </span>
-          </nav>
-
-          {/* Badge phân loại */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0b1d3f] border border-[#c29a45]/50 text-xs font-semibold text-[#f0d28a] uppercase tracking-wider mb-5 shadow-xs">
-            <GitFork className="size-3.5 text-[#c29a45]" />
-            <span>{isZh ? "两廊一圈 • 战略支撑" : "Chiến lược Hành lang pháp lý • Kết nối song phương"}</span>
-          </div>
-
-          {/* Tiêu đề chính */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-royal font-bold text-white tracking-tight leading-[1.2] max-w-4xl">
-            {isZh ? (
-              <>
-                中越经贸与跨境产业合作 <span className="text-[#f0d28a]">综合法治走廊</span>
-              </>
-            ) : (
-              <>
-                Hành lang Pháp lý Chiến lược{" "}
-                <span className="text-[#f0d28a]">Kết nối Giao thương &amp; Đầu tư Việt – Trung</span>
-              </>
-            )}
-          </h1>
-
-          {/* Phụ đề Hán tự */}
-          <div className="mt-2 text-sm md:text-base font-hanzi font-semibold text-[#c29a45] tracking-[4px]">
-            {isZh ? "两廊一圈 • 跨境产业 • 口岸协同 • 仲裁对接" : "南宁 • 河内 • 海防 • 胡志明市 • 经贸法治走廊"}
-          </div>
-
-          {/* Đoạn mô tả định vị */}
-          <p className="mt-5 text-sm sm:text-base text-[#9ba8c2] leading-relaxed max-w-3xl">
-            {isZh
-              ? "依托中国（广西、云南）至越南（河内、海防、胡志明市）的陆海国际大通道，万益打造跨境法治协同平台，致力于保障跨国供应链畅通、大型基础设施项目合规推进及双边经贸纠纷高效化解。"
-              : "Nền tảng bảo trợ pháp lý vững chắc cho chuỗi cung ứng sản xuất, logistics xuyên biên giới và các dự án hợp tác kinh tế dọc tuyến 'Hai hành lang, một vành đai kinh tế' giữa Việt Nam và Trung Quốc."}
-          </p>
-
-          {/* 3 chỉ số tóm tắt dạng Pill */}
-          <div className="mt-8 pt-6 border-t border-[#c29a45]/20 flex flex-wrap items-center gap-3 sm:gap-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#0b1d3f]/80 border border-[#c29a45]/40 text-xs text-[#e2e8f0] font-medium">
-              <ArrowLeftRight className="size-3.5 text-[#f0d28a]" />
-              <span>{isZh ? "南宁-河内-胡志明市全线协同" : "Quảng Tây, Vân Nam ⇋ Hà Nội, Hải Phòng, TP.HCM"}</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#0b1d3f]/80 border border-[#c29a45]/40 text-xs text-[#e2e8f0] font-medium">
-              <Landmark className="size-3.5 text-[#f0d28a]" />
-              <span>{isZh ? "双边商事仲裁与投资保护" : "Trọng tài thương mại & Bảo hộ đầu tư song phương"}</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#0b1d3f]/80 border border-[#c29a45]/40 text-xs text-[#e2e8f0] font-medium">
-              <ShieldCheck className="size-3.5 text-[#f0d28a]" />
-              <span>{isZh ? "边境海关与通关合规护航" : "Thủ tục Hải quan & Thông quan cửa khẩu"}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

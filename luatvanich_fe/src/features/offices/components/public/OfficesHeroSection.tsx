@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, Building2, MapPin } from "lucide-react";
+import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
+import { ChevronRight, Building2, MapPin, Phone, Globe, Shield, Clock } from "lucide-react";
 
 interface OfficesHeroSectionProps {
   lang: string;
@@ -10,87 +13,160 @@ export function OfficesHeroSection({ lang }: OfficesHeroSectionProps) {
   const isZh = lang === "zh-CN";
 
   return (
-    <div className="w-full bg-[#f8f6f0]">
-      <section className="relative overflow-hidden border-b border-[#e7dcc3] py-16 md:py-24 lg:py-28">
-        {/* Hán tự Watermark chìm phía sau */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-6 -bottom-10 select-none font-serif text-[180px] md:text-[280px] font-bold text-[#c29a45]/10 leading-none"
-        >
-          联
+    <section className="relative bg-gradient-to-br from-[#061226] via-[#0c1f3c] to-[#142e54] text-white overflow-hidden py-20 lg:py-28 min-h-[620px] flex items-center">
+      {/* 1. Lưới tọa độ kinh vĩ tuyến chìm */}
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #f0d28a 1px, transparent 0)`,
+          backgroundSize: "36px 36px",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 2. Chữ Hán rỗng nét khổng lồ 联 (Liên) */}
+      <div
+        className="absolute -right-8 -bottom-20 font-serif font-bold text-[240px] lg:text-[380px] text-transparent select-none pointer-events-none z-[1] leading-none whitespace-nowrap"
+        style={{ WebkitTextStroke: "1px rgba(194, 154, 69, 0.18)" }}
+        aria-hidden="true"
+      >
+        联
+      </div>
+
+      {/* 3. Dải viền hoàng gia trên đỉnh */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#85151b] via-[#c29a45] to-[#f6dc98]" />
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 relative z-[2] w-full">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-xs text-[#9ba8c2] mb-8 font-sans">
+          <Link href={`/${lang}`} className="hover:text-[#f0d28a] transition-colors">
+            {isZh ? "首页" : "Trang chủ"}
+          </Link>
+          <ChevronRight className="size-3 text-[#c29a45]" />
+          <span className="text-[#f0d28a] font-medium tracking-wide">
+            {isZh ? "办公网络与联系" : "Mạng lưới văn phòng"}
+          </span>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* CỘT TRÁI: Typography Hoàng Gia & Thông điệp */}
+          <div className="lg:col-span-7 space-y-6">
+            <EyebrowBadge
+              hz={isZh ? "实体网络" : "MẠNG LƯỚI TRỰC TIẾP"}
+              text={isZh ? "中越口岸与核心经贸枢纽" : "HIỆN DIỆN CHIẾN LƯỢC TẠI 4 THÀNH PHỐ"}
+              variant="tag"
+            />
+
+            <h1 className="font-royal text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.12] tracking-tight text-white">
+              {isZh ? (
+                <>
+                  覆盖两国枢纽与口岸的{" "}
+                  <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                    实体跨国法律网络
+                  </i>
+                </>
+              ) : (
+                <>
+                  Mạng lưới Hiện diện{" "}
+                  <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                    Trực tiếp &amp; Đa điểm
+                  </i>{" "}
+                  Việt Nam – Trung Quốc
+                </>
+              )}
+            </h1>
+
+            <p className="text-sm sm:text-base text-[#b6c0d6] max-w-xl leading-relaxed">
+              {isZh
+                ? "在越南河内、胡志明市及中国南宁等关键经贸要冲设立实体办公室与联络站，构建无时差、本土化与高效率的跨境现场法律响应体系。"
+                : "Hệ thống văn phòng đại diện và cơ sở liên kết chiến lược tại các trung tâm kinh tế và cửa khẩu mậu dịch trọng yếu, sẵn sàng tiếp nhận và hỗ trợ khách hàng trực tiếp tại chỗ."}
+            </p>
+
+            {/* Checklist bảo chứng */}
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#d2dcfa]">
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "河内总部直接调度两地资源" : "Trụ sở Hà Nội điều phối toàn hệ thống"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "中国南宁办公室紧密衔接" : "Văn phòng Nam Ninh kết nối trực tiếp"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "东兴边境口岸驻点紧急响应" : "Cửa khẩu Đông Hưng hỗ trợ thông quan"}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="flex items-center justify-center size-4 rounded-full bg-[#f0d28a]/20 text-[#f0d28a] font-bold text-[11px]">✦</span>
+                <span>{isZh ? "24小时应急涉外法律援助" : "Đường dây nóng phản hồi trong 24 giờ"}</span>
+              </li>
+            </ul>
+
+            {/* Nút hành động */}
+            <div className="flex flex-wrap items-center gap-5 pt-4">
+              <Link href={`/${lang}#lienhe`} className="btn-royal shadow-lg">
+                {isZh ? "联系最近的办公室" : "Liên hệ văn phòng gần nhất"} &rarr;
+              </Link>
+              <a
+                href="tel:+8615277020681"
+                className="font-medium text-xs sm:text-sm text-[#f0d28a] border-b border-[#f0d28a]/60 hover:text-white hover:border-white transition-colors pb-0.5"
+              >
+                Hotline: +86 152 7702 0681
+              </a>
+            </div>
+          </div>
+
+          {/* CỘT PHẢI: Thẻ Bản Đồ Tọa Độ 4 Trụ Sở (Bilateral Network Coordinates Card) */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-full max-w-md bg-gradient-to-b from-[#0b1b36] to-[#071328] border border-[#c29a45]/45 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative backdrop-blur-xs">
+              {/* Header thẻ */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#c29a45]/30">
+                <div className="flex items-center gap-2.5">
+                  <Building2 className="size-4 text-[#f0d28a]" />
+                  <span className="font-royal font-bold text-sm text-[#f0d28a] tracking-wider uppercase">
+                    {isZh ? "实体办公室网络" : "MẠNG LƯỚI TRỤ SỞ CHIẾN LƯỢC"}
+                  </span>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-mono">
+                  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" /> ONLINE
+                </span>
+              </div>
+
+              {/* Danh sách 4 trụ sở */}
+              <div className="space-y-3 py-5">
+                {[
+                  { name: "Trụ sở Hà Nội (Việt Nam)", role: "Trung tâm điều hành & Pháp lý", code: "HQ &bull; HN" },
+                  { name: "Chi nhánh TP. Hồ Chí Minh", role: "Thương mại, M&A & Nam Bộ", code: "BR &bull; SGN" },
+                  { name: "Văn phòng Nam Ninh (Quảng Tây)", role: "Cầu nối Doanh nghiệp Trung Quốc", code: "CN &bull; NNG" },
+                  { name: "Cửa khẩu Đông Hưng (Quảng Ninh)", role: "Logistics & Mậu dịch biên giới", code: "BORDER &bull; DH" },
+                ].map((office, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between p-3 bg-[#061226]/80 border border-[#c29a45]/20 hover:border-[#f0d28a] transition-colors"
+                  >
+                    <div className="flex items-start gap-2.5">
+                      <MapPin className="size-4 text-[#f0d28a] shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-semibold text-white">{office.name}</p>
+                        <p className="text-[10px] text-[#8d9bb5]">{office.role}</p>
+                      </div>
+                    </div>
+                    <span className="text-[9px] font-mono font-semibold px-2 py-0.5 bg-[#85151b] text-white">
+                      {office.code}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Chân thẻ */}
+              <div className="pt-3.5 border-t border-[#c29a45]/30 flex items-center justify-between text-xs">
+                <span className="text-[#9ba8c2]">Đầu mối tư vấn:</span>
+                <span className="font-royal font-bold text-[#f0d28a]">LS. Tưởng Nữ Trinh</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Hoa văn dải viền hoàng gia trên đỉnh */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#85151b] via-[#c29a45] to-[#85151b]" />
-
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-[#718096] mb-6 font-sans">
-            <Link
-              href={`/${lang}`}
-              className="hover:text-[#85151b] transition-colors"
-            >
-              {isZh ? "首页" : "Trang chủ"}
-            </Link>
-            <ChevronRight className="size-3 text-[#c29a45]" />
-            <span className="text-[#06122b] font-medium">
-              {isZh ? "办公网络与联系" : "Mạng lưới văn phòng"}
-            </span>
-          </nav>
-
-          {/* Badge phân loại */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#c29a45]/60 text-xs font-semibold text-[#85151b] uppercase tracking-wider mb-5 shadow-xs">
-            <Building2 className="size-3.5 text-[#c29a45]" />
-            <span>{isZh ? "实体网络 • 跨境协同" : "Mạng lưới trụ sở • Hiện diện trực tiếp"}</span>
-          </div>
-
-          {/* Tiêu đề chính */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-royal font-bold text-[#06122b] tracking-tight leading-[1.2] max-w-4xl">
-            {isZh ? (
-              <>
-                覆盖中越关键口岸与 <span className="text-[#85151b]">核心经济枢纽的实体网络</span>
-              </>
-            ) : (
-              <>
-                Mạng lưới Hiện diện Trực tiếp tại{" "}
-                <span className="text-[#85151b]">Việt Nam &amp; Trung Quốc</span>
-              </>
-            )}
-          </h1>
-
-          {/* Phụ đề Hán tự */}
-          <div className="mt-2 text-sm md:text-base font-hanzi font-semibold text-[#c29a45] tracking-[3px]">
-            {isZh ? "河内总部 • 胡志明分部 • 南宁办公室 • 东兴联络处" : "河内总部 • 胡志明分部 • 广西要冲 • 边境口岸"}
-          </div>
-
-          {/* Đoạn mô tả định vị */}
-          <p className="mt-5 text-sm sm:text-base text-[#4a5568] leading-relaxed max-w-3xl">
-            {isZh
-              ? "依托在越南河内、胡志明市及中国南宁等关键经贸重镇布局的实体机构，万益构建起无缝衔接的跨境响应机制，随时随地为客户提供本土化、面对面与高效率的综合法律服务。"
-              : "Hệ thống văn phòng đại diện và cơ sở liên kết chiến lược tại các trung tâm kinh tế và cửa khẩu mậu dịch trọng yếu, sẵn sàng tiếp nhận và hỗ trợ khách hàng trực tiếp tại chỗ."}
-          </p>
-
-          {/* 4 địa bàn trọng tâm dạng Pill */}
-          <div className="mt-8 pt-6 border-t border-[#e7dcc3]/80 flex flex-wrap items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-[#e7dcc3] text-xs text-[#06122b] font-medium shadow-2xs">
-              <MapPin className="size-3.5 text-[#85151b]" />
-              <span>{isZh ? "河内总部 (越南政经枢纽)" : "Trụ sở Hà Nội (Việt Nam)"}</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-[#e7dcc3] text-xs text-[#06122b] font-medium shadow-2xs">
-              <MapPin className="size-3.5 text-[#85151b]" />
-              <span>{isZh ? "胡志明市代表处 (南部商业核心)" : "Chi nhánh TP. Hồ Chí Minh"}</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-[#e7dcc3] text-xs text-[#06122b] font-medium shadow-2xs">
-              <MapPin className="size-3.5 text-[#c29a45]" />
-              <span>{isZh ? "南宁办公室 (中国-东盟桥头堡)" : "Văn phòng Nam Ninh (Quảng Tây)"}</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-[#e7dcc3] text-xs text-[#06122b] font-medium shadow-2xs">
-              <MapPin className="size-3.5 text-[#c29a45]" />
-              <span>{isZh ? "东兴联络点 (边境通关口岸)" : "Cửa khẩu Đông Hưng"}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
