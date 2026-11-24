@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RoleBadge } from "@/features/roles";
+import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
 import { useMe, useUpdateProfile } from "../queries/useAuthQuery";
 import { updateProfileSchema } from "../schemas/auth.schema";
-import { User, Loader2, Save, Mail, Phone, AtSign, Image as ImageIcon } from "lucide-react";
+import { User, Loader2, Save, Mail, Phone, AtSign } from "lucide-react";
 
 export function ProfileForm() {
   const { data: user, isLoading: isUserLoading } = useMe();
@@ -20,6 +21,21 @@ export function ProfileForm() {
     avatarUrl: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const avatarController = useMediaLifecycle({
+    initialUrl: user?.avatarUrl || undefined,
+    onUrlChange: (newUrl) => {
+      handleChange("avatarUrl", newUrl || "");
+    },
+    folder: "avatars",
+  });
+
+  useEffect(() => {
+    return () => {
+      void avatarController.rollback();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -59,7 +75,11 @@ export function ProfileForm() {
       return;
     }
 
-    updateProfileMutation.mutate(result.data);
+    updateProfileMutation.mutate(result.data, {
+      onSuccess: () => {
+        avatarController.commit();
+      },
+    });
   };
 
   if (isUserLoading) {
@@ -183,17 +203,14 @@ export function ProfileForm() {
           )}
         </div>
 
-        {/* Đường dẫn Avatar URL */}
+        {/* Upload Ảnh đại diện (Avatar) */}
         <div className="space-y-1.5 md:col-span-2">
-          <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
-            <ImageIcon className="size-3.5 text-muted-foreground" />
-            Đường dẫn Ảnh đại diện (Avatar URL)
-          </label>
-          <Input
+          <SingleImageUpload
+            label="Ảnh đại diện (Avatar)"
             value={formData.avatarUrl}
-            onChange={(e) => handleChange("avatarUrl", e.target.value)}
-            placeholder="https://example.com/avatar.jpg"
-            className="h-9 text-xs"
+            controller={avatarController}
+            aspectRatio="square"
+            recommendedSize="Khuyến nghị ảnh vuông 1:1, dung lượng tối đa 2MB"
           />
           {errors.avatarUrl && (
             <p className="text-[11px] text-destructive">{errors.avatarUrl}</p>
