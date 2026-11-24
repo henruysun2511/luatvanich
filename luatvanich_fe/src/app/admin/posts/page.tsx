@@ -179,7 +179,7 @@ export default function PostsManagementPage() {
           }`}
         >
           <FileText className={`size-4 ${activeTab === "posts" ? "text-[#c29a45]" : ""}`} />
-          Danh sách Bài viết ({totalPosts})
+          Bài viết
         </button>
         <button
           type="button"
@@ -191,7 +191,7 @@ export default function PostsManagementPage() {
           }`}
         >
           <FolderTree className={`size-4 ${activeTab === "categories" ? "text-[#c29a45]" : ""}`} />
-          Cây Chuyên mục ({totalCategories})
+          Cây Chuyên mục
         </button>
       </div>
 
