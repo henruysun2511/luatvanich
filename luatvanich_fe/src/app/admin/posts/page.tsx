@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,7 +16,6 @@ import { Pagination } from "@/components/common";
 import {
   PostListTable,
   PostDetailDialog,
-  PostFormDialog,
   DeletePostDialog,
   PostCategoryListTable,
   PostCategoryFormDialog,
@@ -29,6 +30,7 @@ import {
 import { FileText, FolderTree, Plus, Search, RotateCcw } from "lucide-react";
 
 export default function PostsManagementPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"posts" | "categories">("posts");
 
   // ==========================================
@@ -41,8 +43,6 @@ export default function PostsManagementPage() {
   const [postCategoryId, setPostCategoryId] = useState<string>("all");
   const [postSection, setPostSection] = useState<string>("all");
 
-  const [isPostFormOpen, setIsPostFormOpen] = useState(false);
-  const [postIdToEdit, setPostIdToEdit] = useState<string | null>(null);
   const [postToDelete, setPostToDelete] = useState<PostItem | null>(null);
   const [postToView, setPostToView] = useState<PostItem | null>(null);
 
@@ -89,14 +89,8 @@ export default function PostsManagementPage() {
   // ==========================================
   // HANDLERS TAB POSTS
   // ==========================================
-  const handleOpenCreatePost = () => {
-    setPostIdToEdit(null);
-    setIsPostFormOpen(true);
-  };
-
   const handleOpenEditPost = (post: PostItem) => {
-    setPostIdToEdit(post.id);
-    setIsPostFormOpen(true);
+    router.push(`/admin/posts/${post.id}/edit`);
   };
 
   const handleResetPostFilters = () => {
@@ -143,9 +137,11 @@ export default function PostsManagementPage() {
         {/* Nút thêm mới động theo tab */}
         <div>
           {activeTab === "posts" ? (
-            <Button onClick={handleOpenCreatePost} size="sm" className="gap-1.5 shadow-xs">
-              <Plus className="size-4" />
-              Thêm bài viết mới
+            <Button asChild size="sm" className="gap-1.5 shadow-xs">
+              <Link href="/admin/posts/new">
+                <Plus className="size-4" />
+                Thêm bài viết mới
+              </Link>
             </Button>
           ) : (
             <Button onClick={handleOpenCreateCategory} size="sm" className="gap-1.5 shadow-xs">
@@ -425,14 +421,6 @@ export default function PostsManagementPage() {
             handleOpenEditPost(postToView);
           }
         }}
-      />
-
-      {/* Modal Thêm/Sửa Bài viết */}
-      <PostFormDialog
-        open={isPostFormOpen}
-        onOpenChange={setIsPostFormOpen}
-        postIdToEdit={postIdToEdit}
-        categories={categories}
       />
 
       {/* Dialog Xác nhận Xóa Bài viết */}
