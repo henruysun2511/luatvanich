@@ -2,7 +2,7 @@
 export type LangCode = "vi" | "zh-CN";
 
 /** Trạng thái xuất bản bài viết */
-export type PostStatus = "draft" | "in_review" | "scheduled" | "published" | "archived";
+export type PostStatus = "draft" | "scheduled" | "published";
 
 /** Phân vùng nội dung chuyên mục */
 export type PostSection = "news" | "handbook" | "knowledge_base";

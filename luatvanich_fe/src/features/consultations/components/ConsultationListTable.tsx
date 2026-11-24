@@ -229,9 +229,8 @@ export function ConsultationListTable({
               return (
                 <TableRow
                   key={item.id}
-                  className={`hover:bg-muted/30 transition-colors ${
-                    isSelected ? "bg-primary/5" : ""
-                  }`}
+                  className={`hover:bg-muted/30 transition-colors ${isSelected ? "bg-primary/5" : ""
+                    }`}
                 >
                   {/* 1. Checkbox */}
                   <TableCell className="text-center">

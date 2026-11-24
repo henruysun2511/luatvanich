@@ -249,10 +249,8 @@ export default function PostsManagementPage() {
                 <SelectContent>
                   <SelectItem value="all">Tất cả trạng thái</SelectItem>
                   <SelectItem value="draft">Bản nháp</SelectItem>
-                  <SelectItem value="in_review">Chờ duyệt</SelectItem>
                   <SelectItem value="scheduled">Đã lên lịch</SelectItem>
                   <SelectItem value="published">Đã xuất bản</SelectItem>
-                  <SelectItem value="archived">Lưu trữ</SelectItem>
                 </SelectContent>
               </Select>
             </div>

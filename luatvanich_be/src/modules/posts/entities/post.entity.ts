@@ -36,7 +36,7 @@ export class Post extends BaseEntity {
   @Column({ name: 'thumbnail_url', type: 'varchar', nullable: true, length: 500 })
   thumbnailUrl?: string | null;
 
-  /** Trạng thái bài viết: draft, in_review, scheduled, published, archived */
+  /** Trạng thái bài viết: draft, scheduled, published */
   @Column({ type: 'enum', enum: PostStatus, enumName: 'posts_status_enum', default: PostStatus.DRAFT })
   status: PostStatus;
 
