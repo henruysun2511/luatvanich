@@ -25,17 +25,32 @@ export function Header() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  const isHomeActive =
+    pathname === "/" || pathname === `/${lang}` || pathname === `/${lang}/` || pathname === "/vi" || pathname === "/zh-CN";
+  const isAboutActive =
+    pathname?.startsWith(`/${lang}/about`) ||
+    pathname?.startsWith(`/${lang}/lawyers`) ||
+    pathname?.startsWith(`/${lang}/corridor`);
+  const isServicesActive = pathname?.startsWith(`/${lang}/legal-services`);
+  const isPostsActive = pathname?.startsWith(`/${lang}/posts`);
+  const isOfficesActive = pathname?.startsWith(`/${lang}/offices`);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId?: string) => {
     setOpenDropdown(null);
     setMobileMenuOpen(false);
-    scrollToAnchor(e, targetId);
+    if (targetId) {
+      scrollToAnchor(e, targetId);
+    }
   };
 
   // Xử lý chuyển tab dịch vụ khi click từ Mega Menu
   const handleServiceSelect = (e: React.MouseEvent<HTMLAnchorElement>, tabIndex: number) => {
-    handleNavClick(e, "linhvuc");
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("vanich-select-tab", { detail: { tabIndex } }));
+    setOpenDropdown(null);
+    setMobileMenuOpen(false);
+    if (isHomeActive) {
+      if (scrollToAnchor(e, "linhvuc")) {
+        window.dispatchEvent(new CustomEvent("vanich-select-tab", { detail: { tabIndex } }));
+      }
     }
   };
 
@@ -72,10 +87,10 @@ export function Header() {
             {/* 1. Trang chủ */}
             <li className="h-full flex items-center">
               <Link
-                href={`/${lang}#top`}
-                onClick={(e) => handleNavClick(e, "top")}
+                href={`/${lang}`}
+                onClick={(e) => isHomeActive && handleNavClick(e, "top")}
                 className={`flex items-center h-full border-b-[3px] transition-colors ${
-                  pathname === "/" || pathname === `/${lang}` || pathname === "/vi" || pathname === "/zh-CN"
+                  isHomeActive
                     ? "text-[#a3171e] border-[#a3171e]"
                     : "border-transparent hover:text-[#a3171e]"
                 }`}
@@ -91,9 +106,13 @@ export function Header() {
               onMouseLeave={() => setOpenDropdown(null)}
             >
               <Link
-                href={`/${lang}#doingu`}
-                onClick={(e) => handleNavClick(e, "doingu")}
-                className="flex items-center h-full border-b-[3px] border-transparent hover:text-[#a3171e] transition-colors"
+                href={`/${lang}/about`}
+                onClick={() => setOpenDropdown(null)}
+                className={`flex items-center h-full border-b-[3px] transition-colors ${
+                  isAboutActive
+                    ? "text-[#a3171e] border-[#a3171e]"
+                    : "border-transparent hover:text-[#a3171e]"
+                }`}
               >
                 Giới thiệu
               </Link>
@@ -117,32 +136,32 @@ export function Header() {
               {openDropdown === "gioithieu" && (
                 <div className="absolute top-full -left-4 min-w-[300px] bg-white border border-[#e7dcc3] border-t-[3px] border-t-[#c29a45] shadow-[0_22px_44px_rgba(10,26,58,0.2)] py-2.5 z-50 normal-case animate-in fade-in slide-in-from-top-2">
                   <Link
-                    href={`/${lang}#top`}
-                    onClick={(e) => handleNavClick(e, "top")}
+                    href={`/${lang}/about`}
+                    onClick={() => setOpenDropdown(null)}
                     className="flex justify-between items-center gap-5 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
                     <span>Về Luật Vạn Ích</span>
                     <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">万益</em>
                   </Link>
                   <Link
-                    href={`/${lang}#doingu`}
-                    onClick={(e) => handleNavClick(e, "doingu")}
+                    href={`/${lang}/lawyers`}
+                    onClick={() => setOpenDropdown(null)}
                     className="flex justify-between items-center gap-5 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
                     <span>Đội ngũ luật sư</span>
                     <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">团队</em>
                   </Link>
                   <Link
-                    href={`/${lang}#top`}
-                    onClick={(e) => handleNavClick(e, "top")}
+                    href={`/${lang}/corridor`}
+                    onClick={() => setOpenDropdown(null)}
                     className="flex justify-between items-center gap-5 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
                     <span>Hành lang Việt – Trung</span>
                     <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">走廊</em>
                   </Link>
                   <Link
-                    href={`/${lang}#lienhe`}
-                    onClick={(e) => handleNavClick(e, "lienhe")}
+                    href={`/${lang}/offices`}
+                    onClick={() => setOpenDropdown(null)}
                     className="flex justify-between items-center gap-5 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
                     <span>Mạng lưới văn phòng</span>
@@ -159,9 +178,13 @@ export function Header() {
               onMouseLeave={() => setOpenDropdown(null)}
             >
               <Link
-                href={`/${lang}#linhvuc`}
-                onClick={(e) => handleNavClick(e, "linhvuc")}
-                className="flex items-center h-full border-b-[3px] border-transparent hover:text-[#a3171e] transition-colors"
+                href={`/${lang}/legal-services`}
+                onClick={() => setOpenDropdown(null)}
+                className={`flex items-center h-full border-b-[3px] transition-colors ${
+                  isServicesActive
+                    ? "text-[#a3171e] border-[#a3171e]"
+                    : "border-transparent hover:text-[#a3171e]"
+                }`}
               >
                 Dịch vụ pháp lý
               </Link>
@@ -186,11 +209,20 @@ export function Header() {
                 <div className="absolute top-full left-1/2 -translate-x-1/2 w-[780px] bg-white border border-[#e7dcc3] border-t-[3px] border-t-[#c29a45] shadow-[0_22px_44px_rgba(10,26,58,0.2)] grid grid-cols-[1fr_1fr_250px] z-50 normal-case animate-in fade-in slide-in-from-top-2">
                   {/* Cột 1: Doanh nghiệp & Đầu tư */}
                   <div className="py-5 px-0 border-r border-[#e7dcc3]">
-                    <small className="block px-6 pb-2 font-sans font-semibold text-[11px] tracking-[2px] uppercase text-[#c29a45]">
-                      Doanh nghiệp &amp; đầu tư
-                    </small>
+                    <div className="flex justify-between items-center px-6 pb-2">
+                      <small className="font-sans font-semibold text-[11px] tracking-[2px] uppercase text-[#c29a45]">
+                        Doanh nghiệp &amp; đầu tư
+                      </small>
+                      <Link
+                        href={`/${lang}/legal-services`}
+                        onClick={() => setOpenDropdown(null)}
+                        className="text-[11px] text-[#85151b] hover:underline"
+                      >
+                        Tất cả &rarr;
+                      </Link>
+                    </div>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 0)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -198,7 +230,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">外商投资</em>
                     </Link>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 1)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -206,7 +238,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">双语合同</em>
                     </Link>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 4)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -217,11 +249,20 @@ export function Header() {
 
                   {/* Cột 2: Tranh chấp & Giao dịch */}
                   <div className="py-5 px-0 border-r border-[#e7dcc3]">
-                    <small className="block px-6 pb-2 font-sans font-semibold text-[11px] tracking-[2px] uppercase text-[#c29a45]">
-                      Tranh chấp &amp; giao dịch
-                    </small>
+                    <div className="flex justify-between items-center px-6 pb-2">
+                      <small className="font-sans font-semibold text-[11px] tracking-[2px] uppercase text-[#c29a45]">
+                        Tranh chấp &amp; giao dịch
+                      </small>
+                      <Link
+                        href={`/${lang}/legal-services`}
+                        onClick={() => setOpenDropdown(null)}
+                        className="text-[11px] text-[#85151b] hover:underline"
+                      >
+                        Tất cả &rarr;
+                      </Link>
+                    </div>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 2)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -229,7 +270,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">诉讼仲裁</em>
                     </Link>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 3)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -237,7 +278,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">债务追收</em>
                     </Link>
                     <Link
-                      href={`/${lang}#linhvuc`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
                       onClick={(e) => handleServiceSelect(e, 5)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -252,14 +293,14 @@ export function Header() {
                       Cần tư vấn gấp?
                     </b>
                     <span className="font-royal font-bold text-[22px] text-[#f0d28a]">
-                      0900 123 456
+                      +86 152 7702 0681
                     </span>
                     <p className="m-0 text-xs text-[#b6c0d6] leading-relaxed">
                       Luật sư phản hồi trong 24 giờ làm việc.
                     </p>
                     <Link
-                      href={`/${lang}#lienhe`}
-                      onClick={(e) => handleNavClick(e, "lienhe")}
+                      href={isHomeActive ? `/${lang}#lienhe` : `/${lang}/offices`}
+                      onClick={(e) => isHomeActive && handleNavClick(e, "lienhe")}
                       className="btn-royal !px-4 !py-2.5 !text-xs !mt-2 justify-center"
                     >
                       Đặt lịch
@@ -276,9 +317,13 @@ export function Header() {
               onMouseLeave={() => setOpenDropdown(null)}
             >
               <Link
-                href={`/${lang}#gocnhin`}
-                onClick={(e) => handleNavClick(e, "gocnhin")}
-                className="flex items-center h-full border-b-[3px] border-transparent hover:text-[#a3171e] transition-colors"
+                href={`/${lang}/posts`}
+                onClick={() => setOpenDropdown(null)}
+                className={`flex items-center h-full border-b-[3px] transition-colors ${
+                  isPostsActive
+                    ? "text-[#a3171e] border-[#a3171e]"
+                    : "border-transparent hover:text-[#a3171e]"
+                }`}
               >
                 Cẩm nang
               </Link>
@@ -302,8 +347,8 @@ export function Header() {
               {openDropdown === "camnang" && (
                 <div className="absolute top-full -left-4 min-w-[300px] bg-white border border-[#e7dcc3] border-t-[3px] border-t-[#c29a45] shadow-[0_22px_44px_rgba(10,26,58,0.2)] py-2.5 z-50 normal-case animate-in fade-in slide-in-from-top-2">
                   <Link
-                    href={`/${lang}#gocnhin`}
-                    onClick={(e) => handleNavClick(e, "gocnhin")}
+                    href={`/${lang}/posts`}
+                    onClick={() => setOpenDropdown(null)}
                     className="flex justify-between items-center gap-5 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
                     <span>Góc nhìn pháp lý</span>
@@ -332,9 +377,13 @@ export function Header() {
             {/* 5. Liên hệ */}
             <li className="h-full flex items-center">
               <Link
-                href={`/${lang}#lienhe`}
-                onClick={(e) => handleNavClick(e, "lienhe")}
-                className="flex items-center h-full border-b-[3px] border-transparent hover:text-[#a3171e] transition-colors"
+                href={`/${lang}/offices`}
+                onClick={() => setOpenDropdown(null)}
+                className={`flex items-center h-full border-b-[3px] transition-colors ${
+                  isOfficesActive
+                    ? "text-[#a3171e] border-[#a3171e]"
+                    : "border-transparent hover:text-[#a3171e]"
+                }`}
               >
                 Liên hệ
               </Link>
@@ -345,8 +394,8 @@ export function Header() {
         {/* Nút Đặt lịch tư vấn bên phải */}
         <div className="flex items-center gap-3">
           <Link
-            href={`/${lang}#lienhe`}
-            onClick={(e) => handleNavClick(e, "lienhe")}
+            href={isHomeActive ? `/${lang}#lienhe` : `/${lang}/offices`}
+            onClick={(e) => isHomeActive && handleNavClick(e, "lienhe")}
             className="btn-royal !py-3 !px-6 !text-xs shrink-0 hidden sm:inline-flex"
           >
             Đặt lịch tư vấn
@@ -370,53 +419,74 @@ export function Header() {
           <ul className="flex flex-col m-0 p-0 list-none text-xs font-semibold uppercase">
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}#top`}
-                onClick={(e) => handleNavClick(e, "top")}
-                className="block p-4 text-[#a3171e]"
+                href={`/${lang}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${isHomeActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
                 Trang chủ
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}#doingu`}
-                onClick={(e) => handleNavClick(e, "doingu")}
-                className="block p-4 text-[#0b1d3f]"
+                href={`/${lang}/about`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${pathname?.startsWith(`/${lang}/about`) ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
-                Giới thiệu
+                Về Luật Vạn Ích
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}#linhvuc`}
-                onClick={(e) => handleNavClick(e, "linhvuc")}
-                className="block p-4 text-[#0b1d3f]"
+                href={`/${lang}/legal-services`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${isServicesActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
                 Dịch vụ pháp lý
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}#gocnhin`}
-                onClick={(e) => handleNavClick(e, "gocnhin")}
-                className="block p-4 text-[#0b1d3f]"
+                href={`/${lang}/lawyers`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${pathname?.startsWith(`/${lang}/lawyers`) ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
-                Cẩm nang
+                Đội ngũ luật sư
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}#lienhe`}
-                onClick={(e) => handleNavClick(e, "lienhe")}
-                className="block p-4 text-[#0b1d3f]"
+                href={`/${lang}/corridor`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${pathname?.startsWith(`/${lang}/corridor`) ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
-                Liên hệ
+                Hành lang Việt – Trung
+              </Link>
+            </li>
+            <li className="border-t border-[#e7dcc3]">
+              <Link
+                href={`/${lang}/posts`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${isPostsActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
+              >
+                Cẩm nang pháp lý
+              </Link>
+            </li>
+            <li className="border-t border-[#e7dcc3]">
+              <Link
+                href={`/${lang}/offices`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block p-4 ${isOfficesActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
+              >
+                Mạng lưới văn phòng &amp; Liên hệ
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3] p-4 bg-[#fbf7ee]">
               <Link
-                href={`/${lang}#lienhe`}
-                onClick={(e) => handleNavClick(e, "lienhe")}
+                href={isHomeActive ? `/${lang}#lienhe` : `/${lang}/offices`}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (isHomeActive) handleNavClick(e, "lienhe");
+                }}
                 className="btn-royal w-full justify-center !py-3 text-center"
               >
                 Đặt lịch tư vấn &rarr;

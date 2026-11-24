@@ -6,3 +6,4 @@ export * from "./components/LawyerListTable";
 export * from "./components/LawyerDetailDialog";
 export * from "./components/LawyerFormDialog";
 export * from "./components/DeleteLawyerDialog";
+export * from "./components/public/LawyersHeroSection";

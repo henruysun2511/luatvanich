@@ -6,3 +6,4 @@ export * from "./components/OfficeListTable";
 export * from "./components/OfficeDetailDialog";
 export * from "./components/OfficeFormDialog";
 export * from "./components/DeleteOfficeDialog";
+export * from "./components/public/OfficesHeroSection";
