@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SiteSetting } from './entities/site-setting.entity';
+import { SiteSettingRepository } from './repositories/site-setting.repository';
 import { SiteSettingsService } from './site-settings.service';
 import { SiteSettingsController } from './controllers/site-settings.controller';
 import { SiteSettingsAdminController } from './controllers/site-settings-admin.controller';
@@ -8,7 +9,7 @@ import { SiteSettingsAdminController } from './controllers/site-settings-admin.c
 @Module({
   imports: [TypeOrmModule.forFeature([SiteSetting])],
   controllers: [SiteSettingsController, SiteSettingsAdminController],
-  providers: [SiteSettingsService],
+  providers: [SiteSettingRepository, SiteSettingsService],
   exports: [SiteSettingsService],
 })
 export class SiteSettingsModule {}

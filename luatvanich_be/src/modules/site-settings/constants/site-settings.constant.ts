@@ -1,0 +1,3 @@
+export const SITE_SETTINGS_ERROR_CODE = {
+  NOT_FOUND: 'SITE_SETTING_NOT_FOUND',
+} as const;

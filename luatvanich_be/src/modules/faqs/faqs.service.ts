@@ -1,35 +1,29 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { FaqRepository } from './repositories/faq.repository';
+import { FaqTranslationRepository } from './repositories/faq-translation.repository';
 import { Faq } from './entities/faq.entity';
-import { FaqTranslation } from './entities/faq-translation.entity';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
+import { FaqNotFoundException } from './exceptions/faq.exception';
 
 @Injectable()
 export class FaqsService {
   constructor(
-    @InjectRepository(Faq)
-    private readonly faqRepo: Repository<Faq>,
-    @InjectRepository(FaqTranslation)
-    private readonly transRepo: Repository<FaqTranslation>,
+    private readonly faqRepo: FaqRepository,
+    private readonly transRepo: FaqTranslationRepository,
   ) {}
 
   /**
    * Lấy danh sách câu hỏi đang kích hoạt
    */
   async getPublicFaqs(lang = 'vi'): Promise<any[]> {
-    const list = await this.faqRepo.find({
-      where: { isActive: true },
-      relations: ['translations'],
-      order: { displayOrder: 'ASC', createdAt: 'DESC' },
-    });
+    const list = await this.faqRepo.findAllActive();
 
     return list.map((item) => {
       const trans =
-        item.translations.find((t) => t.languageCode === lang) ||
-        item.translations.find((t) => t.languageCode === 'vi') ||
-        item.translations[0];
+        item.translations?.find((t) => t.languageCode === lang) ||
+        item.translations?.find((t) => t.languageCode === 'vi') ||
+        item.translations?.[0];
       return {
         id: item.id,
         category: item.category,
@@ -44,10 +38,7 @@ export class FaqsService {
    * Admin: Lấy danh sách toàn bộ kèm bản dịch
    */
   async getAll(): Promise<Faq[]> {
-    return this.faqRepo.find({
-      relations: ['translations'],
-      order: { displayOrder: 'ASC', createdAt: 'DESC' },
-    });
+    return this.faqRepo.findAll();
   }
 
   /**
@@ -71,24 +62,18 @@ export class FaqsService {
           isComplete: t.isComplete !== undefined ? t.isComplete : true,
         }),
       );
-      await this.transRepo.save(translations);
+      await this.transRepo.saveMany(translations);
     }
 
-    return this.faqRepo.findOne({
-      where: { id: saved.id },
-      relations: ['translations'],
-    }) as Promise<Faq>;
+    return (await this.faqRepo.findById(saved.id)) as Faq;
   }
 
   /**
    * Admin: Cập nhật câu hỏi & bản dịch
    */
   async update(id: string, dto: UpdateFaqDto): Promise<Faq> {
-    const faq = await this.faqRepo.findOne({
-      where: { id },
-      relations: ['translations'],
-    });
-    if (!faq) throw new NotFoundException('Không tìm thấy câu hỏi FAQ');
+    const faq = await this.faqRepo.findById(id);
+    if (!faq) throw new FaqNotFoundException(id);
 
     if (dto.category !== undefined) faq.category = dto.category;
     if (dto.displayOrder !== undefined) faq.displayOrder = dto.displayOrder;
@@ -97,7 +82,7 @@ export class FaqsService {
 
     if (dto.translations && dto.translations.length > 0) {
       for (const t of dto.translations) {
-        let existing = faq.translations.find((ext) => ext.languageCode === t.languageCode);
+        let existing = faq.translations?.find((ext) => ext.languageCode === t.languageCode);
         if (existing) {
           existing.question = t.question;
           existing.answer = t.answer;
@@ -116,18 +101,15 @@ export class FaqsService {
       }
     }
 
-    return this.faqRepo.findOne({
-      where: { id },
-      relations: ['translations'],
-    }) as Promise<Faq>;
+    return (await this.faqRepo.findById(id)) as Faq;
   }
 
   /**
    * Admin: Xóa câu hỏi (soft delete)
    */
   async delete(id: string): Promise<void> {
-    const faq = await this.faqRepo.findOne({ where: { id } });
-    if (!faq) throw new NotFoundException('Không tìm thấy câu hỏi FAQ');
+    const faq = await this.faqRepo.findById(id);
+    if (!faq) throw new FaqNotFoundException(id);
     await this.faqRepo.softDelete(id);
   }
 }

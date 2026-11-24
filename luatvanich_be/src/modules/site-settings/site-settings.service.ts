@@ -1,6 +1,5 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { SiteSettingRepository } from './repositories/site-setting.repository';
 import { SiteSetting } from './entities/site-setting.entity';
 import { UpdateSettingsDto } from './dto/update-settings.dto';
 
@@ -43,10 +42,7 @@ const DEFAULT_SETTINGS: Array<Partial<SiteSetting>> = [
 export class SiteSettingsService implements OnModuleInit {
   private readonly logger = new Logger(SiteSettingsService.name);
 
-  constructor(
-    @InjectRepository(SiteSetting)
-    private readonly settingsRepo: Repository<SiteSetting>,
-  ) {}
+  constructor(private readonly settingsRepo: SiteSettingRepository) {}
 
   async onModuleInit() {
     await this.seedDefaults();
@@ -70,7 +66,7 @@ export class SiteSettingsService implements OnModuleInit {
    * Lấy cấu hình công khai phục vụ Frontend
    */
   async getPublicSettings(): Promise<Record<string, string>> {
-    const list = await this.settingsRepo.find({ where: { isPublic: true } });
+    const list = await this.settingsRepo.findPublic();
     const result: Record<string, string> = {};
     for (const item of list) {
       result[item.key] = item.value || '';
@@ -82,7 +78,7 @@ export class SiteSettingsService implements OnModuleInit {
    * Lấy toàn bộ cấu hình theo nhóm (Admin)
    */
   async getAllSettings(): Promise<Record<string, Record<string, string>>> {
-    const list = await this.settingsRepo.find();
+    const list = await this.settingsRepo.findAll();
     const result: Record<string, Record<string, string>> = {};
     for (const item of list) {
       if (!result[item.group]) {
@@ -100,7 +96,7 @@ export class SiteSettingsService implements OnModuleInit {
     const keys = Object.keys(dto.settings);
     for (const key of keys) {
       const val = dto.settings[key];
-      const existing = await this.settingsRepo.findOne({ where: { key } });
+      const existing = await this.settingsRepo.findByKey(key);
       if (existing) {
         existing.value = val;
         if (dto.group) existing.group = dto.group;
