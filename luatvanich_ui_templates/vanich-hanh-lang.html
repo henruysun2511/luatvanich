@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luật Vạn Ích – Hành lang pháp lý Việt – Trung</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Be+Vietnam+Pro:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{--navy:#0a1a3a;--navy2:#122650;--deep:#06122b;--gold:#c9a24a;--gold2:#e6c984;--ink:#0f1b33;--mute:#5a6479;--paper:#f4f5f7;--line:#d7dbe3;--seal:#b5362a;--d:'Cormorant Garamond',Georgia,serif;--s:'Be Vietnam Pro',Arial,sans-serif;--c:'Noto Serif SC',serif;--rail:84px;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font:400 15px/1.7 var(--s);padding-left:var(--rail)}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--d);margin:0;font-weight:700;line-height:1.05}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.w{max-width:1120px;margin:0 auto;padding:0 40px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:var(--deep);font:600 13px var(--s);letter-spacing:1.4px;text-transform:uppercase;padding:17px 30px;border:0;cursor:pointer;transition:background .2s,gap .2s}
+.btn:hover{background:var(--gold2);gap:18px}
+.lk{font:500 14px var(--s);border-bottom:1px solid currentColor;padding-bottom:2px}.lk:hover{color:var(--gold2)}
+.ey{font:500 12px var(--s);letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.ey b{font:700 15px var(--c);letter-spacing:4px;margin-right:12px}
+/* rail */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;z-index:60;border-right:1px solid rgba(201,162,74,.35)}
+.seal{width:46px;height:46px;border:1.5px solid var(--gold);color:var(--gold2);display:grid;place-items:center;font:700 25px var(--c);position:relative}
+.seal::after{content:"";position:absolute;inset:3px;border:1px solid rgba(201,162,74,.4)}
+.rn{display:flex;flex-direction:column;gap:20px;align-items:center}
+.rn a{display:flex;flex-direction:column;align-items:center;gap:6px;color:#7f8aa6;font:500 10.5px var(--s);letter-spacing:1px;transition:color .2s}
+.rn a i{font:700 15px var(--d);font-style:normal}
+.rn a span{writing-mode:vertical-rl;letter-spacing:2px;text-transform:uppercase}
+.rn a:hover,.rn a.on{color:var(--gold2)}.rn a.on i{border-bottom:2px solid var(--gold);padding-bottom:1px}
+.tel{width:42px;height:42px;background:var(--seal);color:#fff;display:grid;place-items:center;font-size:17px}
+.top{display:none}
+/* hero */
+.hero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
+.hero .w{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 1fr;gap:20px;align-items:center;min-height:660px;padding-top:70px;padding-bottom:110px}
+.hero h1{font-size:72px;letter-spacing:-.5px;margin:20px 0 26px}.hero h1 i{color:var(--gold2);font-weight:500}
+.hero p{color:#b6c0d6;max-width:470px;margin:0 0 36px;font-size:16px}
+.hero .cta{display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.big{position:absolute;left:-10px;bottom:-60px;font:700 340px/1 var(--c);color:transparent;-webkit-text-stroke:1px rgba(201,162,74,.22);z-index:1;pointer-events:none;white-space:nowrap}
+.map{width:100%;height:auto;max-height:560px}
+.map .dash{stroke-dasharray:5 7;animation:fl 14s linear infinite}
+@keyframes fl{to{stroke-dashoffset:-240}}
+.map .pl{animation:pl 3s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pl{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+.map text{font:500 11.5px var(--s);fill:#dbe3f5}.map .z{font:700 12px var(--c);fill:var(--gold2)}
+.tick{background:var(--gold);color:var(--deep);overflow:hidden;white-space:nowrap;position:relative;z-index:3}
+.tick div{display:inline-block;padding:12px 0;animation:tk 40s linear infinite;font:600 13px var(--s);letter-spacing:1.5px;text-transform:uppercase}
+.tick span{margin:0 26px}.tick b{font:700 15px var(--c);margin-left:8px}
+@keyframes tk{to{transform:translateX(-50%)}}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.nums div{padding:40px 30px;border-right:1px solid var(--line)}.nums div:last-child{border:0}
+.nums b{display:block;font:700 62px/1 var(--d);color:var(--navy)}.nums span{display:block;margin-top:8px;color:var(--mute);font-size:13.5px}
+/* sections */
+.sec{padding:110px 0}.sec.g{background:var(--paper)}
+.hd{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:56px}
+.hd h2{font-size:52px;margin-top:14px}.hd p{color:var(--mute);margin:0}
+/* tabs */
+.tb{display:grid;grid-template-columns:330px 1fr;border:1px solid var(--line);background:#fff}
+.tl{border-right:1px solid var(--line)}
+.tl button{display:flex;width:100%;justify-content:space-between;align-items:center;text-align:left;padding:22px 26px;background:none;border:0;border-bottom:1px solid var(--line);cursor:pointer;font:600 15px var(--s);color:var(--ink);transition:background .2s,color .2s}
+.tl button:last-child{border:0}
+.tl button span{font:700 18px var(--c);color:var(--gold);opacity:.7}
+.tl button:hover{background:var(--paper)}.tl button[aria-selected=true]{background:var(--navy);color:#fff}.tl button[aria-selected=true] span{opacity:1;color:var(--gold2)}
+.tp{padding:46px 50px;position:relative;overflow:hidden;min-height:420px}
+.tp .wm{position:absolute;right:20px;bottom:-40px;font:700 240px/1 var(--c);color:var(--navy);opacity:.05}
+.tp h3{font-size:40px;margin-bottom:14px}.tp p{color:var(--mute);max-width:520px;margin:0 0 24px}
+.tp ul{list-style:none;padding:0;margin:0 0 28px;max-width:520px}
+.tp li{padding:11px 0 11px 28px;border-top:1px solid var(--line);position:relative}
+.tp li::before{content:"";position:absolute;left:0;top:19px;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+.mt{display:flex;gap:40px;position:relative}.mt div{font-size:12.5px;color:var(--mute)}.mt b{display:block;color:var(--ink);font:600 15px var(--s)}
+/* glossary */
+.gs{display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.gs input{flex:1;max-width:420px;padding:14px 18px;border:1px solid var(--line);background:#fff;font:15px var(--s);color:var(--ink)}
+.gs small{color:var(--mute)}
+.gt{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
+.gt th{font:600 11.5px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--mute);text-align:left;padding:16px 22px;border-bottom:2px solid var(--navy)}
+.gt td{padding:18px 22px;border-bottom:1px solid var(--line);vertical-align:top}
+.gt td:first-child{font:700 22px var(--d)}.gt .h{font:700 22px var(--c);color:var(--navy)}.gt .p{color:var(--gold);font-style:italic;font-size:13.5px;display:block;font-family:var(--s)}
+.gt td:last-child{color:var(--mute);font-size:14px}.gt tr:hover td{background:#fbf8ef}
+/* timeline */
+.tm{position:relative;max-width:860px;margin:0 auto}
+.tm::before{content:"";position:absolute;left:150px;top:6px;bottom:6px;width:1px;background:var(--gold)}
+.ti{display:grid;grid-template-columns:150px 1fr;gap:0;padding:0 0 46px}.ti:last-child{padding:0}
+.ti time{font:700 24px var(--d);color:var(--navy);padding-right:36px;text-align:right}.ti time small{display:block;font:500 11.5px var(--s);letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.ti div{padding-left:36px;position:relative}.ti div::before{content:"";position:absolute;left:-6px;top:10px;width:11px;height:11px;background:var(--navy);border:2px solid var(--gold);transform:rotate(45deg)}
+.ti h3{font-size:28px;margin-bottom:6px}.ti p{margin:0;color:var(--mute);max-width:520px}
+/* team */
+.dr{border-top:2px solid var(--navy)}
+.dr a{display:grid;grid-template-columns:64px 1.2fr 1fr 1.2fr 40px;gap:26px;align-items:center;padding:24px 10px;border-bottom:1px solid var(--line);transition:background .2s,padding .2s}
+.dr a:hover{background:var(--navy);color:#fff;padding-left:22px}
+.dr .in{width:56px;height:56px;background:var(--navy);color:var(--gold2);display:grid;place-items:center;font:700 24px var(--d)}.dr a:hover .in{background:var(--gold);color:var(--deep)}
+.dr h3{font-size:26px}.dr small{display:block;color:var(--mute);font:400 13px var(--s)}.dr a:hover small,.dr a:hover .fo{color:#b6c0d6}
+.dr .lg{display:flex;gap:6px;flex-wrap:wrap}.dr .lg span{border:1px solid var(--gold);color:var(--gold);font:600 11px var(--s);padding:2px 10px;letter-spacing:1px}
+.dr .fo{font-size:14px;color:var(--mute)}.dr .ar{font-size:22px;color:var(--gold)}
+/* insights */
+.in2 a{display:grid;grid-template-columns:150px 1fr 120px;gap:30px;align-items:baseline;padding:30px 0;border-top:1px solid var(--line)}
+.in2 a:last-child{border-bottom:1px solid var(--line)}
+.in2 small{font:600 11.5px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--gold)}.in2 h3{font-size:32px}.in2 time{color:var(--mute);font-size:13px;text-align:right}
+.in2 a:hover h3{color:var(--navy2);text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:6px}
+/* contact */
+.ct{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.ct .w{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.ct h2{font-size:56px;margin:16px 0 30px}.ct h2 i{color:var(--gold2);font-weight:500}
+.pn{font:700 44px/1 var(--d);color:var(--gold2);display:block;margin-bottom:6px}.ct .ml{color:#b6c0d6}
+.of{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:20px}.of div{border-top:1px solid rgba(201,162,74,.5);padding-top:12px;font-size:13.5px;color:#b6c0d6}.of b{display:block;color:#fff;font:700 20px var(--d)}.of em{font:600 14px var(--c);font-style:normal;color:var(--gold2)}
+form{align-self:center}
+form label{display:block;font:500 11.5px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:22px}
+form input,form select,form textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 0;font:16px var(--s)}
+form select option{color:#000}form textarea{height:80px;resize:vertical}form input::placeholder,form textarea::placeholder{color:#7f8aa6}
+form .btn{margin-top:30px}.ok{display:none;margin-top:16px;color:var(--gold2)}
+footer{background:var(--deep);color:#8d98b2;font-size:13px;padding:26px 0}
+footer .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:1000px){
+ :root{--rail:0px}.rail{display:none}.top{display:flex;position:sticky;top:0;z-index:60;background:var(--deep);justify-content:space-between;align-items:center;padding:10px 20px;color:#fff}.top .seal{width:38px;height:38px;font-size:20px}.top b{font:700 20px var(--d);letter-spacing:1px}.top a{background:var(--seal);padding:9px 16px;font:600 13px var(--s)}
+ .w{padding:0 22px}.hero .w{grid-template-columns:1fr;padding-top:50px;padding-bottom:70px;min-height:0}.hero h1{font-size:46px}.big{font-size:200px}.nums{grid-template-columns:1fr 1fr}.nums div{border-bottom:1px solid var(--line)}
+ .sec{padding:76px 0}.hd{grid-template-columns:1fr}.hd h2,.ct h2{font-size:38px}.tb{grid-template-columns:1fr}.tl{display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.tl button{white-space:nowrap;border-bottom:0;border-right:1px solid var(--line);width:auto;gap:12px}
+ .tp{padding:30px 24px}.gt th:nth-child(4),.gt td:nth-child(4){display:none}.tm::before{left:14px}.ti{grid-template-columns:1fr;padding-left:36px}.ti time{text-align:left;padding:0 0 4px}.ti div{padding-left:0}.ti div::before{left:-28px;top:-36px}
+ .dr a{grid-template-columns:56px 1fr 30px}.dr .lg,.dr .fo{display:none}.in2 a{grid-template-columns:1fr}.in2 time{text-align:left}.ct .w{grid-template-columns:1fr;gap:50px}}
+@media (max-width:560px){.hero h1{font-size:38px}.nums b{font-size:46px}.mt{flex-wrap:wrap;gap:20px}.of{grid-template-columns:1fr}.gt th:nth-child(3),.gt td:nth-child(3){display:none}.in2 h3{font-size:26px}}
+@media (prefers-reduced-motion:reduce){.map .dash,.map .pl,.tick div{animation:none}html{scroll-behavior:auto}}
+html{scroll-padding-top:80px}
+.top{display:none!important}
+.hdr{position:sticky;top:0;z-index:55;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(201,162,74,.55)}
+.hw{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;height:78px}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.brand .seal{display:none;width:40px;height:40px;font-size:21px;background:var(--navy)}
+.brand b{display:block;font:700 23px/1 var(--d);letter-spacing:1.5px;color:var(--navy)}
+.brand small{display:block;font:600 11px var(--c);letter-spacing:5px;color:var(--gold);margin-top:4px}
+.mn,.mn ul,.mn li{height:100%}
+.mn ul{display:flex;align-items:stretch;gap:26px;list-style:none;margin:0;padding:0}
+.mn li{position:relative;display:flex;align-items:center}
+.mn li>a{display:flex;align-items:center;height:100%;font:600 13.5px var(--s);letter-spacing:.7px;text-transform:uppercase;color:var(--navy);border-bottom:3px solid transparent;transition:color .2s}
+.mn li>a:hover,.mn li>a.on{color:var(--seal)}.mn li>a.on{border-bottom-color:var(--seal)}
+.cv{width:22px;height:100%;background:none;border:0;cursor:pointer;color:var(--navy);display:grid;place-items:center;padding:0}
+.cv::before{content:'';width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.has.open>.cv::before{transform:rotate(-135deg) translateY(-2px)}.has.open>.cv,.cv:hover{color:var(--seal)}
+.dd{position:absolute;top:100%;left:-18px;min-width:300px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);box-shadow:0 22px 44px rgba(10,26,58,.2);padding:10px 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:5}
+.has.open>.dd{opacity:1;visibility:visible;transform:none}
+.dd a{display:flex;justify-content:space-between;gap:22px;padding:12px 24px;font:500 14px var(--s);color:var(--ink)}
+.dd a:hover{background:var(--paper);color:var(--seal)}
+.dd em{font:700 14px var(--c);font-style:normal;color:var(--gold)}
+.mega .dd{display:grid;grid-template-columns:1fr 1fr 250px;left:50%;width:780px;padding:0;transform:translate(-50%,8px)}
+.mega.open>.dd{transform:translate(-50%,0)}
+.mc{padding:20px 0 16px}.mc small{display:block;padding:0 24px 8px;font:600 11px var(--s);letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.pm{background:var(--navy);color:#fff;padding:26px 24px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.pm b{font:700 24px/1.15 var(--d)}.pm span{font:700 24px var(--d);color:var(--gold2)}.pm p{margin:0;font-size:13px;color:#b6c0d6}
+.pm .btn{padding:12px 18px;font-size:12px;margin-top:6px;justify-content:center}
+.hc{flex:none;padding:14px 24px;font-size:12px}
+.bgr{display:none;background:none;border:1px solid var(--line);padding:9px 16px;font:600 13px var(--s);cursor:pointer;color:var(--navy)}
+@media (max-width:1180px){
+ .bgr{display:block}.hc{display:none}.hw{padding:0 22px}
+ .mn{position:absolute;left:0;right:0;top:100%;height:auto;background:#fff;border-bottom:3px solid var(--gold);display:none;max-height:calc(100vh - 78px);overflow:auto}.mn.open{display:block}
+ .mn ul{flex-direction:column;gap:0;height:auto}
+ .mn li{height:auto;flex-wrap:wrap;border-top:1px solid var(--line)}
+ .mn li>a{flex:1;height:auto;padding:16px 22px;border-bottom:0}.mn li>a.on{border-bottom:0}
+ .cv{width:60px;height:52px}
+ .dd,.mega .dd{position:static;display:none;opacity:1;visibility:visible;transform:none;width:auto;min-width:0;flex-basis:100%;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 0 12px 22px;padding:4px 0}
+ .has.open>.dd,.mega.open>.dd{display:block;transform:none}
+ .mc{padding:6px 0}.pm{display:none}}
+@media (max-width:1000px){.brand .seal{display:grid}.brand b{font-size:19px}.brand small{font-size:10px;letter-spacing:3px}}
+:root{--red:#b3201b;--red2:#8f1713;--seal:#b3201b}
+html{scroll-padding-top:84px}
+.hdr::before{content:'';display:block;height:4px;background:linear-gradient(90deg,var(--red2),var(--red) 60%,var(--gold))}
+.btn{background:var(--red);color:#fff}.btn:hover{background:var(--red2)}
+.mn li>a:hover,.mn li>a.on{color:var(--red)}.mn li>a.on{border-bottom-color:var(--red)}.dd a:hover,.cv:hover,.has.open>.cv{color:var(--red)}
+.hero .ey{display:inline-block;background:linear-gradient(90deg,var(--red),var(--red2));color:var(--gold2);padding:7px 20px;border:1px solid rgba(230,201,132,.5);font-style:italic;letter-spacing:1.5px}
+.hero::after{content:'';position:absolute;left:0;bottom:0;width:48%;height:150px;z-index:1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 150' preserveAspectRatio='none'%3E%3Cpath d='M0 150V66C150 66 290 108 430 150z' fill='%23b3201b'/%3E%3Cpath d='M0 150V104C115 104 235 128 335 150z' fill='%23e6c984' opacity='.85'/%3E%3C/svg%3E") no-repeat left bottom/100% 100%}
+.tick{background:var(--red);color:#fff}.tick b{color:var(--gold2)}
+.nums b::after{content:'+';color:var(--red);font-size:.6em;vertical-align:super;margin-left:2px}
+.sec:not(.ct) .ey,.sec:not(.ct) .ey b{color:var(--red)}
+.hd h2::after{content:'';display:block;width:56px;height:3px;background:var(--red);margin-top:18px}
+.tl button[aria-selected=true]{box-shadow:inset 4px 0 0 var(--red)}.tp li::before{background:var(--red)}
+.gt th{border-bottom-color:var(--red)}.gt .p{color:var(--red)}
+.ti div::before{border-color:var(--red)}.ti time small{color:var(--red)}
+.dr{border-top-color:var(--red)}.dr .ar{color:var(--red)}.dr a:hover .ar{color:var(--gold2)}
+.in2 small{color:var(--red)}.in2 a:hover h3{text-decoration-color:var(--red)}
+.ct .of div{border-top-color:var(--red)}
+@media (max-width:1180px){.mn{max-height:calc(100vh - 82px)}}
+.sv3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sv{background:#fff;border:1px solid var(--line);padding:34px 30px 30px;display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sv::before{content:'';position:absolute;left:-1px;right:-1px;top:-1px;height:3px;background:linear-gradient(90deg,var(--gold),var(--red));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.sv:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(10,26,58,.14);border-color:var(--gold)}.sv:hover::before{transform:scaleX(1)}
+.sv .t{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.sv .no{width:44px;height:44px;background:var(--red);color:#fff;display:grid;place-items:center;font:700 19px var(--d);box-shadow:0 0 0 4px #f4dedc}
+.sv .hz{font:700 58px/1 var(--c);color:var(--navy)}
+.sv h3{font-size:28px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;letter-spacing:.3px}
+.sv p{color:var(--mute);margin:0 0 26px;flex:1}
+.sv .bt{align-self:flex-start;border:1.5px solid var(--red);color:var(--red);font:600 13px var(--s);padding:11px 20px;transition:background .2s,color .2s}
+.sv:hover .bt{background:var(--red);color:#fff}
+.rail2{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.rail2::-webkit-scrollbar{display:none}
+.ctl{display:flex;gap:10px;justify-content:flex-end;margin-top:26px}
+.ar2{width:48px;height:48px;background:var(--navy);color:var(--gold2);border:0;font:400 20px var(--s);cursor:pointer;transition:background .2s,color .2s}
+.ar2:hover{background:var(--red);color:#fff}
+.lw{flex:0 0 calc(25% - 18px);scroll-snap-align:start;background:#fff;border:1px solid var(--line);transition:border-color .2s,transform .25s}
+.lw:hover{border-color:var(--gold);transform:translateY(-4px)}
+.lw svg{width:100%;aspect-ratio:4/5;display:block;border-bottom:3px solid var(--gold)}
+.lw .bd{padding:20px 22px 24px}.lw h3{font-size:26px}.lw small{display:block;color:var(--mute);font-size:13px;margin:2px 0 12px}
+.lw .lg{display:flex;gap:6px;margin-bottom:14px}.lw .lg span{border:1px solid var(--gold);color:var(--gold);font:600 11px var(--s);padding:2px 10px;letter-spacing:1px}
+.lw p{margin:0 0 14px;font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:12px}.lw a{color:var(--red);font:600 14px var(--s)}
+.nc{flex:0 0 calc(33.33% - 16px);scroll-snap-align:start;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.nc:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(10,26,58,.14)}
+.nc .cvr{aspect-ratio:3/2;position:relative;display:grid;place-items:center;overflow:hidden}
+.nc .cvr i{font:700 92px/1 var(--c);font-style:normal;color:rgba(230,201,132,.92)}
+.nc .cvr span{position:absolute;left:0;top:18px;background:var(--red);color:#fff;font:600 11px var(--s);letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px}
+.nc .bd{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}.nc h3{font-size:26px;margin-bottom:10px}
+.nc p{margin:0 0 18px;color:var(--mute);font-size:14px;flex:1}.nc .m{color:var(--red);font:600 14px var(--s)}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pa{background:#fff;border:1px solid var(--line);padding:28px 20px;text-align:center;transition:border-color .2s,transform .2s}
+.pa:hover{border-color:var(--red);transform:translateY(-3px)}
+.pa b{display:block;font:700 36px/1 var(--c);color:var(--red);margin-bottom:10px}.pa span{font:700 21px var(--d);text-transform:uppercase;letter-spacing:.5px;color:var(--navy)}
+@media (max-width:1000px){.sv3{grid-template-columns:1fr 1fr}.lw{flex-basis:calc(45% - 12px)}.nc{flex-basis:62%}.pg{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.sv3{grid-template-columns:1fr}.lw{flex-basis:78%}.nc{flex-basis:86%}.sv h3{font-size:25px}}
+
+:root{--navy:#0b1d3f;--navy2:#16336a;--gold:#c29a45;--gold2:#f0d28a;--red:#a3171e;--red2:#7c1015;--seal:#a3171e;--paper:#fbf7ee;--line:#e7dcc3;--mute:#5b6174}
+.sec:not(.ct):not(.g){background:#fffdf8}
+.sec{position:relative;overflow:hidden}.sec>.w{position:relative;z-index:1}
+.sec:not(.ct)::before{content:'';position:absolute;top:30px;left:50%;width:min(420px,70%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1}
+.sec:not(.ct)::after{position:absolute;right:-30px;top:20px;font:700 440px/1 var(--c);color:var(--navy);opacity:.035;pointer-events:none}
+#dichvu::after{content:'服'}#linhvuc::after{content:'业'}#thuatngu::after{content:'词'}#quytrinh::after{content:'程'}#doingu::after{content:'团'}#gocnhin::after{content:'观'}#doitac::after{content:'合'}
+.hero{background:linear-gradient(120deg,#08111f,#14243d 60%,#1d3556)}
+.hero h1 i{background:linear-gradient(90deg,#f6dc98,#c29a45 55%,#f6dc98);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bdg{display:flex;gap:10px 26px;flex-wrap:wrap;list-style:none;padding:0;margin:36px 0 0;color:#c9d3e8;font-size:13.5px}
+.bdg li::before{content:'✓';color:var(--gold2);margin-right:8px;font-weight:700}
+.btn{background:linear-gradient(180deg,#c4252c,#8f1218);box-shadow:0 8px 20px rgba(163,23,30,.35),inset 0 1px 0 rgba(255,255,255,.25)}.btn:hover{background:linear-gradient(180deg,#d12d34,#a3171e)}
+.tick{background:linear-gradient(90deg,var(--red2),var(--red),var(--red2));border-block:1px solid var(--gold)}
+.nums{background:linear-gradient(180deg,#fffdf8,var(--paper))}.nums div{position:relative}
+.nums div::before{position:absolute;right:26px;top:22px;font:700 44px var(--c);color:var(--gold);opacity:.4}
+.nums div:nth-child(1)::before{content:'年'}.nums div:nth-child(2)::before{content:'案'}.nums div:nth-child(3)::before{content:'团'}.nums div:nth-child(4)::before{content:'城'}
+.nums b{background:linear-gradient(180deg,var(--navy),var(--navy2));-webkit-background-clip:text;background-clip:text;color:transparent}.nums b::after{-webkit-text-fill-color:var(--red)}
+.sv{background:linear-gradient(180deg,#fff,#fffaf0);border-color:var(--line)}
+.sv::after{content:'';position:absolute;right:10px;bottom:10px;width:22px;height:22px;border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);opacity:.8}
+.sv .hz{background:linear-gradient(160deg,var(--navy),#3d5fae);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sv .no{background:linear-gradient(180deg,#c4252c,#8f1218)}
+.tl button[aria-selected=true]{background:linear-gradient(90deg,var(--navy),var(--navy2))}.tp{background:linear-gradient(180deg,#fff,#fffaf0)}.tb{border-color:var(--line);box-shadow:0 18px 44px rgba(11,29,63,.08)}
+.gt{border-color:var(--line);box-shadow:0 14px 36px rgba(11,29,63,.07)}.gt thead{background:linear-gradient(90deg,var(--navy),var(--navy2))}
+.gt th{color:var(--gold2);border-bottom:3px solid var(--red)}.gt tbody tr:nth-child(even) td{background:#fffaf0}.gt td{border-color:var(--line)}
+.ti div::before{background:linear-gradient(135deg,var(--gold2),var(--gold))}.tm::before{background:linear-gradient(180deg,var(--gold),var(--red),var(--gold))}
+.lw{border-color:var(--line);box-shadow:0 10px 28px rgba(11,29,63,.07)}.lw:hover{box-shadow:0 20px 40px rgba(11,29,63,.16)}
+.nc{border-color:var(--line);box-shadow:0 10px 28px rgba(11,29,63,.07)}
+.nc .cvr::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(240,210,138,.22),transparent 55%)}
+.nc .cvr::after{content:'';position:absolute;inset:12px;border:1px solid rgba(240,210,138,.38)}
+.nc .cvr i{position:relative;z-index:1}.nc .cvr span{z-index:2}
+.pa{background:linear-gradient(180deg,#fff,#fffaf0);border-color:var(--line)}
+.pa b{width:68px;height:68px;margin:0 auto 14px;display:grid;place-items:center;outline:1px solid var(--gold);outline-offset:4px;border:1px solid var(--gold);background:linear-gradient(180deg,#fff,#f8eed6)}
+.ct{background:radial-gradient(800px 520px at 85% 15%,rgba(194,154,69,.2),transparent 60%),radial-gradient(600px 500px at 0% 100%,rgba(163,23,30,.3),transparent 60%),linear-gradient(135deg,#071530,#102a58)}
+.ct::before{content:'律';position:absolute;left:-40px;bottom:-150px;font:700 540px/1 var(--c);color:transparent;-webkit-text-stroke:1px rgba(194,154,69,.2);pointer-events:none}
+form{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid rgba(194,154,69,.45);padding:44px 46px 48px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative}
+form::before,form::after{content:'';position:absolute;width:28px;height:28px;border:3px solid var(--gold2)}
+form::before{left:-2px;top:-2px;border-right:0;border-bottom:0}form::after{right:-2px;bottom:-2px;border-left:0;border-top:0}
+footer{border-top:3px solid;border-image:linear-gradient(90deg,var(--red),var(--gold),var(--red)) 1}
+@media (max-width:1000px){.sec:not(.ct)::after{font-size:240px}form{padding:32px 24px}}
+.sky{position:absolute;left:0;right:0;bottom:0;width:100%;height:140px;z-index:1;opacity:.5;pointer-events:none}
+</style>
+</head>
+<body>
+<aside class="rail"><a class="seal" href="#top" aria-label="Luật Vạn Ích">万</a>
+ <nav class="rn" id="rn"><a href="#linhvuc"><i>01</i><span>Lĩnh vực</span></a><a href="#thuatngu"><i>02</i><span>Thuật ngữ</span></a><a href="#quytrinh"><i>03</i><span>Quy trình</span></a><a href="#doingu"><i>04</i><span>Đội ngũ</span></a><a href="#gocnhin"><i>05</i><span>Góc nhìn</span></a><a href="#lienhe"><i>06</i><span>Liên hệ</span></a></nav>
+ <a class="tel" href="tel:0900123456" aria-label="Gọi">✆</a></aside>
+<div class="top"><span style="display:flex;gap:10px;align-items:center"><span class="seal">万</span><b>LUẬT VẠN ÍCH</b></span><a href="#lienhe">Liên hệ</a></div>
+
+<header class="hdr"><div class="hw">
+ <a class="brand" href="#top"><span class="seal">万</span><span><b>LUẬT VẠN ÍCH</b><small>万益律师</small></span></a>
+ <nav class="mn" id="mn" aria-label="Menu chính"><ul>
+  <li><a class="on" href="#top">Trang chủ</a></li>
+  <li class="has"><a href="#doingu">Giới thiệu</a><button class="cv" aria-expanded="false" aria-label="Mở menu Giới thiệu"></button>
+   <div class="dd"><a href="#top">Về Luật Vạn Ích<em>万益</em></a><a href="#doingu">Đội ngũ luật sư<em>团队</em></a><a href="#top">Hành lang Việt – Trung<em>走廊</em></a><a href="#lienhe">Mạng lưới văn phòng<em>网络</em></a></div></li>
+  <li class="has mega"><a href="#linhvuc">Dịch vụ pháp lý</a><button class="cv" aria-expanded="false" aria-label="Mở menu Dịch vụ pháp lý"></button>
+   <div class="dd">
+    <div class="mc"><small>Doanh nghiệp &amp; đầu tư</small><a href="#linhvuc" data-tab="0">Đầu tư nước ngoài<em>外商投资</em></a><a href="#linhvuc" data-tab="1">Hợp đồng song ngữ<em>双语合同</em></a><a href="#linhvuc" data-tab="4">Lao động &amp; nhân sự<em>劳动用工</em></a></div>
+    <div class="mc"><small>Tranh chấp &amp; giao dịch</small><a href="#linhvuc" data-tab="2">Tranh tụng &amp; trọng tài<em>诉讼仲裁</em></a><a href="#linhvuc" data-tab="3">Thu hồi nợ<em>债务追收</em></a><a href="#linhvuc" data-tab="5">Mua bán &amp; sáp nhập<em>并购重组</em></a></div>
+    <div class="pm"><b>Cần tư vấn gấp?</b><span>0900 123 456</span><p>Luật sư phản hồi trong 24 giờ làm việc.</p><a class="btn" href="#lienhe">Đặt lịch</a></div>
+   </div></li>
+  <li class="has"><a href="#gocnhin">Cẩm nang</a><button class="cv" aria-expanded="false" aria-label="Mở menu Cẩm nang"></button>
+   <div class="dd"><a href="#gocnhin">Góc nhìn pháp lý<em>观点</em></a><a href="#thuatngu">Từ điển Việt – Trung<em>词典</em></a><a href="#quytrinh">Quy trình làm việc<em>流程</em></a></div></li>
+  <li><a href="#lienhe">Liên hệ</a></li>
+ </ul></nav>
+ <a class="btn hc" href="#lienhe">Đặt lịch tư vấn</a>
+ <button class="bgr" id="bgr" aria-expanded="false" aria-controls="mn">Menu</button>
+</div></header>
+<main id="top">
+<section class="hero">
+ <svg class="sky" viewBox="0 0 1400 140" preserveAspectRatio="none" aria-hidden="true"><g fill="#17387a"><rect x="0" y="90" width="52" height="50"/><rect x="70" y="60" width="60" height="80"/><rect x="140" y="80" width="68" height="60"/><rect x="210" y="30" width="52" height="110"/><rect x="280" y="70" width="60" height="70"/><rect x="350" y="95" width="68" height="45"/><rect x="420" y="45" width="52" height="95"/><rect x="490" y="75" width="60" height="65"/><rect x="560" y="20" width="68" height="120"/><rect x="630" y="85" width="52" height="55"/><rect x="700" y="55" width="60" height="85"/><rect x="770" y="80" width="68" height="60"/><rect x="840" y="40" width="52" height="100"/><rect x="910" y="65" width="60" height="75"/><rect x="980" y="90" width="68" height="50"/><rect x="1050" y="50" width="52" height="90"/><rect x="1120" y="75" width="60" height="65"/><rect x="1190" y="25" width="68" height="115"/><rect x="1260" y="70" width="52" height="70"/><rect x="1330" y="85" width="60" height="55"/><rect x="997" y="14" width="6" height="126"/><circle cx="1000" cy="70" r="17"/><circle cx="1000" cy="36" r="10"/><rect x="990" y="92" width="20" height="48"/><g transform="translate(1240 20)"><path d="M0 40h90l-10 10H10z"/><path d="M12 22h66l-8 10H20z"/><path d="M24 6h42l-6 8H30z"/><rect x="43" y="-14" width="4" height="22"/><rect x="14" y="50" width="62" height="70"/></g></g></svg>
+ <div class="big" aria-hidden="true">万益</div>
+ <div class="w">
+  <div>
+   <div class="ey"><b>万益律师</b>Luật Vạn Ích</div>
+   <h1>Hành lang pháp lý giữa <i>Việt Nam</i> và Trung Quốc.</h1>
+   <p>Văn phòng luật sư song ngữ đồng hành cùng doanh nghiệp đầu tư, ký kết và giải quyết tranh chấp xuyên biên giới, làm việc trực tiếp bằng cả hai ngôn ngữ.</p>
+   <div class="cta"><a class="btn" href="#lienhe">Đặt lịch tư vấn →</a><a class="lk" href="#linhvuc">Xem lĩnh vực</a></div>
+   <ul class="bdg"><li>Song ngữ Việt – 中文</li><li>Bảo mật tuyệt đối</li><li>Báo phí trước khi nhận vụ việc</li></ul>
+  </div>
+  <svg class="map" viewBox="0 0 520 560" role="img" aria-label="Sơ đồ hành lang pháp lý giữa Hà Nội, TP. Hồ Chí Minh, Quảng Châu, Thâm Quyến và Thượng Hải">
+   <defs><pattern id="dt" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#2d4278"/></pattern></defs>
+   <rect width="520" height="560" fill="url(#dt)" opacity=".8"/>
+   <g fill="none" stroke="#c9a24a" stroke-width="1.6" class="dash"><path d="M170 470Q130 420 160 370"/><path d="M160 370Q170 280 285 250"/><path d="M285 250Q380 200 410 110"/><path d="M285 250Q300 270 312 292"/><path d="M160 370Q230 330 312 292"/></g>
+   <g fill="#c9a24a"><circle class="pl" cx="410" cy="110" r="5"/><circle class="pl" cx="160" cy="370" r="5"/></g>
+   <g fill="#e6c984"><circle cx="410" cy="110" r="6"/><circle cx="285" cy="250" r="6"/><circle cx="312" cy="292" r="5"/><circle cx="160" cy="370" r="6"/><circle cx="170" cy="470" r="6"/></g>
+   <g><text x="338" y="98">Thượng Hải</text><text class="z" x="338" y="116">上海</text><text x="214" y="238">Quảng Châu</text><text class="z" x="214" y="256">广州</text><text x="324" y="316">Thâm Quyến</text><text class="z" x="324" y="334">深圳</text><text x="64" y="362">Hà Nội</text><text class="z" x="64" y="380">河内</text><text x="186" y="476">TP. Hồ Chí Minh</text><text class="z" x="186" y="494">胡志明市</text></g>
+  </svg>
+ </div>
+</section>
+<div class="tick" aria-hidden="true"><div id="tk"></div></div>
+<div class="nums w" style="padding:0;max-width:none">
+ <div><b>12</b><span>năm hành nghề</span></div><div><b>1.200</b><span>hồ sơ đã tiếp nhận</span></div><div><b>15</b><span>luật sư và chuyên viên</span></div><div><b>5</b><span>thành phố trong mạng lưới</span></div>
+</div>
+
+<section class="sec g" id="dichvu"><div class="w">
+ <div class="hd"><div><div class="ey"><b>服务</b>Dịch vụ tiêu biểu</div><h2>Sáu dịch vụ được tìm đến nhiều nhất</h2></div><p>Chọn một dịch vụ để xem chi tiết phạm vi công việc, thời gian và hình thức phí.</p></div>
+ <div class="sv3" id="sv3"></div>
+</div></section>
+
+<section class="sec" id="linhvuc"><div class="w">
+ <div class="hd"><div><div class="ey"><b>01</b>Lĩnh vực</div><h2>Chọn đúng vấn đề, gặp đúng luật sư</h2></div><p>Mỗi lĩnh vực có luật sư phụ trách riêng, cùng quy trình và mốc thời gian được báo trước.</p></div>
+ <div class="tb"><div class="tl" id="tl" role="tablist"></div><div class="tp" id="tp" role="tabpanel"></div></div>
+</div></section>
+
+<section class="sec g" id="thuatngu"><div class="w">
+ <div class="hd"><div><div class="ey"><b>02</b>Thuật ngữ song ngữ</div><h2>Từ điển pháp lý Việt – Trung</h2></div><p>Một chữ dịch lệch có thể làm đổi nghĩa cả điều khoản. Tra nhanh các thuật ngữ thường gặp trong hợp đồng.</p></div>
+ <div class="gs"><input id="q" placeholder="Tìm thuật ngữ, ví dụ: phạt, 合同…" aria-label="Tìm thuật ngữ"><small id="cnt"></small></div>
+ <table class="gt"><thead><tr><th>Tiếng Việt</th><th>中文</th><th>Pinyin</th><th>Lưu ý khi soạn hợp đồng</th></tr></thead><tbody id="gb"></tbody></table>
+</div></section>
+
+<section class="sec" id="quytrinh"><div class="w">
+ <div class="hd"><div><div class="ey"><b>03</b>Quy trình</div><h2>Một vụ việc diễn ra như thế nào</h2></div><p>Mọi bước đều có văn bản và thời hạn rõ ràng để bạn nắm được tiến độ.</p></div>
+ <div class="tm">
+  <div class="ti"><time><small>Ngày 1</small>Tiếp nhận</time><div><h3>Nghe trình bày vụ việc</h3><p>Luật sư xác định mục tiêu, rủi ro ban đầu và tài liệu cần thu thập.</p></div></div>
+  <div class="ti"><time><small>Ngày 2 – 5</small>Rà soát</time><div><h3>Đọc hồ sơ ở cả hai ngôn ngữ</h3><p>Đối chiếu bản Việt và bản Trung, đánh dấu điều khoản lệch hoặc thiếu.</p></div></div>
+  <div class="ti"><time><small>Tuần 2</small>Phương án</time><div><h3>Báo phí và lộ trình bằng văn bản</h3><p>Trình bày các lựa chọn, thời gian dự kiến và chi phí trước khi nhận vụ việc.</p></div></div>
+  <div class="ti"><time><small>Sau đó</small>Đại diện</time><div><h3>Đàm phán, làm việc với cơ quan hoặc tố tụng</h3><p>Cập nhật tiến độ định kỳ cho đến khi vụ việc hoàn tất.</p></div></div>
+ </div>
+</div></section>
+
+<section class="sec g" id="doingu"><div class="w">
+ <div class="hd"><div><div class="ey"><b>04</b>Đội ngũ</div><h2>Đội ngũ luật sư</h2></div><p>Mỗi người ghi rõ ngôn ngữ làm việc và mảng chuyên sâu để bạn chọn đúng người trao đổi.</p></div>
+ <div class="rail2" id="dr"></div><div class="ctl"><button class="ar2" data-t="dr" data-d="-1" aria-label="Luật sư trước">←</button><button class="ar2" data-t="dr" data-d="1" aria-label="Luật sư sau">→</button></div>
+</div></section>
+
+<section class="sec" id="gocnhin"><div class="w">
+ <div class="hd"><div><div class="ey"><b>05</b>Góc nhìn</div><h2>Tiêu điểm luật</h2></div><p>Các bài viết ngắn về thay đổi pháp luật và tình huống thường gặp của doanh nghiệp Việt – Trung.</p></div>
+ <div class="rail2" id="nw"></div><div class="ctl"><button class="ar2" data-t="nw" data-d="-1" aria-label="Bài trước">←</button><button class="ar2" data-t="nw" data-d="1" aria-label="Bài sau">→</button></div>
+</div></section>
+
+<section class="sec g" id="doitac"><div class="w">
+ <div class="hd"><div><div class="ey"><b>合作</b>Đối tác</div><h2>Đối tác tiêu biểu</h2></div><p>Những doanh nghiệp Việt Nam và Trung Quốc đã tin tưởng giao hồ sơ pháp lý cho chúng tôi.</p></div>
+ <div class="pg" id="pg"></div>
+</div></section>
+
+<section class="sec ct" id="lienhe"><div class="w">
+ <div><div class="ey"><b>06</b>Liên hệ</div><h2>Nói chuyện với <i>luật sư</i> bằng tiếng Việt hoặc 中文</h2>
+  <span class="pn">0900 123 456</span><span class="ml">lienhe@vanichlaw.vn</span>
+  <div class="of"><div><b>Hà Nội</b>Văn phòng · 河内</div><div><b>TP. Hồ Chí Minh</b>Văn phòng · 胡志明市</div><div><b>Thượng Hải</b>Đối tác · 上海</div><div><b>Quảng Châu</b>Đối tác · 广州</div></div></div>
+ <form id="cf">
+  <label for="n">Họ tên / Công ty</label><input id="n" required>
+  <label for="p">Điện thoại hoặc WeChat</label><input id="p" required>
+  <label for="f">Lĩnh vực</label><select id="f"><option>Đầu tư nước ngoài</option><option>Hợp đồng song ngữ</option><option>Tranh tụng &amp; trọng tài</option><option>Thu hồi nợ</option><option>Khác</option></select>
+  <label for="m">Nội dung</label><textarea id="m" placeholder="Mô tả ngắn vụ việc"></textarea>
+  <button class="btn" type="submit">Gửi yêu cầu →</button><div class="ok" id="ok" role="status">Đã tiếp nhận. Luật sư sẽ liên hệ trong 24 giờ làm việc.</div>
+ </form>
+</div></section>
+</main>
+<footer><div class="w"><span>© 2026 Luật Vạn Ích · 万益律师</span><span>Thông tin trên trang là dữ liệu mẫu phục vụ thiết kế.</span></div></footer>
+
+<script>
+const T=[["外商投资","Đầu tư nước ngoài","Đồng hành cùng nhà đầu tư từ khâu xin chủ trương đến khi doanh nghiệp đi vào hoạt động.",["Giấy chứng nhận đăng ký đầu tư","Thành lập và đăng ký doanh nghiệp","Cơ cấu vốn, chuyển lợi nhuận về nước","Tuân thủ sau cấp phép"],"30 – 60 ngày","Trọn gói"],
+["双语合同","Hợp đồng song ngữ","Soạn thảo và đối chiếu hợp đồng để hai bản Việt – Trung cùng một nghĩa.",["Soạn thảo hợp đồng thương mại","Đối chiếu từng điều khoản hai bản","Điều khoản ngôn ngữ ưu tiên","Phụ lục sửa đổi, bổ sung"],"3 – 7 ngày","Theo hợp đồng"],
+["诉讼仲裁","Tranh tụng &amp; trọng tài","Đại diện tại Tòa án và các trung tâm trọng tài thương mại trong nước.",["Đánh giá chứng cứ và khả năng thắng kiện","Chuẩn bị đơn khởi kiện, bảo vệ quyền lợi","Biện pháp khẩn cấp tạm thời","Thi hành bản án, phán quyết"],"Theo vụ việc","Theo giờ / trọn gói"],
+["债务追收","Thu hồi nợ","Kết hợp đàm phán, thông báo pháp lý và khởi kiện để thu hồi công nợ.",["Rà soát chứng từ, đối chiếu công nợ","Thư yêu cầu thanh toán chính thức","Thương lượng phương án trả nợ","Khởi kiện và thi hành án"],"2 – 6 tháng","Theo kết quả"],
+["劳动用工","Lao động &amp; nhân sự","Xây dựng quy chế lao động và xử lý vấn đề nhân sự có yếu tố nước ngoài.",["Hợp đồng và nội quy lao động","Giấy phép lao động cho chuyên gia","Kỷ luật, chấm dứt hợp đồng","Giải quyết tranh chấp lao động"],"1 – 4 tuần","Theo giờ"],
+["并购重组","Mua bán &amp; sáp nhập","Thẩm định pháp lý và đàm phán để giao dịch hoàn tất an toàn đúng luật.",["Thẩm định pháp lý doanh nghiệp mục tiêu","Soạn thảo và đàm phán hợp đồng","Thủ tục chuyển nhượng vốn","Hỗ trợ sau giao dịch"],"2 – 6 tháng","Trọn gói"]];
+tl.innerHTML=T.map((t,i)=>`<button role="tab" aria-selected="${i==0}" data-i="${i}">${t[1]}<span>${t[0]}</span></button>`).join('');
+function show(i){const t=T[i];tp.innerHTML=`<div class="wm" aria-hidden="true">${t[0][0]}</div><h3>${t[1]}</h3><p>${t[2]}</p><ul>${t[3].map(x=>`<li>${x}</li>`).join('')}</ul><div class="mt"><div>Thời gian<b>${t[4]}</b></div><div>Hình thức phí<b>${t[5]}</b></div></div>`;tl.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==i))}
+tl.onclick=e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)};show(0);
+const G=[["Hợp đồng","合同","hétong","Ghi rõ tên pháp nhân đầy đủ ở cả hai bản."],["Đầu tư","投资","tóuzī","Phân biệt đầu tư trực tiếp và gián tiếp."],["Thanh toán","付款","fùkuǎn","Nêu rõ tiền tệ, thời hạn và phương thức."],["Phạt vi phạm","违约金","wéiyuējīn","Mức phạt có trần theo luật Việt Nam."],["Bất khả kháng","不可抗力","bùkě kànglì","Quy định sự kiện, thời hạn thông báo."],["Trọng tài","仲裁","zhòngcái","Chọn trung tâm và luật áp dụng rõ ràng."],["Chủ sở hữu hưởng lợi","实益所有人","shíyì suǒyǒurén","Chú ý nghĩa vụ kê khai thông tin."],["Giấy phép lao động","工作许可","gōngzuò xǔkě","Kiểm tra điều kiện với từng vị trí."]];
+function rg(f){const k=f.toLowerCase();const r=G.filter(g=>g.join(' ').toLowerCase().includes(k));gb.innerHTML=r.map(g=>`<tr><td>${g[0]}</td><td class="h">${g[1]}</td><td class="p">${g[2]}</td><td>${g[3]}</td></tr>`).join('')||'<tr><td colspan="4">Không tìm thấy thuật ngữ phù hợp.</td></tr>';cnt.textContent=r.length+' thuật ngữ'}
+q.oninput=()=>rg(q.value);rg('');
+const P=[["N","Nguyễn Minh Hoàng","Luật sư điều hành",["VI","中文","EN"],"Đầu tư nước ngoài, M&amp;A"],["T","Trần Thu Hà","Luật sư thành viên",["VI","中文"],"Hợp đồng song ngữ"],["L","Lê Quốc Bảo","Luật sư tranh tụng",["VI","EN"],"Tranh tụng, trọng tài"],["P","Phạm Ngọc Lan","Chuyên viên pháp lý",["VI","中文"],"Thu hồi nợ, lao động"]];
+const LS=[["Nguyễn Minh Hoàng","Luật sư điều hành",["VI","中文","EN"],"Đầu tư nước ngoài, M&amp;A",0,1],["Trần Thu Hà","Luật sư thành viên",["VI","中文"],"Hợp đồng song ngữ",1,0],["Lê Quốc Bảo","Luật sư tranh tụng",["VI","EN"],"Tranh tụng, trọng tài",2,1],["Phạm Ngọc Lan","Chuyên viên pháp lý",["VI","中文"],"Thu hồi nợ, lao động",3,0],["Đỗ Hồng Ngọc","Luật sư",["VI","中文"],"Doanh nghiệp, sở hữu trí tuệ",0,0],["Vũ Đức Anh","Luật sư",["VI","中文","EN"],"M&amp;A, thuế",1,1]],HR=['#1b1718','#2a1c16','#3a2a22','#161214'];
+dr.innerHTML=LS.map((p,i)=>{const m=p[5],h=HR[p[4]];return `<article class="lw"><svg viewBox="0 0 100 125" aria-hidden="true"><defs><linearGradient id="la${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c4a88"/><stop offset="1" stop-color="#0b1d3f"/></linearGradient></defs><rect width="100" height="125" fill="url(#la${i})"/><circle cx="50" cy="52" r="40" fill="#f0d28a" opacity=".12"/>${m?'':`<path d="M28 62c-7-34 11-48 22-48s29 14 22 48v30H28z" fill="${h}"/>`}<path d="M6 125c0-30 16-42 44-44 28 2 44 14 44 44z" fill="#0d121c"/><path d="M38 82l-10 43M62 82l10 43" stroke="#f0d28a" stroke-width=".8" fill="none" opacity=".6"/><path d="M38 82l12 16 12-16v14l-12 29-12-29z" fill="#f3f5f9"/><path d="M47 96h6l3 29h-12z" fill="#b3201b"/><ellipse cx="50" cy="52" rx="15" ry="19" fill="#e0b293"/><path d="M34 48c-2-20 32-20 32 0-6-9-26-9-32 0z" fill="${h}"/></svg><div class="bd"><h3>${p[0]}</h3><small>${p[1]}</small><div class="lg">${p[2].map(l=>`<span>${l}</span>`).join('')}</div><p>${p[3]}</p><a href="#lienhe">Liên hệ luật sư →</a></div></article>`}).join('');
+const SV=[["投","Đầu tư nước ngoài","Đồng hành nhà đầu tư từ xin chủ trương đến khi doanh nghiệp đi vào hoạt động.",0],["约","Hợp đồng song ngữ","Soạn thảo và đối chiếu hợp đồng để bản Việt và bản Trung cùng một nghĩa.",1],["诉","Tranh tụng &amp; trọng tài","Đại diện tại Tòa án và trọng tài thương mại, bảo vệ quyền lợi khách hàng.",2],["债","Thu hồi nợ","Kết hợp đàm phán, thông báo pháp lý và khởi kiện để thu hồi công nợ.",3],["劳","Lao động &amp; nhân sự","Quy chế lao động, giấy phép cho chuyên gia và xử lý tranh chấp lao động.",4],["并","Mua bán &amp; sáp nhập","Thẩm định, đàm phán và hoàn tất giao dịch M&amp;A an toàn, đúng luật.",5]];
+sv3.innerHTML=SV.map((x,i)=>`<a class="sv" href="#linhvuc" data-tab="${x[3]}"><div class="t"><span class="no">0${i+1}</span><span class="hz" aria-hidden="true">${x[0]}</span></div><h3>${x[1]}</h3><p>${x[2]}</p><span class="bt">Xem chi tiết →</span></a>`).join('');
+sv3.querySelectorAll('.sv').forEach(a=>a.addEventListener('click',()=>show(+a.dataset.tab)));
+const NC=[["债","Thu hồi nợ","Mất tiền đặt cọc thuê nhà xưởng: sai lầm khi đặt cọc","Rủi ro lớn khi hợp đồng đặt cọc không rõ điều khoản hoàn trả…","#0a1a3a","#25408a"],["投","Đầu tư","Luật Đầu tư 2025: những thay đổi lớn với nhà đầu tư nước ngoài","Nhiều thay đổi đáng chú ý về điều kiện và thủ tục đầu tư…","#2a1a3a","#7a2418"],["权","Doanh nghiệp","Chủ sở hữu hưởng lợi: nghĩa vụ kê khai cần biết","Khái niệm chủ sở hữu hưởng lợi ngày càng được siết chặt…","#16203a","#3a2a22"],["封","Tố tụng","Phong tỏa tài sản “con nợ”: khi nào được yêu cầu","Khi nào chủ nợ được yêu cầu Tòa án phong tỏa tài sản…","#06122b","#122650"],["约","Hợp đồng","Hợp đồng song ngữ Việt – Trung: điểm cần lưu ý","Xử lý khác biệt ngôn ngữ để tránh tranh chấp về sau…","#2a1210","#0a1a3a"]];
+nw.innerHTML=NC.map(n=>`<a class="nc" href="#lienhe"><div class="cvr" style="background:linear-gradient(135deg,${n[4]},${n[5]})"><span>${n[1]}</span><i aria-hidden="true">${n[0]}</i></div><div class="bd"><h3>${n[2]}</h3><p>${n[3]}</p><span class="m">Xem chi tiết →</span></div></a>`).join('');
+const PA=[["华","Hoa Long"],["盛","Thanh Sơn"],["东","Đông Á Corp"],["瑞","Rui Feng"],["联","Liên Việt"],["通","Tongda"],["港","Hải Cảng"],["鑫","Xin Tai"]];
+pg.innerHTML=PA.map(x=>`<div class="pa"><b aria-hidden="true">${x[0]}</b><span>${x[1]}</span></div>`).join('');
+document.querySelectorAll('.ar2').forEach(b=>b.addEventListener('click',()=>{const r=document.getElementById(b.dataset.t);r.scrollBy({left:b.dataset.d*r.clientWidth*.8,behavior:'smooth'})}));
+const W=["Hợp đồng|合同","Đầu tư|投资","Trọng tài|仲裁","Thu hồi nợ|债务追收","Sở hữu trí tuệ|知识产权","Lao động|劳动","M&A|并购","Thuế|税务"];
+const row=W.map(w=>{const a=w.split('|');return `<span>${a[0]}<b>${a[1]}</b></span>`}).join('');tk.innerHTML=row+row;
+const L=[...document.querySelectorAll('#rn a')],S=L.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){L.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-40% 0px -55% 0px'});S.forEach(s=>io.observe(s));
+const nav2=document.getElementById('mn'),dsk=()=>matchMedia('(min-width:1181px)').matches,hs=[...nav2.querySelectorAll('.has')];let ht;
+function setO(li,o){li.classList.toggle('open',o);li.querySelector('.cv').setAttribute('aria-expanded',o)}
+function closeAll(x){hs.forEach(l=>{if(l!==x)setO(l,false)})}
+hs.forEach(li=>{const b=li.querySelector('.cv');
+ b.addEventListener('click',e=>{e.stopPropagation();const o=!li.classList.contains('open');closeAll(li);setO(li,o)});
+ li.addEventListener('mouseenter',()=>{if(!dsk())return;clearTimeout(ht);closeAll(li);setO(li,true)});
+ li.addEventListener('mouseleave',()=>{if(!dsk())return;ht=setTimeout(()=>setO(li,false),160)});
+ li.addEventListener('focusin',()=>{if(dsk()){closeAll(li);setO(li,true)}});
+ li.addEventListener('focusout',e=>{if(dsk()&&!li.contains(e.relatedTarget))setO(li,false)});
+ li.addEventListener('keydown',e=>{if(e.key==='Escape'){setO(li,false);b.focus()}});
+});
+document.addEventListener('click',e=>{if(!nav2.contains(e.target))closeAll()});
+const bg2=document.getElementById('bgr');bg2.addEventListener('click',()=>{const o=nav2.classList.toggle('open');bg2.setAttribute('aria-expanded',o)});
+nav2.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(a.dataset.tab!==undefined)show(+a.dataset.tab);closeAll();nav2.classList.remove('open');bg2.setAttribute('aria-expanded','false')}));
+const mp={top:'0',doingu:'1',linhvuc:'2',thuatngu:'3',quytrinh:'3',gocnhin:'3',lienhe:'4'},tops=[...nav2.querySelectorAll(':scope>ul>li')];
+function act(k){tops.forEach((li,i)=>li.querySelector(':scope>a').classList.toggle('on',String(i)===k))}
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)act(mp[e.target.id||'top'])}),{rootMargin:'-40% 0px -55% 0px'});
+[document.querySelector('.hero'),...Object.keys(mp).filter(k=>k!=='top').map(k=>document.getElementById(k))].forEach(el=>el&&so.observe(el));
+cf.onsubmit=e=>{e.preventDefault();ok.style.display='block';cf.reset()};
+</script>
+</body>
+</html>

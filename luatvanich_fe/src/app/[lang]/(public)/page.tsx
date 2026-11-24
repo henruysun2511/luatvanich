@@ -314,44 +314,21 @@ export default function PublicHomePage() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const handleTabEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ tabIndex: number }>;
+      if (customEvent.detail && typeof customEvent.detail.tabIndex === "number") {
+        setActiveTab(customEvent.detail.tabIndex);
+        const el = document.getElementById("linhvuc");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    window.addEventListener("vanich-select-tab", handleTabEvent);
+    return () => window.removeEventListener("vanich-select-tab", handleTabEvent);
+  }, []);
+
   return (
     <div className="relative font-sans text-slate-900 bg-white selection:bg-[#c29a45]/30">
-      {/* 1. THANH RAIL CỐ ĐỊNH BÊN TRÁI (Desktop) */}
-      <aside className="fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden xl:flex flex-col items-center justify-between py-6 z-40 border-r border-[#c29a45]/35 select-none">
-        <a href="#top" aria-label="Luật Vạn Ích">
-          <SealStamp char="万" size="md" variant="gold" />
-        </a>
-        <nav className="flex flex-col gap-5 items-center">
-          {[
-            { id: "linhvuc", num: "01", label: "Lĩnh vực" },
-            { id: "thuatngu", num: "02", label: "Thuật ngữ" },
-            { id: "quytrinh", num: "03", label: "Quy trình" },
-            { id: "doingu", num: "04", label: "Đội ngũ" },
-            { id: "gocnhin", num: "05", label: "Góc nhìn" },
-            { id: "lienhe", num: "06", label: "Liên hệ" },
-          ].map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`flex flex-col items-center gap-1.5 text-[10.5px] font-sans font-medium tracking-wider transition-colors ${
-                activeSection === item.id ? "text-[#f0d28a]" : "text-[#7f8aa6] hover:text-[#f0d28a]"
-              }`}
-            >
-              <i className={`font-royal font-bold text-sm not-italic ${activeSection === item.id ? "border-b-2 border-[#c29a45] pb-0.5" : ""}`}>
-                {item.num}
-              </i>
-              <span className="[writing-mode:vertical-rl] tracking-[2px] uppercase">{item.label}</span>
-            </a>
-          ))}
-        </nav>
-        <a
-          href="tel:0900123456"
-          className="w-10 h-10 rounded bg-[#a3171e] text-white grid place-items-center text-base hover:scale-105 transition-transform"
-          aria-label="Hotline"
-        >
-          ✆
-        </a>
-      </aside>
 
       {/* 2. HERO BANNER CHÍNH */}
       <section className="relative bg-gradient-to-br from-[#08111f] via-[#14243d] to-[#1d3556] text-white overflow-hidden" id="top">
