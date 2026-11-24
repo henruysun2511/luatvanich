@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import { SiteSettingRepository } from './repositories/site-setting.repository';
-import { SiteSetting } from './entities/site-setting.entity';
-import { UpdateSettingsDto } from './dto/update-settings.dto';
+import { SiteSettingRepository } from '../repositories/site-setting.repository';
+import { SiteSetting } from '../entities/site-setting.entity';
+import { UpdateSettingsDto } from '../dto/update-settings.dto';
 
 const DEFAULT_SETTINGS: Array<Partial<SiteSetting>> = [
   // Slogan & Branding
@@ -95,7 +95,7 @@ const DEFAULT_SETTINGS: Array<Partial<SiteSetting>> = [
 export class SiteSettingsService implements OnModuleInit {
   private readonly logger = new Logger(SiteSettingsService.name);
 
-  constructor(private readonly settingsRepo: SiteSettingRepository) {}
+  constructor(private readonly settingsRepo: SiteSettingRepository) { }
 
   async onModuleInit() {
     await this.seedDefaults();

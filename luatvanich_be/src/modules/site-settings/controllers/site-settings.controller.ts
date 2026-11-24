@@ -2,12 +2,12 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { Public } from '../../../common/decorators/public.decorator';
 import { ApiResponse } from '../../../common/response/api-response';
-import { SiteSettingsService } from '../site-settings.service';
+import { SiteSettingsService } from '../services/site-settings.service';
 
 @ApiTags('Site Settings (Public)')
 @Controller({ path: 'site-settings', version: '1' })
 export class SiteSettingsController {
-  constructor(private readonly service: SiteSettingsService) {}
+  constructor(private readonly service: SiteSettingsService) { }
 
   @Public()
   @Get('public')
