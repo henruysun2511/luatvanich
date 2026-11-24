@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
 import { useAdminLawyers } from "@/features/lawyers";
-import { useAdminLegalServices } from "@/features/services";
+import { useAdminLegalServices } from "@/features/legal-services";
 import { useCreatePost, useUpdatePost, useAdminPostDetail } from "../queries/usePostsQuery";
 import { postFormSchema } from "../schemas/post.schema";
 import type {

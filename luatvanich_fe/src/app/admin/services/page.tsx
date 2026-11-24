@@ -19,7 +19,7 @@ import {
   useAdminLegalServices,
   type LegalServiceItem,
   type ServicePublishStatus,
-} from "@/features/services";
+} from "@/features/legal-services";
 import { useAdminPracticeAreas } from "@/features/practice-areas";
 import { Briefcase, Plus, Search, RotateCcw } from "lucide-react";
 
