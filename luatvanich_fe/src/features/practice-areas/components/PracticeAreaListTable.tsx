@@ -13,7 +13,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { useUpdatePracticeArea } from "../queries/usePracticeAreasQuery";
+import {
+  useUpdatePracticeArea,
+  useReorderPracticeAreas,
+} from "../queries/usePracticeAreasQuery";
 import type { PracticeAreaItem } from "../types/practice-areas.types";
 import {
   Scale,
@@ -23,6 +26,8 @@ import {
   Loader2,
   Layers,
   Eye,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 
 interface PracticeAreaListTableProps {
@@ -41,7 +46,28 @@ export function PracticeAreaListTable({
   onDelete,
 }: PracticeAreaListTableProps) {
   const updateMutation = useUpdatePracticeArea();
+  const reorderMutation = useReorderPracticeAreas();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [reorderingId, setReorderingId] = useState<string | null>(null);
+
+  const handleMoveOrder = async (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= practiceAreas.length) return;
+
+    const currentItem = practiceAreas[index];
+    setReorderingId(currentItem.id);
+
+    const reordered = [...practiceAreas];
+    const temp = reordered[index];
+    reordered[index] = reordered[targetIndex];
+    reordered[targetIndex] = temp;
+
+    try {
+      await reorderMutation.mutateAsync(reordered.map((item) => item.id));
+    } finally {
+      setReorderingId(null);
+    }
+  };
 
   const handleToggleStatus = async (item: PracticeAreaItem) => {
     const nextStatus = item.status === "published" ? "draft" : "published";
@@ -191,8 +217,32 @@ export function PracticeAreaListTable({
                 </TableCell>
 
                 {/* 6. Thứ tự hiển thị */}
-                <TableCell className="text-center font-mono text-xs text-muted-foreground">
-                  {item.displayOrder}
+                <TableCell className="text-center font-mono text-xs">
+                  <div className="flex items-center justify-center gap-1">
+                    <span className="w-5 text-muted-foreground">{item.displayOrder}</span>
+                    <div className="flex flex-col">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === 0 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "up")}
+                        title="Di chuyển lên"
+                      >
+                        <ArrowUp className="size-3" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === practiceAreas.length - 1 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "down")}
+                        title="Di chuyển xuống"
+                      >
+                        <ArrowDown className="size-3" />
+                      </Button>
+                    </div>
+                  </div>
                 </TableCell>
 
                 {/* 7. Trạng thái */}

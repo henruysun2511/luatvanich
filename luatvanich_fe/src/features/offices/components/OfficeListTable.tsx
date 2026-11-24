@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { useUpdateOfficeStatus } from "../queries/useOfficesQuery";
+import { useUpdateOfficeStatus, useReorderOffices } from "../queries/useOfficesQuery";
 import type { OfficeItem } from "../types/offices.types";
 import {
   Building2,
@@ -26,6 +26,8 @@ import {
   CheckCircle2,
   Clock,
   Eye,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 
 interface OfficeListTableProps {
@@ -44,7 +46,28 @@ export function OfficeListTable({
   onDelete,
 }: OfficeListTableProps) {
   const statusMutation = useUpdateOfficeStatus();
+  const reorderMutation = useReorderOffices();
   const [loadingOfficeId, setLoadingOfficeId] = useState<string | null>(null);
+  const [reorderingId, setReorderingId] = useState<string | null>(null);
+
+  const handleMoveOrder = async (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= offices.length) return;
+
+    const currentItem = offices[index];
+    setReorderingId(currentItem.id);
+
+    const reordered = [...offices];
+    const temp = reordered[index];
+    reordered[index] = reordered[targetIndex];
+    reordered[targetIndex] = temp;
+
+    try {
+      await reorderMutation.mutateAsync(reordered.map((item) => item.id));
+    } finally {
+      setReorderingId(null);
+    }
+  };
 
   const handleToggleStatus = async (office: OfficeItem) => {
     const nextStatus = office.status === "published" ? "draft" : "published";
@@ -170,7 +193,31 @@ export function OfficeListTable({
 
                 {/* 5. Thứ tự */}
                 <TableCell className="text-center font-mono text-xs">
-                  {office.displayOrder}
+                  <div className="flex items-center justify-center gap-1">
+                    <span className="w-5 text-muted-foreground">{office.displayOrder}</span>
+                    <div className="flex flex-col">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === 0 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "up")}
+                        title="Di chuyển lên"
+                      >
+                        <ArrowUp className="size-3" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === offices.length - 1 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "down")}
+                        title="Di chuyển xuống"
+                      >
+                        <ArrowDown className="size-3" />
+                      </Button>
+                    </div>
+                  </div>
                 </TableCell>
 
                 {/* 6. Trạng thái (Switch) */}

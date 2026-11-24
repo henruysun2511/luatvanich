@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   useUpdateLegalService,
   useUpdateLegalServiceStatus,
+  useReorderLegalServices,
 } from "../queries/useServiceQuery";
 import type { LegalServiceItem } from "../types/service.types";
 import {
@@ -26,6 +27,8 @@ import {
   Loader2,
   Scale,
   Eye,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 
 interface ServiceTableProps {
@@ -45,7 +48,28 @@ export function ServiceTable({
 }: ServiceTableProps) {
   const updateMutation = useUpdateLegalService();
   const statusMutation = useUpdateLegalServiceStatus();
+  const reorderMutation = useReorderLegalServices();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [reorderingId, setReorderingId] = useState<string | null>(null);
+
+  const handleMoveOrder = async (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= services.length) return;
+
+    const currentItem = services[index];
+    setReorderingId(currentItem.id);
+
+    const reordered = [...services];
+    const temp = reordered[index];
+    reordered[index] = reordered[targetIndex];
+    reordered[targetIndex] = temp;
+
+    try {
+      await reorderMutation.mutateAsync(reordered.map((item) => item.id));
+    } finally {
+      setReorderingId(null);
+    }
+  };
 
   const handleToggleStatus = async (item: LegalServiceItem) => {
     const nextStatus = item.status === "published" ? "draft" : "published";
@@ -201,8 +225,32 @@ export function ServiceTable({
                 </TableCell>
 
                 {/* 6. Thứ tự */}
-                <TableCell className="text-center font-mono text-xs text-muted-foreground">
-                  {item.displayOrder}
+                <TableCell className="text-center font-mono text-xs">
+                  <div className="flex items-center justify-center gap-1">
+                    <span className="w-5 text-muted-foreground">{item.displayOrder}</span>
+                    <div className="flex flex-col">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === 0 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "up")}
+                        title="Di chuyển lên"
+                      >
+                        <ArrowUp className="size-3" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-5 h-4 hover:bg-muted text-muted-foreground hover:text-foreground"
+                        disabled={idx === services.length - 1 || Boolean(reorderingId)}
+                        onClick={() => handleMoveOrder(idx, "down")}
+                        title="Di chuyển xuống"
+                      >
+                        <ArrowDown className="size-3" />
+                      </Button>
+                    </div>
+                  </div>
                 </TableCell>
 
                 {/* 7. Trạng thái */}
