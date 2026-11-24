@@ -143,7 +143,7 @@ export function FaqsTab() {
             Quản lý các câu hỏi và câu trả lời song ngữ Việt – Trung giải đáp thắc mắc cho khách hàng.
           </p>
         </div>
-        <Button onClick={handleOpenAdd} className="btn-royal !text-xs !py-1.5 !px-3">
+        <Button onClick={handleOpenAdd} variant="royal" className="gap-1.5 text-xs font-semibold h-8 px-3">
           <Plus className="size-3.5 mr-1" /> Thêm câu hỏi
         </Button>
       </div>
@@ -400,8 +400,10 @@ export function FaqsTab() {
               </Button>
               <Button
                 type="submit"
+                variant="royal"
+                size="sm"
                 disabled={createMutation.isPending || updateMutation.isPending}
-                className="btn-royal !h-8 !text-xs !py-0 !px-4"
+                className="h-8 text-xs px-4"
               >
                 {createMutation.isPending || updateMutation.isPending ? "Đang lưu..." : "Lưu câu hỏi"}
               </Button>

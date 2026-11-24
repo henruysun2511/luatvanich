@@ -111,32 +111,32 @@ export function CompanyStatsTab() {
             <Input
               value={formData.stat_years}
               onChange={(e) => handleChange("stat_years", e.target.value)}
-              placeholder="10+"
+              placeholder="30 năm"
               className="h-8 text-sm font-bold text-[#85151b] font-mono"
             />
-            <span className="text-[10px] text-[#718096]">Năm đồng hành DN Việt – Trung</span>
+            <span className="text-[10px] text-[#718096]">Thành lập từ 1996 (30 năm kinh nghiệm)</span>
           </div>
 
           <div className="space-y-1.5 p-3 border border-[#e7dcc3]/60 bg-[#fcfbf9]">
-            <label className="text-xs font-medium text-[#06122b]">Hồ sơ & Vụ việc</label>
+            <label className="text-xs font-medium text-[#06122b]">Hồ sơ & Trợ giúp</label>
             <Input
               value={formData.stat_cases}
               onChange={(e) => handleChange("stat_cases", e.target.value)}
-              placeholder="1,000+"
+              placeholder="4,000+"
               className="h-8 text-sm font-bold text-[#85151b] font-mono"
             />
-            <span className="text-[10px] text-[#718096]">Hồ sơ đầu tư & hợp đồng thụ lý</span>
+            <span className="text-[10px] text-[#718096]">Lượt tư vấn & trợ giúp pháp lý</span>
           </div>
 
           <div className="space-y-1.5 p-3 border border-[#e7dcc3]/60 bg-[#fcfbf9]">
-            <label className="text-xs font-medium text-[#06122b]">Tỷ lệ thành công</label>
+            <label className="text-xs font-medium text-[#06122b]">Quy mô nhân sự</label>
             <Input
               value={formData.stat_rate}
               onChange={(e) => handleChange("stat_rate", e.target.value)}
-              placeholder="98%"
+              placeholder="300+"
               className="h-8 text-sm font-bold text-[#85151b] font-mono"
             />
-            <span className="text-[10px] text-[#718096]">Vụ việc giải quyết thỏa đáng</span>
+            <span className="text-[10px] text-[#718096]">Luật sư & chuyên gia pháp lý</span>
           </div>
 
           <div className="space-y-1.5 p-3 border border-[#e7dcc3]/60 bg-[#fcfbf9]">
@@ -163,8 +163,9 @@ export function CompanyStatsTab() {
         </div>
         <Button
           type="submit"
+          variant="royal"
           disabled={updateMutation.isPending}
-          className="btn-royal"
+          className="h-9 px-6 text-xs gap-1.5"
         >
           {updateMutation.isPending ? (
             <>

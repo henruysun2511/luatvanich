@@ -20,9 +20,9 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         accent:
           "bg-accent text-accent-foreground font-semibold shadow hover:bg-accent/90",
-        // BIẾN THỂ HOÀNG GIA VẠN ÍCH (ĐỎ CHU SA CHUẨN TRANG CHỦ)
+        // BIẾN THỂ HOÀNG GIA VẠN ÍCH (ĐỎ CHU SA CHUẨN TRANG CHỦ & ĐỐI TÁC)
         royal:
-          "bg-[#b3201b] hover:bg-[#8f1713] text-white font-sans font-semibold shadow-xs transition-colors active:scale-[0.98]",
+          "bg-gradient-to-b from-[#c4252c] to-[#8f1218] hover:from-[#d12d34] hover:to-[#a3171e] text-white font-sans font-semibold uppercase tracking-[1.2px] border-0 transition-all cursor-pointer shadow-[0_6px_16px_rgba(163,23,30,0.35),inset_0_1px_0_rgba(255,255,255,0.25)] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none",
         gold:
           "bg-gradient-to-b from-[#f0d28a] via-[#c29a45] to-[#b08736] text-[#06122b] font-sans font-semibold shadow-xs hover:opacity-95 transition-all",
         "royal-outline":

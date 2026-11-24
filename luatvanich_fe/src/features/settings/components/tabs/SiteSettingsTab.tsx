@@ -5,18 +5,39 @@ import { useAllSettings, useUpdateSettings } from "../../queries/useSettingsQuer
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { mediaService } from "@/features/media/services/media.service";
-import { Phone, Mail, MapPin, QrCode, Globe, Upload, Loader2, Check } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  QrCode,
+  Globe,
+  Upload,
+  Loader2,
+  Check,
+  Sparkles,
+  Building2,
+  ShieldCheck,
+  User,
+} from "lucide-react";
 
 export function SiteSettingsTab() {
   const { data: allSettings, isLoading } = useAllSettings();
   const updateMutation = useUpdateSettings();
 
   const [formData, setFormData] = useState<Record<string, string>>({
+    brand_slogan_vi: "",
+    brand_slogan_zh: "",
     hotline_vn: "",
     hotline_cn: "",
+    contact_person: "",
+    hotline_mobile_cn: "",
     email_contact: "",
-    address_hq: "",
     working_hours: "",
+    address_hq: "",
+    address_hq_zh: "",
+    address_directions: "",
+    license_number: "",
+    parent_firm_name: "",
     wechat_id: "",
     wechat_qr_url: "",
     zalo_url: "",
@@ -35,11 +56,19 @@ export function SiteSettingsTab() {
     if (allSettings) {
       setFormData((prev) => ({
         ...prev,
+        brand_slogan_vi: allSettings.branding?.brand_slogan_vi || allSettings.general?.brand_slogan_vi || prev.brand_slogan_vi,
+        brand_slogan_zh: allSettings.branding?.brand_slogan_zh || allSettings.general?.brand_slogan_zh || prev.brand_slogan_zh,
         hotline_vn: allSettings.contact?.hotline_vn || prev.hotline_vn,
         hotline_cn: allSettings.contact?.hotline_cn || prev.hotline_cn,
+        contact_person: allSettings.contact?.contact_person || prev.contact_person,
+        hotline_mobile_cn: allSettings.contact?.hotline_mobile_cn || prev.hotline_mobile_cn,
         email_contact: allSettings.contact?.email_contact || prev.email_contact,
-        address_hq: allSettings.contact?.address_hq || prev.address_hq,
         working_hours: allSettings.contact?.working_hours || prev.working_hours,
+        address_hq: allSettings.contact?.address_hq || prev.address_hq,
+        address_hq_zh: allSettings.contact?.address_hq_zh || prev.address_hq_zh,
+        address_directions: allSettings.contact?.address_directions || prev.address_directions,
+        license_number: allSettings.contact?.license_number || prev.license_number,
+        parent_firm_name: allSettings.contact?.parent_firm_name || prev.parent_firm_name,
         wechat_id: allSettings.social?.wechat_id || prev.wechat_id,
         wechat_qr_url: allSettings.social?.wechat_qr_url || prev.wechat_qr_url,
         zalo_url: allSettings.social?.zalo_url || prev.zalo_url,
@@ -89,7 +118,39 @@ export function SiteSettingsTab() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* 1. Thông tin liên hệ */}
+      {/* 1. Slogan & Nhận diện cốt lõi */}
+      <div className="border border-[#e7dcc3] bg-white p-5 rounded-none space-y-4">
+        <div className="pb-2 border-b border-[#e7dcc3]/60 flex items-center gap-2">
+          <Sparkles className="size-4 text-[#85151b]" />
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#06122b]">
+            Khẩu hiệu thương hiệu & Slogan (Song ngữ)
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Slogan Tiếng Việt (Header & Hero)</label>
+            <Input
+              value={formData.brand_slogan_vi}
+              onChange={(e) => handleChange("brand_slogan_vi", e.target.value)}
+              placeholder="VD: Kết nối Việt‑Trung, đồng hành pháp lý vững chắc"
+              className="h-8 text-xs font-medium"
+            />
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Slogan Tiếng Trung (中文标语)</label>
+            <Input
+              value={formData.brand_slogan_zh}
+              onChange={(e) => handleChange("brand_slogan_zh", e.target.value)}
+              placeholder="VD: 链接中越 · 法律护航"
+              className="h-8 text-xs font-medium font-hanzi"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Thông tin liên hệ & Hotline */}
       <div className="border border-[#e7dcc3] bg-white p-5 rounded-none space-y-4">
         <div className="pb-2 border-b border-[#e7dcc3]/60 flex items-center gap-2">
           <Phone className="size-4 text-[#85151b]" />
@@ -100,7 +161,7 @@ export function SiteSettingsTab() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1.5 font-sans">
-            <label className="text-xs font-medium text-[#06122b]">Hotline Việt Nam</label>
+            <label className="text-xs font-medium text-[#06122b]">Hotline Việt Nam (Tổng đài)</label>
             <Input
               value={formData.hotline_vn}
               onChange={(e) => handleChange("hotline_vn", e.target.value)}
@@ -115,6 +176,26 @@ export function SiteSettingsTab() {
               value={formData.hotline_cn}
               onChange={(e) => handleChange("hotline_cn", e.target.value)}
               placeholder="VD: +86 771 588 8888"
+              className="h-8 text-xs font-mono"
+            />
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Người phụ trách liên hệ (Luật sư)</label>
+            <Input
+              value={formData.contact_person}
+              onChange={(e) => handleChange("contact_person", e.target.value)}
+              placeholder="VD: 蒋女贞律师 (Luật sư Tưởng Nữ Trinh)"
+              className="h-8 text-xs"
+            />
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Di động / Zalo / WeChat tiếp nhận</label>
+            <Input
+              value={formData.hotline_mobile_cn}
+              onChange={(e) => handleChange("hotline_mobile_cn", e.target.value)}
+              placeholder="VD: +86 152 7702 0681"
               className="h-8 text-xs font-mono"
             />
           </div>
@@ -135,17 +216,69 @@ export function SiteSettingsTab() {
             <Input
               value={formData.working_hours}
               onChange={(e) => handleChange("working_hours", e.target.value)}
-              placeholder="VD: Thứ 2 – Thứ 6: 08:30 – 17:30"
+              placeholder="VD: Thứ 2 – Thứ 6: 08:30 – 17:30 (Cả giờ VN & TQ)"
+              className="h-8 text-xs"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Địa chỉ & Pháp lý văn phòng Hà Nội */}
+      <div className="border border-[#e7dcc3] bg-white p-5 rounded-none space-y-4">
+        <div className="pb-2 border-b border-[#e7dcc3]/60 flex items-center gap-2">
+          <Building2 className="size-4 text-[#85151b]" />
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#06122b]">
+            Địa chỉ & Pháp lý Văn phòng Hà Nội
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-1.5 md:col-span-2 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Địa chỉ trụ sở Hà Nội (Tiếng Việt - Footer & Liên hệ)</label>
+            <Input
+              value={formData.address_hq}
+              onChange={(e) => handleChange("address_hq", e.target.value)}
+              placeholder="VD: Số nhà 17, Đường 23, KĐT Thành phố Giao Lưu, Cổ Nhuế 2, Bắc Từ Liêm, Hà Nội"
               className="h-8 text-xs"
             />
           </div>
 
           <div className="space-y-1.5 md:col-span-2 font-sans">
-            <label className="text-xs font-medium text-[#06122b]">Địa chỉ trụ sở chính (Footer)</label>
+            <label className="text-xs font-medium text-[#06122b]">Địa chỉ trụ sở Hà Nội (Tiếng Trung - 中文地址)</label>
             <Input
-              value={formData.address_hq}
-              onChange={(e) => handleChange("address_hq", e.target.value)}
-              placeholder="VD: Tầng 18, Tòa nhà Charmvit, 117 Trần Duy Hưng, Cầu Giấy, Hà Nội"
+              value={formData.address_hq_zh}
+              onChange={(e) => handleChange("address_hq_zh", e.target.value)}
+              placeholder="VD: 河内市交流城都市区联排别墅区23路17号（公安部附近，从范文同大道右转进入）"
+              className="h-8 text-xs font-hanzi"
+            />
+          </div>
+
+          <div className="space-y-1.5 md:col-span-2 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Chỉ dẫn đường đi & Vị trí nhận diện</label>
+            <Input
+              value={formData.address_directions}
+              onChange={(e) => handleChange("address_directions", e.target.value)}
+              placeholder="VD: Gần Bộ Công An, đi đường Phạm Văn Đồng rẽ phải vào"
+              className="h-8 text-xs"
+            />
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Giấy phép hoạt động tại Việt Nam</label>
+            <Input
+              value={formData.license_number}
+              onChange={(e) => handleChange("license_number", e.target.value)}
+              placeholder="VD: Phê duyệt Bộ Tư pháp Việt Nam (07/2026)"
+              className="h-8 text-xs"
+            />
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <label className="text-xs font-medium text-[#06122b]">Hãng luật chủ quản (Tổng sở Trung Quốc)</label>
+            <Input
+              value={formData.parent_firm_name}
+              onChange={(e) => handleChange("parent_firm_name", e.target.value)}
+              placeholder="VD: 广西万益律师事务所 (Công ty Luật Vạn Ích Quảng Tây - thành lập 1996)"
               className="h-8 text-xs"
             />
           </div>
@@ -298,8 +431,9 @@ export function SiteSettingsTab() {
         </div>
         <Button
           type="submit"
+          variant="royal"
           disabled={updateMutation.isPending}
-          className="btn-royal"
+          className="h-9 px-6 text-xs gap-1.5"
         >
           {updateMutation.isPending ? (
             <>

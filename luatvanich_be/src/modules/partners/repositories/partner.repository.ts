@@ -39,6 +39,10 @@ export class PartnerRepository {
     return this.repo.create(dto);
   }
 
+  async count(manager?: EntityManager): Promise<number> {
+    return this.getRepo(manager).count();
+  }
+
   async softDelete(id: string, manager?: EntityManager): Promise<void> {
     await this.getRepo(manager).softDelete(id);
   }

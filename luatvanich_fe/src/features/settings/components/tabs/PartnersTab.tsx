@@ -123,7 +123,7 @@ export function PartnersTab() {
             Quản lý các logo xuất hiện trên thanh đối tác chạy tự động (Slider) ngoài trang chủ.
           </p>
         </div>
-        <Button onClick={handleOpenAdd} className="btn-royal !text-xs !py-1.5 !px-3">
+        <Button onClick={handleOpenAdd} variant="royal" className="gap-1.5 text-xs font-semibold h-8 px-3">
           <Plus className="size-3.5 mr-1" /> Thêm đối tác
         </Button>
       </div>
@@ -319,8 +319,10 @@ export function PartnersTab() {
               </Button>
               <Button
                 type="submit"
+                variant="royal"
+                size="sm"
                 disabled={createMutation.isPending || updateMutation.isPending || !formLogoUrl}
-                className="btn-royal !h-8 !text-xs !py-0 !px-4"
+                className="h-8 text-xs px-4"
               >
                 {createMutation.isPending || updateMutation.isPending ? "Đang lưu..." : "Lưu đối tác"}
               </Button>
