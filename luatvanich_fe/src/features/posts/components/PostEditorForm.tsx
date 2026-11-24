@@ -555,13 +555,8 @@ export function PostEditorForm({
 
                 {/* Nội dung bài viết */}
                 <div className="space-y-1.5 font-sans">
-                  <label className="text-xs font-semibold text-foreground flex items-center justify-between">
-                    <span>
-                      Nội dung bài viết (Tiếng Việt) <span className="text-destructive">*</span>
-                    </span>
-                    <span className="text-[11px] text-muted-foreground font-normal">
-                      Trình soạn thảo trực quan: H2/H3, in đậm, chèn ảnh Cloudinary...
-                    </span>
+                  <label className="text-xs font-semibold text-foreground block">
+                    Nội dung bài viết (Tiếng Việt) <span className="text-destructive">*</span>
                   </label>
                   <RichTextEditor
                     content={viContentHtml}
@@ -657,11 +652,8 @@ export function PostEditorForm({
 
                 {/* Nội dung bài viết */}
                 <div className="space-y-1.5 font-sans">
-                  <label className="text-xs font-semibold text-foreground flex items-center justify-between">
-                    <span>Nội dung bài viết (Tiếng Trung)</span>
-                    <span className="text-[11px] text-muted-foreground font-normal font-sans">
-                      富文本编辑器：支持H2/H3、加粗、插入图片等
-                    </span>
+                  <label className="text-xs font-semibold text-foreground block">
+                    Nội dung bài viết (Tiếng Trung)
                   </label>
                   <RichTextEditor
                     content={zhContentHtml}
