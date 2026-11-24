@@ -14,6 +14,9 @@ import { LawyersModule } from './modules/lawyers/lawyers.module';
 import { ConsultationsModule } from './modules/consultations/consultations.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { SiteSettingsModule } from './modules/site-settings/site-settings.module';
+import { PartnersModule } from './modules/partners/partners.module';
+import { FaqsModule } from './modules/faqs/faqs.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { PermissionsGuard } from './modules/auth/guards/permissions.guard';
 import { LangMiddleware } from './common/middleware/lang.middleware';
@@ -34,6 +37,9 @@ import { LangMiddleware } from './common/middleware/lang.middleware';
     NotificationsModule,
     MediaModule,
     DashboardModule,
+    SiteSettingsModule,
+    PartnersModule,
+    FaqsModule,
     // TODO Phase 2+: thêm các module khác
     // SiteSettingsModule,
     // ThemeModule,

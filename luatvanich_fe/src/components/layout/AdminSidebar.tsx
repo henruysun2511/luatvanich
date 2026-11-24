@@ -10,7 +10,6 @@ import {
   Users,
   MessageSquareText,
   Layers,
-  Palette,
   ExternalLink,
   ShieldCheck,
   Settings,
@@ -55,8 +54,7 @@ const navGroups: NavGroup[] = [
     group: "HỆ THỐNG & TÀI KHOẢN",
     items: [
       { href: "/admin/users", title: "Tài khoản quản trị", icon: ShieldCheck },
-      { href: "/admin/settings", title: "Cài đặt tài khoản", icon: Settings },
-      { href: "/admin/theme", title: "Cài đặt Theme", icon: Palette },
+      { href: "/admin/settings", title: "Cài đặt hệ thống", icon: Settings },
     ],
   },
 ];
