@@ -28,8 +28,3 @@ export class PostCategoryTreeDto extends PostCategoryPublicDto {
   @ApiProperty({ type: () => [PostCategoryTreeDto], description: 'Các chuyên mục con' })
   children: PostCategoryTreeDto[];
 }
-
-export class PostCategoryDetailDto extends PostCategoryPublicDto {
-  @ApiProperty({ example: 5, description: 'Số bài viết đã xuất bản trực thuộc' })
-  postsCount: number;
-}

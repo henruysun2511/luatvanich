@@ -29,13 +29,6 @@ export class TagsAdminController {
     return ApiResponse.created(await this.service.create(dto), 'Tạo thẻ thành công');
   }
 
-  @Get(':id')
-  @RequirePermission(PERMISSIONS.POSTS_READ)
-  @SwaggerDoc({ summary: 'Chi tiết thẻ quản trị', responseType: TagAdminDto, bearerAuth: true })
-  async findById(@Param('id', ParseUUIDPipe) id: string) {
-    return ApiResponse.success(await this.service.findByIdAdmin(id), 'Lấy thẻ thành công');
-  }
-
   @Patch(':id')
   @RequirePermission(PERMISSIONS.POSTS_WRITE)
   @SwaggerDoc({ summary: 'Cập nhật thẻ', responseType: TagAdminDto, bodyType: UpdateTagDto, bearerAuth: true })

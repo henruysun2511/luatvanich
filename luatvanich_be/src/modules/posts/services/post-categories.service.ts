@@ -33,18 +33,6 @@ export class PostCategoriesService {
     return this.mapper.toTree(await this.categories.findPublicTree(section), lang);
   }
 
-  async findPublicBySlug(slug: string, lang: LangCode) {
-    const normalized = slug.trim().toLowerCase();
-    const category =
-      (await this.categories.findPublicBySlug(normalized, lang)) ??
-      (lang !== DEFAULT_LANG ? await this.categories.findPublicBySlug(normalized, DEFAULT_LANG) : null);
-    if (!category) throw new PostCategoryNotFoundException(slug);
-    return {
-      ...this.mapper.toPublicResponse(category, lang),
-      postsCount: await this.posts.countByCategory(category.id, true),
-    };
-  }
-
   async findAllAdmin(query: PostCategoryQueryDto) {
     const { page, limit } = normalizePagination(query);
     const [items, total] = await this.categories.findAdminList(query);

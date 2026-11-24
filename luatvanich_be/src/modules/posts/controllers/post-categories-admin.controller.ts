@@ -30,13 +30,6 @@ export class PostCategoriesAdminController {
     return ApiResponse.created(await this.service.create(dto), 'Tạo chuyên mục thành công');
   }
 
-  @Get(':id')
-  @RequirePermission(PERMISSIONS.POSTS_READ)
-  @SwaggerDoc({ summary: 'Chi tiết chuyên mục quản trị', responseType: PostCategoryAdminDto, bearerAuth: true })
-  async findById(@Param('id', ParseUUIDPipe) id: string) {
-    return ApiResponse.success(await this.service.findByIdAdmin(id), 'Lấy chuyên mục thành công');
-  }
-
   @Patch('reorder')
   @RequirePermission(PERMISSIONS.POSTS_MANAGE)
   @SwaggerDoc({ summary: 'Đổi thứ tự chuyên mục', bodyType: ReorderPostCategoriesDto, bearerAuth: true })

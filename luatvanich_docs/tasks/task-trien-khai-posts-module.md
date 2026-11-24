@@ -162,13 +162,11 @@ src/modules/posts/
 #### Public API (`post-categories.controller.ts`)
 *Prefix: `/post-categories`*
 - `GET /post-categories`: Lấy cây chuyên mục theo ngôn ngữ hiện tại, query lọc `?section=news|handbook|knowledge_base`.
-- `GET /post-categories/:slug`: Lấy chi tiết chuyên mục kèm số lượng bài viết trực thuộc.
 
 #### Admin API (`post-categories-admin.controller.ts`)
 *Prefix: `/admin/post-categories` (Yêu cầu JWT Guard + `@Permissions('posts:read')` / `'posts:manage'`)*
 - `GET /admin/post-categories`: Danh sách chuyên mục (phân trang, lọc `section`, từ khóa, trả về đủ bản dịch).
 - `POST /admin/post-categories`: Tạo mới chuyên mục kèm bản dịch ban đầu.
-- `GET /admin/post-categories/:id`: Chi tiết chuyên mục theo ID.
 - `PATCH /admin/post-categories/:id`: Cập nhật thông tin (`section`, `parentId`, `displayOrder`, bản dịch).
 - `PATCH /admin/post-categories/reorder`: Đổi thứ tự hiển thị (Body chuẩn: `{ ids: string[] }`).
 - `DELETE /admin/post-categories/:id`: Xóa mềm chuyên mục. **Chặn xóa và ném lỗi 400 nếu chuyên mục còn bài viết trực thuộc hoặc còn chuyên mục con**.

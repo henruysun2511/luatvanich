@@ -31,15 +31,6 @@ export class PostCategoryRepository {
     });
   }
 
-  async findPublicBySlug(slug: string, lang: LangCode): Promise<PostCategory | null> {
-    return this.repo
-      .createQueryBuilder('category')
-      .leftJoinAndSelect('category.translations', 'translation')
-      .innerJoin('category.translations', 'match', 'match.slug = :slug', { slug })
-      .orderBy('CASE WHEN match.languageCode = :lang THEN 0 ELSE 1 END', 'ASC')
-      .getOne();
-  }
-
   findAdminList(filters: PostCategoryQueryDto): Promise<[PostCategory[], number]> {
     const { skip, limit } = normalizePagination(filters);
     const query = this.repo.createQueryBuilder('category').leftJoinAndSelect('category.translations', 'translation');
