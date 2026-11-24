@@ -10,7 +10,6 @@ import {
   Users,
   MessageSquareText,
   Layers,
-  Image,
   Palette,
   ExternalLink,
   ShieldCheck,
@@ -41,7 +40,6 @@ const navGroups: NavGroup[] = [
       { href: "/admin/consultations", title: "Yêu cầu tư vấn", icon: MessageSquareText },
       { href: "/admin/posts", title: "Cẩm nang & Bài viết", icon: FileText },
       { href: "/admin/pages", title: "Quản lý trang & Builder", icon: Layers },
-      { href: "/admin/media", title: "Thư viện Media", icon: Image },
     ],
   },
   {
