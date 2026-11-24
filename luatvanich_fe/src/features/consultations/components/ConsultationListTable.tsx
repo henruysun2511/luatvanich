@@ -20,11 +20,8 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  useUpdateConsultationStatus,
   useBulkStatusConsultations,
-  useAssignConsultation,
 } from "../queries/useConsultationsQuery";
-import { useUsers } from "@/features/users";
 import type {
   ConsultationItem,
   LeadStatus,
@@ -37,10 +34,6 @@ import {
   Clock,
   Eye,
   Trash2,
-  Building,
-  User,
-  UserCheck,
-  Scale,
   Paperclip,
   CheckCircle2,
   AlertCircle,
@@ -97,14 +90,7 @@ export function ConsultationListTable({
   onViewDetail,
   onDelete,
 }: ConsultationListTableProps) {
-  const statusMutation = useUpdateConsultationStatus();
   const bulkMutation = useBulkStatusConsultations();
-  const assignMutation = useAssignConsultation();
-  const { data: usersData } = useUsers({ limit: 100, isActive: true });
-  const users = usersData?.items || [];
-
-  const [updatingId, setUpdatingId] = useState<string | null>(null);
-  const [assigningId, setAssigningId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // Chọn / bỏ chọn tất cả
@@ -121,24 +107,6 @@ export function ConsultationListTable({
       setSelectedIds((prev) => [...prev, id]);
     } else {
       setSelectedIds((prev) => prev.filter((item) => item !== id));
-    }
-  };
-
-  const handleStatusChange = async (id: string, status: LeadStatus) => {
-    setUpdatingId(id);
-    try {
-      await statusMutation.mutateAsync({ id, status });
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  const handleAssignUser = async (id: string, assignedUserId: string | null) => {
-    setAssigningId(id);
-    try {
-      await assignMutation.mutateAsync({ id, assignedUserId });
-    } finally {
-      setAssigningId(null);
     }
   };
 
@@ -241,12 +209,13 @@ export function ConsultationListTable({
                   aria-label="Chọn tất cả"
                 />
               </TableHead>
-              <TableHead className="w-56">Khách hàng</TableHead>
-              <TableHead className="w-52">Kênh liên hệ</TableHead>
-              <TableHead>Nhu cầu tư vấn</TableHead>
-              <TableHead className="w-44">Lĩnh vực / Luật sư</TableHead>
-              <TableHead className="w-40 text-center">Trạng thái</TableHead>
-              <TableHead className="w-24 text-right pr-4">Thao tác</TableHead>
+              <TableHead className="min-w-[170px]">Khách hàng</TableHead>
+              <TableHead className="w-32">Kênh liên hệ</TableHead>
+              <TableHead className="min-w-[200px]">Nhu cầu tư vấn</TableHead>
+              <TableHead className="w-36">Phụ trách</TableHead>
+              <TableHead className="w-28">Ngày gửi</TableHead>
+              <TableHead className="w-36 text-center">Trạng thái</TableHead>
+              <TableHead className="w-20 text-right pr-4">Thao tác</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -256,7 +225,6 @@ export function ConsultationListTable({
               const channelCfg = CHANNEL_CONFIG[item.contactChannel] || CHANNEL_CONFIG.phone;
               const ChannelIcon = channelCfg.icon;
               const isSelected = selectedIds.includes(item.id);
-              const isUpdating = updatingId === item.id;
 
               return (
                 <TableRow
@@ -274,7 +242,7 @@ export function ConsultationListTable({
                     />
                   </TableCell>
 
-                  {/* 2. Khách hàng */}
+                  {/* 2. Khách hàng (Tên + SĐT) */}
                   <TableCell>
                     <div className="flex flex-col gap-0.5">
                       <span className="font-semibold text-foreground text-sm flex items-center gap-1.5">
@@ -288,167 +256,72 @@ export function ConsultationListTable({
                           </span>
                         )}
                       </span>
-
-                      {item.companyName && (
-                        <span className="text-xs text-muted-foreground flex items-center gap-1">
-                          <Building className="size-3 shrink-0" />
-                          <span className="truncate max-w-[180px]">{item.companyName}</span>
-                        </span>
-                      )}
-
-                      <span className="text-[11px] text-muted-foreground font-mono">
-                        {new Date(item.createdAt).toLocaleDateString("vi-VN", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric",
-                        })}
+                      <span className="text-xs font-mono text-muted-foreground">
+                        {item.phone}
                       </span>
                     </div>
                   </TableCell>
 
                   {/* 3. Kênh liên hệ */}
                   <TableCell>
-                    <div className="flex flex-col gap-1 text-xs">
-                      <div className="flex items-center gap-1.5 font-medium text-foreground">
-                        <Phone className="size-3.5 text-muted-foreground shrink-0" />
-                        <span className="font-mono">{item.phone}</span>
-                      </div>
-
-                      {item.email && (
-                        <div className="flex items-center gap-1.5 text-muted-foreground">
-                          <Mail className="size-3.5 shrink-0" />
-                          <span className="truncate max-w-[170px]">{item.email}</span>
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-1 text-[11px]">
-                        <ChannelIcon className={`size-3 shrink-0 ${channelCfg.color}`} />
-                        <span className="text-muted-foreground">Ưu tiên:</span>
-                        <strong className="text-foreground font-medium">
-                          {channelCfg.label}
-                          {item.contactChannelId ? ` (${item.contactChannelId})` : ""}
-                        </strong>
-                      </div>
-                    </div>
+                    <Badge
+                      variant="outline"
+                      className="text-xs font-normal gap-1.5 px-2 py-0.5 w-fit"
+                    >
+                      <ChannelIcon className={`size-3 shrink-0 ${channelCfg.color}`} />
+                      <span>{channelCfg.label}</span>
+                    </Badge>
                   </TableCell>
 
-                  {/* 4. Nhu cầu tư vấn */}
+                  {/* 4. Nhu cầu tư vấn (Lĩnh vực + Tóm tắt) */}
                   <TableCell>
-                    <div className="flex flex-col gap-1 max-w-sm">
-                      {item.title && (
-                        <span className="font-medium text-xs text-foreground line-clamp-1">
-                          {item.title}
-                        </span>
-                      )}
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                    <div className="flex flex-col gap-0.5 max-w-sm">
+                      <span className="font-medium text-xs text-foreground truncate">
+                        {item.practiceAreaName || item.title || "Yêu cầu tư vấn"}
+                      </span>
+                      <p className="text-xs text-muted-foreground line-clamp-1 truncate">
                         {item.content}
                       </p>
-                      {item.preferredContactTime && (
-                        <span className="text-[10px] text-muted-foreground/80 flex items-center gap-1">
-                          <Clock className="size-2.5" />
-                          Giờ tiện liên hệ: {item.preferredContactTime}
-                        </span>
-                      )}
                     </div>
                   </TableCell>
 
-                  {/* 5. Lĩnh vực / Luật sư */}
+                  {/* 5. Phụ trách */}
                   <TableCell>
-                    <div className="flex flex-col gap-1 text-xs">
-                      {item.practiceAreaName ? (
-                        <Badge variant="outline" className="w-fit text-[11px] gap-1 font-normal py-0">
-                          <Scale className="size-3 text-primary shrink-0" />
-                          <span className="truncate max-w-[130px]">{item.practiceAreaName}</span>
-                        </Badge>
-                      ) : (
-                        <span className="text-[11px] text-muted-foreground/60 italic">
-                          Chưa chọn lĩnh vực
-                        </span>
-                      )}
-
-                      {item.lawyerName && (
-                        <div className="flex items-center gap-1 text-[11px] text-foreground font-medium">
-                          <User className="size-3 text-muted-foreground shrink-0" />
-                          <span className="truncate max-w-[130px]">LS: {item.lawyerName}</span>
-                        </div>
-                      )}
-
-                      {/* Dropdown phân công nhanh người phụ trách */}
-                      <div className="flex items-center gap-1 mt-0.5">
-                        <UserCheck className="size-3 text-primary shrink-0" />
-                        <Select
-                          value={item.assignedUserId || "unassigned"}
-                          onValueChange={(val) =>
-                            handleAssignUser(item.id, val === "unassigned" ? null : val)
-                          }
-                          disabled={assignMutation.isPending && assigningId === item.id}
-                        >
-                          <SelectTrigger className="h-5 text-[10px] px-1.5 py-0 border-dashed border-border/70 hover:border-border max-w-[140px] bg-muted/30">
-                            <SelectValue placeholder="Chưa phân công" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="unassigned" className="text-xs">
-                              -- Chưa phân công --
-                            </SelectItem>
-                            {users.map((u) => (
-                              <SelectItem key={u.id} value={u.id} className="text-xs">
-                                {u.fullName || u.email}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
+                    {item.assignedUserName ? (
+                      <span className="text-xs font-medium text-foreground">
+                        {item.assignedUserName}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-muted-foreground/60 italic">
+                        Chưa phân công
+                      </span>
+                    )}
                   </TableCell>
 
-                  {/* 6. Trạng thái */}
+                  {/* 6. Ngày gửi */}
+                  <TableCell className="font-mono text-xs text-muted-foreground">
+                    {new Date(item.createdAt).toLocaleDateString("vi-VN")}
+                  </TableCell>
+
+                  {/* 7. Trạng thái */}
                   <TableCell className="text-center">
-                    <Select
-                      value={item.status}
-                      onValueChange={(val) => handleStatusChange(item.id, val as LeadStatus)}
-                      disabled={isUpdating}
+                    <Badge
+                      variant="outline"
+                      className={`text-xs gap-1 py-0.5 px-2 font-medium ${statusCfg.color}`}
                     >
-                      <SelectTrigger className="h-8 text-xs justify-between gap-1 w-36 mx-auto">
-                        <div className="flex items-center gap-1.5 truncate">
-                          <StatusIcon className="size-3.5 shrink-0" />
-                          <SelectValue />
-                        </div>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="new">
-                          <span className="flex items-center gap-1.5 text-red-600">
-                            <AlertCircle className="size-3.5" /> Mới tiếp nhận
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="in_progress">
-                          <span className="flex items-center gap-1.5 text-blue-600">
-                            <Clock className="size-3.5" /> Đang xử lý
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="done">
-                          <span className="flex items-center gap-1.5 text-emerald-600">
-                            <CheckCircle2 className="size-3.5" /> Đã tư vấn
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="spam">
-                          <span className="flex items-center gap-1.5 text-muted-foreground">
-                            <Ban className="size-3.5" /> Tin rác / Spam
-                          </span>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                      <StatusIcon className="size-3 shrink-0" />
+                      {statusCfg.label}
+                    </Badge>
                   </TableCell>
 
-                  {/* 7. Thao tác */}
+                  {/* 8. Thao tác */}
                   <TableCell className="text-right pr-4">
                     <div className="flex items-center justify-end gap-1">
                       <Button
                         variant="ghost"
                         size="icon"
                         className="size-8 text-muted-foreground hover:text-foreground"
-                        title="Xem chi tiết & Ghi chú"
+                        title="Xem chi tiết & Xử lý hồ sơ"
                         onClick={() => onViewDetail(item)}
                       >
                         <Eye className="size-4" />
