@@ -30,10 +30,10 @@ export function Header() {
   const isAboutActive =
     pathname?.startsWith(`/${lang}/about`) ||
     pathname?.startsWith(`/${lang}/lawyers`) ||
-    pathname?.startsWith(`/${lang}/corridor`);
+    pathname?.startsWith(`/${lang}/corridor`) ||
+    pathname?.startsWith(`/${lang}/offices`);
   const isServicesActive = pathname?.startsWith(`/${lang}/legal-services`);
   const isPostsActive = pathname?.startsWith(`/${lang}/posts`);
-  const isOfficesActive = pathname?.startsWith(`/${lang}/offices`);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId?: string) => {
     setOpenDropdown(null);
@@ -373,21 +373,6 @@ export function Header() {
                 </div>
               )}
             </li>
-
-            {/* 5. Liên hệ */}
-            <li className="h-full flex items-center">
-              <Link
-                href={`/${lang}/offices`}
-                onClick={() => setOpenDropdown(null)}
-                className={`flex items-center h-full border-b-[3px] transition-colors ${
-                  isOfficesActive
-                    ? "text-[#a3171e] border-[#a3171e]"
-                    : "border-transparent hover:text-[#a3171e]"
-                }`}
-              >
-                Liên hệ
-              </Link>
-            </li>
           </ul>
         </nav>
 
@@ -475,9 +460,9 @@ export function Header() {
               <Link
                 href={`/${lang}/offices`}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block p-4 ${isOfficesActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
+                className={`block p-4 ${pathname?.startsWith(`/${lang}/offices`) ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
-                Mạng lưới văn phòng &amp; Liên hệ
+                Mạng lưới văn phòng
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3] p-4 bg-[#fbf7ee]">
