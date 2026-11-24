@@ -15,6 +15,15 @@ export class PracticeAreaTranslationDto {
   @ApiPropertyOptional()
   description?: string | null;
 
+  @ApiPropertyOptional({ type: [String] })
+  scopePoints?: string[] | null;
+
+  @ApiPropertyOptional()
+  estimatedTime?: string | null;
+
+  @ApiPropertyOptional()
+  feeStructure?: string | null;
+
   @ApiPropertyOptional()
   metaTitle?: string | null;
 
@@ -34,6 +43,9 @@ export class PracticeAreaAdminDto {
 
   @ApiPropertyOptional()
   iconUrl?: string;
+
+  @ApiPropertyOptional({ example: '投' })
+  hanziBadge?: string | null;
 
   @ApiProperty()
   displayOrder: number;

@@ -43,6 +43,10 @@ export class LegalService extends BaseEntity {
   @Column({ name: 'is_featured', default: false })
   isFeatured: boolean;
 
+  /** Chữ Hán đại diện đơn lẻ (ví dụ: 投, 约, 诉, 债, 劳, 并) */
+  @Column({ name: 'hanzi_badge', length: 10, nullable: true })
+  hanziBadge?: string;
+
   @OneToMany(() => LegalServiceTranslation, (t) => t.service, { cascade: true })
   translations: LegalServiceTranslation[];
 }

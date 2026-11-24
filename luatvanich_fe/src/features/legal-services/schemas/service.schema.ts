@@ -7,6 +7,7 @@ export const serviceFormSchema = z.object({
   displayOrder: z.coerce.number().int().default(0),
   status: z.enum(["published", "draft"]).default("draft"),
   isFeatured: z.boolean().default(false),
+  hanziBadge: z.string().max(10, "Chữ Hán tối đa 10 ký tự").optional().nullable().or(z.literal("")),
 
   // Tiếng Việt (bắt buộc)
   titleVi: z

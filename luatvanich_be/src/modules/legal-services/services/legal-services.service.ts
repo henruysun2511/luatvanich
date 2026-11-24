@@ -72,6 +72,7 @@ export class LegalServicesService {
     const entity = this.serviceRepo.create({
       practiceAreaId: dto.practiceAreaId,
       isFeatured: dto.isFeatured ?? false,
+      hanziBadge: dto.hanziBadge,
       coverImageUrl: dto.coverImageUrl,
       displayOrder: dto.displayOrder ?? 0,
       status: ContentStatus.DRAFT,
@@ -111,6 +112,7 @@ export class LegalServicesService {
 
     if (dto.practiceAreaId !== undefined) service.practiceAreaId = dto.practiceAreaId;
     if (dto.isFeatured !== undefined) service.isFeatured = dto.isFeatured;
+    if (dto.hanziBadge !== undefined) service.hanziBadge = dto.hanziBadge;
     if (dto.coverImageUrl !== undefined) service.coverImageUrl = dto.coverImageUrl;
     if (dto.displayOrder !== undefined) service.displayOrder = dto.displayOrder;
     await this.serviceRepo.save(service, dto.practiceAreaId);

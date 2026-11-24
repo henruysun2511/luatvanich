@@ -31,7 +31,7 @@ import type {
   UpsertPracticeAreaTranslationInput,
   PracticeAreaStatus,
 } from "../types/practice-areas.types";
-import { Scale, Loader2, Globe, Settings2, Sparkles } from "lucide-react";
+import { Scale, Loader2, Globe, Settings2, Sparkles, Plus, Trash2 } from "lucide-react";
 import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
 
 interface PracticeAreaFormDialogProps {
@@ -68,11 +68,15 @@ export function PracticeAreaFormDialog({
   const [displayOrder, setDisplayOrder] = useState<number>(0);
   const [status, setStatus] = useState<PracticeAreaStatus>("published");
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
+  const [hanziBadge, setHanziBadge] = useState<string>("");
 
   // Vietnamese translation
   const [viName, setViName] = useState<string>("");
   const [viSlug, setViSlug] = useState<string>("");
   const [viDescription, setViDescription] = useState<string>("");
+  const [viScopePoints, setViScopePoints] = useState<string[]>([]);
+  const [viEstimatedTime, setViEstimatedTime] = useState<string>("");
+  const [viFeeStructure, setViFeeStructure] = useState<string>("");
   const [viMetaTitle, setViMetaTitle] = useState<string>("");
   const [viMetaDescription, setViMetaDescription] = useState<string>("");
   const [viComplete, setViComplete] = useState<boolean>(true);
@@ -82,6 +86,9 @@ export function PracticeAreaFormDialog({
   const [zhName, setZhName] = useState<string>("");
   const [zhSlug, setZhSlug] = useState<string>("");
   const [zhDescription, setZhDescription] = useState<string>("");
+  const [zhScopePoints, setZhScopePoints] = useState<string[]>([]);
+  const [zhEstimatedTime, setZhEstimatedTime] = useState<string>("");
+  const [zhFeeStructure, setZhFeeStructure] = useState<string>("");
   const [zhMetaTitle, setZhMetaTitle] = useState<string>("");
   const [zhMetaDescription, setZhMetaDescription] = useState<string>("");
   const [zhComplete, setZhComplete] = useState<boolean>(false);
@@ -112,6 +119,7 @@ export function PracticeAreaFormDialog({
       setDisplayOrder(practiceAreaToEdit.displayOrder || 0);
       setStatus(practiceAreaToEdit.status || "published");
       setIsFeatured(practiceAreaToEdit.isFeatured || false);
+      setHanziBadge(practiceAreaToEdit.hanziBadge || "");
 
       const vi = practiceAreaToEdit.translations?.find(
         (t) => t.languageCode === "vi",
@@ -120,6 +128,9 @@ export function PracticeAreaFormDialog({
         setViName(vi.name || "");
         setViSlug(vi.slug || "");
         setViDescription(vi.description || "");
+        setViScopePoints(Array.isArray(vi.scopePoints) ? vi.scopePoints : []);
+        setViEstimatedTime(vi.estimatedTime || "");
+        setViFeeStructure(vi.feeStructure || "");
         setViMetaTitle(vi.metaTitle || "");
         setViMetaDescription(vi.metaDescription || "");
         setViComplete(vi.isComplete !== undefined ? vi.isComplete : true);
@@ -128,6 +139,9 @@ export function PracticeAreaFormDialog({
         setViName("");
         setViSlug("");
         setViDescription("");
+        setViScopePoints([]);
+        setViEstimatedTime("");
+        setViFeeStructure("");
         setViMetaTitle("");
         setViMetaDescription("");
         setViComplete(true);
@@ -141,6 +155,9 @@ export function PracticeAreaFormDialog({
         setZhName(zh.name || "");
         setZhSlug(zh.slug || "");
         setZhDescription(zh.description || "");
+        setZhScopePoints(Array.isArray(zh.scopePoints) ? zh.scopePoints : []);
+        setZhEstimatedTime(zh.estimatedTime || "");
+        setZhFeeStructure(zh.feeStructure || "");
         setZhMetaTitle(zh.metaTitle || "");
         setZhMetaDescription(zh.metaDescription || "");
         setZhComplete(zh.isComplete || false);
@@ -148,6 +165,9 @@ export function PracticeAreaFormDialog({
         setZhName("");
         setZhSlug("");
         setZhDescription("");
+        setZhScopePoints([]);
+        setZhEstimatedTime("");
+        setZhFeeStructure("");
         setZhMetaTitle("");
         setZhMetaDescription("");
         setZhComplete(false);
@@ -161,10 +181,14 @@ export function PracticeAreaFormDialog({
       setDisplayOrder(0);
       setStatus("published");
       setIsFeatured(false);
+      setHanziBadge("");
 
       setViName("");
       setViSlug("");
       setViDescription("");
+      setViScopePoints([]);
+      setViEstimatedTime("");
+      setViFeeStructure("");
       setViMetaTitle("");
       setViMetaDescription("");
       setViComplete(true);
@@ -173,6 +197,9 @@ export function PracticeAreaFormDialog({
       setZhName("");
       setZhSlug("");
       setZhDescription("");
+      setZhScopePoints([]);
+      setZhEstimatedTime("");
+      setZhFeeStructure("");
       setZhMetaTitle("");
       setZhMetaDescription("");
       setZhComplete(false);
@@ -200,6 +227,9 @@ export function PracticeAreaFormDialog({
         name: viName.trim(),
         slug: viSlug.trim() || undefined,
         description: viDescription.trim() || null,
+        scopePoints: viScopePoints.map((s) => s.trim()).filter(Boolean),
+        estimatedTime: viEstimatedTime.trim() || null,
+        feeStructure: viFeeStructure.trim() || null,
         metaTitle: viMetaTitle.trim() || null,
         metaDescription: viMetaDescription.trim() || null,
         isComplete: viComplete,
@@ -212,6 +242,9 @@ export function PracticeAreaFormDialog({
         name: zhName.trim(),
         slug: zhSlug.trim() || undefined,
         description: zhDescription.trim() || null,
+        scopePoints: zhScopePoints.map((s) => s.trim()).filter(Boolean),
+        estimatedTime: zhEstimatedTime.trim() || null,
+        feeStructure: zhFeeStructure.trim() || null,
         metaTitle: zhMetaTitle.trim() || null,
         metaDescription: zhMetaDescription.trim() || null,
         isComplete: zhComplete,
@@ -223,6 +256,7 @@ export function PracticeAreaFormDialog({
       displayOrder,
       status,
       isFeatured,
+      hanziBadge: hanziBadge.trim() || null,
       translations: translationsPayload,
     };
 
@@ -407,6 +441,76 @@ export function PracticeAreaFormDialog({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div>
                   <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Thời gian hoàn thành ước tính
+                  </label>
+                  <Input
+                    placeholder="VD: 30 – 60 ngày, 2 – 6 tháng"
+                    value={viEstimatedTime}
+                    onChange={(e) => setViEstimatedTime(e.target.value)}
+                    className="mt-1 text-xs"
+                  />
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Hiển thị ở chân tab lĩnh vực trang chủ.
+                  </p>
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Hình thức tính phí
+                  </label>
+                  <Input
+                    placeholder="VD: Trọn gói, Theo hợp đồng, Theo vụ việc"
+                    value={viFeeStructure}
+                    onChange={(e) => setViFeeStructure(e.target.value)}
+                    className="mt-1 text-xs"
+                  />
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Hiển thị ở chân tab lĩnh vực trang chủ.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-[#e7dcc3]">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Phạm vi công việc (Gạch đầu dòng hiển thị trên tab)
+                  </label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setViScopePoints([...viScopePoints, ""])}
+                    className="text-xs h-7 border-[#c29a45] text-[#85151b] hover:bg-[#fbf7ee]"
+                  >
+                    <Plus className="size-3 mr-1" /> Thêm gạch đầu dòng
+                  </Button>
+                </div>
+                {viScopePoints.map((point, pIdx) => (
+                  <div key={pIdx} className="flex items-center gap-2">
+                    <span className="text-xs text-[#c29a45] font-bold">✦</span>
+                    <Input
+                      value={point}
+                      onChange={(e) => {
+                        const updated = [...viScopePoints];
+                        updated[pIdx] = e.target.value;
+                        setViScopePoints(updated);
+                      }}
+                      placeholder="VD: Thẩm định pháp lý doanh nghiệp mục tiêu (Due Diligence)"
+                      className="h-8 text-xs bg-white"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setViScopePoints(viScopePoints.filter((_, idx) => idx !== pIdx))}
+                      className="p-1 text-[#a0aec0] hover:text-[#e53e3e]"
+                    >
+                      <Trash2 className="size-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
                     SEO Meta Title (Tối đa 70 ký tự)
                   </label>
                   <Input
@@ -500,6 +604,70 @@ export function PracticeAreaFormDialog({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div>
                   <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Thời gian hoàn thành ước tính (中文)
+                  </label>
+                  <Input
+                    placeholder="VD: 30 – 60天, 2 – 6个月"
+                    value={zhEstimatedTime}
+                    onChange={(e) => setZhEstimatedTime(e.target.value)}
+                    className="mt-1 text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Hình thức tính phí (中文)
+                  </label>
+                  <Input
+                    placeholder="VD: 包干/全包, 按合同, 按案件"
+                    value={zhFeeStructure}
+                    onChange={(e) => setZhFeeStructure(e.target.value)}
+                    className="mt-1 text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-[#e7dcc3]">
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Phạm vi công việc tiếng Trung (工作范围列表)
+                  </label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setZhScopePoints([...zhScopePoints, ""])}
+                    className="text-xs h-7 border-[#c29a45] text-[#85151b] hover:bg-[#fbf7ee]"
+                  >
+                    <Plus className="size-3 mr-1" /> Thêm gạch đầu dòng (中文)
+                  </Button>
+                </div>
+                {zhScopePoints.map((point, pIdx) => (
+                  <div key={pIdx} className="flex items-center gap-2">
+                    <span className="text-xs text-[#c29a45] font-bold">✦</span>
+                    <Input
+                      value={point}
+                      onChange={(e) => {
+                        const updated = [...zhScopePoints];
+                        updated[pIdx] = e.target.value;
+                        setZhScopePoints(updated);
+                      }}
+                      placeholder="VD: 目标企业法律尽职调查 (Due Diligence)"
+                      className="h-8 text-xs bg-white font-hanzi"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setZhScopePoints(zhScopePoints.filter((_, idx) => idx !== pIdx))}
+                      className="p-1 text-[#a0aec0] hover:text-[#e53e3e]"
+                    >
+                      <Trash2 className="size-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
                     SEO Meta Title (中文)
                   </label>
                   <Input
@@ -577,6 +745,23 @@ export function PracticeAreaFormDialog({
                   />
                   <p className="text-[11px] text-muted-foreground mt-0.5">
                     Số nhỏ hơn sẽ đứng trước trong danh mục.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Chữ Hán đại diện / Watermark
+                  </label>
+                  <Input
+                    type="text"
+                    maxLength={10}
+                    placeholder="VD: 投, 约, 诉, 债, 劳, 并"
+                    value={hanziBadge}
+                    onChange={(e) => setHanziBadge(e.target.value)}
+                    className="mt-1 font-hanzi font-bold text-base text-[#85151b]"
+                  />
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Hiển thị làm watermark mờ nền sau nội dung tab trên trang chủ.
                   </p>
                 </div>
               </div>

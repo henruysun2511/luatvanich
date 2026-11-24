@@ -52,6 +52,35 @@ export class UpsertPracticeAreaTranslationDto {
   description?: string | null;
 
   @ApiPropertyOptional({
+    example: ['Thẩm định pháp lý doanh nghiệp mục tiêu', 'Soạn thảo và đàm phán hợp đồng M&A'],
+    description: 'Danh sách các gạch đầu dòng phạm vi công việc chuyên sâu',
+    type: [String],
+    nullable: true,
+  })
+  @IsOptional()
+  scopePoints?: string[] | null;
+
+  @ApiPropertyOptional({
+    example: '30 – 60 ngày',
+    description: 'Thời gian thực hiện ước tính',
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  estimatedTime?: string | null;
+
+  @ApiPropertyOptional({
+    example: 'Trọn gói',
+    description: 'Hình thức tính phí',
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  feeStructure?: string | null;
+
+  @ApiPropertyOptional({
     example: 'Tư Vấn Đầu Tư FDI Chuyên Nghiệp | Hãng Luật Vạn Ích',
     description: 'SEO Meta Title (tối đa 70 ký tự)',
     nullable: true,

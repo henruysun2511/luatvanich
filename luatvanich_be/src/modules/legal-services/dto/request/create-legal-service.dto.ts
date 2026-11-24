@@ -23,6 +23,12 @@ export class CreateLegalServiceDto {
   @IsOptional()
   isFeatured?: boolean;
 
+  @ApiPropertyOptional({ example: '投', description: 'Chữ Hán đại diện đơn lẻ hiển thị trên card' })
+  @IsString()
+  @IsOptional()
+  @MaxLength(10)
+  hanziBadge?: string;
+
   // ── Nội dung tiếng Việt (bắt buộc) ─────────────────────────────────
   @ApiProperty({ example: 'Tư Vấn Đầu Tư FDI' })
   @IsString()

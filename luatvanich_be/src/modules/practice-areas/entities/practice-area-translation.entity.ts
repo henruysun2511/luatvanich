@@ -31,6 +31,18 @@ export class PracticeAreaTranslation {
   @Column({ type: 'text', nullable: true })
   description?: string | null;
 
+  /** Danh sách 4-6 gạch đầu dòng phạm vi công việc chuyên sâu */
+  @Column({ name: 'scope_points', type: 'jsonb', nullable: true, default: () => "'[]'::jsonb" })
+  scopePoints?: string[] | null;
+
+  /** Khung thời gian hoàn thành (ví dụ: 30 – 60 ngày, 2 – 6 tháng) */
+  @Column({ name: 'estimated_time', type: 'varchar', nullable: true, length: 100 })
+  estimatedTime?: string | null;
+
+  /** Hình thức tính phí (ví dụ: Trọn gói, Theo hợp đồng, Theo vụ việc) */
+  @Column({ name: 'fee_structure', type: 'varchar', nullable: true, length: 100 })
+  feeStructure?: string | null;
+
   /** SEO meta title */
   @Column({ name: 'meta_title', type: 'varchar', nullable: true, length: 70 })
   metaTitle?: string | null;

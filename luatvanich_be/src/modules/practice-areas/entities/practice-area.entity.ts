@@ -27,6 +27,10 @@ export class PracticeArea extends BaseEntity {
   @Column({ name: 'is_featured', default: false })
   isFeatured: boolean;
 
+  /** Chữ Hán đại diện / Watermark mờ nền (ví dụ: 投, 约, 诉, 债, 劳, 并) */
+  @Column({ name: 'hanzi_badge', type: 'varchar', nullable: true, length: 10 })
+  hanziBadge?: string | null;
+
   /** Danh sách bản dịch song ngữ (vi, zh-CN) */
   @OneToMany(() => PracticeAreaTranslation, (t) => t.practiceArea, { cascade: true })
   translations: PracticeAreaTranslation[];

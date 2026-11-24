@@ -10,6 +10,7 @@ export default new DataSource({
   database: process.env.DB_NAME || 'luatvanich',
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'postgres',
+  ssl: process.env.DB_SSL === 'true' || (process.env.DB_HOST && process.env.DB_HOST.includes('neon')) ? { rejectUnauthorized: false } : false,
   entities: ['src/**/*.entity.ts'],
   migrations: ['src/database/migrations/*.ts'],
   synchronize: false,

@@ -21,6 +21,9 @@ import {
   ExternalLink,
   Calendar,
   Scale,
+  Clock,
+  DollarSign,
+  CheckCircle2,
 } from "lucide-react";
 
 interface PracticeAreaDetailDialogProps {
@@ -67,6 +70,11 @@ export function PracticeAreaDetailDialog({
               {area?.isFeatured && (
                 <Badge variant="outline" className="gap-1 bg-amber-500/10 text-amber-600 border-amber-300 text-xs">
                   <Star className="size-3 fill-amber-500 text-amber-500" /> Nổi bật
+                </Badge>
+              )}
+              {area?.hanziBadge && (
+                <Badge variant="outline" className="border-[#c29a45] text-[#8a1c14] bg-[#fbf7ee] font-serif text-xs font-bold px-2">
+                  Chữ Hán: {area.hanziBadge}
                 </Badge>
               )}
             </div>
@@ -148,11 +156,59 @@ export function PracticeAreaDetailDialog({
                   {currentTrans ? (
                     <>
                       {/* Tên lĩnh vực */}
-                      <div>
+                      <div className="flex items-center justify-between gap-3">
                         <h2 className="text-lg font-bold text-foreground leading-snug">
                           {currentTrans.name}
                         </h2>
+                        {area.hanziBadge && (
+                          <div className="shrink-0 size-9 rounded-none border border-[#c29a45]/50 bg-[#fbf7ee] flex items-center justify-center font-serif text-lg font-bold text-[#8a1c14] shadow-sm">
+                            {area.hanziBadge}
+                          </div>
+                        )}
                       </div>
+
+                      {/* Các điểm phạm vi dịch vụ nổi bật (Scope Points) */}
+                      {currentTrans.scopePoints && currentTrans.scopePoints.length > 0 && (
+                        <div className="border border-[#c29a45]/30 bg-[#fbf7ee]/60 rounded-none p-4 space-y-2.5">
+                          <h4 className="text-xs font-semibold text-[#8a1c14] uppercase tracking-wider flex items-center gap-1.5">
+                            <CheckCircle2 className="size-3.5 text-[#c29a45]" /> Phạm vi công việc chi tiết (Scope Points)
+                          </h4>
+                          <ul className="space-y-1.5">
+                            {currentTrans.scopePoints.map((point, idx) => (
+                              <li key={idx} className="text-xs text-foreground/90 flex items-start gap-2">
+                                <span className="text-[#8a1c14] font-bold">✦</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Thời gian & Hình thức phí */}
+                      {(currentTrans.estimatedTime || currentTrans.feeStructure) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {currentTrans.estimatedTime && (
+                            <div className="border border-[#e7dcc3] bg-[#fcfbf9] p-3 rounded-none">
+                              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                                <Clock className="size-3 text-[#c29a45]" /> Thời gian ước tính
+                              </span>
+                              <p className="text-xs font-semibold text-foreground mt-0.5">
+                                {currentTrans.estimatedTime}
+                              </p>
+                            </div>
+                          )}
+                          {currentTrans.feeStructure && (
+                            <div className="border border-[#e7dcc3] bg-[#fcfbf9] p-3 rounded-none">
+                              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                                <DollarSign className="size-3 text-[#c29a45]" /> Hình thức phí
+                              </span>
+                              <p className="text-xs font-semibold text-foreground mt-0.5">
+                                {currentTrans.feeStructure}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
                       {/* Mô tả phạm vi chuyên môn */}
                       {currentTrans.description ? (

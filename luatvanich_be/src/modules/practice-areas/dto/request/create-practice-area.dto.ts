@@ -52,6 +52,12 @@ export class CreatePracticeAreaDto {
   @IsBoolean({ message: 'isFeatured phải là boolean' })
   isFeatured?: boolean;
 
+  @ApiPropertyOptional({ example: '投', description: 'Chữ Hán đại diện đơn lẻ / Watermark' })
+  @IsOptional()
+  @IsString({ message: 'hanziBadge phải là chuỗi' })
+  @MaxLength(10, { message: 'hanziBadge tối đa 10 ký tự' })
+  hanziBadge?: string | null;
+
   @ApiProperty({
     type: [UpsertPracticeAreaTranslationDto],
     description: 'Danh sách bản dịch (tối thiểu 1 ngôn ngữ, tối đa 2: vi và zh-CN)',

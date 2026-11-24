@@ -69,6 +69,7 @@ export function ServiceFormDialog({
   const [displayOrder, setDisplayOrder] = useState<number>(0);
   const [status, setStatus] = useState<ServicePublishStatus>("published");
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
+  const [hanziBadge, setHanziBadge] = useState<string>("");
 
   // Vietnamese translation
   const [titleVi, setTitleVi] = useState<string>("");
@@ -113,6 +114,7 @@ export function ServiceFormDialog({
       setDisplayOrder(serviceToEdit.displayOrder || 0);
       setStatus(serviceToEdit.status || "published");
       setIsFeatured(serviceToEdit.isFeatured || false);
+      setHanziBadge(serviceToEdit.hanziBadge || "");
 
       const vi = serviceToEdit.translations?.find((t) => t.languageCode === "vi");
       if (vi) {
@@ -149,6 +151,7 @@ export function ServiceFormDialog({
       setDisplayOrder(0);
       setStatus("published");
       setIsFeatured(false);
+      setHanziBadge("");
 
       setTitleVi("");
       setSlugVi("");
@@ -182,6 +185,7 @@ export function ServiceFormDialog({
       coverImageUrl: coverImageUrl?.trim() || null,
       displayOrder,
       isFeatured,
+      hanziBadge: hanziBadge.trim() || null,
       titleVi: titleVi.trim(),
       slugVi: slugVi.trim() || undefined,
       excerptVi: excerptVi.trim() || null,
@@ -477,6 +481,23 @@ export function ServiceFormDialog({
                     }
                     className="mt-1"
                   />
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                    Chữ Hán đại diện đơn lẻ
+                  </label>
+                  <Input
+                    type="text"
+                    maxLength={10}
+                    placeholder="VD: 投, 约, 诉, 债, 劳, 并"
+                    value={hanziBadge}
+                    onChange={(e) => setHanziBadge(e.target.value)}
+                    className="mt-1 font-hanzi font-bold text-base text-[#85151b]"
+                  />
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Hiển thị ở góc trên bên phải của Card trên trang chủ.
+                  </p>
                 </div>
               </div>
 

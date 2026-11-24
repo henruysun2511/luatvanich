@@ -17,6 +17,7 @@ export interface LegalServiceItem {
   status: ServicePublishStatus;
   displayOrder: number;
   isFeatured: boolean;
+  hanziBadge?: string | null;
   coverImageUrl?: string | null;
   translations: ServiceTranslationSummaryItem[];
   createdAt: string;
@@ -44,6 +45,7 @@ export interface CreateLegalServiceInput {
   coverImageUrl?: string | null;
   displayOrder?: number;
   isFeatured?: boolean;
+  hanziBadge?: string | null;
   titleVi: string;
   slugVi?: string;
   excerptVi?: string | null;

@@ -73,6 +73,11 @@ export function ServiceDetailDialog({
                   <Star className="size-3 fill-amber-500 text-amber-500" /> Nổi bật
                 </Badge>
               )}
+              {service?.hanziBadge && (
+                <Badge variant="outline" className="border-[#c29a45] text-[#8a1c14] bg-[#fbf7ee] font-serif text-xs font-bold px-2">
+                  Chữ Hán: {service.hanziBadge}
+                </Badge>
+              )}
             </div>
 
             {service && (
@@ -155,10 +160,15 @@ export function ServiceDetailDialog({
                   {currentTrans ? (
                     <>
                       {/* Tiêu đề */}
-                      <div>
+                      <div className="flex items-center justify-between gap-3">
                         <h2 className="text-lg font-bold text-foreground leading-snug">
                           {currentTrans.title}
                         </h2>
+                        {service.hanziBadge && (
+                          <div className="shrink-0 size-9 rounded-none border border-[#c29a45]/50 bg-[#fbf7ee] flex items-center justify-center font-serif text-lg font-bold text-[#8a1c14] shadow-sm">
+                            {service.hanziBadge}
+                          </div>
+                        )}
                       </div>
 
                       {/* Tóm tắt */}

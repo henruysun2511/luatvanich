@@ -15,6 +15,7 @@ export class LegalServiceAdminDto {
   @ApiProperty({ enum: ContentStatus }) status: ContentStatus;
   @ApiProperty() displayOrder: number;
   @ApiProperty() isFeatured: boolean;
+  @ApiPropertyOptional() hanziBadge?: string;
   @ApiPropertyOptional() coverImageUrl?: string;
   @ApiProperty({ type: [TranslationSummaryDto] }) translations: TranslationSummaryDto[];
   @ApiProperty() createdAt: Date;

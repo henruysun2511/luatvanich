@@ -16,6 +16,9 @@ export const practiceAreaTranslationSchema = z.object({
     .optional()
     .or(z.literal("")),
   description: z.string().optional().nullable().or(z.literal("")),
+  scopePoints: z.array(z.string()).optional().nullable(),
+  estimatedTime: z.string().max(100, "Thời gian tối đa 100 ký tự").optional().nullable().or(z.literal("")),
+  feeStructure: z.string().max(100, "Hình thức phí tối đa 100 ký tự").optional().nullable().or(z.literal("")),
   metaTitle: z
     .string()
     .max(70, "SEO Meta Title tối đa 70 ký tự")
@@ -41,6 +44,7 @@ export const practiceAreaFormSchema = z.object({
   displayOrder: z.coerce.number().int().default(0),
   status: z.enum(["draft", "published"]).default("draft"),
   isFeatured: z.boolean().default(false),
+  hanziBadge: z.string().max(10, "Chữ Hán tối đa 10 ký tự").optional().nullable().or(z.literal("")),
   translations: z
     .array(practiceAreaTranslationSchema)
     .min(1, "Cần có ít nhất một bản dịch ngôn ngữ"),

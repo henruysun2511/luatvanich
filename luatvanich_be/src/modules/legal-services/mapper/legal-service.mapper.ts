@@ -26,6 +26,7 @@ export class LegalServiceMapper {
       status: entity.status,
       displayOrder: entity.displayOrder,
       isFeatured: entity.isFeatured,
+      hanziBadge: entity.hanziBadge,
       coverImageUrl: entity.coverImageUrl,
       translations: (entity.translations || []).map((t): TranslationSummaryDto => ({
         languageCode: t.languageCode,
@@ -77,6 +78,7 @@ export class LegalServiceMapper {
       coverImageUrl: entity.coverImageUrl,
       isFeatured: entity.isFeatured,
       displayOrder: entity.displayOrder,
+      hanziBadge: entity.hanziBadge,
       fallback: fallback || undefined,
     };
   }

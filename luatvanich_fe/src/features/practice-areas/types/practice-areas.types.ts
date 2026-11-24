@@ -5,6 +5,9 @@ export interface PracticeAreaTranslationItem {
   slug: string;
   name: string;
   description?: string | null;
+  scopePoints?: string[] | null;
+  estimatedTime?: string | null;
+  feeStructure?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
   isComplete: boolean;
@@ -17,6 +20,7 @@ export interface PracticeAreaItem {
   displayOrder: number;
   status: PracticeAreaStatus;
   isFeatured: boolean;
+  hanziBadge?: string | null;
   servicesCount: number;
   translations: PracticeAreaTranslationItem[];
   createdAt: string;
@@ -44,6 +48,9 @@ export interface UpsertPracticeAreaTranslationInput {
   name: string;
   slug?: string;
   description?: string | null;
+  scopePoints?: string[] | null;
+  estimatedTime?: string | null;
+  feeStructure?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
   isComplete?: boolean;
@@ -54,6 +61,7 @@ export interface CreatePracticeAreaInput {
   displayOrder?: number;
   status?: PracticeAreaStatus;
   isFeatured?: boolean;
+  hanziBadge?: string | null;
   translations: UpsertPracticeAreaTranslationInput[];
 }
 

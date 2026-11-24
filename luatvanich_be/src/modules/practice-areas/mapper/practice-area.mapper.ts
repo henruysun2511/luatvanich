@@ -15,7 +15,11 @@ export class PracticeAreaMapper {
       slug: localized?.slug ?? '',
       name: localized?.name ?? '',
       iconUrl: entity.iconUrl ?? undefined,
+      hanziBadge: entity.hanziBadge ?? undefined,
       description: localized?.description ?? undefined,
+      scopePoints: localized?.scopePoints ?? [],
+      estimatedTime: localized?.estimatedTime ?? undefined,
+      feeStructure: localized?.feeStructure ?? undefined,
       isFeatured: entity.isFeatured,
       servicesCount: entity.servicesCount,
       metaTitle: localized?.metaTitle ?? undefined,
@@ -27,14 +31,15 @@ export class PracticeAreaMapper {
     return {
       id: entity.id,
       iconUrl: entity.iconUrl ?? undefined,
+      hanziBadge: entity.hanziBadge ?? undefined,
       displayOrder: entity.displayOrder,
       status: entity.status,
       isFeatured: entity.isFeatured,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       servicesCount: entity.servicesCount,
-      translations: (entity.translations ?? []).map(({ languageCode, slug, name, description, metaTitle, metaDescription, isComplete, updatedAt }) => ({
-        languageCode, slug, name, description, metaTitle, metaDescription, isComplete, updatedAt,
+      translations: (entity.translations ?? []).map(({ languageCode, slug, name, description, scopePoints, estimatedTime, feeStructure, metaTitle, metaDescription, isComplete, updatedAt }) => ({
+        languageCode, slug, name, description, scopePoints, estimatedTime, feeStructure, metaTitle, metaDescription, isComplete, updatedAt,
       })),
     };
   }
