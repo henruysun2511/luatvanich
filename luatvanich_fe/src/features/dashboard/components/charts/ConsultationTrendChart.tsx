@@ -33,21 +33,24 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
   const totalCount = formattedData.reduce((acc, cur) => acc + cur.count, 0);
 
   return (
-    <div className="bg-card border border-border rounded-xl p-5 shadow-xs flex flex-col h-[340px]">
-      <div className="flex items-center justify-between pb-3 border-b border-border/60">
+    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
+      {/* Viền đỉnh gradient hoàng gia */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#85151b] via-[#a3171e] to-[#c29a45]" />
+
+      <div className="flex items-center justify-between pb-3.5 border-b border-[#e7dcc3]">
         <div>
-          <h3 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-            <TrendingUp className="size-4 text-blue-600 dark:text-blue-400" />
+          <h3 className="font-royal text-lg font-bold text-[#06122b] flex items-center gap-2 leading-tight">
+            <TrendingUp className="size-4.5 text-[#c29a45]" />
             Xu hướng tiếp nhận yêu cầu tư vấn
           </h3>
-          <p className="text-[11px] text-muted-foreground mt-0.5">
+          <p className="text-[11px] text-muted-foreground font-sans mt-0.5">
             Số lượt khách gửi yêu cầu đặt lịch hẹn pháp lý theo từng ngày
           </p>
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-mono font-bold text-foreground">{totalCount} lượt</span>
-          <span className="block text-[10px] text-muted-foreground">Tổng giai đoạn</span>
+          <span className="font-royal text-base font-bold text-[#06122b]">{totalCount} lượt</span>
+          <span className="block text-[10px] text-muted-foreground font-sans">Tổng giai đoạn</span>
         </div>
       </div>
 

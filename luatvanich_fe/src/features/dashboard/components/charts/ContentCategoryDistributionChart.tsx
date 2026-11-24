@@ -30,13 +30,16 @@ export function ContentCategoryDistributionChart({
   }));
 
   return (
-    <div className="bg-card border border-border rounded-xl p-5 shadow-xs flex flex-col h-[340px]">
-      <div className="pb-3 border-b border-border/60">
-        <h3 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-          <BookOpen className="size-4 text-purple-600 dark:text-purple-400" />
+    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
+      {/* Viền đỉnh gradient hoàng gia */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#06122b] to-[#c29a45]" />
+
+      <div className="pb-3.5 border-b border-[#e7dcc3]">
+        <h3 className="font-royal text-lg font-bold text-[#06122b] flex items-center gap-2 leading-tight">
+          <BookOpen className="size-4.5 text-[#c29a45]" />
           Cơ cấu bài viết theo chuyên mục & song ngữ
         </h3>
-        <p className="text-[11px] text-muted-foreground mt-0.5">
+        <p className="text-[11px] text-muted-foreground font-sans mt-0.5">
           So sánh mức độ hoàn thiện nội dung tiếng Việt và tiếng Trung
         </p>
       </div>

@@ -16,33 +16,39 @@ export function UpcomingScheduledPostsWidget({
   isLoading,
 }: UpcomingScheduledPostsWidgetProps) {
   return (
-    <div className="bg-card border border-border rounded-xl p-5 shadow-xs flex flex-col justify-between">
+    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+      {/* Viền đỉnh gradient hoàng gia */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#06122b] via-[#c29a45] to-[#a3171e]" />
+
       <div>
-        <div className="flex items-center justify-between pb-3 border-b border-border/60">
-          <div className="flex items-center gap-2">
-            <div className="size-8 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center">
-              <CalendarClock className="size-4" />
+        <div className="flex items-center justify-between pb-3.5 border-b border-[#e7dcc3]">
+          <div className="flex items-center gap-2.5">
+            <div className="size-9 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+              <CalendarClock className="size-4.5 text-[#06122b]" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-foreground">
+              <h3 className="font-royal text-lg font-bold text-[#06122b] leading-tight">
                 Bài viết chờ xuất bản theo hẹn giờ
               </h3>
-              <p className="text-[11px] text-muted-foreground">
-                Tiến trình Cron Job sẽ tự động phát hành công khai khi đến giờ
+              <p className="text-[11px] text-muted-foreground font-sans mt-0.5">
+                Tiến trình tự động phát hành công khai đúng lịch hẹn{" "}
+                <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+                  &bull; 定时发布
+                </span>
               </p>
             </div>
           </div>
 
           <Link
             href="/admin/posts?status=scheduled"
-            className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
+            className="text-xs font-semibold text-[#06122b] hover:text-[#a3171e] transition-colors flex items-center gap-1 font-sans"
           >
-            Xem tất cả
+            <span>Xem tất cả</span>
             <ArrowRight className="size-3" />
           </Link>
         </div>
 
-        <div className="divide-y divide-border/60 mt-2">
+        <div className="divide-y divide-[#e7dcc3]/50 mt-2">
           {isLoading ? (
             <div className="py-8 text-center text-xs text-muted-foreground animate-pulse">
               Đang tải danh sách bài viết...
