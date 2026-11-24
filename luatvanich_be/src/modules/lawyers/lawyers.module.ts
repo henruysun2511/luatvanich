@@ -37,6 +37,6 @@ import { LawyersAdminController } from './controllers/lawyers-admin.controller';
     LawyerCredentialRepository,
     LawyerMapper,
   ],
-  exports: [LawyersService, TypeOrmModule],
+  exports: [LawyersService, LawyerRepository, LawyerMapper, TypeOrmModule],
 })
 export class LawyersModule {}

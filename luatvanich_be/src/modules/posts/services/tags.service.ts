@@ -3,6 +3,7 @@ import { DataSource, EntityManager } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
+import { generateViSlug, generateZhSlug } from '../../../common/utils/slug.util';
 import { CreateTagDto } from '../dto/request/create-tag.dto';
 import { TagQueryDto } from '../dto/request/tag-query.dto';
 import { UpdateTagDto } from '../dto/request/update-tag.dto';
@@ -11,7 +12,6 @@ import { TagNotFoundException } from '../exceptions/post.exception';
 import { TagMapper } from '../mapper/tag.mapper';
 import { TagTranslationRepository } from '../repositories/tag-translation.repository';
 import { TagRepository } from '../repositories/tag.repository';
-import { generatePostSlug, normalizePostSlug } from '../utils/post-slug.util';
 
 @Injectable()
 export class TagsService {
@@ -27,9 +27,10 @@ export class TagsService {
   }
 
   async findPublicId(slug: string, lang: LangCode) {
-    const normalized = normalizePostSlug(slug);
-    const tag = await this.tags.findBySlug(normalized, lang)
-      ?? (lang !== DEFAULT_LANG ? await this.tags.findBySlug(normalized, DEFAULT_LANG) : null);
+    const normalized = slug.trim().toLowerCase();
+    const tag =
+      (await this.tags.findBySlug(normalized, lang)) ??
+      (lang !== DEFAULT_LANG ? await this.tags.findBySlug(normalized, DEFAULT_LANG) : null);
     if (!tag) throw new TagNotFoundException(slug);
     return tag.id;
   }
@@ -37,7 +38,12 @@ export class TagsService {
   async findAllAdmin(query: TagQueryDto) {
     const { page, limit } = normalizePagination(query);
     const [items, total] = await this.tags.findAdminList(query);
-    return PaginatedResponse.of(items.map((tag) => this.mapper.toAdminResponse(tag)), total, page, limit);
+    return PaginatedResponse.of(
+      items.map((tag) => this.mapper.toAdminResponse(tag)),
+      total,
+      page,
+      limit,
+    );
   }
 
   async findByIdAdmin(id: string, manager?: EntityManager) {
@@ -69,8 +75,11 @@ export class TagsService {
   private async saveTranslations(id: string, translations: UpsertTagTranslationDto[], manager: EntityManager) {
     for (const input of translations) {
       const current = await this.translations.find(id, input.languageCode, manager);
-      const slug = input.slug ? normalizePostSlug(input.slug)
-        : current?.slug ?? generatePostSlug(input.name, input.languageCode, 120, id);
+      let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
+      if (!slug) {
+        const generated = input.languageCode === LangCode.VI ? generateViSlug(input.name) : generateZhSlug(input.name);
+        slug = generated || id;
+      }
       await this.translations.save({ ...current, ...input, tagId: id, slug, updatedAt: new Date() }, manager);
     }
   }

@@ -25,7 +25,6 @@ export class PostTranslation {
 
   /** Đường dẫn tĩnh SEO duy nhất theo ngôn ngữ */
   @Column({ length: 320 })
-
   slug: string;
 
   /** Tóm tắt ngắn mở đầu bài viết */

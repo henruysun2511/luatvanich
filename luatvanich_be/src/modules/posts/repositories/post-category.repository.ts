@@ -4,11 +4,8 @@ import { EntityManager, IsNull, Repository } from 'typeorm';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { normalizePagination } from '../../../common/utils/pagination.util';
 import { PostCategoryQueryDto } from '../dto/request/post-category-query.dto';
-import { PostCategoryTranslation } from '../entities/post-category-translation.entity';
 import { PostCategory } from '../entities/post-category.entity';
-import { Post } from '../entities/post.entity';
 import { PostSection } from '../enums/post-section.enum';
-import { PostStatus } from '../enums/post-status.enum';
 
 @Injectable()
 export class PostCategoryRepository {
@@ -47,12 +44,13 @@ export class PostCategoryRepository {
     });
   }
 
-  async findPublicBySlug(slug: string, lang: LangCode) {
-    const match = await this.repo.manager.getRepository(PostCategoryTranslation).findOne({
-      where: { slug, languageCode: lang },
-      relations: { category: { translations: true } },
-    });
-    return match?.category ?? null;
+  async findPublicBySlug(slug: string, lang: LangCode): Promise<PostCategory | null> {
+    return this.repo
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.translations', 'translation')
+      .innerJoin('category.translations', 'match', 'match.slug = :slug', { slug })
+      .orderBy('CASE WHEN match.languageCode = :lang THEN 0 ELSE 1 END', 'ASC')
+      .getOne();
   }
 
   findAdminList(filters: PostCategoryQueryDto) {
@@ -62,20 +60,18 @@ export class PostCategoryRepository {
     const search = filters.q?.trim();
     if (search) {
       const term = search.replace(/[!%_]/g, (char) => '!' + char);
-      const match = query.subQuery().select('1').from(PostCategoryTranslation, 'match')
-        .where('match.categoryId = category.id').andWhere("match.name ILIKE :term ESCAPE '!'");
-      query.andWhere('EXISTS ' + match.getQuery(), { term: '%' + term + '%' });
+      query.andWhere(
+        'EXISTS (SELECT 1 FROM post_category_translations match WHERE match.category_id = category.id AND match.name ILIKE :term ESCAPE \'!\')',
+        { term: `%${term}%` },
+      );
     }
-    return query.orderBy('category.displayOrder', 'ASC')
-      .addOrderBy('category.createdAt', filters.sortOrder ?? 'DESC').addOrderBy('category.id', 'ASC')
-      .skip(skip).take(limit).getManyAndCount();
-  }
-
-  countPosts(categoryId: string, publishedOnly: boolean, manager?: EntityManager) {
-    return this.getRepo(manager).manager.getRepository(Post).countBy({
-      categoryId,
-      ...(publishedOnly ? { status: PostStatus.PUBLISHED } : {}),
-    });
+    return query
+      .orderBy('category.displayOrder', 'ASC')
+      .addOrderBy('category.createdAt', filters.sortOrder ?? 'DESC')
+      .addOrderBy('category.id', 'ASC')
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
   }
 
   countChildren(parentId: string, manager?: EntityManager) {

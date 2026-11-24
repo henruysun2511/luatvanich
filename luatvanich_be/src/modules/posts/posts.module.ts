@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LegalServicesModule } from '../legal-services/legal-services.module';
+import { LawyersModule } from '../lawyers/lawyers.module';
 import { PostCategoriesAdminController } from './controllers/post-categories-admin.controller';
 import { PostCategoriesController } from './controllers/post-categories.controller';
 import { PostsAdminController } from './controllers/posts-admin.controller';
@@ -35,6 +36,7 @@ import { TagsService } from './services/tags.service';
       Tag, TagTranslation, PostTag, PostService,
     ]),
     LegalServicesModule,
+    LawyersModule,
   ],
   controllers: [
     PostsController, PostsAdminController, PostCategoriesController, PostCategoriesAdminController,

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager, In, Repository } from 'typeorm';
 import { PracticeArea } from '../../practice-areas/entities/practice-area.entity';
 import { LegalService } from '../entities/legal-service.entity';
 import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
@@ -92,6 +92,17 @@ export class LegalServiceRepository {
       .leftJoinAndSelect('s.translations', 'all_t')
       .where('s.status = :status', { status: ContentStatus.PUBLISHED })
       .getOne();
+  }
+
+  /**
+   * Tìm danh sách dịch vụ theo mảng ID
+   */
+  async findByIds(ids: string[], manager?: EntityManager): Promise<LegalService[]> {
+    const targetRepo = manager ? manager.getRepository(LegalService) : this.repo;
+    return targetRepo.find({
+      select: { id: true, status: true },
+      where: { id: In(ids) },
+    });
   }
 
   /**

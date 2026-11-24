@@ -25,7 +25,6 @@ export class PostCategoryTranslation {
 
   /** Đường dẫn tĩnh SEO duy nhất theo ngôn ngữ */
   @Column({ length: 220 })
-
   slug: string;
 
   /** Mô tả khái quát về chuyên mục */

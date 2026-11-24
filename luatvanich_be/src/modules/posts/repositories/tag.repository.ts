@@ -4,12 +4,8 @@ import { EntityManager, In, Repository } from 'typeorm';
 import { DEFAULT_LANG, LangCode } from '../../../common/enums/lang.enum';
 import { normalizePagination } from '../../../common/utils/pagination.util';
 import { TagQueryDto } from '../dto/request/tag-query.dto';
-import { PostTranslation } from '../entities/post-translation.entity';
-import { PostTag } from '../entities/post-tag.entity';
-import { Post } from '../entities/post.entity';
-import { TagTranslation } from '../entities/tag-translation.entity';
-import { Tag } from '../entities/tag.entity';
 import { PostStatus } from '../enums/post-status.enum';
+import { Tag } from '../entities/tag.entity';
 
 @Injectable()
 export class TagRepository {
@@ -42,21 +38,30 @@ export class TagRepository {
   }
 
   findPublicList(lang: LangCode) {
-    const query = this.repo.createQueryBuilder('tag').leftJoinAndSelect('tag.translations', 'translation');
-    const visible = query.subQuery().select('1').from(PostTag, 'link')
-      .innerJoin(Post, 'post', 'post.id = link.postId AND post.status = :status')
-      .innerJoin(PostTranslation, 'localized', 'localized.postId = post.id AND localized.isComplete = true')
-      .where('link.tagId = tag.id AND localized.languageCode IN (:...locales)');
-    return query.where('EXISTS ' + visible.getQuery(), { status: PostStatus.PUBLISHED, locales: [lang, DEFAULT_LANG] })
-      .orderBy('tag.createdAt', 'ASC').addOrderBy('tag.id', 'ASC').getMany();
+    return this.repo
+      .createQueryBuilder('tag')
+      .leftJoinAndSelect('tag.translations', 'translation')
+      .where(
+        `EXISTS (
+          SELECT 1 FROM post_tags link
+          INNER JOIN posts post ON post.id = link.post_id AND post.status = :status AND post.deleted_at IS NULL
+          INNER JOIN post_translations localized ON localized.post_id = post.id AND localized.is_complete = true
+          WHERE link.tag_id = tag.id AND localized.language_code IN (:...locales)
+        )`,
+        { status: PostStatus.PUBLISHED, locales: [lang, DEFAULT_LANG] },
+      )
+      .orderBy('tag.createdAt', 'ASC')
+      .addOrderBy('tag.id', 'ASC')
+      .getMany();
   }
 
-  async findBySlug(slug: string, lang: LangCode) {
-    const match = await this.repo.manager.getRepository(TagTranslation).findOne({
-      where: { slug, languageCode: lang },
-      relations: { tag: { translations: true } },
-    });
-    return match?.tag ?? null;
+  async findBySlug(slug: string, lang: LangCode): Promise<Tag | null> {
+    return this.repo
+      .createQueryBuilder('tag')
+      .leftJoinAndSelect('tag.translations', 'translation')
+      .innerJoin('tag.translations', 'match', 'match.slug = :slug', { slug })
+      .orderBy('CASE WHEN match.languageCode = :lang THEN 0 ELSE 1 END', 'ASC')
+      .getOne();
   }
 
   findAdminList(filters: TagQueryDto) {
@@ -65,12 +70,17 @@ export class TagRepository {
     const search = filters.q?.trim();
     if (search) {
       const term = search.replace(/[!%_]/g, (char) => '!' + char);
-      const match = query.subQuery().select('1').from(TagTranslation, 'match')
-        .where('match.tagId = tag.id').andWhere("match.name ILIKE :term ESCAPE '!'");
-      query.andWhere('EXISTS ' + match.getQuery(), { term: '%' + term + '%' });
+      query.andWhere(
+        'EXISTS (SELECT 1 FROM tag_translations match WHERE match.tag_id = tag.id AND match.name ILIKE :term ESCAPE \'!\')',
+        { term: `%${term}%` },
+      );
     }
-    return query.orderBy('tag.createdAt', filters.sortOrder ?? 'DESC').addOrderBy('tag.id', 'ASC')
-      .skip(skip).take(limit).getManyAndCount();
+    return query
+      .orderBy('tag.createdAt', filters.sortOrder ?? 'DESC')
+      .addOrderBy('tag.id', 'ASC')
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
   }
 
   delete(id: string, manager?: EntityManager) {

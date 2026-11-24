@@ -44,7 +44,7 @@ export class TagsAdminController {
   }
 
   @Delete(':id')
-  @RequirePermission(PERMISSIONS.POSTS_WRITE)
+  @RequirePermission(PERMISSIONS.POSTS_DELETE)
   @SwaggerDoc({ summary: 'Xóa thẻ', bearerAuth: true })
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     await this.service.delete(id);

@@ -3,6 +3,9 @@ import { DataSource, EntityManager } from 'typeorm';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
+import { generateViSlug, generateZhSlug } from '../../../common/utils/slug.util';
+import { LawyerRepository } from '../../lawyers/repositories/lawyer.repository';
+import { LegalServiceRepository } from '../../legal-services/repositories/legal-service.repository';
 import { CreatePostDto } from '../dto/request/create-post.dto';
 import { AdminPostQueryDto, LatestPostQueryDto, PostQueryDto } from '../dto/request/post-query.dto';
 import { UpdatePostStatusDto } from '../dto/request/update-post-status.dto';
@@ -10,8 +13,11 @@ import { UpdatePostDto } from '../dto/request/update-post.dto';
 import { UpsertPostTranslationDto } from '../dto/request/upsert-post-translation.dto';
 import { PostStatus } from '../enums/post-status.enum';
 import {
-  PostCategoryNotFoundException, PostNotFoundException, PostPublicationException,
-  PostRelationException, PostSlugAlreadyExistsException,
+  PostCategoryNotFoundException,
+  PostNotFoundException,
+  PostPublicationException,
+  PostRelationException,
+  PostSlugAlreadyExistsException,
 } from '../exceptions/post.exception';
 import { PostMapper } from '../mapper/post.mapper';
 import { PostCategoryRepository } from '../repositories/post-category.repository';
@@ -19,7 +25,6 @@ import { PostTranslationRepository } from '../repositories/post-translation.repo
 import { PostRepository } from '../repositories/post.repository';
 import { TagRepository } from '../repositories/tag.repository';
 import { hasPostContent, sanitizePostHtml } from '../utils/post-html.util';
-import { generatePostSlug, normalizePostSlug } from '../utils/post-slug.util';
 import { validatePostThumbnail } from '../utils/post-thumbnail.util';
 
 @Injectable()
@@ -33,6 +38,8 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     private readonly categories: PostCategoryRepository,
     private readonly tags: TagRepository,
     private readonly translations: PostTranslationRepository,
+    private readonly lawyerRepo: LawyerRepository,
+    private readonly legalServiceRepo: LegalServiceRepository,
     private readonly mapper: PostMapper,
   ) {}
 
@@ -48,17 +55,28 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   }
 
   onApplicationShutdown() {
-    clearInterval(this.publicationTimer);
+    if (this.publicationTimer) {
+      clearInterval(this.publicationTimer);
+    }
   }
 
   async findAllPublic(query: PostQueryDto, lang: LangCode, tagId?: string) {
     const { page, limit } = normalizePagination(query);
-    const [items, total] = await this.posts.findPublicList({
-      ...query,
-      categorySlug: query.categorySlug ? normalizePostSlug(query.categorySlug) : undefined,
-      tagSlug: query.tagSlug ? normalizePostSlug(query.tagSlug) : undefined,
-    }, lang, tagId);
-    return PaginatedResponse.of(items.map((post) => this.mapper.toPublicResponse(post, lang)), total, page, limit);
+    const [items, total] = await this.posts.findPublicList(
+      {
+        ...query,
+        categorySlug: query.categorySlug ? query.categorySlug.trim().toLowerCase() : undefined,
+        tagSlug: query.tagSlug ? query.tagSlug.trim().toLowerCase() : undefined,
+      },
+      lang,
+      tagId,
+    );
+    return PaginatedResponse.of(
+      items.map((post) => this.mapper.toPublicResponse(post, lang)),
+      total,
+      page,
+      limit,
+    );
   }
 
   async findLatest(query: LatestPostQueryDto, lang: LangCode) {
@@ -69,7 +87,8 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   async findBySlug(slug: string, lang: LangCode) {
     const match = await this.requirePublicPost(slug, lang);
     const post = await this.posts.findPublicDetail(match.id);
-    if (!post?.category || !post.translations.some((item) => item.isComplete && item.slug === normalizePostSlug(slug))) {
+    const normalizedSlug = slug.trim().toLowerCase();
+    if (!post?.category || !post.translations.some((item) => item.isComplete && item.slug === normalizedSlug)) {
       throw new PostNotFoundException(slug);
     }
     return this.mapper.toPublicDetail(post, lang);
@@ -92,7 +111,7 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   }
 
   private async requirePublicPost(slug: string, lang: LangCode) {
-    const post = await this.posts.findPublicBySlug(normalizePostSlug(slug), lang);
+    const post = await this.posts.findPublicBySlug(slug.trim().toLowerCase(), lang);
     if (!post) throw new PostNotFoundException(slug);
     return post;
   }
@@ -100,7 +119,12 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   async findAllAdmin(query: AdminPostQueryDto) {
     const { page, limit } = normalizePagination(query);
     const [items, total] = await this.posts.findAdminList(query);
-    return PaginatedResponse.of(items.map((post) => this.mapper.toAdminResponse(post)), total, page, limit);
+    return PaginatedResponse.of(
+      items.map((post) => this.mapper.toAdminResponse(post)),
+      total,
+      page,
+      limit,
+    );
   }
 
   async findByIdAdmin(id: string, manager?: EntityManager) {
@@ -110,7 +134,7 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   }
 
   async create(dto: CreatePostDto) {
-    if (dto.thumbnailUrl) await validatePostThumbnail(dto.thumbnailUrl);
+    if (dto.thumbnailUrl) validatePostThumbnail(dto.thumbnailUrl);
     return this.dataSource.transaction(async (manager) => {
       const { translations, tagIds, serviceIds, ...fields } = dto;
       await this.validateReferences(fields.categoryId, fields.authorLawyerId, manager);
@@ -125,7 +149,7 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     if (dto.thumbnailUrl) {
       const current = await this.posts.findById(id);
       if (!current) throw new PostNotFoundException(id);
-      if (current.thumbnailUrl !== dto.thumbnailUrl) await validatePostThumbnail(dto.thumbnailUrl);
+      if (current.thumbnailUrl !== dto.thumbnailUrl) validatePostThumbnail(dto.thumbnailUrl);
     }
 
     return this.dataSource.transaction(async (manager) => {
@@ -181,17 +205,27 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   }
 
   private async validateReferences(
-    categoryId: string | undefined, authorId: string | null | undefined, manager: EntityManager,
+    categoryId: string | undefined,
+    authorId: string | null | undefined,
+    manager: EntityManager,
   ) {
-    if (categoryId && !await this.categories.findActiveReference(categoryId, manager)) {
+    if (categoryId && !(await this.categories.findActiveReference(categoryId, manager))) {
       throw new PostCategoryNotFoundException(categoryId);
     }
-    if (authorId && !await this.posts.findAuthor(authorId, manager)) {
-      throw new PostRelationException('Luật sư tác giả không tồn tại');
+    if (authorId) {
+      const lawyer = await this.lawyerRepo.findById(authorId, manager);
+      if (!lawyer) {
+        throw new PostRelationException('Luật sư tác giả không tồn tại');
+      }
     }
   }
 
-  private async updateLinks(id: string, tagIds: string[] | undefined, serviceIds: string[] | undefined, manager: EntityManager) {
+  private async updateLinks(
+    id: string,
+    tagIds: string[] | undefined,
+    serviceIds: string[] | undefined,
+    manager: EntityManager,
+  ) {
     if (tagIds) {
       if (tagIds.length && (await this.tags.findIdsForLink(tagIds, manager)).length !== tagIds.length) {
         throw new PostRelationException('Có thẻ bài viết không tồn tại');
@@ -199,8 +233,11 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
       await this.posts.setTags(id, tagIds, manager);
     }
     if (serviceIds) {
-      if (serviceIds.length && (await this.posts.findServiceIds(serviceIds, manager)).length !== serviceIds.length) {
-        throw new PostRelationException('Có dịch vụ pháp lý không tồn tại');
+      if (serviceIds.length) {
+        const foundServices = await this.legalServiceRepo.findByIds(serviceIds, manager);
+        if (foundServices.length !== serviceIds.length) {
+          throw new PostRelationException('Có dịch vụ pháp lý không tồn tại');
+        }
       }
       await this.posts.setServices(id, serviceIds, manager);
     }
@@ -209,12 +246,20 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
   private async saveTranslations(id: string, translations: UpsertPostTranslationDto[], manager: EntityManager) {
     for (const input of translations) {
       const current = await this.translations.find(id, input.languageCode, manager);
-      const slug = input.slug ? normalizePostSlug(input.slug)
-        : current?.slug ?? generatePostSlug(input.title, input.languageCode, 320, id);
+      let slug = input.slug ? input.slug.trim().toLowerCase() : current?.slug;
+      if (!slug) {
+        const generated = input.languageCode === LangCode.VI ? generateViSlug(input.title) : generateZhSlug(input.title);
+        slug = generated || id;
+      }
       if (slug === 'latest') throw new PostSlugAlreadyExistsException(slug);
       const contentHtml = sanitizePostHtml(input.contentHtml);
-      if (!hasPostContent(contentHtml)) throw new PostPublicationException('Nội dung bản dịch không có văn bản hoặc ảnh hợp lệ');
-      await this.translations.save({ ...current, ...input, postId: id, slug, contentHtml, updatedAt: new Date() }, manager);
+      if (!hasPostContent(contentHtml)) {
+        throw new PostPublicationException('Nội dung bản dịch không có văn bản hoặc ảnh hợp lệ');
+      }
+      await this.translations.save(
+        { ...current, ...input, postId: id, slug, contentHtml, updatedAt: new Date() },
+        manager,
+      );
     }
   }
 

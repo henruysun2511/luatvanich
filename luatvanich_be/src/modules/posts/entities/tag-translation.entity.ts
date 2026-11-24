@@ -25,7 +25,6 @@ export class TagTranslation {
 
   /** Đường dẫn tĩnh SEO của thẻ tag */
   @Column({ length: 120 })
-
   slug: string;
 
   @Column({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

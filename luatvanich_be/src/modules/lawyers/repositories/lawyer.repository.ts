@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { Lawyer } from '../entities/lawyer.entity';
 import { LawyerQueryDto } from '../dto/request/lawyer-query.dto';
 import { ContentStatus } from '../../../common/enums/content-status.enum';
@@ -21,8 +21,9 @@ export class LawyerRepository {
     return this.repo.save(entity);
   }
 
-  async findById(id: string): Promise<Lawyer | null> {
-    return this.repo.findOne({
+  async findById(id: string, manager?: EntityManager): Promise<Lawyer | null> {
+    const targetRepo = manager ? manager.getRepository(Lawyer) : this.repo;
+    return targetRepo.findOne({
       where: { id },
       relations: [
         'translations',
