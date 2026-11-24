@@ -20,15 +20,18 @@ import {
 import {
   useConsultationDetail,
   useUpdateConsultationStatus,
+  useAssignConsultation,
   useAddConsultationNote,
   useDeleteConsultationNote,
 } from "../queries/useConsultationsQuery";
+import { useUsers } from "@/features/users";
 import type {
   ConsultationItem,
   LeadStatus,
 } from "../types/consultations.types";
 import {
   User,
+  UserCheck,
   Building,
   Phone,
   Mail,
@@ -61,8 +64,12 @@ export function ConsultationDetailDialog({
 }: ConsultationDetailDialogProps) {
   const { data: detail, isLoading } = useConsultationDetail(consultationId || undefined);
   const statusMutation = useUpdateConsultationStatus();
+  const assignMutation = useAssignConsultation();
   const addNoteMutation = useAddConsultationNote();
   const deleteNoteMutation = useDeleteConsultationNote(consultationId || "");
+
+  const { data: usersData } = useUsers({ limit: 100, isActive: true });
+  const users = usersData?.items || [];
 
   const [newNote, setNewNote] = useState("");
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -91,6 +98,14 @@ export function ConsultationDetailDialog({
   const handleStatusChange = async (status: LeadStatus) => {
     if (!consultationId) return;
     await statusMutation.mutateAsync({ id: consultationId, status });
+  };
+
+  const handleAssignChange = async (userId: string | null) => {
+    if (!consultationId) return;
+    await assignMutation.mutateAsync({
+      id: consultationId,
+      assignedUserId: userId,
+    });
   };
 
   return (
@@ -130,25 +145,52 @@ export function ConsultationDetailDialog({
               </p>
             </div>
 
-            {/* Quick Status Select */}
+            {/* Quick Assign & Status Select */}
             {detail && (
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Trạng thái:</span>
-                <Select
-                  value={detail.status}
-                  onValueChange={(val) => handleStatusChange(val as LeadStatus)}
-                  disabled={statusMutation.isPending}
-                >
-                  <SelectTrigger className="h-8 text-xs w-36">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="new">Mới tiếp nhận</SelectItem>
-                    <SelectItem value="in_progress">Đang xử lý</SelectItem>
-                    <SelectItem value="done">Đã tư vấn</SelectItem>
-                    <SelectItem value="spam">Tin rác / Spam</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Người phụ trách */}
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <UserCheck className="size-3.5 text-primary" /> Phụ trách:
+                  </span>
+                  <Select
+                    value={detail.assignedUserId || "unassigned"}
+                    onValueChange={(val) => handleAssignChange(val === "unassigned" ? null : val)}
+                    disabled={assignMutation.isPending}
+                  >
+                    <SelectTrigger className="h-8 text-xs min-w-[150px] bg-background">
+                      <SelectValue placeholder="Chưa phân công" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="unassigned" className="text-xs">-- Chưa phân công --</SelectItem>
+                      {users.map((u) => (
+                        <SelectItem key={u.id} value={u.id} className="text-xs">
+                          {u.fullName || u.email}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Trạng thái */}
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground">Trạng thái:</span>
+                  <Select
+                    value={detail.status}
+                    onValueChange={(val) => handleStatusChange(val as LeadStatus)}
+                    disabled={statusMutation.isPending}
+                  >
+                    <SelectTrigger className="h-8 text-xs w-36 bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="new">Mới tiếp nhận</SelectItem>
+                      <SelectItem value="in_progress">Đang xử lý</SelectItem>
+                      <SelectItem value="done">Đã tư vấn</SelectItem>
+                      <SelectItem value="spam">Tin rác / Spam</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             )}
           </div>

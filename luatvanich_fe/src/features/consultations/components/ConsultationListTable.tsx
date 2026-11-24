@@ -22,7 +22,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   useUpdateConsultationStatus,
   useBulkStatusConsultations,
+  useAssignConsultation,
 } from "../queries/useConsultationsQuery";
+import { useUsers } from "@/features/users";
 import type {
   ConsultationItem,
   LeadStatus,
@@ -37,6 +39,7 @@ import {
   Trash2,
   Building,
   User,
+  UserCheck,
   Scale,
   Paperclip,
   CheckCircle2,
@@ -96,7 +99,12 @@ export function ConsultationListTable({
 }: ConsultationListTableProps) {
   const statusMutation = useUpdateConsultationStatus();
   const bulkMutation = useBulkStatusConsultations();
+  const assignMutation = useAssignConsultation();
+  const { data: usersData } = useUsers({ limit: 100, isActive: true });
+  const users = usersData?.items || [];
+
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [assigningId, setAssigningId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // Chọn / bỏ chọn tất cả
@@ -122,6 +130,15 @@ export function ConsultationListTable({
       await statusMutation.mutateAsync({ id, status });
     } finally {
       setUpdatingId(null);
+    }
+  };
+
+  const handleAssignUser = async (id: string, assignedUserId: string | null) => {
+    setAssigningId(id);
+    try {
+      await assignMutation.mutateAsync({ id, assignedUserId });
+    } finally {
+      setAssigningId(null);
     }
   };
 
@@ -358,11 +375,31 @@ export function ConsultationListTable({
                         </div>
                       )}
 
-                      {item.assignedUserName && (
-                        <span className="text-[10px] text-muted-foreground">
-                          Phụ trách: <strong>{item.assignedUserName}</strong>
-                        </span>
-                      )}
+                      {/* Dropdown phân công nhanh người phụ trách */}
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <UserCheck className="size-3 text-primary shrink-0" />
+                        <Select
+                          value={item.assignedUserId || "unassigned"}
+                          onValueChange={(val) =>
+                            handleAssignUser(item.id, val === "unassigned" ? null : val)
+                          }
+                          disabled={assignMutation.isPending && assigningId === item.id}
+                        >
+                          <SelectTrigger className="h-5 text-[10px] px-1.5 py-0 border-dashed border-border/70 hover:border-border max-w-[140px] bg-muted/30">
+                            <SelectValue placeholder="Chưa phân công" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="unassigned" className="text-xs">
+                              -- Chưa phân công --
+                            </SelectItem>
+                            {users.map((u) => (
+                              <SelectItem key={u.id} value={u.id} className="text-xs">
+                                {u.fullName || u.email}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   </TableCell>
 

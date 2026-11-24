@@ -15,7 +15,7 @@ export const consultationsService = {
   /** Public: Khách gửi yêu cầu tư vấn mới */
   createPublicConsultation: async (payload: CreateConsultationInput) => {
     const res = await apiClient.post<{ success: boolean; data: { id: string; message: string } }>(
-      '/v1/consultations',
+      '/consultations',
       payload,
     );
     return res.data.data;
@@ -24,7 +24,7 @@ export const consultationsService = {
   /** Admin: Lấy danh sách leads kèm bộ lọc và phân trang */
   getAdminConsultations: async (params?: ConsultationQueryParams): Promise<PaginatedConsultationsResponse> => {
     const res = await apiClient.get<{ success: boolean; data: PaginatedConsultationsResponse }>(
-      '/v1/admin/consultations',
+      '/admin/consultations',
       { params },
     );
     return res.data.data;
@@ -33,7 +33,7 @@ export const consultationsService = {
   /** Admin: Lấy chi tiết lead */
   getAdminConsultationDetail: async (id: string): Promise<ConsultationItem> => {
     const res = await apiClient.get<{ success: boolean; data: ConsultationItem }>(
-      `/v1/admin/consultations/${id}`,
+      `/admin/consultations/${id}`,
     );
     return res.data.data;
   },
@@ -41,7 +41,7 @@ export const consultationsService = {
   /** Admin: Cập nhật trạng thái lead */
   updateStatus: async (id: string, payload: UpdateConsultationStatusInput): Promise<ConsultationItem> => {
     const res = await apiClient.patch<{ success: boolean; data: ConsultationItem }>(
-      `/v1/admin/consultations/${id}/status`,
+      `/admin/consultations/${id}/status`,
       payload,
     );
     return res.data.data;
@@ -50,7 +50,7 @@ export const consultationsService = {
   /** Admin: Phân công người phụ trách */
   assignUser: async (id: string, payload: AssignConsultationInput): Promise<ConsultationItem> => {
     const res = await apiClient.patch<{ success: boolean; data: ConsultationItem }>(
-      `/v1/admin/consultations/${id}/assign`,
+      `/admin/consultations/${id}/assign`,
       payload,
     );
     return res.data.data;
@@ -64,7 +64,7 @@ export const consultationsService = {
   /** Admin: Thêm ghi chú nội bộ */
   addNote: async (id: string, payload: CreateConsultationNoteInput): Promise<ConsultationNoteItem> => {
     const res = await apiClient.post<{ success: boolean; data: ConsultationNoteItem }>(
-      `/v1/admin/consultations/${id}/notes`,
+      `/admin/consultations/${id}/notes`,
       payload,
     );
     return res.data.data;
@@ -72,11 +72,11 @@ export const consultationsService = {
 
   /** Admin: Xóa ghi chú nội bộ */
   deleteNote: async (noteId: string): Promise<void> => {
-    await apiClient.delete(`/v1/admin/consultations/notes/${noteId}`);
+    await apiClient.delete(`/admin/consultations/notes/${noteId}`);
   },
 
   /** Admin: Xóa mềm yêu cầu tư vấn */
   deleteConsultation: async (id: string): Promise<void> => {
-    await apiClient.delete(`/v1/admin/consultations/${id}`);
+    await apiClient.delete(`/admin/consultations/${id}`);
   },
 };
