@@ -79,24 +79,27 @@ export default function ConsultationsManagementPage() {
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
             <MessageSquareText className="size-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold font-serif text-foreground leading-tight">
+            <h1 className="text-2xl font-bold font-royal text-[#06122b] leading-tight">
               Quản lý yêu cầu tư vấn & Leads
             </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Tiếp nhận, phân loại và theo dõi tiến trình tư vấn khách hàng doanh nghiệp & cá nhân.
+            <p className="text-xs text-muted-foreground mt-0.5 font-sans">
+              Tiếp nhận, phân loại và theo dõi tiến trình tư vấn khách hàng doanh nghiệp & cá nhân{" "}
+              <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+                &bull; 咨询预约
+              </span>
             </p>
           </div>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-card p-3 rounded-lg border border-border shadow-sm flex-wrap">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white p-3 rounded-lg border border-[#e7dcc3] shadow-xs flex-wrap">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />

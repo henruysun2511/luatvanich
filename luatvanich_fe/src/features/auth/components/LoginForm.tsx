@@ -49,8 +49,8 @@ export function LoginForm() {
       title="Đăng nhập hệ thống"
       description="Nhập tên đăng nhập hoặc email quản trị viên để tiếp tục"
       footer={
-        <div className="text-[11px] text-muted-foreground">
-          Bảo mật đa tầng &bull; Bản quyền &copy; {new Date().getFullYear()} Hãng Luật Vạn Ích
+        <div className="text-[11px] text-muted-foreground/80 font-sans">
+          Bảo mật đa tầng &bull; Bản quyền &copy; {new Date().getFullYear()} Luật Vạn Ích (万益律师)
         </div>
       }
     >
@@ -58,16 +58,16 @@ export function LoginForm() {
         {loginMutation.isError && (
           <div
             role="alert"
-            className="flex items-start gap-2.5 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-xs text-destructive"
+            className="flex items-start gap-2.5 rounded-lg border border-[#a3171e]/30 bg-[#a3171e]/10 p-3 text-xs text-[#a3171e]"
           >
             <AlertCircle className="size-4 shrink-0 mt-0.5" />
-            <span>{extractErrorMessage(loginMutation.error, "Tên đăng nhập hoặc mật khẩu không đúng.")}</span>
+            <span className="font-medium">{extractErrorMessage(loginMutation.error, "Tên đăng nhập hoặc mật khẩu không đúng.")}</span>
           </div>
         )}
 
         {/* Username / Email */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-foreground">
+          <label className="text-xs font-semibold text-[#06122b]">
             Tên đăng nhập hoặc Email
           </label>
           <div className="relative">
@@ -76,18 +76,18 @@ export function LoginForm() {
               type="text"
               autoComplete="username"
               placeholder="admin hoặc admin@luatvanich.vn"
-              className="pl-9 text-sm h-10"
+              className="pl-9 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white"
               {...register("username")}
             />
           </div>
           {errors.username && (
-            <p className="text-[11px] text-destructive font-medium">{errors.username.message}</p>
+            <p className="text-[11px] text-[#a3171e] font-medium">{errors.username.message}</p>
           )}
         </div>
 
         {/* Password */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-foreground">
+          <label className="text-xs font-semibold text-[#06122b]">
             Mật khẩu
           </label>
           <div className="relative">
@@ -96,12 +96,12 @@ export function LoginForm() {
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               placeholder="Nhập mật khẩu"
-              className="pl-9 pr-10 text-sm h-10"
+              className="pl-9 pr-10 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white"
               {...register("password")}
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-[#06122b]"
               onClick={() => setShowPassword((prev) => !prev)}
               tabIndex={-1}
             >
@@ -109,23 +109,23 @@ export function LoginForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="text-[11px] text-destructive font-medium">{errors.password.message}</p>
+            <p className="text-[11px] text-[#a3171e] font-medium">{errors.password.message}</p>
           )}
         </div>
 
         {/* Submit Button */}
         <Button
           type="submit"
-          className="w-full h-10 font-semibold bg-[#1B2A49] hover:bg-[#15213a] text-white gap-2 shadow-md shadow-[#1B2A49]/20"
+          className="w-full h-11 font-sans font-semibold bg-gradient-to-r from-[#06122b] via-[#11244d] to-[#06122b] border border-[#c29a45]/50 hover:border-[#f0d28a] text-[#f0d28a] hover:text-white shadow-lg shadow-[#06122b]/25 transition-all"
           disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? (
             <>
-              <Loader2 className="size-4 animate-spin text-[#C9A24B]" />
+              <Loader2 className="size-4 animate-spin text-[#f0d28a]" />
               <span>Đang kiểm tra...</span>
             </>
           ) : (
-            <span>Đăng nhập</span>
+            <span className="tracking-wide uppercase text-xs">Đăng nhập hệ thống</span>
           )}
         </Button>
       </form>

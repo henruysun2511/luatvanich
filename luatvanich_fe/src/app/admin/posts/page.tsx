@@ -123,29 +123,42 @@ export default function PostsManagementPage() {
   return (
     <div className="space-y-6">
       {/* Header trang & Nút thêm mới */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
         <div>
-          <h1 className="text-xl font-bold text-foreground tracking-tight flex items-center gap-2">
-            <FileText className="size-6 text-primary" />
+          <h1 className="text-2xl font-bold font-royal text-[#06122b] tracking-tight flex items-center gap-2.5">
+            <div className="size-9 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+              <FileText className="size-5" />
+            </div>
             Cẩm nang & Bài viết
           </h1>
-          <p className="text-xs text-muted-foreground mt-1">
-            Quản lý kho bài viết kiến thức, cẩm nang pháp lý và danh mục phân loại bài viết.
+          <p className="text-xs text-muted-foreground mt-1 font-sans">
+            Quản lý kho bài viết kiến thức, cẩm nang pháp lý và danh mục phân loại bài viết{" "}
+            <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+              &bull; 文章资讯
+            </span>
           </p>
         </div>
 
         {/* Nút thêm mới động theo tab */}
         <div>
           {activeTab === "posts" ? (
-            <Button asChild size="sm" className="gap-1.5 shadow-xs">
+            <Button
+              asChild
+              size="sm"
+              className="gap-1.5 shadow-sm bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4"
+            >
               <Link href="/admin/posts/new">
-                <Plus className="size-4" />
+                <Plus className="size-4 text-[#f0d28a]" />
                 Thêm bài viết mới
               </Link>
             </Button>
           ) : (
-            <Button onClick={handleOpenCreateCategory} size="sm" className="gap-1.5 shadow-xs">
-              <Plus className="size-4" />
+            <Button
+              onClick={handleOpenCreateCategory}
+              size="sm"
+              className="gap-1.5 shadow-sm bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4"
+            >
+              <Plus className="size-4 text-[#f0d28a]" />
               Thêm chuyên mục mới
             </Button>
           )}
@@ -153,17 +166,17 @@ export default function PostsManagementPage() {
       </div>
 
       {/* TAB BAR ĐIỀU HƯỚNG */}
-      <div className="flex border-b border-border">
+      <div className="flex border-b border-[#e7dcc3]">
         <button
           type="button"
           onClick={() => setActiveTab("posts")}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-medium border-b-2 transition-colors -mb-px cursor-pointer ${
             activeTab === "posts"
-              ? "border-primary text-primary font-semibold"
-              : "border-transparent text-muted-foreground hover:text-foreground"
+              ? "border-[#c29a45] text-[#06122b] font-bold"
+              : "border-transparent text-muted-foreground hover:text-[#06122b]"
           }`}
         >
-          <FileText className="size-4" />
+          <FileText className={`size-4 ${activeTab === "posts" ? "text-[#c29a45]" : ""}`} />
           Danh sách Bài viết ({totalPosts})
         </button>
         <button
@@ -171,11 +184,11 @@ export default function PostsManagementPage() {
           onClick={() => setActiveTab("categories")}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-medium border-b-2 transition-colors -mb-px cursor-pointer ${
             activeTab === "categories"
-              ? "border-primary text-primary font-semibold"
-              : "border-transparent text-muted-foreground hover:text-foreground"
+              ? "border-[#c29a45] text-[#06122b] font-bold"
+              : "border-transparent text-muted-foreground hover:text-[#06122b]"
           }`}
         >
-          <FolderTree className="size-4" />
+          <FolderTree className={`size-4 ${activeTab === "categories" ? "text-[#c29a45]" : ""}`} />
           Cây Chuyên mục ({totalCategories})
         </button>
       </div>

@@ -69,32 +69,35 @@ export default function OfficesManagementPage() {
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
             <Building2 className="size-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold font-serif text-foreground leading-tight">
+            <h1 className="text-2xl font-bold font-royal text-[#06122b] leading-tight">
               Quản lý văn phòng đại diện
             </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Danh sách trụ sở chính, chi nhánh và văn phòng liên lạc tại Việt Nam & Trung Quốc.
+            <p className="text-xs text-muted-foreground mt-0.5 font-sans">
+              Danh sách trụ sở chính, chi nhánh và văn phòng liên lạc tại Việt Nam & Trung Quốc{" "}
+              <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+                &bull; 办事处网络
+              </span>
             </p>
           </div>
         </div>
 
         <Button
           onClick={handleOpenCreate}
-          className="gap-2 shrink-0 self-start sm:self-auto bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="gap-2 shrink-0 self-start sm:self-auto bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4 shadow-sm"
         >
-          <Plus className="size-4" />
+          <Plus className="size-4 text-[#f0d28a]" />
           Thêm văn phòng
         </Button>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-card p-3 rounded-lg border border-border">
+      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-white p-3 rounded-lg border border-[#e7dcc3] shadow-xs">
         <div className="flex flex-1 flex-col sm:flex-row gap-3 items-stretch sm:items-center">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />

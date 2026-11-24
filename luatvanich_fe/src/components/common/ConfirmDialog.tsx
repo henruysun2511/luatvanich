@@ -57,14 +57,14 @@ export function ConfirmDialog({
 
   return (
     <AlertDialog open={open} onOpenChange={(val) => !isLoading && onOpenChange(val)}>
-      <AlertDialogContent className="sm:max-w-[425px]">
+      <AlertDialogContent className="sm:max-w-[440px]">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex items-center gap-2 text-base font-semibold text-foreground">
+          <AlertDialogTitle className="flex items-center gap-2 text-base font-royal font-bold text-[#06122b]">
             {icon}
-            {title}
+            <span>{title}</span>
           </AlertDialogTitle>
           {description && (
-            <AlertDialogDescription className="text-xs text-muted-foreground pt-1 leading-relaxed">
+            <AlertDialogDescription className="text-xs text-muted-foreground pt-1 leading-relaxed font-sans">
               {description}
             </AlertDialogDescription>
           )}
@@ -72,27 +72,29 @@ export function ConfirmDialog({
 
         {children && <div className="py-2">{children}</div>}
 
-        <AlertDialogFooter className="gap-2 sm:gap-0">
+        <AlertDialogFooter className="gap-2 sm:gap-2">
           <AlertDialogCancel
             disabled={isLoading}
             onClick={handleCancel}
-            className="text-xs h-9"
+            className="text-xs h-9 px-4 border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b]"
           >
             {cancelText}
           </AlertDialogCancel>
+
           <AlertDialogAction
             disabled={isLoading}
             onClick={handleConfirm}
             className={cn(
-              "text-xs h-9",
-              variant === "destructive" &&
-                "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+              "text-xs h-9 px-4 min-w-[90px] font-semibold gap-1.5 transition-all shadow-sm",
+              variant === "destructive"
+                ? "bg-[#a3171e] hover:bg-[#85151b] text-white border border-[#a3171e]"
+                : "bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40",
             )}
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 size-3.5 animate-spin" />
-                Đang xử lý...
+                <Loader2 className="size-3.5 animate-spin" />
+                <span>Đang xử lý...</span>
               </>
             ) : (
               confirmText

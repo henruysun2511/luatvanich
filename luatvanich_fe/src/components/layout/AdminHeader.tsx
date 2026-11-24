@@ -2,8 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { User, LogOut, Loader2, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { User, LogOut, Loader2, ChevronDown, Shield } from "lucide-react";
 import { useLogout, useMe } from "@/features/auth";
 import { NotificationBellDropdown } from "./NotificationBellDropdown";
 import { cn } from "@/lib/utils";
@@ -31,12 +30,21 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="h-14 border-b border-border bg-background px-6 flex items-center justify-between">
-      <div className="text-xs text-muted-foreground flex items-center gap-2">
-        <span>Hệ thống Quản trị & Điều hành Nội dung</span>
+    <header className="relative h-16 bg-white border-b border-[#e7dcc3] px-6 flex items-center justify-between z-20 shadow-sm">
+      {/* Viền đỉnh gradient hoàng gia tinh tế */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#85151b] via-[#a3171e] to-[#c29a45]" />
+
+      <div className="flex items-center gap-2 text-xs text-[#06122b]/80 font-sans">
+        <Shield className="size-4 text-[#c29a45]" />
+        <span className="font-medium tracking-wide">
+          Hệ thống Quản trị & Điều hành Nội dung
+        </span>
+        <span className="text-[#c29a45] font-hanzi font-semibold hidden md:inline">
+          &bull; 万益律师事务所
+        </span>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <NotificationBellDropdown />
 
         {/* User Profile with Hover Dropdown */}
@@ -45,9 +53,9 @@ export function AdminHeader() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="flex items-center gap-2.5 pl-2 border-l border-border cursor-pointer py-1.5 select-none group">
-            <div className="size-8 min-w-8 min-h-8 max-w-8 max-h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold ring-2 ring-primary/20 overflow-hidden shrink-0 relative">
-              <User className="size-4 text-primary" />
+          <div className="flex items-center gap-2.5 pl-3 border-l border-[#e7dcc3] cursor-pointer py-1.5 select-none group">
+            <div className="size-8.5 min-w-[34px] min-h-[34px] rounded-full bg-[#06122b] text-[#f0d28a] flex items-center justify-center text-xs font-bold ring-2 ring-[#c29a45]/40 overflow-hidden shrink-0 relative group-hover:ring-[#c29a45] transition-all">
+              <User className="size-4 text-[#f0d28a]" />
               {user?.avatarUrl && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -62,17 +70,17 @@ export function AdminHeader() {
               )}
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-xs font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+              <span className="text-xs font-semibold text-[#06122b] leading-tight group-hover:text-[#a3171e] transition-colors">
                 {user?.fullName || user?.username || "Admin"}
               </span>
-              <span className="text-[10px] text-muted-foreground capitalize leading-tight">
+              <span className="text-[10px] text-[#718096] capitalize leading-tight">
                 {user?.role || "Super Admin"}
               </span>
             </div>
             <ChevronDown
               className={cn(
-                "size-3.5 text-muted-foreground transition-transform duration-200 ml-0.5",
-                isOpen && "rotate-180 text-foreground",
+                "size-3.5 text-[#718096] transition-transform duration-200 ml-0.5",
+                isOpen && "rotate-180 text-[#06122b]",
               )}
             />
           </div>
@@ -80,13 +88,16 @@ export function AdminHeader() {
           {/* Dropdown Menu */}
           {isOpen && (
             <div className="absolute right-0 top-full pt-1.5 z-50 animate-in fade-in-0 zoom-in-95 duration-150">
-              <div className="w-56 rounded-lg border border-border bg-popover p-1 shadow-lg text-popover-foreground">
+              <div className="w-60 rounded-xl border border-[#c29a45]/30 bg-white p-1.5 shadow-xl text-[#06122b] overflow-hidden">
+                {/* Viền đỉnh menu */}
+                <div className="h-[2px] -mx-1.5 -mt-1.5 mb-1.5 bg-gradient-to-r from-[#85151b] via-[#c29a45] to-[#f0d28a]" />
+
                 {/* Header thông tin tóm tắt */}
-                <div className="px-3 py-2 border-b border-border/60">
-                  <p className="text-xs font-semibold text-foreground truncate">
+                <div className="px-3 py-2 border-b border-[#e7dcc3]/60 bg-[#fcfbf7]/80 rounded-t-lg">
+                  <p className="text-xs font-semibold text-[#06122b] truncate font-royal text-[13.5px]">
                     {user?.fullName || user?.username || "Admin"}
                   </p>
-                  <p className="text-[11px] text-muted-foreground truncate">
+                  <p className="text-[11px] text-[#718096] truncate">
                     {user?.email || "admin@luatvanich.vn"}
                   </p>
                 </div>
@@ -96,10 +107,10 @@ export function AdminHeader() {
                   <Link
                     href="/admin/settings"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium text-[#06122b] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                   >
-                    <User className="size-4 text-muted-foreground" />
-                    <span>Thông tin cá nhân</span>
+                    <User className="size-4 text-[#c29a45]" />
+                    <span>Cài đặt & Thông tin cá nhân</span>
                   </Link>
 
                   {/* Menu item: Đăng xuất */}
@@ -107,14 +118,14 @@ export function AdminHeader() {
                     type="button"
                     onClick={handleLogout}
                     disabled={logoutMutation.isPending}
-                    className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium text-[#a3171e] hover:bg-[#a3171e]/10 transition-colors"
                   >
                     {logoutMutation.isPending ? (
-                      <Loader2 className="size-4 animate-spin" />
+                      <Loader2 className="size-4 animate-spin text-[#a3171e]" />
                     ) : (
-                      <LogOut className="size-4" />
+                      <LogOut className="size-4 text-[#a3171e]" />
                     )}
-                    <span>Đăng xuất</span>
+                    <span>Đăng xuất khỏi hệ thống</span>
                   </button>
                 </div>
               </div>

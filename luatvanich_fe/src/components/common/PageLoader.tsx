@@ -1,6 +1,7 @@
 import React from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SealStamp } from "@/components/ui/seal-stamp";
 
 export interface PageLoaderProps {
   /** Thông điệp hiển thị dưới biểu tượng quay (mặc định: "Đang tải dữ liệu...") */
@@ -24,15 +25,24 @@ export function PageLoader({
       role="status"
       aria-live="polite"
       className={cn(
-        "flex flex-col items-center justify-center gap-3 bg-muted/20",
+        "flex flex-col items-center justify-center gap-4 bg-[#f8f6f0]/80 select-none",
         fullscreen ? "min-h-screen" : "min-h-[300px] w-full flex-1",
         className,
       )}
     >
-      <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
-      {message && (
-        <span className="text-sm font-medium text-muted-foreground">{message}</span>
-      )}
+      <div className="relative flex items-center justify-center">
+        <SealStamp char="万" size="md" variant="gold" className="w-12 h-12 text-2xl shadow-lg shadow-[#c29a45]/20 animate-pulse" />
+        <Loader2 className="absolute -inset-2 size-16 animate-spin text-[#c29a45]/40" aria-hidden />
+      </div>
+
+      <div className="flex flex-col items-center gap-1 text-center">
+        <span className="font-royal text-base font-bold text-[#06122b] tracking-wide">
+          {message}
+        </span>
+        <span className="font-hanzi text-[11px] text-[#c29a45] tracking-widest">
+          万益律师事务所
+        </span>
+      </div>
     </div>
   );
 }

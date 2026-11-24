@@ -57,33 +57,33 @@ export function Pagination({
   return (
     <div
       className={cn(
-        "flex flex-col sm:flex-row items-center justify-between gap-3 px-2 py-3 text-xs text-muted-foreground",
+        "flex flex-col sm:flex-row items-center justify-between gap-3 px-3 py-3.5 text-xs text-muted-foreground bg-white rounded-lg border border-[#e7dcc3] shadow-sm",
         className,
       )}
     >
       {/* Thông tin số lượng bản ghi */}
-      <div className="select-none">
-        Hiển thị <span className="font-semibold text-foreground">{startItem}</span> -{" "}
-        <span className="font-semibold text-foreground">{endItem}</span> trên tổng số{" "}
-        <span className="font-semibold text-foreground">{total}</span> {itemLabel}
+      <div className="select-none font-sans">
+        Hiển thị <span className="font-semibold text-[#06122b]">{startItem}</span> -{" "}
+        <span className="font-semibold text-[#06122b]">{endItem}</span> trên tổng số{" "}
+        <span className="font-semibold text-[#06122b]">{total}</span> {itemLabel}
       </div>
 
       <div className="flex items-center gap-3">
         {/* Chọn số dòng trên mỗi trang (nếu có onLimitChange) */}
         {onLimitChange && (
-          <div className="flex items-center gap-1.5 select-none">
+          <div className="flex items-center gap-1.5 select-none font-sans">
             <span>Hiển thị:</span>
             <Select
               value={limit.toString()}
               onValueChange={(val) => onLimitChange(Number(val))}
             >
-              <SelectTrigger className="h-8 w-18 text-xs">
+              <SelectTrigger className="h-8 w-18 text-xs border-[#e7dcc3] focus:border-[#c29a45] bg-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {pageSizeOptions.map((size) => (
                   <SelectItem key={size} value={size.toString()} className="text-xs">
-                    {size}
+                    {size} / trang
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -91,61 +91,58 @@ export function Pagination({
           </div>
         )}
 
-        {/* Nút điều hướng trang */}
+        {/* Cụm nút điều hướng trang */}
         <div className="flex items-center gap-1">
           {showFirstLast && (
             <Button
               variant="outline"
               size="icon"
-              className="size-8 hidden sm:inline-flex"
+              className="h-8 w-8 border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] disabled:opacity-40"
               onClick={() => onPageChange(1)}
-              disabled={page <= 1}
-              aria-label="Về trang đầu"
-              title="Về trang đầu"
+              disabled={!hasPrev}
+              title="Trang đầu"
             >
-              <ChevronsLeft className="size-4" />
+              <ChevronsLeft className="size-3.5" />
             </Button>
           )}
 
           <Button
             variant="outline"
             size="icon"
-            className="size-8"
+            className="h-8 w-8 border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] disabled:opacity-40"
             onClick={() => onPageChange(page - 1)}
             disabled={!hasPrev}
-            aria-label="Trang trước"
             title="Trang trước"
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeft className="size-3.5" />
           </Button>
 
-          <span className="px-2 font-medium text-foreground select-none">
-            {page} / {totalPages || 1}
-          </span>
+          {/* Hiển thị số trang hiện tại */}
+          <div className="px-2.5 py-1 text-xs font-semibold bg-[#06122b] text-[#f0d28a] rounded border border-[#c29a45]/50 select-none shadow-xs">
+            Trang {page} / {totalPages || 1}
+          </div>
 
           <Button
             variant="outline"
             size="icon"
-            className="size-8"
+            className="h-8 w-8 border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] disabled:opacity-40"
             onClick={() => onPageChange(page + 1)}
             disabled={!hasNext}
-            aria-label="Trang sau"
-            title="Trang sau"
+            title="Trang tiếp"
           >
-            <ChevronRight className="size-4" />
+            <ChevronRight className="size-3.5" />
           </Button>
 
           {showFirstLast && (
             <Button
               variant="outline"
               size="icon"
-              className="size-8 hidden sm:inline-flex"
+              className="h-8 w-8 border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] disabled:opacity-40"
               onClick={() => onPageChange(totalPages)}
-              disabled={page >= totalPages}
-              aria-label="Đến trang cuối"
-              title="Đến trang cuối"
+              disabled={!hasNext}
+              title="Trang cuối"
             >
-              <ChevronsRight className="size-4" />
+              <ChevronsRight className="size-3.5" />
             </Button>
           )}
         </div>

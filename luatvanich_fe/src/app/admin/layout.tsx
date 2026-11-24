@@ -27,11 +27,11 @@ export default function AdminLayout({
     <>
       <AuthInitializer />
       <AuthGuard>
-        <div className="flex min-h-screen bg-muted/20">
+        <div className="flex min-h-screen bg-[#f8f6f0]">
           <AdminSidebar />
           <div className="flex-1 flex flex-col min-w-0">
             <AdminHeader />
-            <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+            <main className="flex-1 p-6 md:p-8 overflow-y-auto">{children}</main>
           </div>
         </div>
       </AuthGuard>

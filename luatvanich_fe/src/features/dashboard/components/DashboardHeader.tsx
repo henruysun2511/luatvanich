@@ -25,22 +25,25 @@ export function DashboardHeader({
   isRefreshing,
 }: DashboardHeaderProps) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-2 border-b border-border">
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-3 border-b border-[#e7dcc3]">
       <div>
-        <h1 className="font-serif text-2xl font-bold tracking-tight text-foreground">
+        <h1 className="font-royal text-2xl font-bold tracking-tight text-[#06122b]">
           Bảng điều khiển Quản trị
         </h1>
-        <p className="text-xs text-muted-foreground mt-0.5">
-          Tổng quan số liệu tương tác, biểu đồ phân tích và tình trạng tiếp nhận khách hàng Hãng luật.
+        <p className="text-xs text-muted-foreground mt-0.5 font-sans">
+          Tổng quan số liệu tương tác, biểu đồ phân tích và tình trạng tiếp nhận hồ sơ Hãng luật{" "}
+          <span className="font-hanzi text-[#c29a45] font-semibold hidden md:inline">
+            &bull; 万益律师事务所
+          </span>
         </p>
       </div>
 
       <div className="flex items-center gap-2.5">
         {/* Bộ chọn khung thời gian */}
-        <div className="flex items-center gap-1.5 bg-card border border-border rounded-lg px-2 py-1">
-          <Calendar className="size-3.5 text-muted-foreground" />
+        <div className="flex items-center gap-1.5 bg-white border border-[#e7dcc3] rounded-lg px-2.5 py-1 shadow-2xs">
+          <Calendar className="size-3.5 text-[#c29a45]" />
           <Select value={String(days)} onValueChange={(val) => onDaysChange(Number(val))}>
-            <SelectTrigger className="h-7 text-xs border-0 bg-transparent shadow-none px-1.5 focus:ring-0 w-[130px]">
+            <SelectTrigger className="h-7 text-xs border-0 bg-transparent shadow-none px-1.5 focus:ring-0 w-[130px] font-sans">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
@@ -57,9 +60,9 @@ export function DashboardHeader({
           size="sm"
           onClick={onRefresh}
           disabled={isRefreshing}
-          className="h-9 gap-1.5 text-xs border-border hover:bg-muted"
+          className="h-9 gap-1.5 text-xs border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] shadow-2xs"
         >
-          <RotateCcw className={`size-3.5 ${isRefreshing ? "animate-spin text-primary" : ""}`} />
+          <RotateCcw className={`size-3.5 text-[#c29a45] ${isRefreshing ? "animate-spin" : ""}`} />
           <span>Làm mới</span>
         </Button>
       </div>
