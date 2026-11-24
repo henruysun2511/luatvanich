@@ -75,7 +75,7 @@ export function PostFormDialog({
   const [viContentHtml, setViContentHtml] = useState("");
   const [viMetaTitle, setViMetaTitle] = useState("");
   const [viMetaDescription, setViMetaDescription] = useState("");
-  const [viComplete, setViComplete] = useState(true);
+  const [viComplete, setViComplete] = useState(false);
 
   // Bản dịch Tiếng Trung
   const [zhTitle, setZhTitle] = useState("");
@@ -163,7 +163,7 @@ export function PostFormDialog({
       setViContentHtml("");
       setViMetaTitle("");
       setViMetaDescription("");
-      setViComplete(true);
+      setViComplete(false);
       setZhTitle("");
       setZhSlug("");
       setZhSummary("");
@@ -460,11 +460,17 @@ export function PostFormDialog({
                 >
                   <Globe className="size-3.5" />
                   Tiếng Việt (Mặc định)
-                  {viComplete && (
-                    <Badge variant="secondary" className="text-[10px] bg-emerald-50 text-emerald-700 h-4 py-0">
-                      Hoàn thiện
-                    </Badge>
-                  )}
+                  {viTitle.trim() && viContentHtml.trim() ? (
+                    viComplete ? (
+                      <Badge variant="secondary" className="text-[10px] bg-emerald-50 text-emerald-700 h-4 py-0">
+                        Hoàn thiện
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="text-[10px] text-amber-600 border-amber-200 h-4 py-0">
+                        Đang soạn
+                      </Badge>
+                    )
+                  ) : null}
                 </button>
                 <button
                   type="button"
@@ -477,11 +483,17 @@ export function PostFormDialog({
                 >
                   <Globe className="size-3.5" />
                   Tiếng Trung (Trung văn)
-                  {zhComplete && (
-                    <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-700 h-4 py-0">
-                      Hoàn thiện
-                    </Badge>
-                  )}
+                  {zhTitle.trim() && zhContentHtml.trim() ? (
+                    zhComplete ? (
+                      <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-700 h-4 py-0">
+                        Hoàn thiện
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="text-[10px] text-amber-600 border-amber-200 h-4 py-0">
+                        Đang soạn
+                      </Badge>
+                    )
+                  ) : null}
                 </button>
               </div>
 
@@ -520,7 +532,7 @@ export function PostFormDialog({
                     <div className="flex items-center gap-2 pt-6">
                       <Switch checked={viComplete} onCheckedChange={setViComplete} id="viComplete" />
                       <label htmlFor="viComplete" className="text-xs text-foreground cursor-pointer">
-                        Đánh dấu bản dịch tiếng Việt đã hoàn thiện
+                        Đánh dấu bản dịch tiếng Việt đã hoàn thiện (Đủ điều kiện xuất bản)
                       </label>
                     </div>
                   </div>
@@ -608,7 +620,7 @@ export function PostFormDialog({
                     <div className="flex items-center gap-2 pt-6">
                       <Switch checked={zhComplete} onCheckedChange={setZhComplete} id="zhComplete" />
                       <label htmlFor="zhComplete" className="text-xs text-foreground cursor-pointer">
-                        Đánh dấu bản dịch tiếng Trung đã hoàn thiện
+                        Đánh dấu bản dịch tiếng Trung đã hoàn thiện (Đủ điều kiện xuất bản)
                       </label>
                     </div>
                   </div>
