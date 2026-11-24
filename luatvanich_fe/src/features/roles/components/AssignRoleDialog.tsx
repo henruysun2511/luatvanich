@@ -92,6 +92,7 @@ export function AssignRoleDialog({
             </Button>
             <Button
               type="submit"
+              variant="royal"
               disabled={assignMutation.isPending || selectedRole === user.role}
             >
               {assignMutation.isPending ? (

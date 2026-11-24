@@ -196,7 +196,7 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
             >
               Hủy
             </Button>
-            <Button type="submit" disabled={createMutation.isPending}>
+            <Button type="submit" variant="royal" disabled={createMutation.isPending}>
               {createMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 size-4 animate-spin" />

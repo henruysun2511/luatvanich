@@ -778,7 +778,7 @@ export function PostFormDialog({
               >
                 Hủy
               </Button>
-              <Button type="submit" size="sm" disabled={isPending} className="gap-1.5">
+              <Button type="submit" variant="royal" size="sm" disabled={isPending} className="gap-1.5">
                 {isPending && <Loader2 className="size-3.5 animate-spin" />}
                 {isEdit ? "Lưu thay đổi" : "Tạo bài viết"}
               </Button>

@@ -413,6 +413,7 @@ export function ConsultationDetailDialog({
                 <div className="flex justify-end">
                   <Button
                     type="submit"
+                    variant="royal"
                     size="sm"
                     disabled={!newNote.trim() || addNoteMutation.isPending}
                     className="h-7 text-xs gap-1.5 px-3"

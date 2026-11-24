@@ -89,9 +89,10 @@ export default function OfficesManagementPage() {
 
         <Button
           onClick={handleOpenCreate}
-          className="gap-2 shrink-0 self-start sm:self-auto bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4 shadow-sm"
+          variant="royal"
+          className="gap-2 shrink-0 self-start sm:self-auto text-xs font-semibold h-9 px-4"
         >
-          <Plus className="size-4 text-[#f0d28a]" />
+          <Plus className="size-4" />
           Thêm văn phòng
         </Button>
       </div>

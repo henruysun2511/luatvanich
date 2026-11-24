@@ -20,15 +20,15 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         accent:
           "bg-accent text-accent-foreground font-semibold shadow hover:bg-accent/90",
-        // BIẾN THỂ HOÀNG GIA VẠN ÍCH
+        // BIẾN THỂ HOÀNG GIA VẠN ÍCH (ĐỎ CHU SA CHUẨN TRANG CHỦ)
         royal:
-          "bg-gradient-to-b from-[#c4252c] to-[#8f1218] text-white font-sans font-semibold uppercase tracking-[1.4px] shadow-[0_8px_20px_rgba(163,23,30,0.35),inset_0_1px_0_rgba(255,255,255,0.25)] hover:from-[#d12d34] hover:to-[#a3171e] hover:gap-3",
+          "bg-[#b3201b] hover:bg-[#8f1713] text-white font-sans font-semibold shadow-xs transition-colors active:scale-[0.98]",
         gold:
-          "bg-gradient-to-b from-[#f0d28a] via-[#c29a45] to-[#b08736] text-[#06122b] font-sans font-semibold uppercase tracking-[1.4px] shadow-[0_6px_18px_rgba(194,154,69,0.35),inset_0_1px_0_rgba(255,255,255,0.4)] hover:opacity-95 hover:gap-3",
+          "bg-gradient-to-b from-[#f0d28a] via-[#c29a45] to-[#b08736] text-[#06122b] font-sans font-semibold shadow-xs hover:opacity-95 transition-all",
         "royal-outline":
-          "border-2 border-[#a3171e] text-[#a3171e] font-sans font-semibold uppercase tracking-wider hover:bg-[#a3171e] hover:text-white transition-all",
+          "border border-[#b3201b] text-[#b3201b] font-sans font-semibold hover:bg-[#b3201b] hover:text-white transition-all shadow-xs",
         "gold-outline":
-          "border border-[#c29a45] text-[#c29a45] font-sans font-semibold uppercase tracking-wider hover:bg-[#c29a45]/10 transition-all",
+          "border border-[#c29a45] text-[#c29a45] font-sans font-semibold hover:bg-[#c29a45]/10 transition-all shadow-xs",
       },
       size: {
         default: "h-9 px-4 py-2",

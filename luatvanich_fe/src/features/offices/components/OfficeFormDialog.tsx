@@ -601,7 +601,7 @@ export function OfficeFormDialog({ open, onOpenChange, officeToEdit }: OfficeFor
             >
               Hủy
             </Button>
-            <Button type="submit" disabled={isPending} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button type="submit" variant="royal" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
               {isEdit ? "Lưu thay đổi" : "Tạo văn phòng"}
             </Button>

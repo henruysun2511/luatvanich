@@ -939,7 +939,7 @@ export function LawyerFormDialog({
             >
               Hủy bỏ
             </Button>
-            <Button type="submit" disabled={isPending}>
+            <Button type="submit" variant="royal" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
               {isEdit ? "Lưu thay đổi" : "Tạo hồ sơ luật sư"}
             </Button>

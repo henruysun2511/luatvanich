@@ -144,21 +144,23 @@ export default function PostsManagementPage() {
           {activeTab === "posts" ? (
             <Button
               asChild
+              variant="royal"
               size="sm"
-              className="gap-1.5 shadow-sm bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4"
+              className="gap-1.5 text-xs font-semibold h-9 px-4"
             >
               <Link href="/admin/posts/new">
-                <Plus className="size-4 text-[#f0d28a]" />
+                <Plus className="size-4" />
                 Thêm bài viết mới
               </Link>
             </Button>
           ) : (
             <Button
               onClick={handleOpenCreateCategory}
+              variant="royal"
               size="sm"
-              className="gap-1.5 shadow-sm bg-[#06122b] hover:bg-[#11244d] text-[#f0d28a] border border-[#c29a45]/40 text-xs font-semibold h-9 px-4"
+              className="gap-1.5 text-xs font-semibold h-9 px-4"
             >
-              <Plus className="size-4 text-[#f0d28a]" />
+              <Plus className="size-4" />
               Thêm chuyên mục mới
             </Button>
           )}
