@@ -100,14 +100,6 @@ export function DashboardStatCards({ stats, isLoading }: DashboardStatCardsProps
               <span className="truncate">{c.subText}</span>
             </div>
           </div>
-
-          {/* Nút Xem chi tiết chuẩn mẫu .bt trang chủ */}
-          <div className="pt-3 mt-4 border-t border-[#e7dcc3]/60 flex items-center justify-between">
-            <span className="font-sans font-semibold text-xs text-[#06122b] group-hover:text-[#a3171e] flex items-center gap-1.5 transition-colors">
-              Xem chi tiết
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </span>
-          </div>
         </Link>
       ))}
     </div>
