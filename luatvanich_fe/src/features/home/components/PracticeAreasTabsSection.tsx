@@ -25,7 +25,7 @@ export function PracticeAreasTabsSection({ initialTab = 0 }: PracticeAreasTabsSe
   }, []);
 
   return (
-    <section className="py-24 bg-[#fffdf8] relative overflow-hidden" id="linhvuc">
+    <section className="py-24 bg-[#fffdf8] relative overflow-hidden scroll-mt-20" id="linhvuc">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-14">
           <div>

@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
 import { INSIGHTS_DATA } from "../constants/home.constants";
+import { scrollToAnchor } from "@/lib/utils";
 
 export function LegalInsightsSection() {
   const insightsRailRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ export function LegalInsightsSection() {
   };
 
   return (
-    <section className="py-24 bg-[#fffdf8] relative overflow-hidden" id="gocnhin">
+    <section className="py-24 bg-[#fffdf8] relative overflow-hidden scroll-mt-20" id="gocnhin">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-14">
           <div>
@@ -38,8 +39,9 @@ export function LegalInsightsSection() {
           {INSIGHTS_DATA.map((item, idx) => (
             <a
               key={idx}
-              className="flex-[0_0_calc(85%)] sm:flex-[0_0_calc(55%)] lg:flex-[0_0_calc(33.33%-16px)] [scroll-snap-align:start] bg-white border border-[#e7dcc3] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
+              className="flex-[0_0_calc(85%)] sm:flex-[0_0_calc(55%)] lg:flex-[0_0_calc(33.33%-16px)] [scroll-snap-align:start] bg-white border border-[#e7dcc3] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col cursor-pointer"
               href="#lienhe"
+              onClick={(e) => scrollToAnchor(e, "lienhe")}
             >
               <div
                 className="aspect-[3/2] relative grid place-items-center overflow-hidden"

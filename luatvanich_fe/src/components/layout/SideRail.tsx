@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { SealStamp } from "@/components/ui/seal-stamp";
+import { scrollToAnchor } from "@/lib/utils";
 
 export function SideRail() {
   const [activeSection, setActiveSection] = useState("top");
+  const params = useParams();
+  const lang = (params?.lang as string) || "vi";
 
   useEffect(() => {
     const sectionIds = ["top", "linhvuc", "thuatngu", "quytrinh", "doingu", "gocnhin", "lienhe"];
@@ -28,9 +32,19 @@ export function SideRail() {
     return () => observer.disconnect();
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    if (scrollToAnchor(e, targetId)) {
+      setActiveSection(targetId);
+    }
+  };
+
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden lg:flex flex-col items-center py-6 z-40 border-r border-[#c29a45]/35 select-none">
-      <Link href="/#top" aria-label="Luật Vạn Ích">
+      <Link
+        href={`/${lang}#top`}
+        onClick={(e) => handleNavClick(e, "top")}
+        aria-label="Luật Vạn Ích"
+      >
         <SealStamp char="万" size="md" variant="gold" className="w-[46px] h-[46px] text-[25px]" />
       </Link>
 
@@ -45,7 +59,8 @@ export function SideRail() {
         ].map((item) => (
           <Link
             key={item.id}
-            href={`/#${item.id}`}
+            href={`/${lang}#${item.id}`}
+            onClick={(e) => handleNavClick(e, item.id)}
             className={`flex flex-col items-center gap-1.5 text-[10.5px] font-sans font-medium tracking-wider transition-colors ${
               activeSection === item.id ? "text-[#f0d28a]" : "text-[#7f8aa6] hover:text-[#f0d28a]"
             }`}

@@ -3,10 +3,11 @@
 import React from "react";
 import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
 import { CorridorRadarMap } from "./CorridorRadarMap";
+import { scrollToAnchor } from "@/lib/utils";
 
 export function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-[#08111f] via-[#14243d] to-[#1d3556] text-white overflow-hidden" id="top">
+    <section className="relative bg-gradient-to-br from-[#08111f] via-[#14243d] to-[#1d3556] text-white overflow-hidden scroll-mt-20" id="top">
       {/* Vector Kiến trúc Cao ốc Skyline */}
       <svg
         className="absolute left-0 right-0 bottom-0 w-full h-[140px] z-[1] opacity-50 pointer-events-none"
@@ -72,12 +73,17 @@ export function HeroSection() {
             Văn phòng luật sư song ngữ đồng hành cùng doanh nghiệp đầu tư, ký kết và giải quyết tranh chấp xuyên biên giới, làm việc trực tiếp bằng cả hai ngôn ngữ.
           </p>
           <div className="flex flex-wrap items-center gap-6 pt-2">
-            <a className="btn-royal" href="#lienhe">
+            <a
+              className="btn-royal"
+              href="#lienhe"
+              onClick={(e) => scrollToAnchor(e, "lienhe")}
+            >
               Đặt lịch tư vấn &rarr;
             </a>
             <a
               className="font-medium text-sm border-b border-white hover:text-[#f0d28a] hover:border-[#f0d28a] transition-colors pb-0.5"
               href="#linhvuc"
+              onClick={(e) => scrollToAnchor(e, "linhvuc")}
             >
               Xem lĩnh vực
             </a>

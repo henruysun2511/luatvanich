@@ -13,7 +13,7 @@ export function ConsultationBookingSection() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#071530] to-[#102a58] text-white" id="lienhe">
+    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#071530] to-[#102a58] text-white scroll-mt-20" id="lienhe">
       <div
         className="absolute -left-10 -bottom-36 font-hanzi font-bold text-[500px] text-transparent pointer-events-none select-none"
         style={{ WebkitTextStroke: "1px rgba(194, 154, 69, 0.2)" }}

@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
 import { LAWYERS_DATA, HAIR_COLORS } from "../constants/home.constants";
+import { scrollToAnchor } from "@/lib/utils";
 
 export function LawyersCarouselSection() {
   const lawyersRailRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ export function LawyersCarouselSection() {
   };
 
   return (
-    <section className="py-24 bg-[#fbf7ee] relative overflow-hidden" id="doingu">
+    <section className="py-24 bg-[#fbf7ee] relative overflow-hidden scroll-mt-20" id="doingu">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-14">
           <div>
@@ -72,7 +73,11 @@ export function LawyersCarouselSection() {
                   <p className="text-xs text-[#5b6174] m-0 mb-3 pt-3 border-t border-[#e7dcc3] leading-relaxed">
                     {lw.field}
                   </p>
-                  <a href="#lienhe" className="text-xs font-semibold text-[#a3171e] hover:underline">
+                  <a
+                    href="#lienhe"
+                    onClick={(e) => scrollToAnchor(e, "lienhe")}
+                    className="text-xs font-semibold text-[#a3171e] hover:underline"
+                  >
                     Liên hệ luật sư &rarr;
                   </a>
                 </div>

@@ -19,7 +19,7 @@ export function LegalGlossarySection() {
   });
 
   return (
-    <section className="py-24 bg-[#fbf7ee] relative overflow-hidden" id="thuatngu">
+    <section className="py-24 bg-[#fbf7ee] relative overflow-hidden scroll-mt-20" id="thuatngu">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-14">
           <div>

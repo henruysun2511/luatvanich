@@ -20,3 +20,19 @@ export function formatReadableDate(dateString: string, locale = "vi-VN"): string
 }
 
 export const formatDate = formatReadableDate;
+
+export function scrollToAnchor(
+  e: React.MouseEvent<HTMLElement> | null,
+  targetId: string,
+): boolean {
+  if (typeof document === "undefined") return false;
+  const el = document.getElementById(targetId);
+  if (el) {
+    if (e) e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth" });
+    window.history.pushState(null, "", `#${targetId}`);
+    return true;
+  }
+  return false;
+}
+
