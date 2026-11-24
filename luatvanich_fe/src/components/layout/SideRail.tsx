@@ -29,12 +29,12 @@ export function SideRail() {
   }, []);
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden lg:flex flex-col items-center justify-between py-6 z-40 border-r border-[#c29a45]/35 select-none">
+    <aside className="fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden lg:flex flex-col items-center py-6 z-40 border-r border-[#c29a45]/35 select-none">
       <Link href="/#top" aria-label="Luật Vạn Ích">
         <SealStamp char="万" size="md" variant="gold" className="w-[46px] h-[46px] text-[25px]" />
       </Link>
 
-      <nav className="flex flex-col gap-5 items-center">
+      <nav className="flex flex-col gap-5 items-center my-auto">
         {[
           { id: "linhvuc", num: "01", label: "Lĩnh vực" },
           { id: "thuatngu", num: "02", label: "Thuật ngữ" },
@@ -57,14 +57,6 @@ export function SideRail() {
           </Link>
         ))}
       </nav>
-
-      <a
-        href="tel:0900123456"
-        className="w-[42px] h-[42px] bg-[#a3171e] text-white grid place-items-center text-[17px] hover:scale-105 transition-transform"
-        aria-label="Hotline"
-      >
-        ✆
-      </a>
     </aside>
   );
 }
