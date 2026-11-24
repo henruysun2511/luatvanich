@@ -303,9 +303,8 @@ export function ProfileForm() {
       <div className="flex justify-end pt-2">
         <Button
           type="submit"
-          variant="royal"
           disabled={updateProfileMutation.isPending || avatarController.isUploading}
-          className="gap-2 text-xs h-9 min-w-[140px]"
+          className="btn-royal !h-9 !text-xs !py-0 !px-5 gap-2 min-w-[140px]"
         >
           {updateProfileMutation.isPending ? (
             <>

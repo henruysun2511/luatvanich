@@ -197,9 +197,8 @@ export function ThemeBrandingTab() {
         </div>
         <Button
           type="submit"
-          variant="royal"
           disabled={updateMutation.isPending}
-          className="h-9 px-6 text-xs gap-1.5"
+          className="btn-royal !h-9 !text-xs !py-0 !px-6 gap-1.5"
         >
           {updateMutation.isPending ? (
             <>

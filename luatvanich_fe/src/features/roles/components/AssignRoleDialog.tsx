@@ -92,8 +92,8 @@ export function AssignRoleDialog({
             </Button>
             <Button
               type="submit"
-              variant="royal"
               disabled={assignMutation.isPending || selectedRole === user.role}
+              className="btn-royal !h-8 !text-xs !py-0 !px-4"
             >
               {assignMutation.isPending ? (
                 <>

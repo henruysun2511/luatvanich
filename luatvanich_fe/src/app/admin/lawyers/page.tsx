@@ -101,8 +101,7 @@ export default function LawyersManagementPage() {
         actions={
           <Button
             onClick={handleOpenCreate}
-            variant="royal"
-            className="gap-2 shrink-0 text-xs font-semibold h-9 px-4"
+            className="btn-royal !text-xs !h-9 !px-4 gap-1.5"
           >
             <Plus className="size-4" />
             Thêm hồ sơ luật sư

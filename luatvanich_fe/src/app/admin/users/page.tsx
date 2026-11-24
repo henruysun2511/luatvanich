@@ -50,8 +50,7 @@ export default function UsersManagementPage() {
         actions={
           <Button
             onClick={() => setIsCreateOpen(true)}
-            variant="royal"
-            className="gap-2 shrink-0 self-start sm:self-auto text-xs font-semibold h-9 px-4"
+            className="btn-royal !text-xs !h-9 !px-4 gap-2 shrink-0 self-start sm:self-auto"
           >
             <UserPlus className="size-4" />
             Thêm tài khoản

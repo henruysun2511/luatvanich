@@ -373,7 +373,7 @@ export function PostCategoryFormDialog({
             >
               Hủy
             </Button>
-            <Button type="submit" variant="royal" size="sm" disabled={isPending} className="gap-1.5">
+            <Button type="submit" disabled={isPending} className="btn-royal !h-8 !text-xs !py-0 !px-4 gap-1.5">
               {isPending && <Loader2 className="size-3.5 animate-spin" />}
               {isEdit ? "Lưu thay đổi" : "Tạo chuyên mục"}
             </Button>

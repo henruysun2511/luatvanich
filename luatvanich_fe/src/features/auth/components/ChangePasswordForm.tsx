@@ -160,9 +160,8 @@ export function ChangePasswordForm() {
       <div className="flex justify-start pt-2">
         <Button
           type="submit"
-          variant="royal"
           disabled={changePasswordMutation.isPending}
-          className="gap-2 text-xs h-9 min-w-[150px]"
+          className="btn-royal !h-9 !text-xs !py-0 !px-5 gap-2 min-w-[150px]"
         >
           {changePasswordMutation.isPending ? (
             <>

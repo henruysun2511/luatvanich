@@ -138,9 +138,7 @@ export default function PostsManagementPage() {
           activeTab === "posts" ? (
             <Button
               asChild
-              variant="royal"
-              size="sm"
-              className="gap-1.5 text-xs font-semibold h-9 px-4"
+              className="btn-royal !text-xs !h-9 !px-4 gap-1.5"
             >
               <Link href="/admin/posts/new">
                 <Plus className="size-4" />
@@ -150,9 +148,7 @@ export default function PostsManagementPage() {
           ) : (
             <Button
               onClick={handleOpenCreateCategory}
-              variant="royal"
-              size="sm"
-              className="gap-1.5 text-xs font-semibold h-9 px-4"
+              className="btn-royal !text-xs !h-9 !px-4 gap-1.5"
             >
               <Plus className="size-4" />
               Thêm chuyên mục mới

@@ -94,7 +94,7 @@ export function ResetPasswordDialog({
             >
               Hủy
             </Button>
-            <Button type="submit" variant="royal" disabled={resetMutation.isPending || !newPassword}>
+            <Button type="submit" disabled={resetMutation.isPending || !newPassword} className="btn-royal !h-8 !text-xs !py-0 !px-4">
               {resetMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 size-4 animate-spin" />

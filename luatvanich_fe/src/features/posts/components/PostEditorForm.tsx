@@ -432,10 +432,8 @@ export function PostEditorForm({
           </Button>
           <Button
             type="submit"
-            variant="royal"
-            size="sm"
             disabled={isPending}
-            className="text-xs h-9 px-5 gap-1.5 shadow-sm"
+            className="btn-royal !text-xs !h-9 !px-5 gap-1.5"
           >
             {isPending ? (
               <Loader2 className="size-3.5 animate-spin" />

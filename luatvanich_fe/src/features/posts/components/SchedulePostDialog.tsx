@@ -244,10 +244,8 @@ export function SchedulePostDialog({
             </Button>
             <Button
               type="submit"
-              variant="royal"
-              size="sm"
               disabled={updateStatusMutation.isPending || !hasCompleteTranslation}
-              className="gap-1.5"
+              className="btn-royal !h-8 !text-xs !py-0 !px-4 gap-1.5"
             >
               {updateStatusMutation.isPending && <Loader2 className="size-3.5 animate-spin" />}
               Xác nhận lên lịch
