@@ -123,7 +123,7 @@ export function ConsultationBookingSection() {
 
             {formSubmitted && (
               <div className="p-3.5 bg-[#f0d28a]/15 border border-[#f0d28a]/40 text-[#f0d28a] text-xs leading-relaxed rounded mt-3">
-                &check; <strong>Đã tiếp nhận yêu cầu.</strong> Luật sư chuyên trách của Vạn Ích sẽ trực tiếp liên hệ lại trong vòng 24 giờ làm việc.
+                ✓ <strong>Đã tiếp nhận yêu cầu.</strong> Luật sư chuyên trách của Vạn Ích sẽ trực tiếp liên hệ lại trong vòng 24 giờ làm việc.
               </div>
             )}
           </form>

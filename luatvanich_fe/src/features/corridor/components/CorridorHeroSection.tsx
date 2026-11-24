@@ -98,13 +98,13 @@ export function CorridorHeroSection({ lang }: CorridorHeroSectionProps) {
             {/* Checklist bảo chứng 3 cam kết thương hiệu Vạn Ích */}
             <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
               <li className="flex items-center gap-2">
-                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
+                <span className="text-[#f0d28a] font-bold">✓</span> {isZh ? "中越双语 • 中文 – Việt" : "Song ngữ Việt – 中文"}
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
+                <span className="text-[#f0d28a] font-bold">✓</span> {isZh ? "绝对保密" : "Bảo mật tuyệt đối"}
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-[#f0d28a] font-bold">&check;</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
+                <span className="text-[#f0d28a] font-bold">✓</span> {isZh ? "接案前明确费用" : "Báo phí trước khi nhận vụ việc"}
               </li>
             </ul>
           </div>

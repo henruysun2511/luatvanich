@@ -90,13 +90,13 @@ export function HeroSection() {
           </div>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
             <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">&check;</span> Song ngữ Việt – 中文
+              <span className="text-[#f0d28a] font-bold">✓</span> Song ngữ Việt – 中文
             </li>
             <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">&check;</span> Bảo mật tuyệt đối
+              <span className="text-[#f0d28a] font-bold">✓</span> Bảo mật tuyệt đối
             </li>
             <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">&check;</span> Báo phí trước khi nhận vụ việc
+              <span className="text-[#f0d28a] font-bold">✓</span> Báo phí trước khi nhận vụ việc
             </li>
           </ul>
         </div>
