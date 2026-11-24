@@ -24,6 +24,7 @@ import { PostTranslationRepository } from './repositories/post-translation.repos
 import { PostRepository } from './repositories/post.repository';
 import { TagTranslationRepository } from './repositories/tag-translation.repository';
 import { TagRepository } from './repositories/tag.repository';
+import { PostPublicationScheduler } from './schedulers/post-publication.scheduler';
 import { PostCategoriesService } from './services/post-categories.service';
 import { PostsService } from './services/posts.service';
 import { TagsService } from './services/tags.service';
@@ -45,6 +46,7 @@ import { TagsService } from './services/tags.service';
     PostsService, PostCategoriesService, TagsService, PostMapper, PostCategoryMapper, TagMapper,
     PostRepository, PostTranslationRepository, PostCategoryRepository, PostCategoryTranslationRepository,
     TagRepository, TagTranslationRepository,
+    PostPublicationScheduler,
   ],
   exports: [TypeOrmModule],
 })

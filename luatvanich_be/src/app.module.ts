@@ -1,5 +1,6 @@
 import { Module, ClassSerializerInterceptor, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
 import { InfrastructuresModule } from './infrastructures/infrastructures.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
@@ -18,6 +19,7 @@ import { LangMiddleware } from './common/middleware/lang.middleware';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     InfrastructuresModule,
     AuthModule,
     UsersModule,

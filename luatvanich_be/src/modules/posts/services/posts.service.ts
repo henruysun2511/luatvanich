@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { LangCode } from '../../../common/enums/lang.enum';
 import { PaginatedResponse } from '../../../common/response/api-response';
 import { normalizePagination } from '../../../common/utils/pagination.util';
@@ -28,9 +28,8 @@ import { hasPostContent, sanitizePostHtml } from '../utils/post-html.util';
 import { validatePostThumbnail } from '../utils/post-thumbnail.util';
 
 @Injectable()
-export class PostsService implements OnApplicationBootstrap, OnApplicationShutdown {
+export class PostsService {
   private readonly logger = new Logger(PostsService.name);
-  private publicationTimer?: NodeJS.Timeout;
 
   constructor(
     private readonly posts: PostRepository,
@@ -42,23 +41,6 @@ export class PostsService implements OnApplicationBootstrap, OnApplicationShutdo
     private readonly legalServiceRepo: LegalServiceRepository,
     private readonly mapper: PostMapper,
   ) {}
-
-  onApplicationBootstrap() {
-    const publishDue = () => {
-      this.posts.publishDue(new Date()).catch((error: unknown) => {
-        this.logger.error('Không thể xuất bản bài viết đến lịch', error instanceof Error ? error.stack : undefined);
-      });
-    };
-    publishDue();
-    this.publicationTimer = setInterval(publishDue, 60_000);
-    this.publicationTimer.unref();
-  }
-
-  onApplicationShutdown() {
-    if (this.publicationTimer) {
-      clearInterval(this.publicationTimer);
-    }
-  }
 
   async findAllPublic(query: PostQueryDto, lang: LangCode, tagId?: string) {
     const { page, limit } = normalizePagination(query);
