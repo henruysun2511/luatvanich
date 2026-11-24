@@ -33,8 +33,6 @@ export function AdminHeader() {
   return (
     <header className="h-14 border-b border-border bg-background px-6 flex items-center justify-between">
       <div className="text-xs text-muted-foreground flex items-center gap-2">
-        <span className="font-semibold text-foreground">Luật Vạn Ích CMS</span>
-        <span className="text-border">&bull;</span>
         <span>Hệ thống Quản trị & Điều hành Nội dung</span>
       </div>
 

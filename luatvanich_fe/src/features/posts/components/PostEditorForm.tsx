@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
+import { mediaService } from "@/features/media/services/media.service";
 import { useAdminLawyers } from "@/features/lawyers";
 import { useAdminLegalServices } from "@/features/legal-services";
 import {
@@ -25,6 +26,9 @@ import {
   useAdminPostDetail,
 } from "../queries/usePostsQuery";
 import { postFormSchema } from "../schemas/post.schema";
+import { RichTextEditor } from "./editor";
+import { extractCloudinaryKeysFromHtml } from "../utils/html-image-parser.util";
+import { toast } from "sonner";
 import type {
   PostCategoryItem,
   CreatePostInput,
@@ -108,6 +112,10 @@ export function PostEditorForm({
   const { data: servicesData } = useAdminLegalServices({ limit: 100 });
   const legalServices = servicesData?.items || [];
 
+  // Quản lý ảnh nhúng trong nội dung TipTap
+  const sessionUploadedKeys = useRef<Set<string>>(new Set());
+  const initialImageKeys = useRef<Set<string>>(new Set());
+
   // Vòng đời Media Cloudinary cho ảnh bìa
   const thumbnailController = useMediaLifecycle({
     initialUrl: postDetail?.thumbnailUrl || undefined,
@@ -147,6 +155,13 @@ export function PostEditorForm({
       setZhMetaTitle(zh?.metaTitle || "");
       setZhMetaDescription(zh?.metaDescription || "");
       setZhComplete(zh?.isComplete ?? false);
+
+      // Lưu trữ các key ảnh ban đầu để so sánh khi Lưu
+      const initialKeys = [
+        ...extractCloudinaryKeysFromHtml(vi?.contentHtml),
+        ...extractCloudinaryKeysFromHtml(zh?.contentHtml),
+      ];
+      initialImageKeys.current = new Set(initialKeys);
     } else {
       setCategoryId(categories[0]?.id || "");
       setAuthorLawyerId("none");
@@ -170,9 +185,29 @@ export function PostEditorForm({
       setZhMetaTitle("");
       setZhMetaDescription("");
       setZhComplete(false);
+      initialImageKeys.current = new Set();
     }
     setErrors({});
   }, [postDetail, categories]);
+
+  // Xử lý khi ảnh được upload trong TipTap Editor
+  const handleImageUploaded = (key: string) => {
+    sessionUploadedKeys.current.add(key);
+  };
+
+  // Xử lý khi ảnh bị xóa khỏi TipTap Editor
+  const handleImageRemoved = async (key: string) => {
+    // Nếu là ảnh vừa upload trong phiên này, xóa ngay trên Cloudinary
+    if (sessionUploadedKeys.current.has(key)) {
+      sessionUploadedKeys.current.delete(key);
+      try {
+        await mediaService.delete(key);
+        toast.info("Đã xóa ảnh khỏi bộ nhớ lưu trữ Cloudinary.");
+      } catch (err) {
+        console.error("Lỗi xóa ảnh Cloudinary:", err);
+      }
+    }
+  };
 
   // Xử lý thêm Tag dạng Chip
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -196,7 +231,15 @@ export function PostEditorForm({
     );
   };
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
+    // Rollback: Xóa tất cả các ảnh mới upload trong phiên này
+    const keysToDelete = Array.from(sessionUploadedKeys.current);
+    if (keysToDelete.length > 0) {
+      const toastId = toast.loading("Đang dọn dẹp ảnh tạm trên Cloudinary...");
+      await Promise.allSettled(keysToDelete.map((k) => mediaService.delete(k)));
+      sessionUploadedKeys.current.clear();
+      toast.dismiss(toastId);
+    }
     void thumbnailController.rollback();
     router.push("/admin/posts");
   };
@@ -308,7 +351,20 @@ export function PostEditorForm({
       }
     }
 
+    // Xóa các ảnh cũ đã bị gỡ khỏi bài viết trên Cloudinary
+    const currentContentKeys = new Set([
+      ...extractCloudinaryKeysFromHtml(viContentHtml),
+      ...extractCloudinaryKeysFromHtml(zhContentHtml),
+    ]);
+    const removedOldKeys = Array.from(initialImageKeys.current).filter(
+      (key) => !currentContentKeys.has(key),
+    );
+    if (removedOldKeys.length > 0) {
+      await Promise.allSettled(removedOldKeys.map((key) => mediaService.delete(key)));
+    }
+
     // Hoàn tất vòng đời media
+    sessionUploadedKeys.current.clear();
     thumbnailController.commit();
     if (onSuccess) {
       onSuccess();
@@ -497,21 +553,22 @@ export function PostEditorForm({
                 </div>
 
                 {/* Nội dung bài viết */}
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 font-sans">
                   <label className="text-xs font-semibold text-foreground flex items-center justify-between">
                     <span>
-                      Nội dung HTML bài viết <span className="text-destructive">*</span>
+                      Nội dung bài viết (Tiếng Việt) <span className="text-destructive">*</span>
                     </span>
                     <span className="text-[11px] text-muted-foreground font-normal">
-                      Hỗ trợ HTML: &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;blockquote&gt;...
+                      Trình soạn thảo trực quan: H2/H3, in đậm, chèn ảnh Cloudinary...
                     </span>
                   </label>
-                  <Textarea
-                    value={viContentHtml}
-                    onChange={(e) => setViContentHtml(e.target.value)}
-                    placeholder="Nhập nội dung bài viết định dạng HTML..."
-                    rows={16}
-                    className="text-xs font-mono leading-relaxed p-3.5 bg-muted/10"
+                  <RichTextEditor
+                    content={viContentHtml}
+                    onChange={setViContentHtml}
+                    onImageUploaded={handleImageUploaded}
+                    onImageRemoved={handleImageRemoved}
+                    placeholder="Soạn thảo nội dung bài viết..."
+                    minHeight="400px"
                   />
                   {errors["translations.0.contentHtml"] && (
                     <p className="text-[11px] text-destructive">
@@ -599,15 +656,19 @@ export function PostEditorForm({
 
                 {/* Nội dung bài viết */}
                 <div className="space-y-1.5 font-sans">
-                  <label className="text-xs font-semibold text-foreground">
-                    Nội dung HTML bài viết (Tiếng Trung)
+                  <label className="text-xs font-semibold text-foreground flex items-center justify-between">
+                    <span>Nội dung bài viết (Tiếng Trung)</span>
+                    <span className="text-[11px] text-muted-foreground font-normal font-sans">
+                      富文本编辑器：支持H2/H3、加粗、插入图片等
+                    </span>
                   </label>
-                  <Textarea
-                    value={zhContentHtml}
-                    onChange={(e) => setZhContentHtml(e.target.value)}
-                    placeholder="请输入文章HTML格式内容..."
-                    rows={16}
-                    className="text-xs font-mono leading-relaxed p-3.5 bg-muted/10 font-serif"
+                  <RichTextEditor
+                    content={zhContentHtml}
+                    onChange={setZhContentHtml}
+                    onImageUploaded={handleImageUploaded}
+                    onImageRemoved={handleImageRemoved}
+                    placeholder="请输入中文文章正文内容..."
+                    minHeight="400px"
                   />
                 </div>
 

@@ -50,7 +50,7 @@ export function AdminSidebar() {
             LUẬT VẠN ÍCH
           </span>
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
-            Admin CMS Portal
+            Cổng quản trị Admin
           </span>
         </div>
       </div>
