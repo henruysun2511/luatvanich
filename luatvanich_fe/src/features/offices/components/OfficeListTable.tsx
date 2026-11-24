@@ -105,7 +105,8 @@ export function OfficeListTable({
       <Table>
         <TableHeader className="bg-muted/50">
           <TableRow>
-            <TableHead className="w-14 text-center">#</TableHead>
+            <TableHead className="w-12 text-center">#</TableHead>
+            <TableHead className="w-28">Mã văn phòng</TableHead>
             <TableHead className="min-w-[220px]">Văn phòng</TableHead>
             <TableHead className="min-w-[200px]">Địa chỉ</TableHead>
             <TableHead className="min-w-[160px]">Liên hệ</TableHead>
@@ -127,7 +128,17 @@ export function OfficeListTable({
                   {idx + 1}
                 </TableCell>
 
-                {/* 2. Tên văn phòng & Mã */}
+                {/* 2. Mã văn phòng */}
+                <TableCell>
+                  <Badge
+                    variant="outline"
+                    className="font-mono text-xs bg-muted/50 text-foreground border-border px-2 py-0.5"
+                  >
+                    {office.code}
+                  </Badge>
+                </TableCell>
+
+                {/* 3. Tên văn phòng */}
                 <TableCell>
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-2">
@@ -146,10 +157,6 @@ export function OfficeListTable({
                         {zh.name}
                       </span>
                     )}
-
-                    <span className="text-[11px] font-mono text-muted-foreground">
-                      Mã: <code>{office.code}</code>
-                    </span>
                   </div>
                 </TableCell>
 
