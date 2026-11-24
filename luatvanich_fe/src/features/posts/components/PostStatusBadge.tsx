@@ -28,9 +28,9 @@ export function PostStatusBadge({ status }: PostStatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${config.className}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-medium border ${config.className}`}
     >
-      <span className="size-1.5 rounded-full bg-current mr-1.5 opacity-70" />
+      <span className="size-1.5 bg-current mr-1.5 opacity-70" />
       {config.label}
     </span>
   );

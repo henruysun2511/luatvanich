@@ -21,7 +21,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUpdatePost, useUpdatePostStatus } from "../queries/usePostsQuery";
-import { PostStatusBadge } from "./PostStatusBadge";
 import { SchedulePostDialog } from "./SchedulePostDialog";
 import type { PostItem, PostCategoryItem, PostStatus } from "../types/posts.types";
 import {
@@ -238,10 +237,8 @@ export function PostListTable({
                       disabled={isRowUpdating}
                       onValueChange={(val) => handleChangeStatus(post, val as PostStatus)}
                     >
-                      <SelectTrigger className="h-7 text-[11px] w-[125px] border-border">
-                        <SelectValue>
-                          <PostStatusBadge status={post.status} />
-                        </SelectValue>
+                      <SelectTrigger className="h-8 text-xs w-[130px] border-[#e7dcc3] bg-white rounded-none">
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="draft">Bản nháp</SelectItem>
