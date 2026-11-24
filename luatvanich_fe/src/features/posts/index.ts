@@ -10,6 +10,7 @@ export * from "./components/PostDetailDialog";
 export * from "./components/PostListTable";
 export * from "./components/PostFormDialog";
 export * from "./components/DeletePostDialog";
+export * from "./components/SchedulePostDialog";
 export * from "./components/PostCategoryListTable";
 export * from "./components/PostCategoryFormDialog";
 export * from "./components/DeletePostCategoryDialog";

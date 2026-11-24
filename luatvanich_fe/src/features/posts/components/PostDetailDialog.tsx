@@ -17,6 +17,7 @@ import { useAdminPostDetail } from "../queries/usePostsQuery";
 import {
   Eye,
   Calendar,
+  CalendarClock,
   Tag as TagIcon,
   Globe,
   Edit2,
@@ -99,6 +100,25 @@ export function PostDetailDialog({
             </div>
           ) : (
             <>
+              {/* Thông tin lên lịch đăng bài */}
+              {post.status === "scheduled" && post.publishAt && (
+                <div className="flex items-center gap-2.5 p-3 rounded-lg border border-purple-200 bg-purple-50 dark:bg-purple-950/30 text-purple-900 dark:text-purple-200 text-xs">
+                  <CalendarClock className="size-4 text-purple-600 shrink-0" />
+                  <span>
+                    Bài viết đã được <strong>lên lịch tự động xuất bản</strong> vào lúc{" "}
+                    <strong className="font-mono">
+                      {new Date(post.publishAt).toLocaleString("vi-VN", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </strong>
+                  </span>
+                </div>
+              )}
+
               {/* Ảnh bìa */}
               {post.thumbnailUrl ? (
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border bg-muted/40">

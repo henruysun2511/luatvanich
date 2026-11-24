@@ -24,7 +24,7 @@ import {
 import { SingleImageUpload, useMediaLifecycle } from "@/features/media";
 import { useAdminLawyers } from "@/features/lawyers";
 import { useAdminLegalServices } from "@/features/legal-services";
-import { useCreatePost, useUpdatePost, useAdminPostDetail } from "../queries/usePostsQuery";
+import { useCreatePost, useUpdatePost, useUpdatePostStatus, useAdminPostDetail } from "../queries/usePostsQuery";
 import { postFormSchema } from "../schemas/post.schema";
 import type {
   PostItem,
@@ -32,7 +32,7 @@ import type {
   CreatePostInput,
   PostStatus,
 } from "../types/posts.types";
-import { FileText, Loader2, Globe, Tag, X, Star, Calendar } from "lucide-react";
+import { FileText, Loader2, Globe, Tag, X, Star, Calendar, CalendarClock } from "lucide-react";
 
 interface PostFormDialogProps {
   open: boolean;
@@ -90,6 +90,7 @@ export function PostFormDialog({
 
   const createMutation = useCreatePost();
   const updateMutation = useUpdatePost();
+  const updateStatusMutation = useUpdatePostStatus();
 
   // Danh sách Luật sư & Dịch vụ liên quan
   const { data: lawyersData } = useAdminLawyers({ limit: 100 });
@@ -255,6 +256,21 @@ export function PostFormDialog({
       return;
     }
 
+    if (status === "scheduled") {
+      const scheduledDate = new Date(publishAt);
+      if (!publishAt || isNaN(scheduledDate.getTime()) || scheduledDate <= new Date()) {
+        setErrors((prev) => ({ ...prev, publishAt: "Thời điểm hẹn giờ đăng bài phải ở tương lai." }));
+        return;
+      }
+      if (!viComplete && !zhComplete) {
+        setErrors((prev) => ({
+          ...prev,
+          publishAt: "Cần ít nhất một bản dịch được đánh dấu 'Hoàn thiện' trước khi lên lịch xuất bản.",
+        }));
+        return;
+      }
+    }
+
     const inputData: CreatePostInput = {
       categoryId,
       authorLawyerId: authorLawyerId === "none" ? null : authorLawyerId,
@@ -265,10 +281,29 @@ export function PostFormDialog({
       translations,
     };
 
+    let targetPostId = postIdToEdit;
     if (isEdit && postIdToEdit) {
       await updateMutation.mutateAsync({ id: postIdToEdit, payload: inputData });
     } else {
-      await createMutation.mutateAsync(inputData);
+      const created = await createMutation.mutateAsync(inputData);
+      targetPostId = created.id;
+    }
+
+    // Cập nhật trạng thái xuất bản & lên lịch nếu có thay đổi
+    if (targetPostId) {
+      const isStatusChanged = !isEdit || status !== postDetail?.status;
+      const isScheduleChanged =
+        status === "scheduled" && publishAt !== (postDetail?.publishAt ? postDetail.publishAt.slice(0, 16) : "");
+
+      if (isStatusChanged || isScheduleChanged) {
+        await updateStatusMutation.mutateAsync({
+          id: targetPostId,
+          payload: {
+            status,
+            publishAt: status === "scheduled" ? new Date(publishAt).toISOString() : undefined,
+          },
+        });
+      }
     }
 
     // Hoàn tất vòng đời media
@@ -276,7 +311,8 @@ export function PostFormDialog({
     onOpenChange(false);
   };
 
-  const isPending = createMutation.isPending || updateMutation.isPending;
+  const isPending =
+    createMutation.isPending || updateMutation.isPending || updateStatusMutation.isPending;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -410,6 +446,64 @@ export function PostFormDialog({
                   aspectRatio="video"
                   recommendedSize="Khuyến nghị 1200x630px (16:9), tối đa 5MB"
                 />
+              </div>
+            </div>
+
+            {/* TRẠNG THÁI & HẸN GIỜ XUẤT BẢN */}
+            <div className="p-4 rounded-xl border border-border bg-card space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
+                    <CalendarClock className="size-3.5 text-purple-600" />
+                    Trạng thái xuất bản
+                  </label>
+                  <Select
+                    value={status}
+                    onValueChange={(val) => {
+                      setStatus(val as PostStatus);
+                      setErrors((prev) => {
+                        const next = { ...prev };
+                        delete next.publishAt;
+                        return next;
+                      });
+                    }}
+                  >
+                    <SelectTrigger className="h-8 text-xs">
+                      <SelectValue placeholder="Chọn trạng thái xuất bản" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="draft">Bản nháp (Lưu tạm, chưa hiển thị công khai)</SelectItem>
+                      <SelectItem value="scheduled">Lên lịch đăng bài (Hẹn ngày giờ phát hành)</SelectItem>
+                      <SelectItem value="published">Xuất bản ngay (Công khai tới bạn đọc)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {status === "scheduled" && (
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium text-purple-700 dark:text-purple-300 flex items-center gap-1.5">
+                      <Calendar className="size-3.5" />
+                      Thời gian xuất bản dự kiến <span className="text-destructive">*</span>
+                    </label>
+                    <Input
+                      type="datetime-local"
+                      value={publishAt}
+                      min={new Date(Date.now() + 5 * 60000).toISOString().slice(0, 16)}
+                      onChange={(e) => {
+                        setPublishAt(e.target.value);
+                        setErrors((prev) => {
+                          const next = { ...prev };
+                          delete next.publishAt;
+                          return next;
+                        });
+                      }}
+                      className="h-8 text-xs font-mono"
+                    />
+                    {errors.publishAt && (
+                      <p className="text-[11px] text-destructive">{errors.publishAt}</p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 

@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { useUpdatePost, useUpdatePostStatus } from "../queries/usePostsQuery";
 import { PostStatusBadge } from "./PostStatusBadge";
+import { SchedulePostDialog } from "./SchedulePostDialog";
 import type { PostItem, PostCategoryItem, PostStatus } from "../types/posts.types";
 import {
   FileText,
@@ -31,6 +32,7 @@ import {
   Eye,
   Loader2,
   ImageIcon,
+  CalendarClock,
 } from "lucide-react";
 
 interface PostListTableProps {
@@ -53,6 +55,7 @@ export function PostListTable({
   const updatePostMutation = useUpdatePost();
   const updateStatusMutation = useUpdatePostStatus();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [schedulingPost, setSchedulingPost] = useState<PostItem | null>(null);
 
   // Tạo map id -> name cho category
   const categoryMap = React.useMemo(() => {
@@ -81,6 +84,12 @@ export function PostListTable({
 
   const handleChangeStatus = async (post: PostItem, newStatus: PostStatus) => {
     if (newStatus === post.status) return;
+
+    if (newStatus === "scheduled") {
+      setSchedulingPost(post);
+      return;
+    }
+
     setUpdatingId(post.id);
     try {
       await updateStatusMutation.mutateAsync({
@@ -240,6 +249,26 @@ export function PostListTable({
                         <SelectItem value="published">Đã xuất bản</SelectItem>
                       </SelectContent>
                     </Select>
+
+                    {post.status === "scheduled" && post.publishAt && (
+                      <button
+                        type="button"
+                        onClick={() => setSchedulingPost(post)}
+                        className="flex items-center gap-1 text-[10px] text-purple-700 dark:text-purple-300 hover:text-purple-900 dark:hover:text-purple-100 font-mono hover:underline cursor-pointer pt-0.5"
+                        title="Bấm để đổi giờ hẹn xuất bản"
+                      >
+                        <CalendarClock className="size-3 shrink-0" />
+                        <span>
+                          {new Date(post.publishAt).toLocaleString("vi-VN", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
+                      </button>
+                    )}
                   </div>
                 </TableCell>
 
@@ -280,6 +309,13 @@ export function PostListTable({
           })}
         </TableBody>
       </Table>
+
+      {/* Dialog lên lịch đăng bài */}
+      <SchedulePostDialog
+        open={Boolean(schedulingPost)}
+        onOpenChange={(open) => !open && setSchedulingPost(null)}
+        post={schedulingPost}
+      />
     </div>
   );
 }
