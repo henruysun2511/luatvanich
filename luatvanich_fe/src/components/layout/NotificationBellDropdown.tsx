@@ -100,7 +100,7 @@ export function NotificationBellDropdown() {
         variant="ghost"
         size="icon"
         className={cn(
-          "relative size-9 rounded-lg transition-colors hover:bg-[#fbf7ee] text-[#06122b]",
+          "relative size-9 transition-colors hover:bg-[#fbf7ee] text-[#06122b] rounded-none",
           isOpen && "bg-[#fbf7ee] text-[#a3171e]",
         )}
         aria-label="Thông báo"
@@ -108,7 +108,7 @@ export function NotificationBellDropdown() {
       >
         <Bell className="size-4.5" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-royal font-bold text-white bg-gradient-to-b from-[#c4252c] to-[#8f1218] rounded-full ring-2 ring-white shadow-xs animate-pulse">
+          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-[16px] px-1 text-[9.5px] font-royal font-bold text-white bg-gradient-to-b from-[#c4252c] to-[#8f1218] border border-white shadow-xs">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
@@ -182,7 +182,7 @@ export function NotificationBellDropdown() {
                     {/* Icon loại thông báo */}
                     <div
                       className={cn(
-                        "size-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5",
+                        "size-8 flex items-center justify-center shrink-0 mt-0.5",
                         isUnread
                           ? "bg-[#06122b] text-[#f0d28a]"
                           : "bg-[#e7dcc3]/40 text-[#718096]",
@@ -205,7 +205,7 @@ export function NotificationBellDropdown() {
                           {item.title}
                         </p>
                         {isUnread && (
-                          <span className="size-2 rounded-full bg-[#a3171e] shrink-0" />
+                          <span className="size-1.5 bg-[#a3171e] shrink-0" />
                         )}
                       </div>
 

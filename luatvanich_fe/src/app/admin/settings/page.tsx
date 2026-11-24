@@ -15,7 +15,7 @@ export default function AdminSettingsPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-none bg-primary/10 text-primary flex items-center justify-center shrink-0">
             <Settings className="size-5" />
           </div>
           <div>
@@ -61,7 +61,7 @@ export default function AdminSettingsPage() {
       </div>
 
       {/* Main Content Card */}
-      <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+      <div className="rounded-none border border-border bg-card p-6 shadow-sm">
         {activeTab === "profile" ? (
           <div>
             <div className="mb-5 pb-3 border-b border-border/60">

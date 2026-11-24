@@ -37,7 +37,7 @@ export default function UsersManagementPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+          <div className="size-10 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
             <Users className="size-5" />
           </div>
           <div>

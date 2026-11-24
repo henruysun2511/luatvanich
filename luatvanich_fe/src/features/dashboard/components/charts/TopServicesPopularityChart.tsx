@@ -28,7 +28,7 @@ export function TopServicesPopularityChart({
   }));
 
   return (
-    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
+    <div className="relative bg-white border border-[#c29a45]/35 p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
       {/* Viền đỉnh gradient hoàng gia */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c29a45] to-[#f0d28a]" />
 
@@ -73,7 +73,7 @@ export function TopServicesPopularityChart({
                   if (active && payload && payload.length) {
                     const item = payload[0].payload as { fullName: string; count: number };
                     return (
-                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 rounded-lg shadow-xl text-xs space-y-1 text-white">
+                      <div className="bg-[#06122b] border border-[#c29a45]/40 p-2.5 shadow-xl text-xs space-y-1 text-white">
                         <span className="font-royal font-bold text-sm text-[#f0d28a]">{item.fullName}</span>
                         <div className="text-[#a0aec0] font-mono">
                           {item.count} yêu cầu quan tâm
@@ -87,7 +87,7 @@ export function TopServicesPopularityChart({
               <Bar
                 dataKey="count"
                 fill="#c29a45"
-                radius={[0, 6, 6, 0]}
+                radius={0}
                 barSize={18}
               />
             </BarChart>

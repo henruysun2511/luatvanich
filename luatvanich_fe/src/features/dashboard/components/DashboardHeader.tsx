@@ -40,13 +40,13 @@ export function DashboardHeader({
 
       <div className="flex items-center gap-2.5">
         {/* Bộ chọn khung thời gian */}
-        <div className="flex items-center gap-1.5 bg-white border border-[#e7dcc3] rounded-lg px-2.5 py-1 shadow-2xs">
+        <div className="flex items-center gap-1.5 bg-white border border-[#e7dcc3] px-2.5 py-1 shadow-2xs">
           <Calendar className="size-3.5 text-[#c29a45]" />
           <Select value={String(days)} onValueChange={(val) => onDaysChange(Number(val))}>
             <SelectTrigger className="h-7 text-xs border-0 bg-transparent shadow-none px-1.5 focus:ring-0 w-[130px] font-sans">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent align="end">
+            <SelectContent align="end" className="rounded-none border-[#e7dcc3]">
               <SelectItem value="7">7 ngày gần nhất</SelectItem>
               <SelectItem value="14">14 ngày gần nhất</SelectItem>
               <SelectItem value="30">30 ngày gần nhất</SelectItem>
@@ -60,7 +60,7 @@ export function DashboardHeader({
           size="sm"
           onClick={onRefresh}
           disabled={isRefreshing}
-          className="h-9 gap-1.5 text-xs border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] shadow-2xs"
+          className="h-9 gap-1.5 text-xs border-[#e7dcc3] hover:bg-[#fbf7ee] text-[#06122b] shadow-2xs rounded-none"
         >
           <RotateCcw className={`size-3.5 text-[#c29a45] ${isRefreshing ? "animate-spin" : ""}`} />
           <span>Làm mới</span>

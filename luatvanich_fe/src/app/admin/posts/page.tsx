@@ -126,7 +126,7 @@ export default function PostsManagementPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#e7dcc3]">
         <div>
           <h1 className="text-2xl font-bold font-royal text-[#06122b] tracking-tight flex items-center gap-2.5">
-            <div className="size-9 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+            <div className="size-9 rounded-none bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
               <FileText className="size-5" />
             </div>
             Cẩm nang & Bài viết
@@ -199,7 +199,7 @@ export default function PostsManagementPage() {
       {activeTab === "posts" && (
         <div className="space-y-4">
           {/* Thanh công cụ tìm kiếm và bộ lọc */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-lg border border-border bg-card shadow-xs flex-wrap">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-none border border-border bg-card shadow-xs flex-wrap">
             {/* Tìm kiếm */}
             <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
@@ -336,7 +336,7 @@ export default function PostsManagementPage() {
       {activeTab === "categories" && (
         <div className="space-y-4">
           {/* Bộ lọc chuyên mục */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-lg border border-border bg-card shadow-xs flex-wrap">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 p-3 rounded-none border border-border bg-card shadow-xs flex-wrap">
             {/* Tìm kiếm */}
             <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />

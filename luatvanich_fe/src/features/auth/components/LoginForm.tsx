@@ -58,7 +58,7 @@ export function LoginForm() {
         {loginMutation.isError && (
           <div
             role="alert"
-            className="flex items-start gap-2.5 rounded-lg border border-[#a3171e]/30 bg-[#a3171e]/10 p-3 text-xs text-[#a3171e]"
+            className="flex items-start gap-2.5 border border-[#a3171e]/30 bg-[#a3171e]/10 p-3 text-xs text-[#a3171e]"
           >
             <AlertCircle className="size-4 shrink-0 mt-0.5" />
             <span className="font-medium">{extractErrorMessage(loginMutation.error, "Tên đăng nhập hoặc mật khẩu không đúng.")}</span>
@@ -76,7 +76,7 @@ export function LoginForm() {
               type="text"
               autoComplete="username"
               placeholder="admin hoặc admin@luatvanich.vn"
-              className="pl-9 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white"
+              className="pl-9 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white rounded-none"
               {...register("username")}
             />
           </div>
@@ -96,7 +96,7 @@ export function LoginForm() {
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               placeholder="Nhập mật khẩu"
-              className="pl-9 pr-10 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white"
+              className="pl-9 pr-10 text-sm h-10 border-[#e0d6be] focus:border-[#c29a45] focus:ring-[#c29a45]/20 bg-white rounded-none"
               {...register("password")}
             />
             <button
@@ -116,7 +116,7 @@ export function LoginForm() {
         {/* Submit Button */}
         <Button
           type="submit"
-          className="w-full h-11 font-sans font-semibold bg-gradient-to-r from-[#06122b] via-[#11244d] to-[#06122b] border border-[#c29a45]/50 hover:border-[#f0d28a] text-[#f0d28a] hover:text-white shadow-lg shadow-[#06122b]/25 transition-all"
+          className="w-full h-11 font-sans font-semibold bg-gradient-to-r from-[#06122b] via-[#11244d] to-[#06122b] border border-[#c29a45]/50 hover:border-[#f0d28a] text-[#f0d28a] hover:text-white shadow-lg shadow-[#06122b]/25 transition-all rounded-none"
           disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? (

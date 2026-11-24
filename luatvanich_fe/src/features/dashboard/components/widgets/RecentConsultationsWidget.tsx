@@ -23,14 +23,14 @@ export function RecentConsultationsWidget({
   isLoading,
 }: RecentConsultationsWidgetProps) {
   return (
-    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+    <div className="relative bg-white border border-[#c29a45]/35 p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col justify-between overflow-hidden group">
       {/* Viền đỉnh gradient hoàng gia */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c29a45] to-[#a3171e]" />
 
       <div>
         <div className="flex items-center justify-between pb-3.5 border-b border-[#e7dcc3]">
           <div className="flex items-center gap-2.5">
-            <div className="size-9 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+            <div className="size-9 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
               <MessageSquareText className="size-4.5 text-[#06122b]" />
             </div>
             <div>
@@ -74,7 +74,7 @@ export function RecentConsultationsWidget({
               return (
                 <div
                   key={item.id}
-                  className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors rounded-lg px-2.5"
+                  className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors px-2.5"
                 >
                   <div className="space-y-1 min-w-0">
                     <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ export function RecentConsultationsWidget({
                         {item.fullName}
                       </span>
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-medium border ${badge.className}`}
+                        className={`text-[10px] px-2 py-0.5 font-medium border ${badge.className}`}
                       >
                         {badge.label}
                       </span>
@@ -100,7 +100,7 @@ export function RecentConsultationsWidget({
                         {item.phone}
                       </span>
                       {item.practiceAreaName && (
-                        <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] text-[#718096] font-normal bg-white">
+                        <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] text-[#718096] font-normal bg-white rounded-none">
                           {item.practiceAreaName}
                         </Badge>
                       )}

@@ -16,14 +16,14 @@ export function UpcomingScheduledPostsWidget({
   isLoading,
 }: UpcomingScheduledPostsWidgetProps) {
   return (
-    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+    <div className="relative bg-white border border-[#c29a45]/35 p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col justify-between overflow-hidden group">
       {/* Viền đỉnh gradient hoàng gia */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#06122b] via-[#c29a45] to-[#a3171e]" />
 
       <div>
         <div className="flex items-center justify-between pb-3.5 border-b border-[#e7dcc3]">
           <div className="flex items-center gap-2.5">
-            <div className="size-9 rounded-lg bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
+            <div className="size-9 bg-[#06122b]/10 text-[#06122b] flex items-center justify-center shrink-0">
               <CalendarClock className="size-4.5 text-[#06122b]" />
             </div>
             <div>
@@ -61,7 +61,7 @@ export function UpcomingScheduledPostsWidget({
             items.map((post) => (
               <div
                 key={post.id}
-                className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors rounded-lg px-2.5"
+                className="py-3 flex items-start justify-between gap-3 hover:bg-[#fbf7ee] transition-colors px-2.5"
               >
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
@@ -72,14 +72,14 @@ export function UpcomingScheduledPostsWidget({
                   </div>
 
                   <div className="flex items-center gap-2 text-[11px] text-[#718096]">
-                    <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] font-normal text-[#718096] bg-white">
+                    <Badge variant="outline" className="text-[10px] py-0 h-4 border-[#e7dcc3] font-normal text-[#718096] bg-white rounded-none">
                       {post.categoryName}
                     </Badge>
                   </div>
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className="flex items-center gap-1 text-[11px] font-mono font-semibold text-[#855e14] bg-[#fbf7ee] px-2 py-0.5 rounded border border-[#c29a45]/30">
+                  <div className="flex items-center gap-1 text-[11px] font-mono font-semibold text-[#855e14] bg-[#fbf7ee] px-2 py-0.5 border border-[#c29a45]/30">
                     <Clock className="size-3 text-[#c29a45]" />
                     <span>
                       {new Date(post.publishAt).toLocaleString("vi-VN", {

@@ -57,7 +57,7 @@ export function Pagination({
   return (
     <div
       className={cn(
-        "flex flex-col sm:flex-row items-center justify-between gap-3 px-3 py-3.5 text-xs text-muted-foreground bg-white rounded-lg border border-[#e7dcc3] shadow-sm",
+        "flex flex-col sm:flex-row items-center justify-between gap-3 px-3 py-3.5 text-xs text-muted-foreground bg-white border border-[#e7dcc3] shadow-sm",
         className,
       )}
     >
@@ -77,10 +77,10 @@ export function Pagination({
               value={limit.toString()}
               onValueChange={(val) => onLimitChange(Number(val))}
             >
-              <SelectTrigger className="h-8 w-18 text-xs border-[#e7dcc3] focus:border-[#c29a45] bg-white">
+              <SelectTrigger className="h-8 w-18 text-xs border-[#e7dcc3] focus:border-[#c29a45] bg-white rounded-none">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="rounded-none border-[#e7dcc3]">
                 {pageSizeOptions.map((size) => (
                   <SelectItem key={size} value={size.toString()} className="text-xs">
                     {size} / trang
@@ -118,7 +118,7 @@ export function Pagination({
           </Button>
 
           {/* Hiển thị số trang hiện tại */}
-          <div className="px-2.5 py-1 text-xs font-semibold bg-[#06122b] text-[#f0d28a] rounded border border-[#c29a45]/50 select-none shadow-xs">
+          <div className="px-2.5 py-1 text-xs font-semibold bg-[#06122b] text-[#f0d28a] border border-[#c29a45]/50 select-none shadow-xs">
             Trang {page} / {totalPages || 1}
           </div>
 

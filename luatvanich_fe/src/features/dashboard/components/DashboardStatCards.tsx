@@ -62,15 +62,15 @@ export function DashboardStatCards({ stats, isLoading }: DashboardStatCardsProps
         <Link
           key={c.num}
           href={c.href}
-          className="group relative bg-white border border-[#c29a45]/35 p-6 rounded-xl flex flex-col justify-between shadow-[0_4px_16px_rgba(11,29,63,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_rgba(10,26,58,0.14)] hover:border-[#c29a45] overflow-hidden"
+          className="group relative bg-white border border-[#c29a45]/35 p-6 flex flex-col justify-between shadow-[0_4px_16px_rgba(11,29,63,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(10,26,58,0.14)] hover:border-[#c29a45] overflow-hidden"
         >
           {/* Dải gradient đỉnh mở rộng khi hover chuẩn mẫu .sv::before trang chủ */}
           <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c29a45] to-[#a3171e] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
           <div>
-            {/* Hàng đỉnh: Số thứ tự đỏ son .no + Chữ Hán đại diện .hz */}
+            {/* Hàng đỉnh: Số thứ tự đỏ son .no (viền nhọn chữ nhật) + Chữ Hán đại diện .hz */}
             <div className="flex items-center justify-between pb-2">
-              <span className="w-[38px] h-[24px] bg-gradient-to-b from-[#c4252c] to-[#8f1218] text-white font-royal font-bold text-[13px] grid place-items-center tracking-wider shadow-xs rounded-xs">
+              <span className="w-[38px] h-[24px] bg-gradient-to-b from-[#c4252c] to-[#8f1218] text-white font-royal font-bold text-[13px] grid place-items-center tracking-wider shadow-xs">
                 {c.num}
               </span>
               <span
@@ -88,7 +88,7 @@ export function DashboardStatCards({ stats, isLoading }: DashboardStatCardsProps
 
             <div className="font-royal font-bold text-3xl md:text-4xl text-[#06122b] tracking-tight my-1">
               {isLoading ? (
-                <div className="h-9 w-20 bg-[#f0ede6] animate-pulse rounded my-1" />
+                <div className="h-9 w-20 bg-[#f0ede6] animate-pulse my-1" />
               ) : (
                 c.count
               )}

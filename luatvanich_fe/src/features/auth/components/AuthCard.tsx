@@ -10,7 +10,7 @@ interface AuthCardProps {
 
 export function AuthCard({ title, description, children, footer }: AuthCardProps) {
   return (
-    <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[#c29a45]/40 bg-white shadow-2xl shadow-[#06122b]/30">
+    <div className="relative w-full max-w-md overflow-hidden border border-[#c29a45]/40 bg-white shadow-2xl shadow-[#06122b]/30">
       {/* Viền đỉnh gradient hoàng gia 4px */}
       <div className="h-[4px] w-full bg-gradient-to-r from-[#85151b] via-[#a3171e] to-[#c29a45]" />
 

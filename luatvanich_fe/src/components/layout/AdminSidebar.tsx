@@ -105,9 +105,9 @@ export function AdminSidebar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-all duration-150 group",
+                    "flex items-center justify-between px-3 py-2 text-xs font-medium transition-all duration-150 group",
                     isActive
-                      ? "bg-gradient-to-r from-[#c29a45]/25 to-[#c29a45]/5 text-[#f0d28a] font-semibold border-l-2 border-[#c29a45] shadow-sm"
+                      ? "bg-gradient-to-r from-[#c29a45]/25 to-[#c29a45]/5 text-[#f0d28a] font-semibold border-l-2 border-[#c29a45] shadow-xs"
                       : "text-[#a0aec0] hover:text-[#f0d28a] hover:bg-white/[0.04]",
                   )}
                 >
@@ -132,7 +132,7 @@ export function AdminSidebar() {
         <Link
           href="/"
           target="_blank"
-          className="flex items-center justify-center gap-2 w-full px-3 py-2 text-xs font-semibold rounded border border-[#c29a45]/40 text-[#f0d28a] hover:bg-[#c29a45]/15 hover:border-[#f0d28a] transition-all shadow-sm"
+          className="flex items-center justify-center gap-2 w-full px-3 py-2 text-xs font-semibold border border-[#c29a45]/40 text-[#f0d28a] hover:bg-[#c29a45]/15 hover:border-[#f0d28a] transition-all shadow-xs"
         >
           <ExternalLink className="size-3.5" />
           <span>Xem website công khai</span>

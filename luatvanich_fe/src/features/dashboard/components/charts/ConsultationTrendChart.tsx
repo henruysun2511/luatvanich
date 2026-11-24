@@ -33,7 +33,7 @@ export function ConsultationTrendChart({ data, isLoading }: ConsultationTrendCha
   const totalCount = formattedData.reduce((acc, cur) => acc + cur.count, 0);
 
   return (
-    <div className="relative bg-white border border-[#c29a45]/35 rounded-xl p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
+    <div className="relative bg-white border border-[#c29a45]/35 p-5 md:p-6 shadow-[0_4px_16px_rgba(11,29,63,0.04)] hover:shadow-[0_12px_28px_rgba(10,26,58,0.08)] hover:border-[#c29a45] transition-all duration-300 flex flex-col h-[360px] overflow-hidden">
       {/* Viền đỉnh gradient hoàng gia */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#85151b] via-[#a3171e] to-[#c29a45]" />
 
