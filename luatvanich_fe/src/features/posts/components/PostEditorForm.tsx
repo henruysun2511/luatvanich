@@ -395,10 +395,10 @@ export function PostEditorForm({
             variant="ghost"
             size="icon"
             onClick={handleCancel}
-            className="size-10 rounded-none bg-[#06122b]/5 hover:bg-[#06122b] text-[#06122b] hover:text-[#f0d28a] border border-[#e7dcc3] shrink-0 transition-colors"
+            className="size-10 rounded-none bg-[#06122b] text-[#f0d28a] flex items-center justify-center shrink-0 border border-[#c29a45]/40 shadow-xs hover:bg-[#0a1e46] hover:text-[#f0d28a] transition-colors"
             title="Quay lại danh sách bài viết"
           >
-            <ArrowLeft className="size-4" />
+            <ArrowLeft className="size-5" />
           </Button>
 
           <div>

@@ -18,7 +18,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
   const categories = categoriesData?.items || [];
 
   return (
-    <div className="max-w-6xl mx-auto py-2">
+    <div className="space-y-6">
       <PostEditorForm postIdToEdit={postId} categories={categories} />
     </div>
   );
