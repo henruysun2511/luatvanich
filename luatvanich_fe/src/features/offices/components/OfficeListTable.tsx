@@ -20,11 +20,7 @@ import {
   Trash2,
   MapPin,
   Phone,
-  Mail,
   Loader2,
-  QrCode,
-  CheckCircle2,
-  Clock,
   Eye,
   ArrowUp,
   ArrowDown,
@@ -106,19 +102,18 @@ export function OfficeListTable({
         <TableHeader className="bg-muted/50">
           <TableRow>
             <TableHead className="w-12 text-center">#</TableHead>
-            <TableHead className="w-28">Mã văn phòng</TableHead>
-            <TableHead className="min-w-[220px]">Văn phòng</TableHead>
-            <TableHead className="min-w-[200px]">Địa chỉ</TableHead>
-            <TableHead className="min-w-[160px]">Liên hệ</TableHead>
+            <TableHead className="w-28">Mã VP</TableHead>
+            <TableHead className="min-w-[200px]">Tên văn phòng</TableHead>
+            <TableHead className="min-w-[240px]">Địa chỉ</TableHead>
+            <TableHead className="w-36">Hotline</TableHead>
             <TableHead className="w-24 text-center">Thứ tự</TableHead>
             <TableHead className="w-28 text-center">Trạng thái</TableHead>
-            <TableHead className="w-24 text-right pr-4">Thao tác</TableHead>
+            <TableHead className="w-28 text-right pr-4">Thao tác</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {offices.map((office, idx) => {
             const vi = office.translations?.find((t) => t.languageCode === "vi");
-            const zh = office.translations?.find((t) => t.languageCode === "zh-CN");
             const isUpdating = statusMutation.isPending && loadingOfficeId === office.id;
 
             return (
@@ -140,65 +135,41 @@ export function OfficeListTable({
 
                 {/* 3. Tên văn phòng */}
                 <TableCell>
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-foreground text-sm">
-                        {vi?.name || office.code}
-                      </span>
-                      {office.isHeadquarters && (
-                        <Badge variant="outline" className="text-[10px] bg-primary/10 text-primary border-primary/30 font-semibold px-1.5 py-0">
-                          Trụ sở chính
-                        </Badge>
-                      )}
-                    </div>
-
-                    {zh?.name && (
-                      <span className="text-xs text-muted-foreground font-serif">
-                        {zh.name}
-                      </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-foreground text-sm">
+                      {vi?.name || office.code}
+                    </span>
+                    {office.isHeadquarters && (
+                      <Badge variant="outline" className="text-[10px] bg-primary/10 text-primary border-primary/30 font-semibold px-1.5 py-0 shrink-0">
+                        Trụ sở chính
+                      </Badge>
                     )}
                   </div>
                 </TableCell>
 
-                {/* 3. Địa chỉ */}
+                {/* 4. Địa chỉ */}
                 <TableCell>
-                  <div className="flex items-start gap-1.5 text-xs text-foreground/90">
-                    <MapPin className="size-3.5 text-muted-foreground shrink-0 mt-0.5" />
-                    <span className="line-clamp-2">{vi?.address || "Chưa có địa chỉ"}</span>
+                  <div className="flex items-center gap-1.5 text-xs text-foreground/80 max-w-[320px]">
+                    <MapPin className="size-3.5 text-muted-foreground shrink-0" />
+                    <span className="truncate" title={vi?.address || ""}>
+                      {vi?.address || <span className="text-muted-foreground italic">Chưa có</span>}
+                    </span>
                   </div>
-                  {vi?.workingHours && (
-                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground mt-1">
-                      <Clock className="size-3 shrink-0" />
-                      <span>{vi.workingHours}</span>
+                </TableCell>
+
+                {/* 5. Hotline */}
+                <TableCell>
+                  {office.phone ? (
+                    <div className="flex items-center gap-1.5 text-xs text-foreground font-mono">
+                      <Phone className="size-3 text-muted-foreground shrink-0" />
+                      <span>{office.phone}</span>
                     </div>
+                  ) : (
+                    <span className="text-xs text-muted-foreground italic">—</span>
                   )}
                 </TableCell>
 
-                {/* 4. Liên hệ */}
-                <TableCell>
-                  <div className="flex flex-col gap-1 text-xs">
-                    {office.phone && (
-                      <div className="flex items-center gap-1 text-foreground">
-                        <Phone className="size-3 text-muted-foreground" />
-                        <span>{office.phone}</span>
-                      </div>
-                    )}
-                    {office.email && (
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Mail className="size-3" />
-                        <span className="truncate max-w-[140px]">{office.email}</span>
-                      </div>
-                    )}
-                    {office.wechatId && (
-                      <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-[11px]">
-                        <QrCode className="size-3" />
-                        <span>WeChat: {office.wechatId}</span>
-                      </div>
-                    )}
-                  </div>
-                </TableCell>
-
-                {/* 5. Thứ tự */}
+                {/* 6. Thứ tự */}
                 <TableCell className="text-center font-mono text-xs">
                   <div className="flex items-center justify-center gap-1">
                     <span className="w-5 text-muted-foreground">{office.displayOrder}</span>
@@ -227,7 +198,7 @@ export function OfficeListTable({
                   </div>
                 </TableCell>
 
-                {/* 6. Trạng thái (Switch) */}
+                {/* 7. Trạng thái (Switch) */}
                 <TableCell className="text-center">
                   <div className="flex items-center justify-center gap-1.5">
                     <Switch
@@ -241,7 +212,7 @@ export function OfficeListTable({
                   </div>
                 </TableCell>
 
-                {/* 7. Thao tác */}
+                {/* 8. Thao tác */}
                 <TableCell className="text-right pr-4">
                   <div className="flex items-center justify-end gap-1">
                     <Button

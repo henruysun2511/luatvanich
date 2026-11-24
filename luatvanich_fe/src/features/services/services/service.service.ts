@@ -8,8 +8,8 @@ import type {
   ServicePublishStatus,
 } from "../types/service.types";
 
-const SERVICES_ADMIN_URL = "/admin/services";
-const SERVICES_PUBLIC_URL = "/services";
+const LEGAL_SERVICES_ADMIN_URL = "/admin/legal-services";
+const LEGAL_SERVICES_PUBLIC_URL = "/legal-services";
 
 export const legalServicesService = {
   /** Admin: Lấy danh sách dịch vụ pháp lý phân trang */
@@ -17,7 +17,7 @@ export const legalServicesService = {
     params?: LegalServiceQueryParams,
   ): Promise<PaginatedLegalServicesResponse> => {
     const res = await apiClient.get<{ data: PaginatedLegalServicesResponse }>(
-      SERVICES_ADMIN_URL,
+      LEGAL_SERVICES_ADMIN_URL,
       { params },
     );
     return res.data.data;
@@ -26,7 +26,7 @@ export const legalServicesService = {
   /** Admin: Chi tiết một dịch vụ */
   getAdminServiceDetail: async (id: string): Promise<LegalServiceItem> => {
     const res = await apiClient.get<{ data: LegalServiceItem }>(
-      `${SERVICES_ADMIN_URL}/${id}`,
+      `${LEGAL_SERVICES_ADMIN_URL}/${id}`,
     );
     return res.data.data;
   },
@@ -36,7 +36,7 @@ export const legalServicesService = {
     payload: CreateLegalServiceInput,
   ): Promise<LegalServiceItem> => {
     const res = await apiClient.post<{ data: LegalServiceItem }>(
-      SERVICES_ADMIN_URL,
+      LEGAL_SERVICES_ADMIN_URL,
       payload,
     );
     return res.data.data;
@@ -48,7 +48,7 @@ export const legalServicesService = {
     payload: UpdateLegalServiceInput,
   ): Promise<LegalServiceItem> => {
     const res = await apiClient.patch<{ data: LegalServiceItem }>(
-      `${SERVICES_ADMIN_URL}/${id}`,
+      `${LEGAL_SERVICES_ADMIN_URL}/${id}`,
       payload,
     );
     return res.data.data;
@@ -60,7 +60,7 @@ export const legalServicesService = {
     status: ServicePublishStatus,
   ): Promise<LegalServiceItem> => {
     const res = await apiClient.patch<{ data: LegalServiceItem }>(
-      `${SERVICES_ADMIN_URL}/${id}/status`,
+      `${LEGAL_SERVICES_ADMIN_URL}/${id}/status`,
       { status },
     );
     return res.data.data;
@@ -68,12 +68,12 @@ export const legalServicesService = {
 
   /** Admin: Đổi thứ tự hiển thị */
   reorderServices: async (ids: string[]): Promise<void> => {
-    await apiClient.patch(`${SERVICES_ADMIN_URL}/reorder`, { ids });
+    await apiClient.patch(`${LEGAL_SERVICES_ADMIN_URL}/reorder`, { ids });
   },
 
   /** Admin: Xóa mềm dịch vụ */
   deleteService: async (id: string): Promise<void> => {
-    await apiClient.delete(`${SERVICES_ADMIN_URL}/${id}`);
+    await apiClient.delete(`${LEGAL_SERVICES_ADMIN_URL}/${id}`);
   },
 
   /** Public: Lấy danh sách dịch vụ công khai */
@@ -82,7 +82,7 @@ export const legalServicesService = {
     practiceAreaId?: string,
   ): Promise<LegalServiceItem[]> => {
     const res = await apiClient.get<{ data: LegalServiceItem[] }>(
-      SERVICES_PUBLIC_URL,
+      LEGAL_SERVICES_PUBLIC_URL,
       {
         params: { lang, practiceAreaId },
       },
