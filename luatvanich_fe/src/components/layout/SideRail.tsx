@@ -33,7 +33,7 @@ export function SideRail() {
   } else if (pathname.includes("/about")) {
     pageTitle = "Về Vạn Ích";
   } else if (pathname.includes("/lawyers")) {
-    pageTitle = "Danh sách luật sư";
+    pageTitle = pathname.split("/lawyers/")[1] ? "Hồ sơ luật sư" : "Danh sách luật sư";
   }
 
   // Scroll progress handler
