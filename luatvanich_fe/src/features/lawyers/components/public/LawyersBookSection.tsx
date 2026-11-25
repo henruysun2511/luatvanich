@@ -576,11 +576,7 @@ export function LawyersBookSection({ lang }: LawyersBookSectionProps) {
           ))}
         </div>
 
-        <p className="text-xs text-[#5a3a22] text-center mt-3 font-serif italic">
-          {isZh
-            ? "💡 提示：点击封面打开名录，亦可使用键盘 ← → 翻页，或直接点击页面折角。"
-            : "💡 Mẹo: Bấm vào bìa sách để mở, hoặc dùng phím ← → trên bàn phím. Bấm vào góc cong của trang để lật."}
-        </p>
+
       </div>
 
       {/* Giao diện sổ phẳng cổ trang cho màn hình điện thoại (Mobile Responsive) */}
