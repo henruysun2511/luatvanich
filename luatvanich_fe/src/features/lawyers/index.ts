@@ -8,4 +8,5 @@ export * from "./components/LawyerFormDialog";
 export * from "./components/DeleteLawyerDialog";
 export * from "./components/public/LawyersHeroSection";
 export * from "./components/public/LawyersBookSection";
+export * from "./components/public/LawyersDirectorySection";
 export * from "./components/public/LawyerDetailView";

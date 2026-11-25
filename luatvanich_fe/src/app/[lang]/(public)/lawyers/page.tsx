@@ -1,5 +1,9 @@
 import React from "react";
-import { LawyersHeroSection, LawyersBookSection } from "@/features/lawyers";
+import {
+  LawyersHeroSection,
+  LawyersBookSection,
+  LawyersDirectorySection,
+} from "@/features/lawyers";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -11,6 +15,7 @@ export default async function LawyersPage({ params }: Props) {
     <>
       <LawyersHeroSection lang={lang} />
       <LawyersBookSection lang={lang} />
+      <LawyersDirectorySection lang={lang} />
     </>
   );
 }
