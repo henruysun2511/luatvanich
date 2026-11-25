@@ -322,11 +322,11 @@ export function LawyersBookSection({ lang }: LawyersBookSectionProps) {
     <section className="relative py-16 lg:py-24 bg-[repeating-linear-gradient(90deg,#c9ab80_0_7px,#bf9f72_7px_9px),#c4a477] overflow-hidden border-t-4 border-t-[#8b3422] shadow-inner">
       {/* Tiêu đề mục cuốn vở cổ trang */}
       <div className="text-center px-4 mb-4">
-        <h2 className="font-chinese font-bold text-3xl sm:text-4xl text-[#3a2414] tracking-[6px] mb-1">
-          万益律师名录
+        <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#3a2414] tracking-[2px] mb-2 uppercase">
+          {isZh ? "万益律师团队" : "Đội ngũ luật sư"}
         </h2>
         <span className="font-serif font-semibold text-xs tracking-[3px] uppercase text-[#5a3a22]">
-          {isZh ? "律师团队与法律专家 · 万益律所" : "Đội ngũ luật sư & chuyên gia pháp lý · Luật Vạn Ích"}
+          {isZh ? "涉外法律专家 · 万益律所" : "Chuyên gia pháp lý & Cố vấn cấp cao · Luật Vạn Ích"}
         </span>
       </div>
 
