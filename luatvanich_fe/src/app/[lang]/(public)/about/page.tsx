@@ -1,5 +1,5 @@
 import React from "react";
-import { AboutHeroSection } from "@/features/about";
+import { AboutHeroSection, AboutOverviewSection } from "@/features/about";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -7,5 +7,10 @@ interface Props {
 
 export default async function AboutPage({ params }: Props) {
   const { lang } = await params;
-  return <AboutHeroSection lang={lang} />;
+  return (
+    <>
+      <AboutHeroSection lang={lang} />
+      <AboutOverviewSection lang={lang} />
+    </>
+  );
 }
