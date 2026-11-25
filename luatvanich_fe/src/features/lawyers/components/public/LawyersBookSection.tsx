@@ -326,7 +326,7 @@ export function LawyersBookSection({ lang }: LawyersBookSectionProps) {
           万益律师名录
         </h2>
         <span className="font-serif font-semibold text-xs tracking-[3px] uppercase text-[#5a3a22]">
-          {isZh ? "传统线装名册 · 在册律师" : "Danh bạ luật sư cổ trang · Luật Vạn Ích"}
+          {isZh ? "律师团队与法律专家 · 万益律所" : "Đội ngũ luật sư & chuyên gia pháp lý · Luật Vạn Ích"}
         </span>
       </div>
 
