@@ -3,27 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ShieldCheck,
-  FileText,
-  Award,
-  Building2,
-  Users,
-  Briefcase,
-  Phone,
-  Mail,
-  MapPin,
-  CheckCircle2,
-  ExternalLink,
-  ChevronRight,
-  Eye,
-  X,
-} from "lucide-react";
+import { Eye, X } from "lucide-react";
 import {
   LAWYER_ASSETS,
   LICENSE_ASSETS,
-  AWARD_ASSETS,
-  OFFICE_ASSETS,
   PROJECT_ASSETS,
 } from "@/constants/assets.constants";
 
@@ -34,717 +17,586 @@ interface AboutOverviewSectionProps {
 export function AboutOverviewSection({ lang }: AboutOverviewSectionProps) {
   const isZh = lang === "zh-CN" || lang === "zh";
 
-  // Lightbox preview for licenses or contracts
+  // Lightbox xem ảnh scan
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
 
-  // Stats
-  const STATS = [
-    { num: "30+", vi: "Năm kinh nghiệm tổng sở (từ 1996)", zh: "年总所深耕历程（始于1996）" },
-    { num: "300+", vi: "Luật sư & chuyên gia pháp lý", zh: "位专业律师与涉外人才" },
-    { num: "100%", vi: "Hợp pháp hóa bởi Bộ Tư pháp VN", zh: "越南司法部正式批设合规机构" },
-    { num: "12", vi: "Văn phòng tại VN, TQ & Đông Nam Á", zh: "处国内外协同网络与分支机构" },
-  ];
-
-  // 7 Core Experts
-  const KEY_EXPERTS = [
-    {
-      nameVi: "LS. Lăng Thần",
-      nameZh: "凌晨 主任",
-      roleVi: "Giám đốc Văn phòng Vạn Ích Hà Nội & Sùng Tả · Luật sư TQ được cấp phép hành nghề tại Việt Nam",
-      roleZh: "万益河内、崇左办公室主任 · 越南执业许可中国律师",
-      descVi: "Cử nhân Luật, du học Đại học Hà Nội từ 2010. Ủy viên UB MTTQ TP. Sùng Tả khóa IV, V, VI; Cố vấn lập pháp HĐND TP; Hơn 10 năm kinh nghiệm M&A, FDI, tranh tụng và quy tắc RCEP. Đạt danh hiệu Luật sư xuất sắc, Đảng viên xuất sắc ngành luật sư.",
-      descZh: "法学学士，2010年留学河内大学，中越双语实战涉外律师。崇左市政协委员、市人大立法专家顾问。深耕跨境投资并购、项目谈判、尽职调查十余年，荣获崇左市优秀律师、全区普法先进个人称号。",
-      img: LAWYER_ASSETS.langThan.portrait,
-      tag: "Trưởng đại diện",
-      tagZh: "首席代表",
-    },
-    {
-      nameVi: "LS. Liễu Ái",
-      nameZh: "柳爱 律师",
-      roleVi: "Luật sư chuyên trách Văn phòng Hà Nội (Có giấy phép hành nghề tại VN)",
-      roleZh: "万益河内办公室专职律师（越南执业许可）",
-      descVi: "Luật sư Trung Quốc được Bộ Tư pháp Việt Nam cấp phép hành nghề chính thức. Chuyên sâu giải quyết tranh chấp thương mại, xử lý xung đột pháp luật và tư vấn dự án đầu tư nhà xưởng tại Việt Nam.",
-      descZh: "拥有越南司法部颁发执业许可的中国律师。常驻越南，专注跨境民商事争议解决、涉越投资并购与企业合规风控实务。",
-      img: LAWYER_ASSETS.lieuAi.portrait,
-      tag: "Luật sư thường trú VN",
-      tagZh: "常驻越南",
-    },
-    {
-      nameVi: "LS. Tưởng Nữ Trinh",
-      nameZh: "蒋女贞 律师",
-      roleVi: "Thạc sĩ · Luật sư song ngữ Trung – Việt Văn phòng Bắc Kinh · Đầu mối liên hệ",
-      roleZh: "硕士 · 万益北京办公室专职律师（中越双语）",
-      descVi: "Thạc sĩ Luật, thông thạo tiếng Trung và tiếng Việt. Chuyên trách tư vấn đầu tư nước ngoài, cố vấn pháp lý doanh nghiệp, đại diện tố tụng và trọng tài quốc tế. Đầu mối tiếp nhận và điều phối hồ sơ khách hàng.",
-      descZh: "法学硕士，中越双语涉外律师。专注涉外投资咨询、企业法律顾问、跨境民商事诉讼与仲裁代理。河内办公室核心联络协调人。",
-      img: LAWYER_ASSETS.tuongNuTrinh.portrait,
-      tag: "Đầu mối tiếp nhận",
-      tagZh: "业务统筹",
-      phone: "15277020681",
-    },
-    {
-      nameVi: "LS. Lê Chí Chinh (Lê Chí Trinh)",
-      nameZh: "黎志征 律师",
-      roleVi: "Giám đốc Viễn Dương Legal · Trọng tài viên Trọng tài Thương mại Việt – Trung",
-      roleZh: "远洋律所主任 · 越中仲裁中心仲裁员",
-      descVi: "Luật sư Đoàn Luật sư tỉnh Quảng Ninh, Trọng tài viên Trọng tài Thương mại Bắc Hải và Phòng Thành Cảng. Hội viên Hiệp hội DN Đầu tư nước ngoài Việt Nam (VAFIE). Tác giả công trình nghiên cứu so sánh pháp luật Việt Nam - Trung Quốc.",
-      descZh: "越南广宁省律师协会执业律师，远洋律师事务所主任。兼任越中仲裁中心仲裁员、北海商事仲裁员，越南外资企业协会会员，中越法律移植研讨专家。",
-      img: LAWYER_ASSETS.leChiChinh.card,
-      tag: "Đối tác Việt Nam",
-      tagZh: "越南本土合伙",
-    },
-    {
-      nameVi: "GS. TS. Ngũ Quang Hồng",
-      nameZh: "伍光红 教授/律师",
-      roleVi: "Tiến sĩ Luật ĐHQGHN · Giáo sư, Hướng dẫn NCS ĐH Dân tộc Quảng Tây",
-      roleZh: "越南河内国家大学法学博士 · 广西民族大学法学院教授/博导",
-      descVi: "Tiến sĩ Luật học tại Đại học Quốc gia Hà Nội. Chuyên gia hàng đầu về pháp luật Việt Nam tại Trung Quốc, chủ trì hơn 10 đề tài cấp nhà nước, công bố hơn 40 bài báo khoa học; dịch thuật và xuất bản Bộ luật Dân sự Việt Nam và Tuyển tập Pháp luật Thương mại Đầu tư Việt Nam.",
-      descZh: "越南河内国家大学法学博士，博士生导师。主持国家及省部级涉外法治课题10余项，出版《越南民法典》《越南商贸投资法律汇编》等专著译著10余部。",
-      img: "/images/office/phong-hoi-nghi-van-ich.jpeg",
-      tag: "Cố vấn học thuật",
-      tagZh: "法学博导",
-    },
-    {
-      nameVi: "TS. LS. Lăng Bân",
-      nameZh: "凌斌 主任/书记",
-      roleVi: "Chủ nhiệm Tổng sở Vạn Ích · Bí thư Đảng ủy · Luật sư Cấp 1 Toàn quốc",
-      roleZh: "广西万益总所主任、党委书记 · 一级律师/博士",
-      descVi: "Hậu tiến sĩ Luật Tây Nam, Luật sư xuất sắc toàn quốc do Bộ Tư pháp Trung Quốc vinh danh. Trực tiếp tham gia công tác lập pháp địa phương và chiến lược pháp trị ASEAN; chuyên sâu các vụ tranh tụng trọng điểm, tái cấu trúc phá sản và M&A quy mô lớn.",
-      descZh: "西南政法大学法学博士后，司法部全国优秀律师。深度参与地方立法与东盟法治研究，拥有重大商事诉讼、破产重组及跨国投资顶级实操经验。",
-      img: "/images/office/tru-so-cuu-chau-quoc-te-van-ich.jpeg",
-      tag: "Lãnh đạo tổng sở",
-      tagZh: "总所领航",
-    },
-    {
-      nameVi: "TS. Kinh tế Trần Trà My",
-      nameZh: "陈茶媚 博士 (Tran Tra My)",
-      roleVi: "Cố vấn cấp cao Ngoại giao & Kinh tế · Tiến sĩ UIBE Bắc Kinh",
-      roleZh: "高级顾问 · 经济学博士（对外经贸大学）",
-      descVi: "Tiếng mẹ đẻ tiếng Việt, thông thạo tiếng Trung và tiếng Anh thương mại. Tiến sĩ Thương mại Quốc tế tại Đại học Kinh tế Thương mại Đối ngoại Bắc Kinh (UIBE). Cố vấn chiến lược kết nối chính quyền, hiệp hội và các tập đoàn lớn hai nước.",
-      descZh: "越南母语，精通中英越商务用语。对外经济贸易大学国际贸易学博士，北京交通大学本科及硕士。专注中越政府园区资源对接与跨境商业投资战略。",
-      img: "/images/office/khu-vuc-tiep-khach-van-ich.jpeg",
-      tag: "Cố vấn ngoại giao",
-      tagZh: "高级外联顾问",
-    },
-  ];
-
-  // 5 Real-world Case Studies
-  const CASE_STUDIES = [
-    {
-      id: 1,
-      titleVi: "Nhà máy sản xuất 1,2 triệu lốp radian toàn thép/năm tại Việt Nam",
-      titleZh: "贵州前进轮胎在越设立年产120万条全钢子午线轮胎项目",
-      clientVi: "Công ty TNHH Lốp xe Tiền Tiến Việt Nam (Quý Châu Tiền Tiến)",
-      clientZh: "贵州前进轮胎投资有限责任公司 / 越南前进轮胎",
-      descVi: "Tư vấn pháp lý toàn trình cho dự án sản xuất công nghiệp nặng quy mô lớn: từ thẩm định pháp lý đất đai khu công nghiệp, xin chấp thuận chủ trương đầu tư, giấy chứng nhận đăng ký đầu tư (IRC), đăng ký doanh nghiệp (ERC) đến hoàn tất các thủ tục môi trường, PCCC và đưa nhà máy vào vận hành.",
-      descZh: "为中国大型重型轮胎制造项目提供自园区尽调、土地租赁、ODI备案、越南外资准入审批（IRC/ERC）至环评消防合规的全周期涉外法律支持。",
-      contractImg: "/images/projects/hop-dong-du-an-tien-tien-lop-xe-1.png",
-      tagVi: "Đầu tư sản xuất FDI",
-      tagZh: "重大实体制造",
-    },
-    {
-      id: 2,
-      titleVi: "M&A thâu tóm 100% cổ phần Công ty Cổ phần HANPO Việt Nam",
-      titleZh: "力浚（越南）精密五金收购越南HANPO股份公司100%股权项目",
-      clientVi: "Công ty TNHH Sản phẩm Kim khí Chính xác Lực Tuấn (Cám Châu Lực Tuấn)",
-      clientZh: "赣州力俊科技有限公司 / 力浚精密",
-      descVi: "Thẩm định pháp lý chuyên sâu (Legal Due Diligence), đàm phán hợp đồng chuyển nhượng cổ phần xuyên biên giới, xử lý cơ cấu sở hữu tài sản đất đai và giấy phép kinh doanh, chuyển đổi đăng ký cổ đông chiến lược an toàn tuyệt đối.",
-      descZh: "开展全面法律尽职调查，草拟并谈判双语股权收购协议，办理越南投资部外资收购股权核准与股东变更登记，妥善规避历史债务隐患。",
-      contractImg: "/images/projects/hop-dong-m-and-a-hanpo-viet-nam.png",
-      tagVi: "Mua bán & Sáp nhập (M&A)",
-      tagZh: "全资股权收购",
-    },
-    {
-      id: 3,
-      titleVi: "Thành lập Công ty TNHH Công nghệ Sinh học Ưu Việt Kim Vũ tại VN",
-      titleZh: "金宇保灵在越投资设立优越金宇生物科技有限公司专项服务",
-      clientVi: "Công ty TNHH Dược phẩm Sinh học Kim Vũ Bảo Linh (Hồng Kông)",
-      clientZh: "金宇生物科技（香港）有限公司",
-      descVi: "Tư vấn đầu tư dự án công nghệ cao trong lĩnh vực dược sinh học thú y, đáp ứng nghiêm ngặt các tiêu chuẩn kiểm định chuyên ngành, quy định chuyển giao công nghệ và cơ chế vốn FDI.",
-      descZh: "协助中国头部生物疫苗企业落户越南，完成高科技农业及医药类外资准入审批、跨境资本金账户合规设立及行业资质备案。",
-      contractImg: "/images/projects/hop-dong-duoc-pham-jinyu-hong-kong.png",
-      tagVi: "Dược sinh học & Công nghệ cao",
-      tagZh: "生物制药与高科技",
-    },
-    {
-      id: 4,
-      titleVi: "Thành lập chi nhánh và nhà xưởng Công nghệ Mox Ningbo tại Việt Nam",
-      titleZh: "宁波摩克斯科技有限公司投资设立越南分支机构与生产基地",
-      clientVi: "Công ty TNHH Công nghệ Mox Ningbo",
-      clientZh: "宁波摩克斯科技有限公司",
-      descVi: "Hỗ trợ doanh nghiệp cơ khí chính xác mở rộng chuỗi cung ứng sang Việt Nam, giải quyết các vướng mắc về xuất xứ hàng hóa RCEP và tuân thủ thuế.",
-      descZh: "助力长三角精密制造供应链出海落地，保障跨境资本出境备案与越南实体设立无缝衔接，优化关税及原产地合规架构。",
-      contractImg: "/images/projects/hop-dong-ningbo-mox-tech.png",
-      tagVi: "Chuỗi cung ứng chế tạo",
-      tagZh: "制造供应链布局",
-    },
-    {
-      id: 5,
-      titleVi: "Thành lập Công ty TNHH Thương mại Quốc tế ZMX Việt Nam",
-      titleZh: "香港ZMX进出口贸易在越设立商贸与供应链物流实体项目",
-      clientVi: "Công ty TNHH Thương mại Xuất nhập khẩu ZMX Hồng Kông",
-      clientZh: "香港ZMX进出口贸易有限责任公司",
-      descVi: "Xử lý thủ tục cấp phép phân phối bán buôn, bán lẻ, quyền xuất nhập khẩu và xây dựng hệ thống hợp đồng thương mại song ngữ chuẩn hóa.",
-      descZh: "协助跨境进出口商贸主体设立越南全资商贸公司，申请进出口权与分销零售资质，起草合规双语贸易主协议。",
-      contractImg: "/images/projects/hop-dong-zmx-trading-viet-nam.png",
-      tagVi: "Thương mại & Xuất nhập khẩu",
-      tagZh: "国际贸易合规",
-    },
-  ];
-
   return (
-    <div className="bg-[#fbf9f4] text-[#121c2d] font-sans">
+    <div className="font-sans text-[#0f1b33] bg-[#fffdf8]">
       
-      {/* 1. Bar Thống kê Nổi bật (KPIs Banner) */}
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-8 -mt-10 relative z-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 bg-[#0b1d3f] border-t-4 border-t-[#c29a45] shadow-2xl divide-x divide-y lg:divide-y-0 divide-[#1c2f58]">
-          {STATS.map((s, idx) => (
-            <div key={idx} className="p-6 sm:p-7 text-center">
-              <span className="block font-serif font-bold text-3xl sm:text-4xl text-[#f0d28a] mb-1">
-                {s.num}
-              </span>
-              <span className="text-xs sm:text-[13px] text-[#b6c0d6] font-medium leading-snug">
-                {isZh ? s.zh : s.vi}
-              </span>
-            </div>
-          ))}
+      {/* 1. Thanh số liệu nổi (.kp) - đặt thụt lên đè vào chân Hero (-mt-[46px]) */}
+      <div className="max-w-[1180px] mx-auto px-6 sm:px-10 -mt-[46px] relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 bg-white shadow-[0_18px_50px_rgba(11,29,63,0.18)] border-t-[3px] border-t-[#c29a45] divide-x divide-y md:divide-y-0 divide-[#e7dcc3]">
+          <div className="p-6 sm:p-7">
+            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">30+</b>
+            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
+              {isZh ? "年总所历程（1996年始）" : "năm hành nghề (từ 1996)"}
+            </small>
+          </div>
+          <div className="p-6 sm:p-7">
+            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">1.200+</b>
+            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
+              {isZh ? "件已办涉外商事实操案件" : "hồ sơ đã tiếp nhận"}
+            </small>
+          </div>
+          <div className="p-6 sm:p-7">
+            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">300+</b>
+            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
+              {isZh ? "位专业律师与涉外人才" : "luật sư và chuyên viên"}
+            </small>
+          </div>
+          <div className="p-6 sm:p-7">
+            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">12</b>
+            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
+              {isZh ? "处中越与东盟联动网络" : "văn phòng & điểm làm việc"}
+            </small>
+          </div>
         </div>
       </div>
 
-      {/* 2. Slogan & Triết lý Tên gọi "Vạn Ích" */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
+      {/* 2. Ý nghĩa tên gọi Vạn Ích (.nm3) */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
           
-          {/* Slogan Banner */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block bg-[#a3171e] text-white font-chinese text-xs tracking-[3px] uppercase px-4 py-1.5 mb-3 shadow-sm">
-              {isZh ? "官方口号 · 核心宗旨" : "Slogan chính thức · Khẩu hiệu hành động"}
-            </span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0b1d3f] leading-tight mb-4">
-              {isZh ? "链接中越 · 法律护航" : "Kết nối Việt‑Trung, đồng hành pháp lý vững chắc"}
-            </h2>
-            <p className="text-sm sm:text-base text-[#62708d] leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end mb-11">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#a3171e] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">名称</b>
+                {isZh ? "字号释义" : "Ý nghĩa tên gọi"}
+              </div>
+              <h2 className="font-royal font-bold text-[40px] sm:text-[48px] text-[#0b1d3f] leading-[1.1] relative after:content-[''] after:block after:w-14 after:h-[3px] after:bg-[#a3171e] after:mt-4">
+                {isZh ? "万益，万事皆有益" : "Vạn Ích, muôn điều có lợi"}
+              </h2>
+            </div>
+            <p className="m-0 text-[#5b6174] text-[15.5px] leading-relaxed">
               {isZh
-                ? "万益（河内）秉承中越两国双法域实战经验与东盟协同网络，为企业跨境投资落地、项目运营风控与商事争议解决提供全周期定制化法律保障。"
-                : "Hãng luật Vạn Ích kết hợp am hiểu sâu sắc pháp luật thực định hai nước, năng lực ngôn ngữ song ngữ bản ngữ và mạng lưới chính phủ – doanh nghiệp để bảo vệ an toàn tối đa cho mọi dự án hợp tác."}
+                ? "“万益”不仅是我们的名字，更是执业底线与行动宣言：每一项涉外法务委托，都必须为双边合作创造真实、合规、长远的合法利益。"
+                : "Tên gọi là lời nhắc về mục tiêu của chúng tôi: mỗi vụ việc phải mang lại lợi ích thực cho cả hai bên hợp tác."}
             </p>
           </div>
 
-          {/* Nghĩa chữ Vạn - Chữ Ích (3 Boxes) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_40px_1fr_40px_1.1fr] gap-2.5 items-stretch">
+            <div className="bg-white border border-[#e7dcc3] p-8 sm:p-9 text-center">
+              <i className="block font-chinese font-bold text-[90px] leading-none not-italic bg-gradient-to-b from-[#0b1d3f] to-[#3d5fae] bg-clip-text text-transparent select-none">
+                万
+              </i>
+              <b className="block font-royal font-bold text-[34px] text-[#0b1d3f] my-2">
+                {isZh ? "万" : "Vạn"}
+              </b>
+              <p className="m-0 text-[#5b6174] text-[14.5px] leading-relaxed">
+                {isZh
+                  ? "万物、包罗万象。我们深耕实体制造、矿业、基建、现代农业与跨境数字贸易等多领域赛道。"
+                  : "Mười nghìn, nghĩa là rất nhiều. Chúng tôi làm việc với nhiều ngành, nhiều dạng giao dịch và nhiều đối tác."}
+              </p>
+            </div>
+
+            <div className="grid place-items-center font-royal font-bold text-[40px] text-[#a3171e] py-2">
+              +
+            </div>
+
+            <div className="bg-white border border-[#e7dcc3] p-8 sm:p-9 text-center">
+              <i className="block font-chinese font-bold text-[90px] leading-none not-italic bg-gradient-to-b from-[#0b1d3f] to-[#3d5fae] bg-clip-text text-transparent select-none">
+                益
+              </i>
+              <b className="block font-royal font-bold text-[34px] text-[#0b1d3f] my-2">
+                {isZh ? "益" : "Ích"}
+              </b>
+              <p className="m-0 text-[#5b6174] text-[14.5px] leading-relaxed">
+                {isZh
+                  ? "利益、合规增益。我们所做的一切法律尽调与风控，终极目标都是捍卫客户的合法权益与长远收益。"
+                  : "Lợi ích. Mục tiêu cuối cùng của mọi tư vấn là lợi ích hợp pháp và bền vững của khách hàng."}
+              </p>
+            </div>
+
+            <div className="grid place-items-center font-royal font-bold text-[40px] text-[#a3171e] py-2">
+              =
+            </div>
+
+            <div className="bg-gradient-to-br from-[#0b1d3f] to-[#16336a] text-white border-t-4 border-t-[#a3171e] p-8 sm:p-9 text-center shadow-xl">
+              <i className="block font-chinese font-bold text-[80px] leading-none not-italic text-[#f0d28a] select-none">
+                万益
+              </i>
+              <b className="block font-royal font-bold text-[34px] text-white my-2">
+                {isZh ? "万益" : "Vạn Ích"}
+              </b>
+              <p className="m-0 text-[#b6c0d6] text-[14.5px] leading-relaxed">
+                {isZh
+                  ? "链接中越，法律护航。致力于成为中越跨境经贸与投资最值得托付的法治金桥。"
+                  : "Cầu nối pháp lý đem lại lợi ích cho hợp tác Việt – Trung."}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. Câu chuyện khởi sự (.two & .pq) */}
+      <section className="py-20 lg:py-24 bg-[#fbf7ee] border-t border-[#e7dcc3]">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#a3171e] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">缘起</b>
+                {isZh ? "执业初心" : "Câu chuyện"}
+              </div>
+              <h2 className="font-royal font-bold text-[36px] sm:text-[44px] text-[#0b1d3f] leading-[1.15] mb-5">
+                {isZh ? "始于一份两版含义迥异的中越双语合同" : "Bắt đầu từ một hợp đồng hai bản nói hai điều khác nhau"}
+              </h2>
+              <p className="text-[16.5px] leading-relaxed text-[#27324a] mb-4">
+                {isZh
+                  ? "多年前，创始团队处理过一起跨国商事纠纷，其起因既非恶意欺诈，仅仅是因为中越双语合同在违约金和管辖条款翻译上出现语义偏差。自那时起，我们便立下规矩：必须具备直接研判两国文字的专业能力。"
+                  : "Năm 2014, đội ngũ sáng lập gặp một vụ tranh chấp mà nguyên nhân không phải ác ý, chỉ là hai bản hợp đồng Việt – Trung lệch nhau một điều khoản. Từ đó chúng tôi xây dựng cách làm việc đọc trực tiếp cả hai ngôn ngữ."}
+              </p>
+              <p className="text-[16.5px] leading-relaxed text-[#27324a] m-0">
+                {isZh
+                  ? "十余年深耕至今，我们的每一项法务工作依然始于一句追问：“当双方落笔签约时，彼此的真正理解是否百分之百一致？”"
+                  : "Hơn mười năm sau, mỗi vụ việc vẫn bắt đầu bằng một câu hỏi: đối tác của bạn thực sự hiểu điều gì khi ký?"}
+              </p>
+            </div>
+
+            <div className="relative bg-[#0b1d3f] text-white p-8 sm:p-12 lg:p-14 font-royal italic font-medium text-[24px] sm:text-[28px] leading-[1.4] shadow-xl before:content-['“'] before:absolute before:left-4 before:-top-3 before:font-royal before:font-bold before:text-[90px] before:text-[#c29a45] before:leading-none">
+              {isZh
+                ? "一份真正优秀的跨国合同，不在于条款有多冗长，而在于签约双方对其权利义务的理解毫无歧义。"
+                : "Hợp đồng tốt không phải hợp đồng dài, mà là hợp đồng mà cả hai bên đều hiểu giống nhau."}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Giá trị cốt lõi (.cdb & .cd5) */}
+      <section className="py-20 lg:py-24 bg-[radial-gradient(700px_400px_at_90%_0,rgba(194,154,69,0.2),transparent_60%),linear-gradient(135deg,#071530,#102a58)] text-white border-t border-[#e7dcc3]">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end mb-12">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#f0d28a] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">准则</b>
+                {isZh ? "核心价值" : "Giá trị cốt lõi"}
+              </div>
+              <h2 className="font-royal font-bold text-[40px] sm:text-[48px] text-white leading-[1.1] relative after:content-[''] after:block after:w-14 after:h-[3px] after:bg-[#a3171e] after:mt-4">
+                {isZh ? "我们恪守的五项执业准则" : "Năm điều chúng tôi giữ"}
+              </h2>
+            </div>
+            <p className="m-0 text-[#b6c0d6] text-[15px] leading-relaxed">
+              {isZh
+                ? "不论案件标的大或小，皆以最高专业准则贯穿始终。"
+                : "Các nguyên tắc áp dụng cho mọi vụ việc, dù lớn hay nhỏ."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border border-[rgba(194,154,69,0.5)] divide-y sm:divide-y-0 sm:divide-x divide-[rgba(194,154,69,0.35)]">
+            <div className="p-8 sm:p-6">
+              <i className="block font-chinese font-bold text-[46px] leading-none text-[#f0d28a] not-italic mb-3.5">信</i>
+              <small className="font-sans font-semibold text-[11px] tracking-[2px] text-[#c29a45] uppercase">{isZh ? "准则一" : "Điều 1"}</small>
+              <h3 className="font-royal font-bold text-[26px] text-white my-1">{isZh ? "诚信立业" : "Chữ tín"}</h3>
+              <p className="text-[#b6c0d6] text-[14px] leading-relaxed m-0">{isZh ? "始终以客户合法权益为依归。" : "Đặt lợi ích hợp pháp của khách hàng lên trước."}</p>
+            </div>
+            <div className="p-8 sm:p-6">
+              <i className="block font-chinese font-bold text-[46px] leading-none text-[#f0d28a] not-italic mb-3.5">密</i>
+              <small className="font-sans font-semibold text-[11px] tracking-[2px] text-[#c29a45] uppercase">{isZh ? "准则二" : "Điều 2"}</small>
+              <h3 className="font-royal font-bold text-[26px] text-white my-1">{isZh ? "严守秘密" : "Bảo mật"}</h3>
+              <p className="text-[#b6c0d6] text-[14px] leading-relaxed m-0">{isZh ? "对所有受托商业机密绝不外泄。" : "Giữ kín mọi thông tin được ủy thác."}</p>
+            </div>
+            <div className="p-8 sm:p-6">
+              <i className="block font-chinese font-bold text-[46px] leading-none text-[#f0d28a] not-italic mb-3.5">专</i>
+              <small className="font-sans font-semibold text-[11px] tracking-[2px] text-[#c29a45] uppercase">{isZh ? "准则三" : "Điều 3"}</small>
+              <h3 className="font-royal font-bold text-[26px] text-white my-1">{isZh ? "专注实操" : "Chuyên môn"}</h3>
+              <p className="text-[#b6c0d6] text-[14px] leading-relaxed m-0">{isZh ? "基于中越双法域实定法精准研判。" : "Tư vấn dựa trên pháp luật hai nước."}</p>
+            </div>
+            <div className="p-8 sm:p-6">
+              <i className="block font-chinese font-bold text-[46px] leading-none text-[#f0d28a] not-italic mb-3.5">明</i>
+              <small className="font-sans font-semibold text-[11px] tracking-[2px] text-[#c29a45] uppercase">{isZh ? "准则四" : "Điều 4"}</small>
+              <h3 className="font-royal font-bold text-[26px] text-white my-1">{isZh ? "公开透明" : "Minh bạch"}</h3>
+              <p className="text-[#b6c0d6] text-[14px] leading-relaxed m-0">{isZh ? "方案与律师费用书面先行确认。" : "Báo phí và phương án bằng văn bản."}</p>
+            </div>
+            <div className="p-8 sm:p-6">
+              <i className="block font-chinese font-bold text-[46px] leading-none text-[#f0d28a] not-italic mb-3.5">伴</i>
+              <small className="font-sans font-semibold text-[11px] tracking-[2px] text-[#c29a45] uppercase">{isZh ? "准则五" : "Điều 5"}</small>
+              <h3 className="font-royal font-bold text-[26px] text-white my-1">{isZh ? "全程相伴" : "Đồng hành"}</h3>
+              <p className="text-[#b6c0d6] text-[14px] leading-relaxed m-0">{isZh ? "紧跟落地闭环直至项目平稳运行。" : "Theo sát vụ việc đến khi hoàn tất."}</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. Chặng đường phát triển (.tl5) */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end mb-14">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#a3171e] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">历程</b>
+                {isZh ? "发展足迹" : "Chặng đường"}
+              </div>
+              <h2 className="font-royal font-bold text-[40px] sm:text-[48px] text-[#0b1d3f] leading-[1.1] relative after:content-[''] after:block after:w-14 after:h-[3px] after:bg-[#a3171e] after:mt-4">
+                {isZh ? "三十载总所底蕴，十二年跨境深耕" : "Mười hai năm, năm mốc chính"}
+              </h2>
+            </div>
+            <p className="m-0 text-[#5b6174] text-[15px] leading-relaxed">
+              {isZh
+                ? "从初期专注于涉外合同审理，到如今形成覆盖东盟、中越双支点联动的全方位法律服务网络。"
+                : "Từ một nhóm nhỏ làm hợp đồng song ngữ đến văn phòng có mạng lưới ở hai nước."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative before:hidden lg:before:block lg:before:content-[''] lg:before:absolute lg:before:left-0 lg:before:right-0 lg:before:top-[19px] lg:before:h-[1px] lg:before:bg-[#c29a45]">
+            <div>
+              <b className="inline-block bg-[#0b1d3f] text-[#f0d28a] font-royal font-bold text-[22px] px-3.5 py-1.5 border border-[#c29a45] relative z-10">
+                2014
+              </b>
+              <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] mt-4 mb-1.5">{isZh ? "实务启航" : "Khởi đầu"}</h3>
+              <p className="text-[#5b6174] text-[14px] leading-relaxed m-0">{isZh ? "团队赴越留学实践，专注两国双语合同精准对接。" : "Nhóm sáng lập bắt đầu hành nghề, tập trung hợp đồng song ngữ."}</p>
+            </div>
+            <div>
+              <b className="inline-block bg-[#0b1d3f] text-[#f0d28a] font-royal font-bold text-[22px] px-3.5 py-1.5 border border-[#c29a45] relative z-10">
+                2017
+              </b>
+              <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] mt-4 mb-1.5">{isZh ? "外资准入" : "Đầu tư nước ngoài"}</h3>
+              <p className="text-[#5b6174] text-[14px] leading-relaxed m-0">{isZh ? "开拓赴越制造实体投资、园区选址与工厂设立全案。" : "Mở mảng tư vấn đầu tư cho doanh nghiệp Trung Quốc."}</p>
+            </div>
+            <div>
+              <b className="inline-block bg-[#0b1d3f] text-[#f0d28a] font-royal font-bold text-[22px] px-3.5 py-1.5 border border-[#c29a45] relative z-10">
+                2020
+              </b>
+              <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] mt-4 mb-1.5">{isZh ? "争议解决" : "Tranh tụng & Trọng tài"}</h3>
+              <p className="text-[#5b6174] text-[14px] leading-relaxed m-0">{isZh ? "成立跨国民商事诉讼、越中仲裁与商账追收团队。" : "Thành lập nhóm tranh tụng và thu hồi công nợ."}</p>
+            </div>
+            <div>
+              <b className="inline-block bg-[#0b1d3f] text-[#f0d28a] font-royal font-bold text-[22px] px-3.5 py-1.5 border border-[#c29a45] relative z-10">
+                2022
+              </b>
+              <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] mt-4 mb-1.5">{isZh ? "北宁驻点" : "Chi nhánh Bắc Ninh"}</h3>
+              <p className="text-[#5b6174] text-[14px] leading-relaxed m-0">{isZh ? "设立北宁办事处，紧密贴身服务越北工业园区中资制造业。" : "Thiết lập cứ điểm phục vụ các KCN trọng điểm tại miền Bắc VN."}</p>
+            </div>
+            <div>
+              <b className="inline-block bg-[#a3171e] text-[#f0d28a] font-royal font-bold text-[22px] px-3.5 py-1.5 border border-[#f0d28a] relative z-10 shadow-md">
+                2026
+              </b>
+              <h3 className="font-royal font-bold text-[25px] text-[#a3171e] mt-4 mb-1.5">{isZh ? "万益（河内）" : "Luật Vạn Ích (Hà Nội)"}</h3>
+              <p className="text-[#5b6174] text-[14px] leading-relaxed m-0">{isZh ? "越南司法部正式批准更名万益（河内）并迁址首都政务核心区。" : "Bộ Tư pháp VN chính thức cấp phép đổi tên và dời trụ sở về Hà Nội."}</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. Ban lãnh đạo & Đội ngũ thực tế (.rc3) */}
+      <section className="py-20 lg:py-24 bg-[#fbf7ee] border-t border-[#e7dcc3]">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end mb-12">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#a3171e] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">领导</b>
+                {isZh ? "主办团队" : "Ban lãnh đạo"}
+              </div>
+              <h2 className="font-royal font-bold text-[40px] sm:text-[48px] text-[#0b1d3f] leading-[1.1] relative after:content-[''] after:block after:w-14 after:h-[3px] after:bg-[#a3171e] after:mt-4">
+                {isZh ? "核心主办涉外律师与顾问" : "Những người dẫn dắt văn phòng"}
+              </h2>
+            </div>
+            <p className="m-0 text-[#5b6174] text-[15px] leading-relaxed">
+              {isZh
+                ? "所有核心合伙人与团队律师均熟练使用中越双语直接开展商务谈判、起草法律文书及出庭诉讼。"
+                : "Tất cả các luật sư nòng cốt đều làm việc trực tiếp bằng tiếng Việt và tiếng Trung."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <div className="bg-white border border-[#e2dbce] p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <span className="font-chinese font-bold text-6xl text-[#c29a45] block mb-2 select-none">万</span>
-                <b className="font-serif text-2xl text-[#0b1d3f] block mb-2">{isZh ? "万 · 包罗万象" : "Vạn · Muôn điều rộng lớn"}</b>
-                <p className="text-xs sm:text-sm text-[#62708d] leading-relaxed">
-                  {isZh
-                    ? "代表着跨越众多产业赛道：制造业、基建、矿业、能源、高科技算力、现代农业与国际贸易。"
-                    : "Mười nghìn, biểu trưng cho sự uyên thâm, bao quát đa dạng lĩnh vực kinh doanh, ngành nghề và các dạng giao dịch xuyên biên giới."}
-                </p>
+            {/* Luật sư 1: LS. Lăng Thần */}
+            <Link
+              href={`/${lang}/lawyers/nguyen-minh-hoang`}
+              className="bg-white border border-[#e7dcc3] flex flex-col shadow-[0_10px_28px_rgba(11,29,63,0.07)] hover:border-[#c29a45] hover:shadow-[0_16px_32px_rgba(11,29,63,0.14)] hover:-translate-y-1 transition-all group"
+            >
+              <div className="aspect-[4/3] overflow-hidden border-b-[3px] border-b-[#c29a45] relative bg-[#0b1d3f]">
+                <Image
+                  src={LAWYER_ASSETS.langThan.portrait}
+                  alt="LS. Lăng Thần"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
-              <span className="text-[11px] font-bold text-[#a3171e] uppercase tracking-wider mt-6 pt-4 border-t border-[#f0ebe0]">
-                {isZh ? "多元业务覆盖" : "Đa dạng ngành nghề"}
-              </span>
-            </div>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors mb-1">
+                    Lăng Thần <span className="font-chinese font-semibold text-[14px] text-[#a3171e] tracking-[2px] ml-1.5">凌晨</span>
+                  </h3>
+                  <p className="text-[13.5px] text-[#5b6174] m-0 mb-3">
+                    {isZh ? "河内、崇左办公室主任 · 投资并购与涉外涉诉" : "Giám đốc VP Hà Nội & Sùng Tả · M&A, FDI, Tranh tụng"}
+                  </p>
+                </div>
+                <span className="text-[#a3171e] font-sans font-semibold text-[13px] group-hover:translate-x-1 transition-transform inline-block">
+                  {isZh ? "查看详情 →" : "Xem hồ sơ →"}
+                </span>
+              </div>
+            </Link>
 
-            <div className="bg-white border border-[#e2dbce] p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <span className="font-chinese font-bold text-6xl text-[#a3171e] block mb-2 select-none">益</span>
-                <b className="font-serif text-2xl text-[#0b1d3f] block mb-2">{isZh ? "益 · 互利共赢" : "Ích · Lợi ích bền vững"}</b>
-                <p className="text-xs sm:text-sm text-[#62708d] leading-relaxed">
-                  {isZh
-                    ? "以客户合法权益为最终归宿，追求交易公平、合规稳健与中越双向投资的长期合作共赢。"
-                    : "Lợi ích. Mục tiêu tối thượng của mọi tư vấn pháp lý là bảo toàn và phát triển lợi ích hợp pháp, dài hạn và bền vững của khách hàng."}
-                </p>
+            {/* Luật sư 2: LS. Liễu Ái */}
+            <Link
+              href={`/${lang}/lawyers/tran-thu-ha`}
+              className="bg-white border border-[#e7dcc3] flex flex-col shadow-[0_10px_28px_rgba(11,29,63,0.07)] hover:border-[#c29a45] hover:shadow-[0_16px_32px_rgba(11,29,63,0.14)] hover:-translate-y-1 transition-all group"
+            >
+              <div className="aspect-[4/3] overflow-hidden border-b-[3px] border-b-[#c29a45] relative bg-[#0b1d3f]">
+                <Image
+                  src={LAWYER_ASSETS.lieuAi.portrait}
+                  alt="LS. Liễu Ái"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
-              <span className="text-[11px] font-bold text-[#a3171e] uppercase tracking-wider mt-6 pt-4 border-t border-[#f0ebe0]">
-                {isZh ? "客户利益至上" : "Quyền lợi khách hàng"}
-              </span>
-            </div>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors mb-1">
+                    Liễu Ái <span className="font-chinese font-semibold text-[14px] text-[#a3171e] tracking-[2px] ml-1.5">柳爱</span>
+                  </h3>
+                  <p className="text-[13.5px] text-[#5b6174] m-0 mb-3">
+                    {isZh ? "河内办公室专职律师 · 越南执业许可 · 商事争议" : "Luật sư chuyên trách VP Hà Nội · Tranh chấp & Hợp đồng"}
+                  </p>
+                </div>
+                <span className="text-[#a3171e] font-sans font-semibold text-[13px] group-hover:translate-x-1 transition-transform inline-block">
+                  {isZh ? "查看详情 →" : "Xem hồ sơ →"}
+                </span>
+              </div>
+            </Link>
 
-            <div className="bg-gradient-to-br from-[#0b1d3f] to-[#16336a] text-white border-t-4 border-t-[#c29a45] p-8 shadow-xl flex flex-col justify-between">
-              <div>
-                <span className="font-chinese font-bold text-6xl text-[#f0d28a] block mb-2 select-none">万益</span>
-                <b className="font-serif text-2xl text-white block mb-2">{isZh ? "万益 · 护航东盟" : "Vạn Ích · Cầu nối pháp lý"}</b>
-                <p className="text-xs sm:text-sm text-[#b6c0d6] leading-relaxed">
-                  {isZh
-                    ? "立足广西沿边口岸枢纽，扎根越南首都政务中心，构筑链接中越两国最高效的跨境涉外法治金桥。"
-                    : "Tên gọi là lời cam kết nhất quán: Mỗi vụ việc đảm nhận phải đem lại lợi ích thiết thực, an tâm và hiệu quả cho đối tác hai nước."}
-                </p>
+            {/* Luật sư 3: LS. Tưởng Nữ Trinh */}
+            <Link
+              href={`/${lang}/lawyers/le-quoc-bao`}
+              className="bg-white border border-[#e7dcc3] flex flex-col shadow-[0_10px_28px_rgba(11,29,63,0.07)] hover:border-[#c29a45] hover:shadow-[0_16px_32px_rgba(11,29,63,0.14)] hover:-translate-y-1 transition-all group"
+            >
+              <div className="aspect-[4/3] overflow-hidden border-b-[3px] border-b-[#c29a45] relative bg-[#0b1d3f]">
+                <Image
+                  src={LAWYER_ASSETS.tuongNuTrinh.portrait}
+                  alt="LS. Tưởng Nữ Trinh"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
-              <span className="text-[11px] font-bold text-[#f0d28a] uppercase tracking-wider mt-6 pt-4 border-t border-white/20">
-                {isZh ? "中越跨境专业品牌" : "Cầu nối Việt – Trung"}
-              </span>
-            </div>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-royal font-bold text-[25px] text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors mb-1">
+                    Tưởng Nữ Trinh <span className="font-chinese font-semibold text-[14px] text-[#a3171e] tracking-[2px] ml-1.5">蒋女贞</span>
+                  </h3>
+                  <p className="text-[13.5px] text-[#5b6174] m-0 mb-3">
+                    {isZh ? "法学硕士 · 中越双语涉外律师 · 涉外投资咨询" : "Thạc sĩ Luật · Song ngữ Việt - Trung · Tư vấn đầu tư"}
+                  </p>
+                </div>
+                <span className="text-[#a3171e] font-sans font-semibold text-[13px] group-hover:translate-x-1 transition-transform inline-block">
+                  {isZh ? "查看详情 →" : "Xem hồ sơ →"}
+                </span>
+              </div>
+            </Link>
 
           </div>
 
         </div>
       </section>
 
-      {/* 3. Section Tư Cách Pháp Nhân & Giấy Phép Bộ Tư Pháp Việt Nam */}
-      <section className="py-16 lg:py-24 bg-white border-y border-[#e2dbce]">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
+      {/* 7. Tư cách pháp lý & Hồ sơ năng lực thực tế */}
+      <section className="py-20 lg:py-24 border-t border-[#e7dcc3]">
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
           
-          <div className="flex flex-col lg:flex-row items-start justify-between gap-10 mb-12">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 text-[#a3171e] text-xs font-bold tracking-[3px] uppercase mb-2">
-                <ShieldCheck className="w-4 h-4" />
-                <span>{isZh ? "资质认证 · 合规展业" : "Tư cách pháp lý chính thức"}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end mb-12">
+            <div>
+              <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#a3171e] flex items-center mb-3">
+                <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">资质</b>
+                {isZh ? "法定执照" : "Tư cách pháp lý"}
               </div>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0b1d3f]">
-                {isZh ? "经越南司法部批准设立的合法外国律师分所" : "Chi nhánh được Bộ Tư pháp Việt Nam cấp phép chính thức"}
+              <h2 className="font-royal font-bold text-[40px] sm:text-[48px] text-[#0b1d3f] leading-[1.1] relative after:content-[''] after:block after:w-14 after:h-[3px] after:bg-[#a3171e] after:mt-4">
+                {isZh ? "越南司法部正式批设证明" : "Giấy phép Bộ Tư pháp Việt Nam"}
               </h2>
-              <p className="text-[#62708d] text-sm sm:text-base mt-3 leading-relaxed">
-                {isZh
-                  ? "广西万益（河内）办公室依规在中国司法部备案，并于2026年7月经越南司法部正式批准更名并迁址首都河内，是合法在越南全境提供国际商事法律服务的代表机构。"
-                  : "Văn phòng Luật sư Vạn Ích (Hà Nội) tuân thủ đầy đủ quy trình đăng ký tại Bộ Tư pháp Trung Quốc và được Bộ Tư pháp nước CHXHCN Việt Nam cấp phép hoạt động chính thức (tháng 07/2026), có mã số thuế và đăng ký hoạt động minh bạch."}
-              </p>
             </div>
-
-            {/* Quick Badge */}
-            <div className="bg-[#fbf9f4] border border-[#e2dbce] border-l-4 border-l-[#a3171e] p-5 shrink-0 max-w-sm">
-              <span className="text-[11px] font-bold text-[#a3171e] uppercase tracking-wider block mb-1">
-                {isZh ? "官方批准备案" : "Phê duyệt & Giám sát"}
-              </span>
-              <p className="text-xs text-[#27324a] font-medium leading-relaxed m-0">
-                {isZh
-                  ? "主管机关：越南司法部 · 河内市司法厅 · 中国司法部境外分支备案"
-                  : "Cơ quan cấp phép: Bộ Tư pháp Việt Nam · Quản lý địa bàn: Sở Tư pháp TP. Hà Nội."}
-              </p>
-            </div>
+            <p className="m-0 text-[#5b6174] text-[15px] leading-relaxed">
+              {isZh
+                ? "万益（河内）为合法合规在中国司法部备案、获越南司法部全套执照批准的外国律师分支机构。"
+                : "Chi nhánh hoạt động hợp pháp dưới sự quản lý của Bộ Tư pháp Việt Nam và Sở Tư pháp TP. Hà Nội."}
+            </p>
           </div>
 
-          {/* Lưới trưng bày 4 Giấy phép thực tế */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Giấy phép 1: Giấy phép Bộ Tư pháp VP Hà Nội */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             <div
               onClick={() => setLightboxImg({ src: LICENSE_ASSETS.boTuPhapHanoi.main, title: "Giấy phép thành lập Chi nhánh Hà Nội do Bộ Tư pháp Việt Nam cấp" })}
-              className="bg-[#fbf9f4] border border-[#e2dbce] p-4 group cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all flex flex-col justify-between"
+              className="bg-white border border-[#e7dcc3] p-5 cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all group"
             >
-              <div className="aspect-[4/3] relative overflow-hidden bg-white border border-[#e2dbce] mb-3">
+              <div className="aspect-[4/3] relative overflow-hidden bg-[#fbf7ee] border border-[#e7dcc3] mb-3">
                 <Image
                   src={LICENSE_ASSETS.boTuPhapHanoi.main}
                   alt="Giấy phép Bộ Tư pháp"
                   fill
                   className="object-contain p-2 group-hover:scale-105 transition-transform"
                 />
-                <span className="absolute right-2 top-2 bg-[#0b1d3f]/80 text-white p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Eye className="w-3.5 h-3.5" />
-                </span>
               </div>
-              <div>
-                <b className="text-xs font-serif font-bold text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors line-clamp-1">
-                  {isZh ? "越南司法部批设许可" : "Giấy phép Bộ Tư pháp VN"}
-                </b>
-                <span className="text-[11px] text-[#8a96a3]">
-                  {isZh ? "分所设立与执业批文" : "Quyết định thành lập chi nhánh"}
-                </span>
-              </div>
+              <b className="font-royal text-[18px] text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors">
+                {isZh ? "司法部设立许可证" : "Giấy phép Bộ Tư pháp"}
+              </b>
+              <small className="text-[#5b6174] text-[12px] block mt-0.5">Quyết định thành lập chi nhánh</small>
             </div>
 
-            {/* Giấy phép 2: Đăng ký thuế */}
             <div
-              onClick={() => setLightboxImg({ src: LICENSE_ASSETS.boTuPhapHanoi.tax, title: "Giấy chứng nhận đăng ký thuế Văn phòng Vạn Ích Hà Nội" })}
-              className="bg-[#fbf9f4] border border-[#e2dbce] p-4 group cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all flex flex-col justify-between"
+              onClick={() => setLightboxImg({ src: LICENSE_ASSETS.boTuPhapHanoi.tax, title: "Giấy chứng nhận đăng ký thuế tại Việt Nam" })}
+              className="bg-white border border-[#e7dcc3] p-5 cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all group"
             >
-              <div className="aspect-[4/3] relative overflow-hidden bg-white border border-[#e2dbce] mb-3">
+              <div className="aspect-[4/3] relative overflow-hidden bg-[#fbf7ee] border border-[#e7dcc3] mb-3">
                 <Image
                   src={LICENSE_ASSETS.boTuPhapHanoi.tax}
                   alt="Đăng ký thuế"
                   fill
                   className="object-contain p-2 group-hover:scale-105 transition-transform"
                 />
-                <span className="absolute right-2 top-2 bg-[#0b1d3f]/80 text-white p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Eye className="w-3.5 h-3.5" />
-                </span>
               </div>
-              <div>
-                <b className="text-xs font-serif font-bold text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors line-clamp-1">
-                  {isZh ? "越南税务登记证" : "Đăng ký thuế tại Việt Nam"}
-                </b>
-                <span className="text-[11px] text-[#8a96a3]">
-                  {isZh ? "合法纳税与财政代码" : "Mã số thuế doanh nghiệp"}
-                </span>
-              </div>
+              <b className="font-royal text-[18px] text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors">
+                {isZh ? "越南税务登记证" : "Đăng ký thuế tại VN"}
+              </b>
+              <small className="text-[#5b6174] text-[12px] block mt-0.5">Mã số thuế doanh nghiệp</small>
             </div>
 
-            {/* Giấy phép 3: Giấy phép hành nghề LS Liễu Ái tại VN */}
             <div
-              onClick={() => setLightboxImg({ src: "/images/licenses/giay-phep-vietnam-lieu-ai-1.png", title: "Giấy phép hành nghề luật sư tại Việt Nam của LS. Liễu Ái" })}
-              className="bg-[#fbf9f4] border border-[#e2dbce] p-4 group cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all flex flex-col justify-between"
+              onClick={() => setLightboxImg({ src: "/images/licenses/giay-phep-vietnam-lieu-ai-1.png", title: "Giấy phép hành nghề tại Việt Nam của LS. Liễu Ái" })}
+              className="bg-white border border-[#e7dcc3] p-5 cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all group"
             >
-              <div className="aspect-[4/3] relative overflow-hidden bg-white border border-[#e2dbce] mb-3">
+              <div className="aspect-[4/3] relative overflow-hidden bg-[#fbf7ee] border border-[#e7dcc3] mb-3">
                 <Image
                   src="/images/licenses/giay-phep-vietnam-lieu-ai-1.png"
-                  alt="Giấy phép hành nghề LS Liễu Ái"
+                  alt="Giấy phép LS Liễu Ái"
                   fill
                   className="object-contain p-2 group-hover:scale-105 transition-transform"
                 />
-                <span className="absolute right-2 top-2 bg-[#0b1d3f]/80 text-white p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Eye className="w-3.5 h-3.5" />
-                </span>
               </div>
-              <div>
-                <b className="text-xs font-serif font-bold text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors line-clamp-1">
-                  {isZh ? "柳爱律师越南执业证" : "Giấy phép hành nghề LS. Liễu Ái"}
-                </b>
-                <span className="text-[11px] text-[#8a96a3]">
-                  {isZh ? "司法部批准在越执业" : "Cấp phép hành nghề tại VN"}
-                </span>
-              </div>
+              <b className="font-royal text-[18px] text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors">
+                {isZh ? "柳爱律师执业许可" : "Giấy phép LS. Liễu Ái"}
+              </b>
+              <small className="text-[#5b6174] text-[12px] block mt-0.5">Cấp phép hành nghề tại VN</small>
             </div>
 
-            {/* Giấy phép 4: Giấy phép LS Lăng Thần */}
             <div
-              onClick={() => setLightboxImg({ src: "/images/licenses/giay-phep-hanh-nghe-lang-than-1.png", title: "Chứng chỉ & Giấy phép hành nghề của Giám đốc LS. Lăng Thần" })}
-              className="bg-[#fbf9f4] border border-[#e2dbce] p-4 group cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all flex flex-col justify-between"
+              onClick={() => setLightboxImg({ src: "/images/licenses/giay-phep-hanh-nghe-lang-than-1.png", title: "Giấy phép hành nghề LS. Lăng Thần" })}
+              className="bg-white border border-[#e7dcc3] p-5 cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all group"
             >
-              <div className="aspect-[4/3] relative overflow-hidden bg-white border border-[#e2dbce] mb-3">
+              <div className="aspect-[4/3] relative overflow-hidden bg-[#fbf7ee] border border-[#e7dcc3] mb-3">
                 <Image
                   src="/images/licenses/giay-phep-hanh-nghe-lang-than-1.png"
                   alt="Giấy phép LS Lăng Thần"
                   fill
                   className="object-contain p-2 group-hover:scale-105 transition-transform"
                 />
-                <span className="absolute right-2 top-2 bg-[#0b1d3f]/80 text-white p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Eye className="w-3.5 h-3.5" />
-                </span>
               </div>
-              <div>
-                <b className="text-xs font-serif font-bold text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors line-clamp-1">
-                  {isZh ? "凌晨主任执业资质" : "Giấy phép LS. Lăng Thần"}
-                </b>
-                <span className="text-[11px] text-[#8a96a3]">
-                  {isZh ? "执业证与越南业务准入" : "Luật sư & Trưởng văn phòng"}
-                </span>
-              </div>
+              <b className="font-royal text-[18px] text-[#0b1d3f] block group-hover:text-[#a3171e] transition-colors">
+                {isZh ? "凌晨主任执业证" : "Giấy phép LS. Lăng Thần"}
+              </b>
+              <small className="text-[#5b6174] text-[12px] block mt-0.5">Trưởng đại diện chi nhánh</small>
             </div>
-
           </div>
 
-        </div>
-      </section>
-
-      {/* 4. Section Đội Ngũ 7 Chuyên Gia Pháp Lý Thực Chiến (Ảnh Thật) */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-[#a3171e] font-chinese text-xs font-bold tracking-[3px] uppercase block mb-1">
-              专业团队 · 领衔主办
-            </span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0b1d3f] mb-3">
-              {isZh ? "核心涉外实操律师与专家团队" : "Đội ngũ chuyên gia pháp lý thực chiến hàng đầu"}
-            </h2>
-            <p className="text-[#62708d] text-sm sm:text-base leading-relaxed">
-              {isZh
-                ? "中方涉外律师与越南本土持证律师无缝协同，博士、教授与实战骨干全程主办，拒绝层层转包。"
-                : "Sự kết hợp ăn ý giữa luật sư Trung Quốc được cấp phép tại Việt Nam, giáo sư tiến sĩ luật đầu ngành và luật sư bản ngữ dày dạn kinh nghiệm thực tế."}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {KEY_EXPERTS.map((lawyer, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-[#e2dbce] flex flex-col hover:border-[#c29a45] hover:shadow-xl hover:-translate-y-1 transition-all group overflow-hidden"
-              >
-                {/* Image */}
-                <div className="aspect-[4/3] relative overflow-hidden bg-[#0b1d3f] border-b-2 border-b-[#c29a45]">
-                  <Image
-                    src={lawyer.img}
-                    alt={lawyer.nameVi}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute left-3 top-3 bg-[#a3171e] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 z-10 shadow">
-                    {isZh ? lawyer.tagZh : lawyer.tag}
-                  </span>
-                </div>
-
-                {/* Info */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-baseline justify-between gap-2 mb-1">
-                      <h3 className="font-serif text-xl font-bold text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors">
-                        {isZh ? lawyer.nameZh : lawyer.nameVi}
-                      </h3>
-                      <span className="font-chinese text-xs text-[#a3171e] font-semibold">
-                        {isZh ? lawyer.nameVi : lawyer.nameZh}
-                      </span>
-                    </div>
-
-                    <p className="text-xs font-semibold text-[#c29a45] mb-3 leading-normal">
-                      {isZh ? lawyer.roleZh : lawyer.roleVi}
-                    </p>
-
-                    <p className="text-xs text-[#62708d] leading-relaxed line-clamp-4 mb-4">
-                      {isZh ? lawyer.descZh : lawyer.descVi}
-                    </p>
-                  </div>
-
-                  {lawyer.phone && (
-                    <div className="pt-3 border-t border-[#f0ebe0] flex items-center justify-between text-xs text-[#a3171e] font-bold">
-                      <span className="flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>Hotline: {lawyer.phone}</span>
-                      </span>
-                      <span className="text-[10px] text-[#8a96a3] font-normal uppercase">Zalo / WeChat</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. Section 5 Đại Dự Án Case Studies Thực Tế */}
-      <section className="py-16 lg:py-24 bg-white border-t border-[#e2dbce]">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <div className="inline-flex items-center gap-2 text-[#a3171e] text-xs font-bold tracking-[3px] uppercase mb-2">
-                <Briefcase className="w-4 h-4" />
-                <span>{isZh ? "典型实绩 · 真实案例" : "Kinh nghiệm thực tiễn"}</span>
-              </div>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0b1d3f]">
-                {isZh ? "五大跨境重点投资与并购实战业绩" : "5 đại dự án tiêu biểu đã thực hiện tại Việt Nam"}
-              </h2>
-            </div>
-            <p className="text-[#62708d] text-sm sm:text-base max-w-md">
-              {isZh
-                ? "涵盖重大实体制造业落户、外资全资并购、生物制药及国际商贸物流，具有完备的合同证明与实操背书。"
-                : "Hồ sơ năng lực thực tế chứng minh năng lực xử lý các giao dịch phức tạp, quy mô hàng trăm triệu USD giữa Việt Nam và Trung Quốc."}
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {CASE_STUDIES.map((c) => (
-              <div
-                key={c.id}
-                className="bg-[#fbf9f4] border border-[#e2dbce] p-6 sm:p-8 flex flex-col lg:flex-row items-start justify-between gap-6 hover:border-[#c29a45] hover:shadow-md transition-all"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-sans font-bold text-xs text-[#a3171e] tracking-wider uppercase">
-                      Case #{c.id}
-                    </span>
-                    <span className="border border-[#c29a45] text-[#8e6d23] text-[10px] font-semibold px-2 py-0.5 tracking-wider uppercase">
-                      {isZh ? c.tagZh : c.tagVi}
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-2xl font-bold text-[#0b1d3f] mb-2 leading-snug">
-                    {isZh ? c.titleZh : c.titleVi}
-                  </h3>
-
-                  <div className="text-xs text-[#a3171e] font-semibold mb-3">
-                    {isZh ? `委托主体：${c.clientZh}` : `Khách hàng: ${c.clientVi}`}
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#62708d] leading-relaxed">
-                    {isZh ? c.descZh : c.descVi}
-                  </p>
-                </div>
-
-                {/* Contract Scan Thumbnail Preview */}
-                <div
-                  onClick={() => setLightboxImg({ src: c.contractImg, title: isZh ? c.titleZh : c.titleVi })}
-                  className="w-full sm:w-64 h-36 shrink-0 relative overflow-hidden bg-white border border-[#e2dbce] group cursor-pointer shadow-sm hover:border-[#a3171e]"
-                >
-                  <Image
-                    src={c.contractImg}
-                    alt={c.titleVi}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform"
-                  />
-                  <div className="absolute inset-0 bg-[#0b1d3f]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
-                    <Eye className="w-4 h-4" />
-                    <span>{isZh ? "查看合同证明" : "Xem hợp đồng"}</span>
-                  </div>
-                  <span className="absolute bottom-2 left-2 bg-[#0b1d3f]/90 text-white text-[9px] font-semibold px-2 py-0.5">
-                    {isZh ? "合同材料" : "Hồ sơ dự án"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* 6. Section Bằng Khen & Danh Hiệu Cấp Quốc Gia */}
-      <section className="py-16 lg:py-24 border-t border-[#e2dbce]">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-[#a3171e] font-chinese text-xs font-bold tracking-[3px] uppercase block mb-1">
-              荣誉表彰 · 国家认可
-            </span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#0b1d3f] mb-3">
-              {isZh ? "国家级与行业权威荣誉表彰" : "Bằng khen & Thành tựu tiêu biểu toàn quốc"}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#62708d]">
-              {isZh
-                ? "十余次荣获全国文明委、中央组织部、司法部、中华全国律师协会表彰，铸就值得信赖的品牌商誉。"
-                : "Hơn 10 lần vinh dự đón nhận bằng khen và huân chương của Ủy ban Văn minh Trung ương, Ban Tổ chức Trung ương, Bộ Tư pháp và Hiệp hội Luật sư toàn quốc."}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {AWARD_ASSETS.map((award, idx) => (
-              <div
-                key={idx}
-                onClick={() => setLightboxImg({ src: award.src, title: isZh ? award.titleZh : award.title })}
-                className="bg-white border border-[#e2dbce] p-5 cursor-pointer hover:border-[#c29a45] hover:shadow-lg transition-all flex flex-col justify-between group"
-              >
-                <div className="aspect-[4/3] relative overflow-hidden bg-[#fbf9f4] border border-[#e2dbce] mb-3">
-                  <Image
-                    src={award.src}
-                    alt={award.title}
-                    fill
-                    className="object-contain p-2 group-hover:scale-105 transition-transform"
-                  />
-                  <span className="absolute right-2 top-2 bg-[#0b1d3f]/80 text-white p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Eye className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-                <h4 className="font-serif text-sm font-bold text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors line-clamp-2">
-                  {isZh ? award.titleZh : award.title}
-                </h4>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* 7. Section Trụ Sở & Thông Tin Liên Hệ Thực Tế */}
-      <section className="bg-white py-16 lg:py-24 border-t border-[#e2dbce]">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
-            {/* Văn phòng Hà Nội (Thực tế) */}
-            <div className="bg-[#fbf9f4] border-2 border-[#0b1d3f] p-8 sm:p-10 relative shadow-lg">
-              <span className="inline-block bg-[#0b1d3f] text-[#f0d28a] text-[11px] font-bold uppercase tracking-widest px-3 py-1 mb-4">
-                {isZh ? "越南本土政务枢纽" : "Văn phòng đại diện tại Hà Nội"}
+          {/* 5 Dự án thực tế tiêu biểu */}
+          <div className="bg-[#fbf7ee] border border-[#e7dcc3] p-8 sm:p-10">
+            <div className="mb-6">
+              <span className="font-chinese font-bold text-[#a3171e] text-xs tracking-[3px] uppercase block mb-1">
+                业绩证明 · 真实案例
               </span>
-
-              <h3 className="font-serif text-3xl font-bold text-[#0b1d3f] mb-3">
-                {isZh ? "广西万益（河内）律师事务所" : "Văn phòng Luật sư Vạn Ích (Hà Nội)"}
+              <h3 className="font-royal font-bold text-[32px] text-[#0b1d3f]">
+                {isZh ? "五大跨境重点投资与并购实战项目" : "5 dự án tiêu biểu đã thực hiện tại Việt Nam"}
               </h3>
+            </div>
 
-              <div className="space-y-4 text-xs sm:text-sm text-[#27324a] mb-8">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#a3171e] shrink-0 mt-0.5" />
-                  <div>
-                    <b className="block text-[#0b1d3f] mb-0.5">{isZh ? "正式办公地址：" : "Địa chỉ chính thức:"}</b>
-                    <span>Số 17, Đường 23, Khu biệt thự liền kề KĐT Thành phố Giao Lưu, Cổ Nhuế 1, Bắc Từ Liêm, TP. Hà Nội</span>
-                    <p className="text-[11px] text-[#8a96a3] m-0 mt-0.5 italic">
-                      {isZh
-                        ? "河内市交流城都市区联排别墅区23路17号（公安部附近，从范文同大道右转进入）"
-                        : "(Rẽ phải từ Đại lộ Phạm Văn Đồng vào, gần trụ sở Bộ Công An)"}
+            <div className="divide-y divide-[#e7dcc3]">
+              {PROJECT_ASSETS.map((p, idx) => (
+                <div
+                  key={idx}
+                  className="py-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-sans font-bold text-xs text-[#a3171e]">0{idx + 1}</span>
+                      <span className="text-[11px] font-semibold text-[#c29a45] uppercase tracking-wider">
+                        {p.clientZh}
+                      </span>
+                    </div>
+                    <b className="font-royal text-[20px] text-[#0b1d3f] group-hover:text-[#a3171e] transition-colors block">
+                      {p.name}
+                    </b>
+                    <p className="text-xs text-[#5b6174] m-0 mt-0.5">
+                      Khách hàng: {p.client}
                     </p>
                   </div>
-                </div>
 
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#a3171e] shrink-0" />
-                  <div>
-                    <b className="text-[#0b1d3f]">{isZh ? "联络主任：" : "Người phụ trách: "}</b>
-                    <span>Luật sư Tưởng Nữ Trinh (蒋女贞) · </span>
-                    <a href="tel:15277020681" className="text-[#a3171e] font-bold hover:underline">
-                      15277020681
-                    </a>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxImg({ src: p.contracts[0], title: p.name })}
+                    className="inline-flex items-center gap-1.5 text-xs text-[#a3171e] font-semibold border border-[#a3171e] px-4 py-2 hover:bg-[#a3171e] hover:text-white transition-all self-start md:self-center shrink-0 cursor-pointer"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>{isZh ? "查看合同材料" : "Xem hồ sơ hợp đồng"}</span>
+                  </button>
                 </div>
-
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#a3171e] shrink-0" />
-                  <div>
-                    <b className="text-[#0b1d3f]">Email: </b>
-                    <a href="mailto:lienhe@vanichlaw.vn" className="text-[#0b1d3f] hover:text-[#a3171e]">
-                      lienhe@vanichlaw.vn
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-wrap">
-                <Link
-                  href={`/${lang}#lienhe`}
-                  className="bg-gradient-to-b from-[#c4252c] to-[#8f1218] text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 shadow hover:brightness-110 transition-all"
-                >
-                  {isZh ? "预约河内面谈" : "Đặt lịch tư vấn tại Hà Nội"}
-                </Link>
-                <Link
-                  href={`/${lang}/offices`}
-                  className="border border-[#0b1d3f] text-[#0b1d3f] hover:bg-[#0b1d3f] hover:text-[#f0d28a] text-xs font-semibold uppercase tracking-wider px-6 py-3 transition-all"
-                >
-                  {isZh ? "查看各地办公室" : "Hệ thống văn phòng"}
-                </Link>
-              </div>
+              ))}
             </div>
-
-            {/* Trụ sở Tổng sở Nam Ninh & Ảnh */}
-            <div className="space-y-6">
-              <div className="relative aspect-[16/10] overflow-hidden border border-[#e2dbce] shadow-md bg-[#0b1d3f]">
-                <Image
-                  src={OFFICE_ASSETS.headquarter}
-                  alt="Trụ sở Cửu Châu Quốc Tế Nam Ninh"
-                  fill
-                  className="object-cover"
-                />
-                <span className="absolute bottom-3 left-3 bg-[#0b1d3f]/90 text-[#f0d28a] text-xs font-semibold px-3 py-1">
-                  {isZh ? "中国总所 · 南宁九洲国际大厦27层" : "Trụ sở chính · Tầng 27 Tòa nhà Cửu Châu Quốc Tế (Nam Ninh)"}
-                </span>
-              </div>
-
-              <div className="bg-[#fbf9f4] border border-[#e2dbce] p-6">
-                <h4 className="font-serif font-bold text-lg text-[#0b1d3f] mb-1">
-                  {isZh ? "广西万益律师事务所（总所）" : "Hãng luật Vạn Ích (Tổng sở Nam Ninh)"}
-                </h4>
-                <p className="text-xs text-[#62708d] mb-3 leading-relaxed">
-                  {isZh
-                    ? "注册地址：南宁市青秀区中新路9号九洲国际27层 · 拥有9,000余平方米自有产权办公空间"
-                    : "Địa chỉ: Tầng 27 Tòa nhà Cửu Châu Quốc Tế, Số 9 Đường Trung Tân, Quận Thanh Tú, TP. Nam Ninh, Quảng Tây."}
-                </p>
-                <div className="flex items-center gap-2 text-xs text-[#a3171e] font-semibold">
-                  <CheckCircle2 className="w-4 h-4 text-[#a3171e]" />
-                  <span>{isZh ? "连通新加坡、马来西亚吉隆坡与越南全国服务网络" : "Kết nối mạng lưới Singapore, Malaysia và toàn diện Việt Nam"}</span>
-                </div>
-              </div>
-            </div>
-
           </div>
 
         </div>
       </section>
 
-      {/* Lightbox Modal phóng to ảnh scan */}
+      {/* 8. CTA Band cuối trang (.band) */}
+      <section className="bg-[radial-gradient(700px_400px_at_90%_0,rgba(194,154,69,0.2),transparent_60%),linear-gradient(135deg,#071530,#102a58)] text-white border-t-4 border-t-[#a3171e] py-[70px] relative overflow-hidden" id="lienhe-cta">
+        <div className="absolute -left-8 -bottom-[150px] font-chinese font-bold text-[520px] leading-none text-transparent select-none pointer-events-none" style={{ WebkitTextStroke: "1px rgba(194,154,69,0.18)" }}>
+          律
+        </div>
+
+        <div className="max-w-[1180px] mx-auto px-6 sm:px-10 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div>
+            <div className="text-[12px] font-sans font-medium tracking-[3px] uppercase text-[#f0d28a] flex items-center mb-3">
+              <b className="font-chinese font-bold text-[15px] tracking-[4px] mr-3">委托</b>
+              {isZh ? "法律咨询" : "Liên hệ luật sư"}
+            </div>
+            <h2 className="font-royal font-bold text-[36px] sm:text-[46px] text-white leading-tight mt-3">
+              {isZh ? (
+                <>直接与 <i className="text-[#f0d28a] font-normal not-italic">涉外律师</i> 沟通业务（越文或中文）</>
+              ) : (
+                <>Nói chuyện với <i className="text-[#f0d28a] font-normal not-italic">luật sư</i> bằng tiếng Việt hoặc 中文</>
+              )}
+            </h2>
+            <p className="text-[#b6c0d6] text-[15px] mt-2.5 mb-0">
+              {isZh
+                ? "24个工作小时内迅速答复 · 正式立案前出具书面工作方案与费用报价"
+                : "Phản hồi trong 24 giờ làm việc · Báo phí trước khi nhận vụ việc"}
+            </p>
+          </div>
+
+          <div className="flex gap-3.5 flex-wrap shrink-0">
+            <a
+              href="tel:15277020681"
+              className="inline-flex items-center gap-2.5 bg-gradient-to-b from-[#f0d28a] to-[#c29a45] text-[#06122b] font-sans font-semibold text-[13px] tracking-[1.3px] uppercase px-7 py-4 shadow-md hover:brightness-105 transition-all"
+            >
+              Gọi 15277020681
+            </a>
+            <a
+              href="mailto:lienhe@vanichlaw.vn"
+              className="inline-flex items-center gap-2.5 bg-transparent text-white font-sans font-semibold text-[13px] tracking-[1.3px] uppercase px-7 py-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.5)] hover:bg-white/10 transition-all"
+            >
+              Gửi email tư vấn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
       {lightboxImg && (
         <div
           onClick={() => setLightboxImg(null)}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white max-w-4xl max-h-[90vh] w-full p-4 border border-[#c29a45] shadow-2xl relative flex flex-col"
+            className="bg-white max-w-4xl max-h-[90vh] w-full p-4 border-2 border-[#c29a45] shadow-2xl relative flex flex-col"
           >
-            <div className="flex justify-between items-center pb-2 mb-2 border-b border-[#e2dbce]">
-              <h3 className="font-serif font-bold text-base text-[#0b1d3f] truncate">
+            <div className="flex justify-between items-center pb-2 mb-2 border-b border-[#e7dcc3]">
+              <h3 className="font-royal font-bold text-lg text-[#0b1d3f] truncate">
                 {lightboxImg.title}
               </h3>
               <button
                 type="button"
                 onClick={() => setLightboxImg(null)}
-                className="text-gray-400 hover:text-gray-800 p-1"
+                className="text-gray-400 hover:text-gray-800 p-1 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
