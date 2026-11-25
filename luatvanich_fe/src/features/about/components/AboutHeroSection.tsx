@@ -88,27 +88,27 @@ export function AboutHeroSection({ lang }: AboutHeroSectionProps) {
       <div className="max-w-[1180px] mx-auto px-6 sm:px-10 -mt-[46px] relative z-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 bg-white shadow-[0_18px_50px_rgba(11,29,63,0.18)] border-t-[3px] border-[#c29a45]">
           <div className="p-6 lg:px-7 lg:py-6 border-r border-[#e7dcc3] border-b lg:border-b-0">
-            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">12</b>
+            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">30+</b>
             <small className="text-[#5b6174] text-[13px] font-sans mt-1 block">
-              {isZh ? "年跨境执业积淀" : "năm hành nghề"}
+              {isZh ? "年品牌积淀（始于1996）" : "năm hành nghề (từ 1996)"}
             </small>
           </div>
           <div className="p-6 lg:px-7 lg:py-6 border-r-0 lg:border-r border-[#e7dcc3] border-b lg:border-b-0">
             <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">1.200+</b>
             <small className="text-[#5b6174] text-[13px] font-sans mt-1 block">
-              {isZh ? "宗已办结跨境案件" : "hồ sơ đã tiếp nhận"}
+              {isZh ? "宗已办结中越跨境案件" : "hồ sơ đã tiếp nhận"}
             </small>
           </div>
           <div className="p-6 lg:px-7 lg:py-6 border-r border-[#e7dcc3]">
-            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">24</b>
+            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">300+</b>
             <small className="text-[#5b6174] text-[13px] font-sans mt-1 block">
-              {isZh ? "名双语律师及专家" : "luật sư và chuyên viên"}
+              {isZh ? "名专业律师及法律人员" : "luật sư và chuyên viên"}
             </small>
           </div>
           <div className="p-6 lg:px-7 lg:py-6">
-            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">6</b>
+            <b className="block font-royal font-bold text-4xl lg:text-[46px] leading-none text-[#0b1d3f]">12</b>
             <small className="text-[#5b6174] text-[13px] font-sans mt-1 block">
-              {isZh ? "处实体办公与协作网点" : "điểm làm việc"}
+              {isZh ? "处实体办公室及联络网点" : "văn phòng & điểm làm việc"}
             </small>
           </div>
         </div>
