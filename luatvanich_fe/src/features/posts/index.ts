@@ -16,4 +16,5 @@ export * from "./components/PostCategoryListTable";
 export * from "./components/PostCategoryFormDialog";
 export * from "./components/DeletePostCategoryDialog";
 export * from "./components/public/PostsHeroSection";
+export * from "./components/public/PostsDirectorySection";
 export * from "./components/public/PostDetailView";

@@ -1,5 +1,5 @@
 import React from "react";
-import { PostsHeroSection } from "@/features/posts";
+import { PostsHeroSection, PostsDirectorySection } from "@/features/posts";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -7,5 +7,10 @@ interface Props {
 
 export default async function PostsPage({ params }: Props) {
   const { lang } = await params;
-  return <PostsHeroSection lang={lang} />;
+  return (
+    <>
+      <PostsHeroSection lang={lang} />
+      <PostsDirectorySection lang={lang} />
+    </>
+  );
 }

@@ -7,4 +7,5 @@ export * from "./components/ServiceDetailDialog";
 export * from "./components/ServiceFormDialog";
 export * from "./components/DeleteServiceDialog";
 export * from "./components/public/LegalServicesHeroSection";
+export * from "./components/public/LegalServicesDirectorySection";
 export * from "./components/public/LegalServiceDetailView";

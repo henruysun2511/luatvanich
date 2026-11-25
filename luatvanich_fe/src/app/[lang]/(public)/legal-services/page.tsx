@@ -1,5 +1,8 @@
 import React from "react";
-import { LegalServicesHeroSection } from "@/features/legal-services";
+import {
+  LegalServicesHeroSection,
+  LegalServicesDirectorySection,
+} from "@/features/legal-services";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -7,5 +10,10 @@ interface Props {
 
 export default async function LegalServicesPage({ params }: Props) {
   const { lang } = await params;
-  return <LegalServicesHeroSection lang={lang} />;
+  return (
+    <>
+      <LegalServicesHeroSection lang={lang} />
+      <LegalServicesDirectorySection lang={lang} />
+    </>
+  );
 }
