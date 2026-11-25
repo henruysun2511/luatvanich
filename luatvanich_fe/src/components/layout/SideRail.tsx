@@ -166,9 +166,9 @@ export function SideRail() {
           onClick={toggleRail}
           aria-label="Thu gọn thanh rail"
           title="Thu gọn thanh rail"
-          className="w-[42px] h-[42px] bg-[#a3171e] hover:bg-[#c4252c] text-white flex items-center justify-center transition-colors shadow-md cursor-pointer group"
+          className="w-[42px] h-[42px] flex items-center justify-center text-[#c29a45] hover:text-[#f0d28a] transition-colors cursor-pointer group"
         >
-          <PanelLeftClose className="size-5 group-hover:-translate-x-0.5 transition-transform text-[#fbeed0]" />
+          <PanelLeftClose className="size-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
       </aside>
 
@@ -179,9 +179,9 @@ export function SideRail() {
           onClick={toggleRail}
           aria-label="Mở rộng thanh rail"
           title="Mở rộng thanh rail"
-          className="fixed left-0 bottom-6 w-[38px] h-[44px] bg-[#a3171e] hover:bg-[#c4252c] text-white hidden lg:flex items-center justify-center rounded-r-md shadow-[2px_4px_16px_rgba(0,0,0,0.35)] z-50 transition-all cursor-pointer group border-r border-t border-b border-[#f0d28a]/40 animate-fade-in"
+          className="fixed left-2 bottom-6 w-10 h-10 text-[#c29a45] hover:text-[#f0d28a] hidden lg:flex items-center justify-center z-50 transition-all cursor-pointer group hover:scale-110 drop-shadow-md"
         >
-          <PanelLeftOpen className="size-5 group-hover:translate-x-0.5 transition-transform text-[#fbeed0]" />
+          <PanelLeftOpen className="size-7 group-hover:translate-x-0.5 transition-transform" />
         </button>
       )}
     </>
