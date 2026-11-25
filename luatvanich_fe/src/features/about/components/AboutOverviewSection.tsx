@@ -23,36 +23,6 @@ export function AboutOverviewSection({ lang }: AboutOverviewSectionProps) {
   return (
     <div className="font-sans text-[#0f1b33] bg-[#fffdf8]">
       
-      {/* 1. Thanh số liệu nổi (.kp) - đặt thụt lên đè vào chân Hero (-mt-[46px]) */}
-      <div className="max-w-[1180px] mx-auto px-6 sm:px-10 -mt-[46px] relative z-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 bg-white shadow-[0_18px_50px_rgba(11,29,63,0.18)] border-t-[3px] border-t-[#c29a45] divide-x divide-y md:divide-y-0 divide-[#e7dcc3]">
-          <div className="p-6 sm:p-7">
-            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">30+</b>
-            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
-              {isZh ? "年总所历程（1996年始）" : "năm hành nghề (từ 1996)"}
-            </small>
-          </div>
-          <div className="p-6 sm:p-7">
-            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">1.200+</b>
-            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
-              {isZh ? "件已办涉外商事实操案件" : "hồ sơ đã tiếp nhận"}
-            </small>
-          </div>
-          <div className="p-6 sm:p-7">
-            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">300+</b>
-            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
-              {isZh ? "位专业律师与涉外人才" : "luật sư và chuyên viên"}
-            </small>
-          </div>
-          <div className="p-6 sm:p-7">
-            <b className="block font-royal font-bold text-[46px] leading-none text-[#0b1d3f]">12</b>
-            <small className="text-[#5b6174] text-[13px] block mt-1.5 font-sans">
-              {isZh ? "处中越与东盟联动网络" : "văn phòng & điểm làm việc"}
-            </small>
-          </div>
-        </div>
-      </div>
-
       {/* 2. Ý nghĩa tên gọi Vạn Ích (.nm3) */}
       <section className="py-20 lg:py-24">
         <div className="max-w-[1180px] mx-auto px-6 sm:px-10">
