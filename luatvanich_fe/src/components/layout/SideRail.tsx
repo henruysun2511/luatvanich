@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { SealStamp } from "@/components/ui/seal-stamp";
 import { scrollToAnchor } from "@/lib/utils";
+import { useSideRail } from "@/components/layout/SideRailContext";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 export function SideRail() {
+  const { isOpen, toggleRail } = useSideRail();
   const [activeSection, setActiveSection] = useState("top");
   const [scrollProgress, setScrollProgress] = useState(0);
   const params = useParams();
@@ -85,15 +88,23 @@ export function SideRail() {
   return (
     <>
       {/* Thanh đo tiến trình cuộn trên đỉnh (Progress Bar .pb) */}
-      <div className="fixed top-0 left-0 lg:left-[84px] right-0 h-[3px] z-[90] pointer-events-none">
+      <div
+        className={`fixed top-0 right-0 h-[3px] z-[90] pointer-events-none transition-[left] duration-300 ease-in-out ${
+          isOpen ? "left-0 lg:left-[84px]" : "left-0"
+        }`}
+      >
         <div
           className="h-full bg-gradient-to-r from-[#a3171e] via-[#c29a45] to-[#f0d28a] transition-all duration-75"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
 
-      {/* Thanh Rail bên trái (.rail) */}
-      <aside className="fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden lg:flex flex-col items-center justify-between py-[22px] z-40 border-r border-[#c29a45]/35 select-none">
+      {/* Thanh Rail bên trái (.rail) - hỗ trợ trượt ẩn/hiện */}
+      <aside
+        className={`fixed left-0 top-0 bottom-0 w-[84px] bg-[#06122b] hidden lg:flex flex-col items-center justify-between py-[22px] z-40 border-r border-[#c29a45]/35 select-none transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         {/* Con dấu đỉnh Vạn */}
         <Link
           href={`/${lang}#top`}
@@ -149,15 +160,30 @@ export function SideRail() {
           </div>
         )}
 
-        {/* Nút gọi hotline ở chân rail (.tel) */}
-        <a
-          href="tel:0900123456"
-          aria-label="Gọi hotline"
-          className="w-[42px] h-[42px] bg-[#a3171e] hover:bg-[#c4252c] text-white flex items-center justify-center text-[17px] transition-colors shadow-md"
+        {/* Nút Toggle thu gọn thanh rail ở chân rail */}
+        <button
+          type="button"
+          onClick={toggleRail}
+          aria-label="Thu gọn thanh rail"
+          title="Thu gọn thanh rail"
+          className="w-[42px] h-[42px] bg-[#a3171e] hover:bg-[#c4252c] text-white flex items-center justify-center transition-colors shadow-md cursor-pointer group"
         >
-          ✆
-        </a>
+          <PanelLeftClose className="size-5 group-hover:-translate-x-0.5 transition-transform text-[#fbeed0]" />
+        </button>
       </aside>
+
+      {/* Nút Toggle mở lại thanh rail khi rail đang bị ẩn */}
+      {!isOpen && (
+        <button
+          type="button"
+          onClick={toggleRail}
+          aria-label="Mở rộng thanh rail"
+          title="Mở rộng thanh rail"
+          className="fixed left-0 bottom-6 w-[38px] h-[44px] bg-[#a3171e] hover:bg-[#c4252c] text-white hidden lg:flex items-center justify-center rounded-r-md shadow-[2px_4px_16px_rgba(0,0,0,0.35)] z-50 transition-all cursor-pointer group border-r border-t border-b border-[#f0d28a]/40 animate-fade-in"
+        >
+          <PanelLeftOpen className="size-5 group-hover:translate-x-0.5 transition-transform text-[#fbeed0]" />
+        </button>
+      )}
     </>
   );
 }
