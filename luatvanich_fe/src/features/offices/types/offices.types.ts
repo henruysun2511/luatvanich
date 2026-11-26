@@ -37,6 +37,20 @@ export interface PaginatedOfficesResponse {
   limit: number;
 }
 
+export interface PublicOffice {
+  id: string;
+  name: string;
+  address: string;
+  workingHours?: string;
+  description?: string;
+  phone?: string;
+  email?: string;
+  imageUrl?: string;
+  latitude?: number;
+  longitude?: number;
+  isHeadquarters: boolean;
+}
+
 export interface OfficeQueryParams {
   q?: string;
   status?: OfficeStatus;

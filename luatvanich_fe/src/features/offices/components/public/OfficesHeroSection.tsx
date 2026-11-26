@@ -8,10 +8,13 @@ interface OfficesHeroSectionProps {
 }
 
 export function OfficesHeroSection({ lang }: OfficesHeroSectionProps) {
-  const isZh = lang === "zh-CN";
+  const isZh = lang.startsWith("zh");
 
   return (
-    <section className="relative bg-[radial-gradient(800px_420px_at_85%_10%,rgba(194,154,69,0.2),transparent_60%),radial-gradient(600px_400px_at_0%_100%,rgba(163,23,30,0.3),transparent_60%),linear-gradient(135deg,#071530,#0f2a58_60%,#0b1d3f)] text-white overflow-hidden">
+    <section
+      lang={isZh ? "zh-CN" : "vi"}
+      className="relative bg-[radial-gradient(800px_420px_at_85%_10%,rgba(194,154,69,0.2),transparent_60%),radial-gradient(600px_400px_at_0%_100%,rgba(163,23,30,0.3),transparent_60%),linear-gradient(135deg,#071530,#0f2a58_60%,#0b1d3f)] text-white overflow-hidden"
+    >
       {/* Chữ Hán rỗng nét watermark khổng lồ 所 */}
       <div
         className="absolute right-[30px] -bottom-[130px] font-chinese font-bold text-[260px] sm:text-[360px] lg:text-[480px] leading-none text-transparent select-none pointer-events-none z-0"
@@ -60,8 +63,8 @@ export function OfficesHeroSection({ lang }: OfficesHeroSectionProps) {
 
           <p className="text-[#b6c0d6] text-base sm:text-[18px] max-w-[640px] m-0 leading-relaxed font-sans">
             {isZh
-              ? "在越南与中国设有六处实体执业点，让您在最靠近商业活动发生地直接会面专业律师。"
-              : "Sáu điểm làm việc tại Việt Nam và Trung Quốc, để bạn gặp luật sư gần nơi giao dịch nhất."}
+              ? "查找离您最近的办事机构，联系律师并查询前往路线。"
+              : "Tìm văn phòng gần bạn, xem giờ làm việc và liên hệ với đội ngũ luật sư."}
           </p>
         </div>
       </div>

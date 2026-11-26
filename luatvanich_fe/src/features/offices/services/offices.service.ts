@@ -3,6 +3,7 @@ import type {
   PaginatedOfficesResponse,
   OfficeItem,
   OfficeQueryParams,
+  PublicOffice,
   CreateOfficeInput,
   UpdateOfficeInput,
 } from "../types/offices.types";
@@ -48,9 +49,11 @@ export const officesService = {
   },
 
   /** Public: Lấy danh sách văn phòng đã xuất bản */
-  getPublicOffices: async (lang = "vi"): Promise<OfficeItem[]> => {
-    const res = await apiClient.get<{ data: OfficeItem[] }>(OFFICES_PUBLIC_URL, {
+  getPublicOffices: async (lang = "vi", signal?: AbortSignal): Promise<PublicOffice[]> => {
+    const res = await apiClient.get<{ data: PublicOffice[] }>(OFFICES_PUBLIC_URL, {
       params: { lang },
+      signal,
+      skipAuthRefresh: true,
     });
     return res.data.data;
   },

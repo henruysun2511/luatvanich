@@ -1,5 +1,6 @@
 import React from "react";
-import { OfficesHeroSection } from "@/features/offices";
+import { OfficesDirectorySection } from "@/features/offices/components/public/OfficesDirectorySection";
+import { OfficesHeroSection } from "@/features/offices/components/public/OfficesHeroSection";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -7,5 +8,10 @@ interface Props {
 
 export default async function OfficesPage({ params }: Props) {
   const { lang } = await params;
-  return <OfficesHeroSection lang={lang} />;
+  return (
+    <>
+      <OfficesHeroSection lang={lang} />
+      <OfficesDirectorySection lang={lang} />
+    </>
+  );
 }

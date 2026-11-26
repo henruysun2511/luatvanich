@@ -19,6 +19,13 @@ export const officesKeys = {
   public: (lang?: string) => [...officesKeys.all, "public", lang] as const,
 };
 
+export const usePublicOffices = (lang: string) => {
+  return useQuery({
+    queryKey: officesKeys.public(lang),
+    queryFn: ({ signal }) => officesService.getPublicOffices(lang, signal),
+  });
+};
+
 /** Hook lấy danh sách văn phòng Admin */
 export const useAdminOffices = (params?: OfficeQueryParams) => {
   const status = useAuthStore((s) => s.status);
