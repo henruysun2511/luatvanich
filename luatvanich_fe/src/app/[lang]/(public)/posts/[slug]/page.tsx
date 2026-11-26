@@ -1,5 +1,5 @@
 import React from "react";
-import { PostDetailView } from "@/features/posts";
+import { PostDetailView } from "@/features/posts/components/public/PostDetailView";
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>;

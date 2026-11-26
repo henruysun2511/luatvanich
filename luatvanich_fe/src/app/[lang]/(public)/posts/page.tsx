@@ -1,5 +1,6 @@
 import React from "react";
-import { PostsHeroSection, PostsDirectorySection } from "@/features/posts";
+import { PostsDirectorySection } from "@/features/posts/components/public/PostsDirectorySection";
+import { PostsHeroSection } from "@/features/posts/components/public/PostsHeroSection";
 
 interface Props {
   params: Promise<{ lang: string }>;
