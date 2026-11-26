@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/axios";
 import type {
   PaginatedPracticeAreasResponse,
   PracticeAreaItem,
+  PublicPracticeAreaItem,
   PracticeAreaQueryParams,
   CreatePracticeAreaInput,
   UpdatePracticeAreaInput,
@@ -67,11 +68,14 @@ export const practiceAreasService = {
   getPublicPracticeAreas: async (
     lang = "vi",
     featured?: boolean,
-  ): Promise<PracticeAreaItem[]> => {
-    const res = await apiClient.get<{ data: PracticeAreaItem[] }>(
+    signal?: AbortSignal,
+  ): Promise<PublicPracticeAreaItem[]> => {
+    const res = await apiClient.get<{ data: PublicPracticeAreaItem[] }>(
       PRACTICE_AREAS_PUBLIC_URL,
       {
         params: { lang, featured },
+        signal,
+        skipAuthRefresh: true,
       },
     );
     return res.data.data;

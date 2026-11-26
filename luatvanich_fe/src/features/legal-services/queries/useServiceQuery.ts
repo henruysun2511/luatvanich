@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { legalServicesService } from "../services/service.service";
 import type {
   LegalServiceQueryParams,
+  PublicLegalServicesQuery,
   CreateLegalServiceInput,
   UpdateLegalServiceInput,
   ServicePublishStatus,
@@ -17,9 +18,15 @@ export const legalServicesKeys = {
     [...legalServicesKeys.lists(), params] as const,
   details: () => [...legalServicesKeys.all, "detail"] as const,
   detail: (id: string) => [...legalServicesKeys.details(), id] as const,
-  public: (lang?: string, practiceAreaId?: string) =>
-    [...legalServicesKeys.all, "public", lang, practiceAreaId] as const,
+  public: (params: PublicLegalServicesQuery) =>
+    [...legalServicesKeys.all, "public", params] as const,
 };
+
+export const usePublicLegalServices = (params: PublicLegalServicesQuery) =>
+  useQuery({
+    queryKey: legalServicesKeys.public(params),
+    queryFn: ({ signal }) => legalServicesService.getPublicServices(params, signal),
+  });
 
 /** Hook lấy danh sách dịch vụ Admin */
 export const useAdminLegalServices = (params?: LegalServiceQueryParams) => {

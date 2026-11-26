@@ -25,8 +25,8 @@ export function SideRail() {
 
   // Page title mapping for subpages
   let pageTitle = "Luật Vạn Ích";
-  if (pathname.includes("/legal-services")) {
-    pageTitle = "Dịch vụ pháp lý";
+  if (pathname === `/${lang}/services` || pathname.includes("/legal-services")) {
+    pageTitle = lang === "zh-CN" ? "法律服务" : "Dịch vụ pháp lý";
   } else if (pathname.includes("/corridor")) {
     pageTitle = "Hành lang Trung – Việt";
   } else if (pathname.includes("/posts")) {

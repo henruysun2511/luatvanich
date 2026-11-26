@@ -1,4 +1,6 @@
 import { apiClient } from "@/lib/axios";
+import { PUBLIC_SERVICES_PAGE_SIZE } from "../constants/public-services.constant";
+import type { PublicLegalServicesQuery, PublicLegalServicesResponse } from "../types/service.types";
 import type {
   PaginatedLegalServicesResponse,
   LegalServiceItem,
@@ -78,13 +80,15 @@ export const legalServicesService = {
 
   /** Public: Lấy danh sách dịch vụ công khai */
   getPublicServices: async (
-    lang = "vi",
-    practiceAreaId?: string,
-  ): Promise<LegalServiceItem[]> => {
-    const res = await apiClient.get<{ data: LegalServiceItem[] }>(
+    params: PublicLegalServicesQuery,
+    signal?: AbortSignal,
+  ): Promise<PublicLegalServicesResponse> => {
+    const res = await apiClient.get<{ data: PublicLegalServicesResponse }>(
       LEGAL_SERVICES_PUBLIC_URL,
       {
-        params: { lang, practiceAreaId },
+        params: { ...params, limit: PUBLIC_SERVICES_PAGE_SIZE },
+        signal,
+        skipAuthRefresh: true,
       },
     );
     return res.data.data;

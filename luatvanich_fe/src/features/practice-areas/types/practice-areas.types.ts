@@ -14,6 +14,12 @@ export interface PracticeAreaTranslationItem {
   updatedAt?: string;
 }
 
+export interface PublicPracticeAreaItem {
+  id: string;
+  slug: string;
+  name: string;
+}
+
 export interface PracticeAreaItem {
   id: string;
   iconUrl?: string | null;

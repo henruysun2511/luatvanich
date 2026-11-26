@@ -1,3 +1,25 @@
+import type { PaginationInfo, SupportedLocale } from "@/types/api";
+
+export interface PublicLegalServiceItem {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  hanziBadge?: string | null;
+  fallback?: boolean;
+}
+
+export interface PublicLegalServicesQuery {
+  lang: SupportedLocale;
+  practiceAreaId?: string;
+  page: number;
+}
+
+export interface PublicLegalServicesResponse {
+  items: PublicLegalServiceItem[];
+  pagination: PaginationInfo;
+}
+
 export type ServicePublishStatus = "published" | "draft";
 
 export interface ServiceTranslationSummaryItem {

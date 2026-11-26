@@ -32,7 +32,8 @@ export function Header() {
     pathname?.startsWith(`/${lang}/lawyers`) ||
     pathname?.startsWith(`/${lang}/corridor`) ||
     pathname?.startsWith(`/${lang}/offices`);
-  const isServicesActive = pathname?.startsWith(`/${lang}/legal-services`);
+  const isServicesActive =
+    pathname === `/${lang}/services` || pathname?.startsWith(`/${lang}/legal-services`);
   const isPostsActive = pathname?.startsWith(`/${lang}/posts`);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId?: string) => {
@@ -178,7 +179,7 @@ export function Header() {
               onMouseLeave={() => setOpenDropdown(null)}
             >
               <Link
-                href={`/${lang}/legal-services`}
+                href={`/${lang}/services`}
                 onClick={() => setOpenDropdown(null)}
                 className={`flex items-center h-full border-b-[3px] transition-colors ${
                   isServicesActive
@@ -186,7 +187,7 @@ export function Header() {
                     : "border-transparent hover:text-[#a3171e]"
                 }`}
               >
-                Dịch vụ pháp lý
+                {lang === "zh-CN" ? "法律服务" : "Dịch vụ pháp lý"}
               </Link>
               <button
                 type="button"
@@ -214,7 +215,7 @@ export function Header() {
                         Doanh nghiệp &amp; đầu tư
                       </small>
                       <Link
-                        href={`/${lang}/legal-services`}
+                        href={`/${lang}/services`}
                         onClick={() => setOpenDropdown(null)}
                         className="text-[11px] text-[#85151b] hover:underline"
                       >
@@ -222,7 +223,7 @@ export function Header() {
                       </Link>
                     </div>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 0)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -230,7 +231,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">外商投资</em>
                     </Link>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 1)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -238,7 +239,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">双语合同</em>
                     </Link>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 4)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -254,7 +255,7 @@ export function Header() {
                         Tranh chấp &amp; giao dịch
                       </small>
                       <Link
-                        href={`/${lang}/legal-services`}
+                        href={`/${lang}/services`}
                         onClick={() => setOpenDropdown(null)}
                         className="text-[11px] text-[#85151b] hover:underline"
                       >
@@ -262,7 +263,7 @@ export function Header() {
                       </Link>
                     </div>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 2)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -270,7 +271,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">诉讼仲裁</em>
                     </Link>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 3)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -278,7 +279,7 @@ export function Header() {
                       <em className="font-hanzi font-bold text-sm not-italic text-[#c29a45]">债务追收</em>
                     </Link>
                     <Link
-                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/legal-services`}
+                      href={isHomeActive ? `/${lang}#linhvuc` : `/${lang}/services`}
                       onClick={(e) => handleServiceSelect(e, 5)}
                       className="flex justify-between items-center gap-4 px-6 py-3 font-sans font-medium text-sm text-[#0f1b33] hover:bg-[#fbf7ee] hover:text-[#a3171e] transition-colors"
                     >
@@ -422,11 +423,11 @@ export function Header() {
             </li>
             <li className="border-t border-[#e7dcc3]">
               <Link
-                href={`/${lang}/legal-services`}
+                href={`/${lang}/services`}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block p-4 ${isServicesActive ? "text-[#a3171e] bg-[#fbf7ee]" : "text-[#0b1d3f]"}`}
               >
-                Dịch vụ pháp lý
+                {lang === "zh-CN" ? "法律服务" : "Dịch vụ pháp lý"}
               </Link>
             </li>
             <li className="border-t border-[#e7dcc3]">

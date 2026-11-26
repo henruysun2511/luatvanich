@@ -1,13 +1,14 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
+import type { SupportedLocale } from "@/types/api";
+import type { PublicServicesFilters } from "../../utils/public-services-url";
+import { PublicServicesLanguageLinks } from "./PublicServicesLanguageLinks";
 
 interface LegalServicesHeroSectionProps {
-  lang: string;
+  lang: SupportedLocale;
+  filters: PublicServicesFilters;
 }
 
-export function LegalServicesHeroSection({ lang }: LegalServicesHeroSectionProps) {
+export function LegalServicesHeroSection({ lang, filters }: LegalServicesHeroSectionProps) {
   const isZh = lang === "zh-CN";
 
   return (
@@ -23,15 +24,18 @@ export function LegalServicesHeroSection({ lang }: LegalServicesHeroSectionProps
 
       <div className="max-w-[1180px] mx-auto px-6 sm:px-10 relative z-10 pt-11 pb-16 lg:pb-[70px]">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2.5 flex-wrap text-[13px] text-[#aab6d0] mb-[34px] font-sans" aria-label="Breadcrumb">
-          <Link href={`/${lang}`} className="hover:text-[#f0d28a] transition-colors">
-            {isZh ? "首页" : "Trang chủ"}
-          </Link>
-          <span className="opacity-50">/</span>
-          <b className="font-normal text-[#f0d28a]">
-            {isZh ? "法律服务" : "Dịch vụ pháp lý"}
-          </b>
-        </nav>
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <nav className="flex flex-wrap items-center gap-2.5 font-sans text-[13px] text-[#aab6d0]" aria-label={isZh ? "页面路径" : "Đường dẫn trang"}>
+            <Link href={`/${lang}`} className="transition-colors hover:text-[#f0d28a]">
+              {isZh ? "首页" : "Trang chủ"}
+            </Link>
+            <span className="opacity-50" aria-hidden="true">/</span>
+            <span aria-current="page" className="text-[#f0d28a]">
+              {isZh ? "法律服务" : "Dịch vụ pháp lý"}
+            </span>
+          </nav>
+          <PublicServicesLanguageLinks lang={lang} filters={filters} />
+        </div>
 
         {/* Nội dung Banner */}
         <div className="max-w-[840px]">
@@ -48,7 +52,7 @@ export function LegalServicesHeroSection({ lang }: LegalServicesHeroSectionProps
               </>
             ) : (
               <>
-                Tám mảng tư vấn cho{" "}
+                Dịch vụ pháp lý cho{" "}
                 <span className="text-[#f0d28a] italic font-medium">doanh nghiệp Việt – Trung</span>
               </>
             )}

@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  LegalServicesHeroSection,
-  LegalServicesDirectorySection,
-} from "@/features/legal-services";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getPublicServicesHref, parsePublicServicesFilters } from "@/features/legal-services/utils/public-services-url";
 
 interface Props {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default async function LegalServicesPage({ params }: Props) {
-  const { lang } = await params;
-  return (
-    <>
-      <LegalServicesHeroSection lang={lang} />
-      <LegalServicesDirectorySection lang={lang} />
-    </>
-  );
+export default async function LegalServicesPage({ params, searchParams }: Props) {
+  const [route, query] = await Promise.all([params, searchParams]);
+  if (route.lang !== "vi" && route.lang !== "zh-CN") notFound();
+  permanentRedirect(getPublicServicesHref(route.lang, parsePublicServicesFilters(query)));
 }

@@ -139,7 +139,7 @@ export const useDeletePracticeArea = () => {
 export const usePublicPracticeAreas = (lang = "vi", featured?: boolean) => {
   return useQuery({
     queryKey: practiceAreasKeys.public(lang, featured),
-    queryFn: () => practiceAreasService.getPublicPracticeAreas(lang, featured),
+    queryFn: ({ signal }) => practiceAreasService.getPublicPracticeAreas(lang, featured, signal),
     staleTime: 5 * 60 * 1000, // 5 phút cache
   });
 };
