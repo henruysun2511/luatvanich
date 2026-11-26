@@ -1,4 +1,7 @@
-import { Scale } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Scale } from "lucide-react";
+import { publicServiceDetailCopy } from "../../constants/public-service-detail.constant";
+import { getPublicServiceDetailHref } from "../../utils/public-services-url";
 import { cn } from "@/lib/utils";
 import type { SupportedLocale } from "@/types/api";
 import { publicServicesCopy } from "../../constants/public-services.constant";
@@ -30,6 +33,13 @@ export function PublicLegalServiceCard({ service, lang, view }: Props) {
           <h2 className="break-words font-serif text-xl font-bold leading-tight text-[#0b1d3f] sm:text-2xl">{service.title}</h2>
           {service.excerpt && <p className="mt-2 max-w-3xl break-words text-sm leading-relaxed text-[#52617a] sm:text-base">{service.excerpt}</p>}
         </div>
+        <Link
+          href={getPublicServiceDetailHref(lang, service.slug)}
+          aria-label={`${publicServiceDetailCopy[lang].detail} · ${service.title}`}
+          className="mt-3 inline-flex items-center gap-2 font-semibold text-[#85151b] hover:underline"
+        >
+          {publicServiceDetailCopy[lang].detail}<ArrowRight aria-hidden="true" className="size-4" />
+        </Link>
       </div>
     </article>
   );

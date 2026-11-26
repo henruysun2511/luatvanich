@@ -1,5 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { skipToken, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import type { SupportedLocale } from "@/types/api";
 import { legalServicesService } from "../services/service.service";
 import type {
   LegalServiceQueryParams,
@@ -20,12 +21,30 @@ export const legalServicesKeys = {
   detail: (id: string) => [...legalServicesKeys.details(), id] as const,
   public: (params: PublicLegalServicesQuery) =>
     [...legalServicesKeys.all, "public", params] as const,
+  publicDetail: (lang: SupportedLocale, slug: string) =>
+    [...legalServicesKeys.all, "public-detail", lang, slug] as const,
+  publicLawyers: (lang: SupportedLocale, practiceAreaId: string | null) =>
+    [...legalServicesKeys.all, "public-lawyers", lang, practiceAreaId] as const,
 };
 
 export const usePublicLegalServices = (params: PublicLegalServicesQuery) =>
   useQuery({
     queryKey: legalServicesKeys.public(params),
     queryFn: ({ signal }) => legalServicesService.getPublicServices(params, signal),
+  });
+
+export const usePublicLegalServiceDetail = (lang: SupportedLocale, slug: string) =>
+  useQuery({
+    queryKey: legalServicesKeys.publicDetail(lang, slug),
+    queryFn: ({ signal }) => legalServicesService.getPublicServiceDetail(lang, slug, signal),
+  });
+
+export const usePublicLegalServiceLawyers = (lang: SupportedLocale, practiceAreaId: string | null) =>
+  useQuery({
+    queryKey: legalServicesKeys.publicLawyers(lang, practiceAreaId),
+    queryFn: practiceAreaId
+      ? ({ signal }) => legalServicesService.getPublicServiceLawyers(lang, practiceAreaId, signal)
+      : skipToken,
   });
 
 /** Hook lấy danh sách dịch vụ Admin */

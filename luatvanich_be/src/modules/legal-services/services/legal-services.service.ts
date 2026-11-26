@@ -43,7 +43,7 @@ export class LegalServicesService {
     // BR1: Tìm dịch vụ theo slug, chỉ trả published
     const service = await this.serviceRepo.findBySlug(slug);
     if (!service) throw new LegalServiceNotFoundException(slug);
-    return this.mapper.toPublicResponse(service, lang);
+    return this.mapper.toPublicDetail(service, lang);
   }
 
   // ── [ADMIN] ──────────────────────────────────────────────────────────────
@@ -148,7 +148,10 @@ export class LegalServicesService {
     if (!service) throw new LegalServiceNotFoundException(id);
 
     // BR2: Kiểm tra slug không trùng
-    const slug = await this.resolveSlug(dto.slug || dto.title, lang, id);
+    const current = service.translations?.find((translation) => translation.languageCode === lang);
+    const slug = dto.slug || !current
+      ? await this.resolveSlug(dto.slug || dto.title, lang, id)
+      : current.slug;
 
     await this.translationRepo.upsert({
       serviceId: id,
@@ -159,7 +162,9 @@ export class LegalServicesService {
       contentHtml: dto.contentHtml,
       metaTitle: dto.metaTitle,
       metaDescription: dto.metaDescription,
-      isComplete: dto.isComplete ?? false,
+      isComplete: dto.isComplete ?? current?.isComplete ?? false,
+      processSteps: dto.processSteps?.map((step) => step.trim()) ?? dto.processSteps,
+      referenceFees: dto.referenceFees?.map((fee) => fee.trim()) ?? dto.referenceFees,
     });
 
     return this.getAdminById(id);

@@ -3,6 +3,7 @@ import { LegalService } from '../entities/legal-service.entity';
 import { LegalServiceTranslation } from '../entities/legal-service-translation.entity';
 import { LegalServiceAdminDto, TranslationSummaryDto } from '../dto/response/legal-service-admin.dto';
 import { LegalServicePublicDto } from '../dto/response/legal-service-public.dto';
+import { LegalServiceDetailPublicDto } from '../dto/response/legal-service-detail-public.dto';
 import { LangCode } from '../../../common/enums/lang.enum';
 
 @Injectable()
@@ -80,6 +81,29 @@ export class LegalServiceMapper {
       displayOrder: entity.displayOrder,
       hanziBadge: entity.hanziBadge,
       fallback: fallback || undefined,
+    };
+  }
+
+  toPublicDetail(entity: LegalService, lang: LangCode): LegalServiceDetailPublicDto {
+    const summary = this.toPublicResponse(entity, lang);
+    const translation = entity.translations?.find((item) => item.slug === summary.slug);
+    const localizedSlugs: LegalServiceDetailPublicDto['localizedSlugs'] = {};
+    for (const item of entity.translations ?? []) {
+      if (item.languageCode === LangCode.VI || item.isComplete) {
+        localizedSlugs[item.languageCode] = item.slug;
+      }
+    }
+    const areaTranslation = entity.practiceArea?.translations?.find(
+      (item) => item.languageCode === (translation?.languageCode ?? lang),
+    );
+    return {
+      ...summary,
+      practiceAreaId: entity.practiceArea?.id ?? null,
+      localizedSlugs,
+      processSteps: translation?.processSteps ?? [],
+      referenceFees: translation?.referenceFees ?? [],
+      feeStructure: areaTranslation?.feeStructure ?? undefined,
+      estimatedTime: areaTranslation?.estimatedTime ?? undefined,
     };
   }
 

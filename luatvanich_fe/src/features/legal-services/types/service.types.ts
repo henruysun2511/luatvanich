@@ -9,6 +9,22 @@ export interface PublicLegalServiceItem {
   fallback?: boolean;
 }
 
+export interface PublicLegalServiceDetail extends PublicLegalServiceItem {
+  practiceAreaId: string | null;
+  localizedSlugs: Partial<Record<SupportedLocale, string>>;
+  processSteps: string[];
+  referenceFees: string[];
+  feeStructure?: string;
+  estimatedTime?: string;
+}
+
+export interface PublicLegalServiceLawyer {
+  id: string;
+  fullName: string;
+  title?: string | null;
+  fallback?: boolean;
+}
+
 export interface PublicLegalServicesQuery {
   lang: SupportedLocale;
   practiceAreaId?: string;

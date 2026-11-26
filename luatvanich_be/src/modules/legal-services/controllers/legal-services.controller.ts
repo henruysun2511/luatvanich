@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { LegalServicesService } from '../services/legal-services.service';
 import { LegalServiceQueryDto } from '../dto/request/legal-service-query.dto';
 import { LegalServicePublicDto } from '../dto/response/legal-service-public.dto';
+import { LegalServiceDetailPublicDto } from '../dto/response/legal-service-detail-public.dto';
 import { SwaggerDoc } from '../../../common/swagger/swagger-doc';
 import { ApiResponse } from '../../../common/response/api-response';
 import { Public } from '../../../common/decorators/public.decorator';
@@ -39,7 +40,7 @@ export class LegalServicesController {
   @Get(':slug')
   @SwaggerDoc({
     summary: 'Chi tiết dịch vụ pháp lý theo slug',
-    responseType: LegalServicePublicDto,
+    responseType: LegalServiceDetailPublicDto,
   })
   async findBySlug(@Param('slug') slug: string, @Query('lang') lang = 'vi') {
     const langCode = lang.startsWith('zh') ? LangCode.ZH_CN : LangCode.VI;

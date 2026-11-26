@@ -17,6 +17,10 @@ export function parsePublicServicesFilters(
   return { practiceAreaId: validArea ? practiceAreaId.toLowerCase() : undefined, page: parsedPage };
 }
 
+export function getPublicServiceDetailHref(lang: SupportedLocale, slug: string): string {
+  return `/${lang}/services/${encodeURIComponent(slug)}`;
+}
+
 export function getPublicServicesHref(
   lang: SupportedLocale,
   { practiceAreaId, page }: PublicServicesFilters,

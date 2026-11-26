@@ -88,8 +88,10 @@ export class LegalServiceRepository {
   async findBySlug(slug: string): Promise<LegalService | null> {
     return this.repo
       .createQueryBuilder('s')
-      .innerJoinAndSelect('s.translations', 't', 't.slug = :slug', { slug })
+      .innerJoin('s.translations', 't', 't.slug = :slug', { slug })
       .leftJoinAndSelect('s.translations', 'all_t')
+      .leftJoinAndSelect('s.practiceArea', 'area', 'area.status = :areaStatus', { areaStatus: ContentStatus.PUBLISHED })
+      .leftJoinAndSelect('area.translations', 'area_translation')
       .where('s.status = :status', { status: ContentStatus.PUBLISHED })
       .getOne();
   }

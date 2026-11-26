@@ -33,7 +33,7 @@ export function Header() {
     pathname?.startsWith(`/${lang}/corridor`) ||
     pathname?.startsWith(`/${lang}/offices`);
   const isServicesActive =
-    pathname === `/${lang}/services` || pathname?.startsWith(`/${lang}/legal-services`);
+    pathname === `/${lang}/services` || pathname?.startsWith(`/${lang}/services/`) || pathname?.startsWith(`/${lang}/legal-services`);
   const isPostsActive = pathname?.startsWith(`/${lang}/posts`);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId?: string) => {

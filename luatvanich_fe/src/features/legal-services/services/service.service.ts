@@ -1,6 +1,12 @@
 import { apiClient } from "@/lib/axios";
 import { PUBLIC_SERVICES_PAGE_SIZE } from "../constants/public-services.constant";
-import type { PublicLegalServicesQuery, PublicLegalServicesResponse } from "../types/service.types";
+import type { SupportedLocale } from "@/types/api";
+import type {
+  PublicLegalServiceDetail,
+  PublicLegalServiceLawyer,
+  PublicLegalServicesQuery,
+  PublicLegalServicesResponse,
+} from "../types/service.types";
 import type {
   PaginatedLegalServicesResponse,
   LegalServiceItem,
@@ -76,6 +82,22 @@ export const legalServicesService = {
   /** Admin: Xóa mềm dịch vụ */
   deleteService: async (id: string): Promise<void> => {
     await apiClient.delete(`${LEGAL_SERVICES_ADMIN_URL}/${id}`);
+  },
+
+  async getPublicServiceDetail(lang: SupportedLocale, slug: string, signal?: AbortSignal) {
+    const res = await apiClient.get<{ data: PublicLegalServiceDetail }>(
+      `${LEGAL_SERVICES_PUBLIC_URL}/${encodeURIComponent(slug)}`,
+      { params: { lang }, signal, skipAuthRefresh: true },
+    );
+    return res.data.data;
+  },
+
+  async getPublicServiceLawyers(lang: SupportedLocale, practiceAreaId: string, signal?: AbortSignal) {
+    const res = await apiClient.get<{ data: { items: PublicLegalServiceLawyer[] } }>(
+      "/lawyers",
+      { params: { lang, practiceAreaId, limit: 100 }, signal, skipAuthRefresh: true },
+    );
+    return res.data.data;
   },
 
   /** Public: Lấy danh sách dịch vụ công khai */

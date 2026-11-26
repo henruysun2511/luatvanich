@@ -1,11 +1,12 @@
-import React from "react";
-import { LegalServiceDetailView } from "@/features/legal-services";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getPublicServiceDetailHref } from "@/features/legal-services/utils/public-services-url";
 
-interface Props {
+export default async function LegacyLegalServiceDetailPage({
+  params,
+}: {
   params: Promise<{ lang: string; slug: string }>;
-}
-
-export default async function LegalServiceDetailPage({ params }: Props) {
+}) {
   const { lang, slug } = await params;
-  return <LegalServiceDetailView lang={lang} slug={slug} />;
+  if (lang !== "vi" && lang !== "zh-CN") notFound();
+  permanentRedirect(getPublicServiceDetailHref(lang, slug));
 }

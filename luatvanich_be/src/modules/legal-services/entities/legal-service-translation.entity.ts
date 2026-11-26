@@ -33,6 +33,12 @@ export class LegalServiceTranslation {
   @Column({ name: 'content_html', type: 'text', nullable: true })
   contentHtml?: string;
 
+  @Column({ name: 'process_steps', type: 'jsonb', nullable: true })
+  processSteps?: string[] | null;
+
+  @Column({ name: 'reference_fees', type: 'jsonb', nullable: true })
+  referenceFees?: string[] | null;
+
   /** SEO meta title */
   @Column({ name: 'meta_title', nullable: true, length: 70 })
   metaTitle?: string;
