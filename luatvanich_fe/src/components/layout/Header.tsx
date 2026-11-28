@@ -12,6 +12,7 @@ export function Header() {
   const pathname = usePathname();
   const params = useParams();
   const lang = (params?.lang as string) || "vi";
+  const isZh = lang === "zh-CN" || lang === "zh";
 
   // Đóng dropdown khi click ra ngoài
   useEffect(() => {
@@ -61,20 +62,37 @@ export function Header() {
 
       {/* 2. Khung điều hướng chính (Chiều cao chuẩn 78px) */}
       <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-[78px] flex items-center justify-between gap-6">
-        {/* Logo thương hiệu */}
+        {/* Logo thương hiệu chuẩn Catalogue: LUẬT VẠN ÍCH • 广西万益（河内）律师事务所 */}
         <Link
           href={`/${lang}#top`}
           onClick={(e) => handleNavClick(e, "top")}
           className="flex items-center gap-3 shrink-0"
+          title={
+            isZh
+              ? "广西万益（河内）律师事务所 • 越南分支机构"
+              : "Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội • 广西万益（河内）律师事务所"
+          }
         >
           {/* Con dấu ấn triện chữ W hoàng gia */}
           <SealStamp char="W" size="md" variant="gold" className="w-[38px] h-[38px]" />
           <div>
-            <b className="block font-royal font-bold text-[21px] lg:text-[23px] leading-none tracking-[1.5px] text-[#0b1d3f]">
-              LUẬT VẠN ÍCH
+            <b
+              className={`block leading-tight text-[#0b1d3f] ${
+                isZh
+                  ? "font-hanzi font-bold text-[18px] lg:text-[20px] tracking-[1px]"
+                  : "font-royal font-bold text-[20px] lg:text-[22px] tracking-[1.2px]"
+              }`}
+            >
+              {isZh ? "广西万益（河内）律师事务所" : "LUẬT VẠN ÍCH"}
             </b>
-            <small className="block font-hanzi font-semibold text-[10px] lg:text-[11px] tracking-[4px] lg:tracking-[5px] text-[#c29a45] mt-1">
-              万益律师
+            <small
+              className={`block font-semibold text-[#c29a45] mt-0.5 whitespace-nowrap ${
+                isZh
+                  ? "font-sans text-[9px] lg:text-[10px] tracking-[1px] uppercase"
+                  : "font-hanzi text-[10px] lg:text-[11px] tracking-[1.5px] lg:tracking-[2px]"
+              }`}
+            >
+              {isZh ? "Văn phòng Luật sư Vạn Ích (Hà Nội)" : "广西万益（河内）律师事务所"}
             </small>
           </div>
         </Link>

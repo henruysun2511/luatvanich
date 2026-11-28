@@ -80,7 +80,7 @@ export function AdminSidebar() {
         <Link
           href="/admin"
           className="flex items-center gap-2.5 group"
-          title="LUẬT VẠN ÍCH • 万益律师事务所"
+          title="LUẬT VẠN ÍCH • 广西万益（河内）律师事务所"
         >
           <SealStamp
             char="W"
@@ -93,8 +93,8 @@ export function AdminSidebar() {
               <span className="font-royal font-bold text-base text-[#f0d28a] tracking-[1.5px] uppercase leading-tight">
                 LUẬT VẠN ÍCH
               </span>
-              <span className="font-hanzi text-[10px] text-[#c29a45] tracking-[2px] leading-tight">
-                万益律师事务所 &bull; ADMIN
+              <span className="font-hanzi text-[10px] text-[#c29a45] tracking-[1.5px] leading-tight">
+                广西万益（河内）律师事务所 &bull; ADMIN
               </span>
             </div>
           )}

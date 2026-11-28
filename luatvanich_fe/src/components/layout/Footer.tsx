@@ -10,6 +10,7 @@ import { scrollToAnchor } from "@/lib/utils";
 export function Footer() {
   const params = useParams();
   const lang = (params?.lang as string) || "vi";
+  const isZh = lang === "zh-CN" || lang === "zh";
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     scrollToAnchor(e, targetId);
@@ -30,10 +31,10 @@ export function Footer() {
               <SealStamp char="W" size="md" variant="gold" className="w-12 h-12" />
               <div>
                 <span className="block font-royal font-bold text-2xl text-white tracking-wider group-hover:text-[#f0d28a] transition-colors">
-                  LUẬT VẠN ÍCH
+                  {isZh ? "广西万益（河内）律师事务所" : "LUẬT VẠN ÍCH"}
                 </span>
-                <span className="block text-xs text-[#c29a45] font-hanzi font-semibold tracking-[4px] uppercase mt-1">
-                  万益律师事务所
+                <span className="block text-xs text-[#c29a45] font-hanzi font-semibold tracking-[2px] mt-1">
+                  {isZh ? "VĂN PHÒNG LUẬT SƯ VẠN ÍCH (HÀ NỘI)" : "广西万益（河内）律师事务所"}
                 </span>
               </div>
             </Link>
