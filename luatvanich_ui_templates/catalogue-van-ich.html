@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue Luật Vạn Ích (Hà Nội) | 广西万益（河内）律师事务所宣传册</title>
+  <link rel="icon" href="/favicon.ico">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --navy-950: #040a16;
+      --navy-900: #06122b;
+      --navy-800: #0b1d3f;
+      --navy-700: #132b5c;
+      --gold-500: #c29a45;
+      --gold-400: #d8b25e;
+      --gold-300: #f0d28a;
+      --gold-100: #fcf6e8;
+      --red-800: #8a1319;
+      --red-700: #a3171e;
+      --cream-50: #fbf9f4;
+      --cream-100: #f3efe4;
+      --text-dark: #1a2238;
+      --text-muted: #5e6b82;
+      --border-gold: rgba(194, 154, 69, 0.35);
+      --border-dark: rgba(226, 232, 240, 0.8);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #061024;
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-royal { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-hanzi { font-family: 'Noto Serif SC', 'Songti SC', serif; }
+
+    /* Sticky Navigation Header */
+    .top-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 18, 43, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .toolbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    .toolbar-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .toolbar-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .toolbar-btn:hover {
+      background: rgba(194, 154, 69, 0.2);
+      color: var(--gold-300);
+      border-color: var(--gold-500);
+    }
+    .toolbar-action-btn {
+      background: var(--red-700);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .toolbar-action-btn:hover { background: #b81c24; }
+
+    /* Catalogue Container */
+    .catalogue-wrapper {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 16px 80px;
+    }
+
+    /* Page Card Structure (A4-like proportions) */
+    .catalogue-page {
+      background: var(--cream-50);
+      margin-bottom: 40px;
+      border-radius: 4px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #d9d1c1;
+      page-break-after: always;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 36px 12px;
+      border-bottom: 1px solid rgba(194, 154, 69, 0.25);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold-500);
+      font-weight: 600;
+    }
+    .page-header .brand-title { color: var(--navy-800); }
+    .page-header .page-num {
+      background: var(--navy-800);
+      color: var(--gold-300);
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .page-body {
+      padding: 36px 44px;
+    }
+
+    .page-footer-decor {
+      height: 6px;
+      background: linear-gradient(90deg, var(--navy-900) 0%, var(--red-700) 50%, var(--gold-500) 100%);
+    }
+
+    /* Seal Stamp */
+    .seal-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--navy-800);
+      border: 1.5px solid var(--gold-500);
+      color: var(--gold-300);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .seal-stamp::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(194, 154, 69, 0.4);
+      pointer-events: none;
+    }
+
+    /* Typography & Badges */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(163, 23, 30, 0.08);
+      border: 1px solid rgba(163, 23, 30, 0.25);
+      color: var(--red-700);
+      padding: 3px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 32px;
+      color: var(--navy-900);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .section-subtitle-zh {
+      font-size: 17px;
+      color: var(--gold-500);
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+    }
+
+    /* Common Card Box */
+    .info-card {
+      background: #ffffff;
+      border: 1px solid #e5dec9;
+      padding: 22px;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+    }
+    .info-card:hover {
+      border-color: var(--gold-500);
+      box-shadow: 0 4px 16px rgba(194, 154, 69, 0.12);
+    }
+    .info-card-gold {
+      background: linear-gradient(135deg, #0b1d3f 0%, #06122b 100%);
+      color: #fff;
+      border: 1px solid var(--gold-500);
+      padding: 24px;
+    }
+
+    /* Grid utilities */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+
+    /* Specific Page 1 (Cover) */
+    .page-cover {
+      background: linear-gradient(150deg, #050d1e 0%, #0b1d3f 50%, #162646 100%);
+      color: #fff;
+      min-height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid var(--gold-500);
+      position: relative;
+    }
+    .cover-ornament {
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      font-size: 320px;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(194, 154, 69, 0.12);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Lawyer Card */
+    .lawyer-card {
+      background: #fff;
+      border: 1px solid #e5dec9;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .lawyer-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      object-position: top center;
+      background: #e2e8f0;
+    }
+    .lawyer-card-body {
+      padding: 18px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .lawyer-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 2px;
+    }
+    .lawyer-title {
+      font-size: 13px;
+      color: var(--gold-500);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .lawyer-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Print Styles */
+    @media print {
+      body { background: #fff; }
+      .top-toolbar { display: none; }
+      .catalogue-wrapper { margin: 0; padding: 0; max-width: 100%; }
+      .catalogue-page {
+        margin: 0;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        page-break-after: always;
+        min-height: 100vh;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+      .page-body { padding: 24px 20px; }
+      .section-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Control Bar -->
+  <header class="top-toolbar">
+    <a href="/" class="toolbar-brand">
+      <div class="seal-stamp" style="width: 32px; height: 32px; border-width: 1px;">
+        <svg viewBox="0 0 56 49" fill="currentColor" style="width: 65%; height: 65%;"><path fill-rule="evenodd" d="M 1 2 L 1 15 L 2 21 L 3 24 L 4 27 L 5 30 L 6 32 L 8 35 L 10 38 L 12 41 L 15 45 L 17 48 L 19 47 L 23 42 L 25 38 L 27 36 L 28 34 L 31 37 L 33 41 L 37 45 L 41 48 L 42 46 L 45 43 L 49 35 L 50 32 L 51 29 L 52 25 L 53 21 L 54 16 L 55 8 L 55 3 L 46 2 L 46 5 L 51 6 L 51 16 L 50 21 L 49 24 L 47 27 L 47 29 L 45 31 L 44 34 L 42 35 L 39 32 L 37 29 L 36 27 L 35 24 L 34 21 L 33 16 L 33 7 L 35 5 L 40 5 L 40 3 L 23 3 L 23 14 L 24 20 L 26 25 L 26 27 L 20 33 L 16 29 L 15 27 L 15 25 L 13 22 L 12 18 L 11 13 L 12 6 L 18 6 L 18 3 L 7 2 Z"/></svg>
+      </div>
+      <div>
+        <div style="font-size: 14px; letter-spacing: 1px;">LUẬT VẠN ÍCH (HÀ NỘI)</div>
+        <div style="font-size: 10px; color: var(--gold-400);" class="font-hanzi">广西万益（河内）律师事务所</div>
+      </div>
+    </a>
+
+    <nav class="toolbar-nav">
+      <a href="#page-1" class="toolbar-btn">Trang 1: Bìa</a>
+      <a href="#page-2" class="toolbar-btn">Trang 2: Định vị</a>
+      <a href="#page-3" class="toolbar-btn">Trang 3: Tổng sở</a>
+      <a href="#page-4" class="toolbar-btn">Trang 4: Lãnh đạo</a>
+      <a href="#page-5" class="toolbar-btn">Trang 5: Đội ngũ & Lợi thế</a>
+      <a href="#page-6" class="toolbar-btn">Trang 6: Dịch vụ & Ngành</a>
+      <a href="#page-7" class="toolbar-btn">Trang 7: Mạng lưới</a>
+      <a href="#page-8" class="toolbar-btn">Trang 8: Liên hệ</a>
+    </nav>
+
+    <div style="display: flex; gap: 10px;">
+      <button class="toolbar-action-btn" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        In / Xuất PDF
+      </button>
+      <a href="/" class="toolbar-btn" style="background: rgba(255,255,255,0.15); color: #fff;">Về Trang Chủ &rarr;</a>
+    </div>
+  </header>
+
+  <div class="catalogue-wrapper">
+
+    <!-- ==================== TRANG 1: BÌA CATALOGUE ==================== -->
+    <section class="catalogue-page page-cover" id="page-1">
+      <div class="cover-ornament font-hanzi">万益</div>
+      <div class="page-header" style="border-color: rgba(194, 154, 69, 0.4); color: var(--gold-300);">
+        <div>广西万益（河内）律师事务所</div>
+        <div class="page-num">01 / 08</div>
+      </div>
+
+      <div class="page-body" style="padding: 60px 48px; text-align: center; position: relative; z-index: 2;">
+        <div style="margin-bottom: 28px;">
+          <div class="seal-stamp" style="width: 72px; height: 72px; margin: 0 auto 20px; border-width: 2px;">
+            <svg viewBox="0 0 56 49" fill="currentColor" style="width: 65%; height: 65%;"><path fill-rule="evenodd" d="M 1 2 L 1 15 L 2 21 L 3 24 L 4 27 L 5 30 L 6 32 L 8 35 L 10 38 L 12 41 L 15 45 L 17 48 L 19 47 L 23 42 L 25 38 L 27 36 L 28 34 L 31 37 L 33 41 L 37 45 L 41 48 L 42 46 L 45 43 L 49 35 L 50 32 L 51 29 L 52 25 L 53 21 L 54 16 L 55 8 L 55 3 L 46 2 L 46 5 L 51 6 L 51 16 L 50 21 L 49 24 L 47 27 L 47 29 L 45 31 L 44 34 L 42 35 L 39 32 L 37 29 L 36 27 L 35 24 L 34 21 L 33 16 L 33 7 L 35 5 L 40 5 L 40 3 L 23 3 L 23 14 L 24 20 L 26 25 L 26 27 L 20 33 L 16 29 L 15 27 L 15 25 L 13 22 L 12 18 L 11 13 L 12 6 L 18 6 L 18 3 L 7 2 Z"/></svg>
+          </div>
+          <p class="font-hanzi" style="font-size: 13px; letter-spacing: 3px; color: var(--gold-400); text-transform: uppercase;">VẠN ÍCH HÀ NỘI · 万益河内</p>
+        </div>
+
+        <h1 class="font-royal" style="font-size: 54px; font-weight: 700; line-height: 1.15; color: #fff; margin-bottom: 12px; letter-spacing: 1.5px;">
+          VĂN PHÒNG LUẬT SƯ VẠN ÍCH<br/>
+          <span style="color: var(--gold-300);">QUẢNG TÂY TẠI HÀ NỘI</span>
+        </h1>
+        <h2 class="font-hanzi" style="font-size: 28px; font-weight: 700; color: #e2e8f0; margin-bottom: 36px; letter-spacing: 3px;">
+          广西万益（河内）律师事务所
+        </h2>
+
+        <div style="width: 120px; height: 2px; background: var(--gold-500); margin: 0 auto 36px;"></div>
+
+        <!-- Official Slogan Banner -->
+        <div style="display: inline-block; background: rgba(163, 23, 30, 0.4); border: 1px solid var(--gold-500); padding: 16px 36px; border-radius: 4px;">
+          <div class="font-hanzi" style="font-size: 24px; font-weight: 700; color: var(--gold-300); letter-spacing: 4px; margin-bottom: 4px;">
+            链接中越 · 法律护航
+          </div>
+          <div class="font-royal" style="font-size: 18px; color: #fff; letter-spacing: 1px;">
+            Kết nối Việt–Trung, đồng hành pháp lý vững chắc
+          </div>
+        </div>
+      </div>
+
+      <div style="padding: 24px 48px; border-top: 1px solid rgba(194, 154, 69, 0.3); display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8;">
+        <div>HỒ SƠ NĂNG LỰC & BẢN GIỚI THIỆU CHÍNH THỨC</div>
+        <div>TIÊU CHUẨN PHÁP LÝ BỘ TƯ PHÁP VIỆT NAM</div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 2: ĐỊNH VỊ & TƯ CÁCH PHÁP LÝ ==================== -->
+    <section class="catalogue-page" id="page-2">
+      <div class="page-header">
+        <div class="brand-title">广西万益（河内）律师事务所 · VẠN ÍCH HÀ NỘI</div>
+        <div class="page-num">02 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">河内办公室简介 · GIỚI THIỆU CHI NHÁNH HÀ NỘI</div>
+        <h2 class="section-title font-royal">Định vị và Năng lực Pháp lý Xuyên biên giới</h2>
+        <div class="section-subtitle-zh font-hanzi">经越南司法部批准设立的东盟核心跨境法律服务平台</div>
+
+        <div class="grid-2" style="margin-bottom: 24px;">
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 20px; color: var(--red-700); font-weight: 700; margin-bottom: 6px;">
+              1. 品牌定位 · Vai trò tại ASEAN
+            </h3>
+            <p style="font-size: 13.5px; color: var(--navy-900); font-weight: 600; margin-bottom: 6px;" class="font-hanzi">
+              万益布局东盟的核心跨境法律服务平台
+            </p>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
+              Được Bộ Tư pháp Việt Nam chấp thuận thành lập, chi nhánh Hà Nội là đầu mối dịch vụ pháp lý xuyên biên giới của Vạn Ích tại ASEAN. Văn phòng hỗ trợ hoạt động đầu tư và thương mại Việt–Trung trong các lĩnh vực hạ tầng, vật liệu xây dựng, bất động sản, khoáng sản, y tế, hạ tầng tính toán AI và nông nghiệp hiện đại.
+            </p>
+            <p style="font-size: 12px; color: #64748b; line-height: 1.5;" class="font-hanzi">
+              融合中越双法域实战经验与东盟协同服务网络，为客户提供项目投资落地、经营运营风控、风险处置、争议解决全周期定制化法律解决方案。
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 20px; color: var(--red-700); font-weight: 700; margin-bottom: 6px;">
+              2. 机构背景与业务范围 · Nền tảng & Phạm vi
+            </h3>
+            <p style="font-size: 13.5px; color: var(--navy-900); font-weight: 600; margin-bottom: 6px;" class="font-hanzi">
+              全国优秀律师事务所设立的境外涉外法律服务分支机构
+            </p>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
+              Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội là chi nhánh ở nước ngoài của Văn phòng Luật sư Vạn Ích Quảng Tây — đơn vị được vinh danh là Văn phòng Luật sư xuất sắc toàn quốc. Chi nhánh đã hoàn tất thủ tục lưu hồ sơ tại Bộ Tư pháp Trung Quốc, tuân thủ pháp luật Việt Nam và phối hợp với luật sư được cấp phép hành nghề tại Việt Nam để cung cấp dịch vụ pháp lý song ngữ.
+            </p>
+            <p style="font-size: 12px; color: #64748b; line-height: 1.5;" class="font-hanzi">
+              已在中国司法部完成备案，严格按照越南当地法律合规运营；联合越南本土持证律师，提供专业中、越双语法律服务。
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 20px; color: var(--navy-900); font-weight: 700; margin-bottom: 6px;">
+              3. 跨境法律服务 · Nghiệp vụ Xuyên biên giới
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
+              Đội ngũ am hiểu sâu sắc pháp luật hai nước: từ thủ tục đầu tư ra nước ngoài của Trung Quốc (ODI), điều kiện tiếp cận thị trường Việt Nam (FDI), quy tắc xuất xứ theo các hiệp định FTA và RCEP đến trọng tài thương mại quốc tế (VIAC / CIETAC).
+            </p>
+            <p style="font-size: 12px; color: #64748b; line-height: 1.5;" class="font-hanzi">
+              熟稔中越两国法律体系，精通ODI备案、越南外资准入、自贸协定及RCEP原产地规则、商事仲裁等实务，贯穿尽调、设立、运营风控与争议解决全流程。
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 20px; color: var(--navy-900); font-weight: 700; margin-bottom: 6px;">
+              4. 区位布局 · Vị trí và Mạng lưới
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
+              Văn phòng đặt tại khu hành chính ngoại giao trung tâm Thủ đô Hà Nội, gần Bộ Công an, cơ quan quản lý đầu tư nước ngoài, trung tâm trọng tài và công chứng. Xây dựng mạng lưới "Hai điểm tựa": Nam Ninh – Sùng Tả – Hà Nội, bao phủ các vùng kinh tế trọng điểm Bắc – Trung – Nam.
+            </p>
+            <p style="font-size: 12px; color: #64748b; line-height: 1.5;" class="font-hanzi">
+              办公场地设立于越南首都河内核心政务片区，毗邻外资主管机关、仲裁及公证机构；联动南宁、崇左口岸，辐射越南全境重点产业带。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 3: TỔNG SỞ VẠN ÍCH & THÀNH TỰU ==================== -->
+    <section class="catalogue-page" id="page-3">
+      <div class="page-header">
+        <div class="brand-title">广西万益律师事务所律师团队 · QUY MÔ & TỔNG SỞ</div>
+        <div class="page-num">03 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">律所概况 · TỔNG QUAN TẬP THỂ VẠN ÍCH QUẢNG TÂY</div>
+        <h2 class="section-title font-royal">Hệ thống Hãng luật Xuất sắc Toàn quốc</h2>
+        <div class="section-subtitle-zh font-hanzi">全国优秀律师事务所 · 1996年创立 · 秉承“高效、优质，共建、共享”理念</div>
+
+        <!-- 4 Big Stats -->
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="info-card-gold" style="text-align: center;">
+            <div class="font-royal" style="font-size: 44px; font-weight: 700; color: var(--gold-300); line-height: 1;">1996</div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Năm thành lập Tổng sở</div>
+            <div style="font-size: 11px; color: var(--gold-400);" class="font-hanzi">总所成立年份</div>
+          </div>
+          <div class="info-card-gold" style="text-align: center;">
+            <div class="font-royal" style="font-size: 44px; font-weight: 700; color: var(--gold-300); line-height: 1;">300+</div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Luật sư & Chuyên viên</div>
+            <div style="font-size: 11px; color: var(--gold-400);" class="font-hanzi">律师及专业人员</div>
+          </div>
+          <div class="info-card-gold" style="text-align: center;">
+            <div class="font-royal" style="font-size: 44px; font-weight: 700; color: var(--gold-300); line-height: 1;">9000+</div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Mét vuông văn phòng</div>
+            <div style="font-size: 11px; color: var(--gold-400);" class="font-hanzi">平方米办公面积</div>
+          </div>
+          <div class="info-card-gold" style="text-align: center;">
+            <div class="font-royal" style="font-size: 44px; font-weight: 700; color: var(--gold-300); line-height: 1;">12+5</div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Ban Chuyên môn & Vận hành</div>
+            <div style="font-size: 11px; color: var(--gold-400);" class="font-hanzi">专业部门与运营团队</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 24px;">
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 8px;">
+              Mạng lưới văn phòng toàn cầu (全球办公网络)
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+              <strong>Trung Quốc:</strong> Nam Ninh (Trụ sở chính Cửu Châu Quốc Tế), Bắc Kinh, Sùng Tả, Phòng Thành Cảng, Liễu Châu, Quế Lâm, Bắc Hải, Quý Cảng, Lai Tân.<br/>
+              <strong>Quốc tế & Đông Nam Á:</strong> Singapore, Kuala Lumpur (Malaysia), Hà Nội (Việt Nam).
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--red-700); font-weight: 700; margin-bottom: 8px;">
+              Giải thưởng & Vinh danh cấp Quốc gia (所获主要荣誉)
+            </h3>
+            <ul style="font-size: 12.5px; color: var(--text-muted); line-height: 1.6; padding-left: 18px;">
+              <li>3 lần đạt danh hiệu <strong>"Văn phòng Luật sư xuất sắc toàn quốc"</strong> do Hiệp hội Luật sư toàn Trung Quốc trao tặng (2005, 2011, 2016).</li>
+              <li>Bộ Tư pháp vinh danh <strong>"Tập thể Dịch vụ pháp lý công ích xuất sắc toàn quốc"</strong> (2019, 2024).</li>
+              <li>Ủy ban Văn minh Trung ương trao tặng <strong>"Đơn vị văn minh toàn quốc"</strong> (2020).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 4: BAN LÃNH ĐẠO CỐT LÕI ==================== -->
+    <section class="catalogue-page" id="page-4">
+      <div class="page-header">
+        <div class="brand-title">核心负责人及中方律师 · LÃNH ĐẠO & LUẬT SƯ TRUNG QUỐC</div>
+        <div class="page-num">04 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">专业团队 · ĐỘI NGŨ LUẬT SƯ CỐT LÕI</div>
+        <h2 class="section-title font-royal">Ban Lãnh đạo & Luật sư Phụ trách Trung – Việt</h2>
+        <div class="section-subtitle-zh font-hanzi">双法域实战经验 · 跨境投融资与涉外诉讼骨干专家</div>
+
+        <div class="grid-2" style="margin-bottom: 24px;">
+          <!-- LS Lăng Thần -->
+          <div class="lawyer-card">
+            <img src="../luatvanich_fe/public/images/lawyers/luat-su-lang-than-portrait.jpeg" alt="Luật sư Lăng Thần - Ling Chen">
+            <div class="lawyer-card-body">
+              <div>
+                <div class="lawyer-name font-royal">Luật sư Lăng Thần (Ling Chen) <span class="font-hanzi" style="font-size: 16px; color: var(--gold-500);">凌晨</span></div>
+                <div class="lawyer-title">Trưởng chi nhánh Hà Nội · Người sáng lập Chi nhánh</div>
+                <p class="lawyer-desc">
+                  Cử nhân Luật học, du học tại Đại học Hà Nội từ 2010. Hơn 10 năm kinh nghiệm chuyên sâu giải quyết các vấn đề pháp lý song ngữ Việt – Trung. Ủy viên Ủy ban Mặt trận Tổ quốc TP. Sùng Tả khoá IV, V, VI; Chuyên gia tư vấn lập pháp HĐND TP. Sùng Tả. Đạt danh hiệu Luật sư xuất sắc Sùng Tả, Đảng viên xuất sắc ngành Luật sư Quảng Tây.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LS Tưởng Nữ Trinh -->
+          <div class="lawyer-card">
+            <img src="../luatvanich_fe/public/images/lawyers/luat-su-tuong-nu-trinh-portrait.jpeg" alt="Luật sư Tưởng Nữ Trinh">
+            <div class="lawyer-card-body">
+              <div>
+                <div class="lawyer-name font-royal">Luật sư Tưởng Nữ Trinh <span class="font-hanzi" style="font-size: 16px; color: var(--gold-500);">蒋女贞</span></div>
+                <div class="lawyer-title">Phó Trưởng chi nhánh Hà Nội · Thạc sĩ Luật song ngữ Trung – Việt</div>
+                <p class="lawyer-desc">
+                  Thạc sĩ Luật, Luật sư thực chiến song ngữ Trung – Việt. Chuyên gia tư vấn đàm phán hợp đồng, đầu tư FDI xuyên biên giới, kiểm soát rủi ro pháp lý doanh nghiệp và giải quyết tranh chấp kinh tế song phương. Đầu mối liên lạc và tư vấn trực tiếp cho các nhà đầu tư Trung Quốc vào Việt Nam.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- LS Lăng Bân -->
+          <div class="info-card">
+            <div class="lawyer-name font-royal">Luật sư Lăng Bân <span class="font-hanzi" style="font-size: 16px; color: var(--gold-500);">凌斌</span></div>
+            <div class="lawyer-title">Chủ nhiệm Tổng sở Vạn Ích · Bí thư Đảng bộ</div>
+            <p class="lawyer-desc">
+              Luật sư cấp một (hạng chức danh cao nhất), Tiến sĩ Luật học, Tiến sĩ sau đại học Đại học Chính pháp Tây Nam. Luật sư xuất sắc toàn quốc do Bộ Tư pháp trao tặng. Chuyên gia đầu ngành về tái cấu trúc doanh nghiệp, mua bán sáp nhập (M&A) và các vụ đại án thương mại.
+            </p>
+          </div>
+
+          <!-- LS Ngũ Quang Hồng -->
+          <div class="info-card">
+            <div class="lawyer-name font-royal">Luật sư Ngũ Quang Hồng <span class="font-hanzi" style="font-size: 16px; color: var(--gold-500);">伍光红</span></div>
+            <div class="lawyer-title">Giáo sư · Tiến sĩ Luật học ĐHQG Hà Nội</div>
+            <p class="lawyer-desc">
+              Giáo sư Học viện Pháp luật Đại học Dân tộc Quảng Tây, Giảng viên hướng dẫn nghiên cứu sinh Đại học Luật - ĐHQG Hà Nội. Chủ trì hơn 10 đề tài cấp Quốc gia và Bộ, xuất bản hơn 10 công trình chuyên khảo dịch thuật bao gồm <em>"Bộ luật Dân sự Việt Nam"</em> và <em>"Tuyển tập Pháp luật Đầu tư Thương mại Việt Nam"</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 5: ĐỘI NGŨ VIỆT NAM & 5 LỢI THẾ ==================== -->
+    <section class="catalogue-page" id="page-5">
+      <div class="page-header">
+        <div class="brand-title">中越专业团队 · 对外联络 · 核心优势 · ĐỘI NGŨ & LỢI THẾ</div>
+        <div class="page-num">05 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">核心优势 · 5 LỢI THẾ CẠNH TRANH CỐT LÕI</div>
+        <h2 class="section-title font-royal">5 Trụ cột Sức mạnh Pháp lý Khép kín</h2>
+        <div class="section-subtitle-zh font-hanzi">双支点联动 · 双法域闭环 · 赛道深耕 · 双语全周期 · 前置风控赋能</div>
+
+        <!-- 5 Core Advantages -->
+        <div class="grid-5" style="margin-bottom: 28px;">
+          <div class="info-card" style="padding: 16px 14px;">
+            <div style="font-size: 24px; font-weight: 700; color: var(--red-700);" class="font-royal">01</div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--navy-900); margin: 6px 0 4px;">Hai điểm tựa</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">双支点联动</div>
+            <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">Chi nhánh Sùng Tả (cửa khẩu) kết hợp Chi nhánh Hà Nội (thủ đô) hiệp đồng xử lý thủ tục trong nước và phê duyệt tại Việt Nam.</p>
+          </div>
+
+          <div class="info-card" style="padding: 16px 14px;">
+            <div style="font-size: 24px; font-weight: 700; color: var(--red-700);" class="font-royal">02</div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--navy-900); margin: 6px 0 4px;">Hai hệ thống luật</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">双法域闭环</div>
+            <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">Phân tích đồng thời Luật Trung Quốc và Luật Việt Nam: ODI, điều kiện tiếp cận thị trường FDI, quy tắc xuất xứ RCEP, chuyển vốn.</p>
+          </div>
+
+          <div class="info-card" style="padding: 16px 14px;">
+            <div style="font-size: 24px; font-weight: 700; color: var(--red-700);" class="font-royal">03</div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--navy-900); margin: 6px 0 4px;">Chuyên sâu ngành</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">赛道深耕</div>
+            <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">Tập trung vào các dự án thực tế: hạ tầng xây dựng, đất đai, mỏ khoáng sản, vật liệu, nông sản, trung tâm dữ liệu AI.</p>
+          </div>
+
+          <div class="info-card" style="padding: 16px 14px;">
+            <div style="font-size: 24px; font-weight: 700; color: var(--red-700);" class="font-royal">04</div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--navy-900); margin: 6px 0 4px;">Song ngữ trọn gói</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">双语全周期</div>
+            <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">Đội ngũ song ngữ Việt – Trung trực tiếp đàm phán, thành lập, quản trị rủi ro vận hành và soạn thảo văn bản pháp lý song ngữ.</p>
+          </div>
+
+          <div class="info-card" style="padding: 16px 14px;">
+            <div style="font-size: 24px; font-weight: 700; color: var(--red-700);" class="font-royal">05</div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--navy-900); margin: 6px 0 4px;">Kiểm soát rủi ro</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">前置风控赋能</div>
+            <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">Kết nối cơ quan quản lý, ban quản lý khu công nghiệp và trọng tài để nhận diện rủi ro sớm về đầu tư, thuế, xuất xứ.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Đội ngũ Việt Nam -->
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 8px;">
+              Đội ngũ Luật sư Hợp tác Việt Nam (越方合作律师团队)
+            </h3>
+            <ul style="font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style: square; padding-left: 18px;">
+              <li><strong>TS. Trần Thị Hằng:</strong> Tiến sĩ Luật học, Luật sư kỳ cựu chuyên sâu giải quyết tranh chấp kinh doanh thương mại và tố tụng tại Việt Nam.</li>
+              <li><strong>LS. Trần Anh Tú:</strong> Tiến sĩ Luật tu nghiệp tại Trung Quốc, chuyên sâu về M&A, FDI và hợp đồng song ngữ.</li>
+              <li><strong>LS. Lê Chí Trinh:</strong> Tiến sĩ Hán ngữ, am hiểu sâu sắc hệ thống thuật ngữ pháp lý và văn hóa đàm phán song phương.</li>
+            </ul>
+          </div>
+
+          <!-- Bộ phận Đối ngoại -->
+          <div class="info-card">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 8px;">
+              Bộ phận Đối ngoại & Kết nối Quốc tế (对外联络部)
+            </h3>
+            <ul style="font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style: square; padding-left: 18px;">
+              <li><strong>TS. Trần Trà My (Trần Trà My):</strong> Cố vấn cao cấp, Tiến sĩ Kinh tế Thương mại Quốc tế tại ĐH Kinh tế Thương mại Đối ngoại Bắc Kinh (UIBE). Thành thạo tiếng Việt, tiếng Trung và tiếng Anh.</li>
+              <li><strong>TS. Dương Huyền:</strong> Tiến sĩ, Cố vấn kết nối quan hệ chính phủ và các hiệp hội thương mại đầu tư song phương.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 6: DỊCH VỤ & 5 NGÀNH TRỌNG ĐIỂM ==================== -->
+    <section class="catalogue-page" id="page-6">
+      <div class="page-header">
+        <div class="brand-title">一站式涉越跨境法律服务 · PHẠM VI DỊCH VỤ & NGÀNH TRỌNG ĐIỂM</div>
+        <div class="page-num">06 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">重点行业 · 5 NGÀNH MŨI NHỌN</div>
+        <h2 class="section-title font-royal">Phạm vi Dịch vụ và 5 Ngành Trọng điểm</h2>
+        <div class="section-subtitle-zh font-hanzi">专注涉越南一站式跨境法律服务 · 护航中越双向投资行稳致远</div>
+
+        <!-- 5 Focus Sectors -->
+        <div class="grid-5" style="margin-bottom: 28px;">
+          <div class="info-card" style="text-align: center; padding: 18px 12px; border-top: 3px solid var(--red-700);">
+            <div style="font-size: 26px; margin-bottom: 6px;">🤖</div>
+            <h4 style="font-size: 13.5px; font-weight: 700; color: var(--navy-900);">AI & Trung tâm Tính toán</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-top: 2px;" class="font-hanzi">AI算力与数字经济</div>
+          </div>
+          <div class="info-card" style="text-align: center; padding: 18px 12px; border-top: 3px solid var(--gold-500);">
+            <div style="font-size: 26px; margin-bottom: 6px;">🏗️</div>
+            <h4 style="font-size: 13.5px; font-weight: 700; color: var(--navy-900);">Hạ tầng Xây dựng</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-top: 2px;" class="font-hanzi">基建工程与EPC承包</div>
+          </div>
+          <div class="info-card" style="text-align: center; padding: 18px 12px; border-top: 3px solid var(--navy-700);">
+            <div style="font-size: 26px; margin-bottom: 6px;">🏢</div>
+            <h4 style="font-size: 13.5px; font-weight: 700; color: var(--navy-900);">Bất động sản Công nghiệp</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-top: 2px;" class="font-hanzi">地产开发与工业园区</div>
+          </div>
+          <div class="info-card" style="text-align: center; padding: 18px 12px; border-top: 3px solid var(--red-700);">
+            <div style="font-size: 26px; margin-bottom: 6px;">⛏️</div>
+            <h4 style="font-size: 13.5px; font-weight: 700; color: var(--navy-900);">Khoáng sản & Năng lượng</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-top: 2px;" class="font-hanzi">矿产资源与新能源</div>
+          </div>
+          <div class="info-card" style="text-align: center; padding: 18px 12px; border-top: 3px solid var(--gold-500);">
+            <div style="font-size: 26px; margin-bottom: 6px;">🌾</div>
+            <h4 style="font-size: 13.5px; font-weight: 700; color: var(--navy-900);">Nông nghiệp Hiện đại</h4>
+            <div style="font-size: 11px; color: var(--gold-500); margin-top: 2px;" class="font-hanzi">现代农业与大宗农产品</div>
+          </div>
+        </div>
+
+        <!-- 4 Pillars of Services -->
+        <h3 class="font-royal" style="font-size: 20px; color: var(--navy-900); font-weight: 700; margin-bottom: 14px;">
+          Chuỗi Dịch vụ Toàn diện (全链条业务版图)
+        </h3>
+        <div class="grid-4">
+          <div class="info-card">
+            <h4 style="font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 6px;">1. Đầu tư & M&A</h4>
+            <div style="font-size: 12px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">投资并购</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.55;">
+              Thẩm định pháp lý dự án (Legal DD), cấu trúc giao dịch M&A, xin cấp giấy chứng nhận đăng ký đầu tư (IRC) và doanh nghiệp (ERC).
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 6px;">2. Cố vấn & Tuân thủ</h4>
+            <div style="font-size: 12px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">法律顾问与合规</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.55;">
+              Tư vấn thường xuyên (Retainer), tuân thủ lao động, thuế, môi trường, xuất xứ hàng hóa Form E và kiểm soát rủi ro pháp lý vận hành.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 6px;">3. Hỗ trợ Thương mại</h4>
+            <div style="font-size: 12px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">商事配套服务</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.55;">
+              Thủ tục ODI tại TQ, đăng ký kinh doanh tại VN, thuê nhà xưởng, đăng ký và bảo hộ nhãn hiệu, mở tài khoản vốn đầu tư và chuyển lợi nhuận.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 6px;">4. Giải quyết Tranh chấp</h4>
+            <div style="font-size: 12px; color: var(--gold-500); margin-bottom: 6px;" class="font-hanzi">争议解决</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.55;">
+              Đại diện tố tụng tại Tòa án các cấp tại Việt Nam và Trọng tài quốc tế (VIAC, CIETAC, SIAC), giải quyết các vụ án thương mại và hình sự xuyên biên giới.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 7: GIAO LƯU & MẠNG LƯỚI BẮC - TRUNG - NAM ==================== -->
+    <section class="catalogue-page" id="page-7">
+      <div class="page-header">
+        <div class="brand-title">中越交流活动 · SƠ ĐỒ ĐẦU MỐI PHỐI HỢP VIỆT–TRUNG</div>
+        <div class="page-num">07 / 08</div>
+      </div>
+
+      <div class="page-body">
+        <div class="section-tag font-hanzi">跨境服务网络 · MẠNG LƯỚI LIÊN THÔNG BẮC – TRUNG – NAM</div>
+        <h2 class="section-title font-royal">Mạng lưới Dịch vụ từ Quảng Tây đến Toàn cảnh Việt Nam</h2>
+        <div class="section-subtitle-zh font-hanzi">以南宁为总枢纽，崇左为口岸支点，河内为区域中心 · 全域协同响应</div>
+
+        <!-- 3 Region Columns -->
+        <div class="grid-3" style="margin-bottom: 28px;">
+          <div class="info-card" style="border-left: 4px solid var(--navy-800);">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 4px;">
+              Miền Bắc (越南北部)
+            </h3>
+            <div style="font-size: 11.5px; color: var(--gold-500); font-weight: 600; margin-bottom: 8px;">
+              Hà Nội · Bắc Ninh · Cao Bằng · Lạng Sơn · Quảng Ninh · Hải Phòng
+            </div>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55;">
+              Vùng lõi công nghiệp sản xuất công nghệ cao, tiếp nhận dòng vốn đầu tư trực tiếp từ Trung Quốc qua các cửa khẩu đường bộ và cảng biển quốc tế.
+            </p>
+          </div>
+
+          <div class="info-card" style="border-left: 4px solid var(--gold-500);">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 4px;">
+              Miền Trung (越南中部)
+            </h3>
+            <div style="font-size: 11.5px; color: var(--gold-500); font-weight: 600; margin-bottom: 8px;">
+              Thanh Hóa · Nghệ An · Đà Nẵng
+            </div>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55;">
+              Hành lang công nghiệp đang phát triển nhanh chóng, thu hút các dự án sản xuất quy mô lớn, luyện kim, chế tạo và năng lượng tái tạo.
+            </p>
+          </div>
+
+          <div class="info-card" style="border-left: 4px solid var(--red-700);">
+            <h3 class="font-royal" style="font-size: 18px; color: var(--navy-900); font-weight: 700; margin-bottom: 4px;">
+              Miền Nam (越南南部)
+            </h3>
+            <div style="font-size: 11.5px; color: var(--gold-500); font-weight: 600; margin-bottom: 8px;">
+              TP. Hồ Chí Minh · Bình Dương · Đồng Nai · Long An
+            </div>
+            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.55;">
+              Trung tâm tài chính, thương mại, dịch vụ và cụm cảng nước sâu lớn nhất cả nước với các chuỗi cung ứng toàn cầu phát triển hoàn thiện.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-card-gold">
+          <h4 class="font-royal" style="font-size: 20px; color: var(--gold-300); font-weight: 700; margin-bottom: 6px;">
+            Nguyên tắc Vận hành Phối hợp Song ngữ Hai đầu cầu (中越团队全域协同)
+          </h4>
+          <p style="font-size: 13px; color: #e2e8f0; line-height: 1.6;">
+            <strong>Nam Ninh</strong> giữ vai trò đầu mối tổng hành dinh tại Trung Quốc; <strong>Sùng Tả</strong> phụ trách thông quan pháp lý và kiểm soát rủi ro biên mậu; <strong>Hà Nội</strong> là trung tâm tiếp nhận, điều phối và làm việc trực tiếp với các cơ quan Trung ương và địa phương tại Việt Nam. Đảm bảo hỗ trợ đồng thời, thông suốt cho nhà đầu tư từ lúc chuẩn bị ở Trung Quốc đến khi vận hành ổn định tại Việt Nam.
+          </p>
+        </div>
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+
+    <!-- ==================== TRANG 8: BÌA KẾT & LIÊN HỆ ==================== -->
+    <section class="catalogue-page page-cover" id="page-8">
+      <div class="page-header" style="border-color: rgba(194, 154, 69, 0.4); color: var(--gold-300);">
+        <div>KẾT NỐI VIỆT–TRUNG · 链接中越，助力中资出海</div>
+        <div class="page-num">08 / 08</div>
+      </div>
+
+      <div class="page-body" style="padding: 48px; position: relative; z-index: 2;">
+        <div style="text-align: center; margin-bottom: 36px;">
+          <h2 class="font-royal" style="font-size: 40px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 8px;">
+            KẾT NỐI VIỆT–TRUNG<br/>
+            <span style="color: var(--gold-300);">HỖ TRỢ DOANH NGHIỆP TRUNG QUỐC VƯƠN RA QUỐC TẾ</span>
+          </h2>
+          <div class="font-hanzi" style="font-size: 22px; color: var(--gold-400); letter-spacing: 3px;">
+            连接中越，助力中资出海
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 36px;">
+          <!-- Thông tin trưởng chi nhánh -->
+          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--gold-500); padding: 24px;">
+            <div class="font-royal" style="font-size: 24px; color: var(--gold-300); font-weight: 700; margin-bottom: 2px;">
+              Luật sư Lăng Thần (Ling Chen)
+            </div>
+            <div class="font-hanzi" style="font-size: 14px; color: #94a3b8; margin-bottom: 16px;">
+              凌晨 · Trưởng chi nhánh Hà Nội / 河内分所主任
+            </div>
+            <div style="font-size: 13px; color: #e2e8f0; line-height: 1.8;">
+              📞 <strong>Hotline/Tel:</strong> +86 137 6865 5101<br/>
+              💬 <strong>WeChat ID:</strong> Lc1376865101<br/>
+              ✉️ <strong>Email:</strong> lingchen@wanyimail.com
+            </div>
+          </div>
+
+          <!-- Thông tin Văn phòng Hà Nội -->
+          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-gold); padding: 24px;">
+            <div class="font-royal" style="font-size: 22px; color: #fff; font-weight: 700; margin-bottom: 2px;">
+              Văn phòng Luật sư Vạn Ích (Hà Nội)
+            </div>
+            <div class="font-hanzi" style="font-size: 14px; color: var(--gold-400); margin-bottom: 16px;">
+              广西万益（河内）律师事务所
+            </div>
+            <div style="font-size: 13px; color: #e2e8f0; line-height: 1.8;">
+              📍 <strong>Địa chỉ:</strong> Số 17, Đường 23, KĐT Thành phố Giao Lưu, P. Cổ Nhuế 2 (Đông Ngạc), Bắc Từ Liêm, Hà Nội.<br/>
+              📞 <strong>Hotline VN:</strong> 033 8875783 / 037 504 2370<br/>
+              ✉️ <strong>Email tiếp nhận:</strong> vanichglobal@gmail.com<br/>
+              🌐 <strong>Fanpage:</strong> Văn phòng Luật Vạn Ích Hà Nội
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Trọng tâm dịch vụ xuất khẩu -->
+        <div style="border-top: 1px solid rgba(194, 154, 69, 0.3); padding-top: 24px;">
+          <div class="grid-3" style="font-size: 12px; color: #cbd5e1; line-height: 1.6;">
+            <div>
+              <strong style="color: var(--gold-300);">• Doanh nghiệp FDI xuất hải:</strong><br/>
+              Hỗ trợ đầu tư và triển khai hoạt động tại nước ngoài (企业出海落地).
+            </div>
+            <div>
+              <strong style="color: var(--gold-300);">• Cấu trúc vốn & Công ty:</strong><br/>
+              Thành lập doanh nghiệp và thiết kế cấu trúc vốn chủ sở hữu (公司设立与股权架构).
+            </div>
+            <div>
+              <strong style="color: var(--gold-300);">• Mua bán & Sáp nhập (M&A):</strong><br/>
+              Mua bán, sáp nhập và tái cấu trúc doanh nghiệp (企业并购重组).
+            </div>
+            <div>
+              <strong style="color: var(--gold-300);">• AI & Năng lượng mới:</strong><br/>
+              Trí tuệ nhân tạo (AI), điện toán đám mây và năng lượng sạch (AI、新能源).
+            </div>
+            <div>
+              <strong style="color: var(--gold-300);">• Bất động sản, Hạ tầng & Mỏ:</strong><br/>
+              Xây dựng, vật liệu, khai khoáng và nông nghiệp (地产、基建、建材、矿业).
+            </div>
+            <div>
+              <strong style="color: var(--gold-300);">• Tố tụng & Tranh chấp:</strong><br/>
+              Giải quyết các vụ việc dân sự, thương mại và hình sự (跨境民商事、刑事案件).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding: 20px 48px; border-top: 1px solid rgba(194, 154, 69, 0.3); text-align: center; font-size: 12px; color: #94a3b8;">
+        © 2026 Chi nhánh Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội • 广西万益（河内）律师事务所. Bảo lưu mọi quyền.
+      </div>
+      <div class="page-footer-decor"></div>
+    </section>
+
+  </div>
+
+</body>
+</html>
