@@ -70,7 +70,7 @@ export function Header() {
           title={
             isZh
               ? "广西万益（河内）律师事务所 • 越南分支机构"
-              : "Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội • 广西万益（河内）律师事务所"
+              : "Chi nhánh Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội • 广西万益（河内）律师事务所"
           }
         >
           {/* Con dấu ấn triện chữ W hoàng gia */}

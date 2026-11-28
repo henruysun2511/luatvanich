@@ -39,20 +39,36 @@ export function Footer() {
               </div>
             </Link>
 
+            {/* Thông tin pháp nhân đầy đủ */}
+            <div className="space-y-1.5 text-xs border-l-2 border-[#c29a45] pl-3.5 py-1 bg-[#0b1d3f]/40">
+              <p className="font-semibold text-[#f0d28a] tracking-wide">
+                {isZh
+                  ? "广西万益（河内）律师事务所"
+                  : "Chi nhánh Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội"}
+              </p>
+              <p className="text-[#8d9bb5] leading-relaxed">
+                {isZh
+                  ? "越南司法部第 73/TP/ĐKHĐ-ĐN 号执业许可证 · 税号：0108962624"
+                  : "Giấy phép hoạt động số 73/TP/ĐKHĐ-ĐN do Bộ Tư pháp cấp · MST: 0108962624"}
+              </p>
+            </div>
+
             <p className="text-sm leading-relaxed text-[#8d9bb5] max-w-sm">
-              Hãng luật song ngữ Trung – Việt thành lập từ năm 1996. Đồng hành pháp lý toàn diện cùng doanh nghiệp FDI và nhà đầu tư xuyên biên giới.
+              {isZh
+                ? "万益律师事务所成立于1996年，系中国全国优秀律师事务所。河内办公室依托中越两国双重法域实战经验，全周期护航中企赴越投资与涉外争议解决。"
+                : "Hãng luật thành lập từ năm 1996, thuộc hệ thống Hãng luật xuất sắc toàn quốc (Trung Quốc). Chi nhánh Hà Nội đồng hành pháp lý toàn diện cùng doanh nghiệp FDI và nhà đầu tư xuyên biên giới."}
             </p>
 
             <div className="pt-2">
               <span className="block text-xs uppercase tracking-wider text-[#c29a45] font-semibold mb-1.5">
-                Đầu mối tư vấn trực tiếp
+                {isZh ? "直接咨询对接人" : "Đầu mối tư vấn trực tiếp"}
               </span>
               <div className="flex items-center gap-3 text-white">
                 <Phone className="size-4 text-[#c29a45] shrink-0" />
                 <span className="font-royal font-bold text-lg text-[#f0d28a] tracking-wide">
                   +86 152 7702 0681
                 </span>
-                <span className="text-xs text-[#7e8ca8]">(LS. Tưởng Nữ Trinh)</span>
+                <span className="text-xs text-[#7e8ca8]">({isZh ? "蒋女贞 律师" : "LS. Tưởng Nữ Trinh"})</span>
               </div>
             </div>
           </div>
@@ -145,11 +161,19 @@ export function Footer() {
       <div className="border-t border-white/10 py-6 text-xs text-[#717e99]">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
           <span>
-            &copy; {new Date().getFullYear()} Công ty Luật Vạn Ích &bull; 广西万益律师事务所. Bảo lưu mọi quyền.
+            &copy; {new Date().getFullYear()}{" "}
+            {isZh
+              ? "广西万益（河内）律师事务所"
+              : "Chi nhánh Văn phòng Luật sư Vạn Ích Quảng Tây tại Hà Nội"}
+            {" "}&bull; 广西万益律师事务所. {isZh ? "保留所有权利。" : "Bảo lưu mọi quyền."}
           </span>
           <span className="flex items-center gap-2 text-[#c29a45]">
             <Scale className="size-3.5" />
-            <span>Kết nối Việt – Trung, đồng hành pháp lý vững chắc</span>
+            <span>
+              {isZh
+                ? "链接中越 · 法律护航"
+                : "Kết nối Việt – Trung, đồng hành pháp lý vững chắc"}
+            </span>
           </span>
         </div>
       </div>
