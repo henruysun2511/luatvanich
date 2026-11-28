@@ -1,11 +1,16 @@
 "use client";
 
 import React from "react";
+import { useParams } from "next/navigation";
 import { EyebrowBadge } from "@/components/ui/eyebrow-badge";
 import { CorridorRadarMap } from "./CorridorRadarMap";
 import { scrollToAnchor } from "@/lib/utils";
 
 export function HeroSection() {
+  const params = useParams();
+  const lang = (params?.lang as string) || "vi";
+  const isZh = lang === "zh-CN" || lang === "zh";
+
   return (
     <section className="relative bg-gradient-to-br from-[#08111f] via-[#14243d] to-[#1d3556] text-white overflow-hidden scroll-mt-20" id="top">
       {/* Vector Kiến trúc Cao ốc Skyline */}
@@ -61,43 +66,80 @@ export function HeroSection() {
 
       <div className="max-w-6xl mx-auto px-6 lg:px-12 relative z-[2] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[660px] pt-16 pb-28">
         <div className="lg:col-span-7 space-y-6">
-          <EyebrowBadge hz="万益律师" text="Luật Vạn Ích" variant="tag" />
+          <EyebrowBadge
+            hz={isZh ? "链接中越 · 法律护航" : "链接中越 · 法律护航"}
+            text={isZh ? "广西万益（河内）律师事务所" : "Luật Vạn Ích (Hà Nội)"}
+            variant="tag"
+          />
+
           <h1 className="font-royal text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] tracking-tight">
-            Hành lang pháp lý giữa{" "}
-            <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
-              Việt Nam
-            </i>{" "}
-            và Trung Quốc.
+            {isZh ? (
+              <>
+                中越跨境法治走廊 ·{" "}
+                <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                  法律护航
+                </i>
+              </>
+            ) : (
+              <>
+                Hành lang pháp lý giữa{" "}
+                <i className="not-italic bg-gradient-to-r from-[#f6dc98] via-[#c29a45] to-[#f6dc98] bg-clip-text text-transparent">
+                  Việt Nam
+                </i>{" "}
+                và Trung Quốc.
+              </>
+            )}
           </h1>
+
           <p className="text-sm sm:text-base text-[#b6c0d6] max-w-lg leading-relaxed">
-            Văn phòng luật sư song ngữ đồng hành cùng doanh nghiệp đầu tư, ký kết và giải quyết tranh chấp xuyên biên giới, làm việc trực tiếp bằng cả hai ngôn ngữ.
+            {isZh
+              ? "经越南司法部批准设立的中国境外涉外律师分支机构，汇聚中越双语资深律师与法学博士团队。全周期护航中资企业赴越投资落地、并购重组、合规风控与涉外争议解决。"
+              : "Chi nhánh hãng luật được Bộ Tư pháp cấp phép, quy tụ đội ngũ luật sư và tiến sĩ song ngữ Việt – Trung. Đồng hành toàn diện từ cấp phép đầu tư FDI, M&A, thẩm định pháp lý dự án đến giải quyết tranh chấp xuyên biên giới."}
           </p>
+
           <div className="flex flex-wrap items-center gap-6 pt-2">
             <a
               className="btn-royal"
               href="#lienhe"
               onClick={(e) => scrollToAnchor(e, "lienhe")}
             >
-              Đặt lịch tư vấn &rarr;
+              {isZh ? "预约双语咨询 →" : "Đặt lịch tư vấn song ngữ →"}
             </a>
             <a
               className="font-medium text-sm border-b border-white hover:text-[#f0d28a] hover:border-[#f0d28a] transition-colors pb-0.5"
               href="#linhvuc"
               onClick={(e) => scrollToAnchor(e, "linhvuc")}
             >
-              Xem lĩnh vực
+              {isZh ? "专业业务领域" : "Lĩnh vực chuyên sâu"}
             </a>
           </div>
+
           <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs text-[#c9d3e8]">
-            <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">✓</span> Song ngữ Việt – 中文
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">✓</span> Bảo mật tuyệt đối
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-[#f0d28a] font-bold">✓</span> Báo phí trước khi nhận vụ việc
-            </li>
+            {isZh ? (
+              <>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> 中越双语律师与法学博士团队
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> 贯通中越两国双重法域体系
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> 越南司法部合规备案分支机构
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> Đội ngũ Luật sư &amp; Tiến sĩ song ngữ
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> Khép kín hai nền pháp luật Việt – Trung
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#f0d28a] font-bold">✓</span> Được Bộ Tư pháp cấp phép hoạt động
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
