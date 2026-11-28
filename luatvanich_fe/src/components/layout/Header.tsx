@@ -67,10 +67,8 @@ export function Header() {
           onClick={(e) => handleNavClick(e, "top")}
           className="flex items-center gap-3 shrink-0"
         >
-          {/* Con dấu chỉ hiển thị ở mobile <= 1000px */}
-          <span className="lg:hidden">
-            <SealStamp char="万" size="md" variant="navy" />
-          </span>
+          {/* Con dấu ấn triện chữ W hoàng gia */}
+          <SealStamp char="W" size="md" variant="gold" className="w-[38px] h-[38px]" />
           <div>
             <b className="block font-royal font-bold text-[21px] lg:text-[23px] leading-none tracking-[1.5px] text-[#0b1d3f]">
               LUẬT VẠN ÍCH

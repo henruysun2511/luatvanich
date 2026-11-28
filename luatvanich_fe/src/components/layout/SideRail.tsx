@@ -112,7 +112,7 @@ export function SideRail() {
           aria-label="Về trang chủ"
           className="transition-transform hover:scale-105"
         >
-          <SealStamp char="万" size="md" variant="gold" className="w-[46px] h-[46px] text-[25px]" />
+          <SealStamp char="W" size="md" variant="gold" className="w-[46px] h-[46px]" />
         </Link>
 
         {isHome ? (

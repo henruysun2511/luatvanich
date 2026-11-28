@@ -1,6 +1,26 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Biểu tượng chữ W cách điệu chính thức của Hãng luật Vạn Ích
+ * Được trích xuất vector từ logo gốc của hãng luật.
+ */
+export function LogoW({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 56 49"
+      fill="currentColor"
+      className={cn("w-[64%] h-[64%] block", className)}
+      aria-label="Logo W Vạn Ích"
+    >
+      <path
+        fillRule="evenodd"
+        d="M 1 2 L 1 15 L 2 21 L 3 24 L 4 27 L 5 30 L 6 32 L 8 35 L 10 38 L 12 41 L 15 45 L 17 48 L 19 47 L 23 42 L 25 38 L 27 36 L 28 34 L 31 37 L 33 41 L 37 45 L 41 48 L 42 46 L 45 43 L 49 35 L 50 32 L 51 29 L 52 25 L 53 21 L 54 16 L 55 8 L 55 3 L 46 2 L 46 5 L 51 6 L 51 16 L 50 21 L 49 24 L 47 27 L 47 29 L 45 31 L 44 34 L 42 35 L 39 32 L 37 29 L 36 27 L 35 24 L 34 21 L 33 16 L 33 7 L 35 5 L 40 5 L 40 3 L 23 3 L 23 14 L 24 20 L 26 25 L 26 27 L 20 33 L 16 29 L 15 27 L 15 25 L 13 22 L 12 18 L 11 13 L 12 6 L 18 6 L 18 3 L 7 2 Z"
+      />
+    </svg>
+  );
+}
+
 interface SealStampProps {
   char?: string;
   size?: "sm" | "md" | "lg" | "xl";
@@ -24,12 +44,21 @@ const variantClasses = {
 };
 
 export function SealStamp({
-  char = "万",
+  char = "W",
   size = "md",
   variant = "gold",
   className,
   children,
 }: SealStampProps) {
+  // Nếu truyền char="W" hoặc không truyền children, ưu tiên hiển thị biểu tượng LogoW vector
+  const renderContent = () => {
+    if (children) return children;
+    if (char === "W" || char === "w") {
+      return <LogoW />;
+    }
+    return char;
+  };
+
   return (
     <span
       className={cn(
@@ -39,7 +68,7 @@ export function SealStamp({
         className,
       )}
     >
-      {children || char}
+      {renderContent()}
     </span>
   );
 }

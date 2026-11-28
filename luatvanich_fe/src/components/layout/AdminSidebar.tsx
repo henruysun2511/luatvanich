@@ -83,7 +83,7 @@ export function AdminSidebar() {
           title="LUẬT VẠN ÍCH • 万益律师事务所"
         >
           <SealStamp
-            char="万"
+            char="W"
             size="sm"
             variant="gold"
             className="w-8 h-8 text-[17px] shadow-md shadow-[#c29a45]/20 group-hover:scale-105 transition-transform shrink-0"

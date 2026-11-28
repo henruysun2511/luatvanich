@@ -28,7 +28,7 @@ export default function ErrorPage({
       <div className="relative z-10 space-y-6 max-w-lg">
         {/* Dấu triện với icon cảnh báo */}
         <div className="relative inline-flex items-center justify-center mx-auto">
-          <SealStamp char="万" size="md" variant="gold" className="w-16 h-16 text-3xl shadow-xl shadow-[#a3171e]/30" />
+          <SealStamp char="W" size="md" variant="gold" className="w-16 h-16 shadow-xl shadow-[#a3171e]/30" />
           <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-[#a3171e] text-white flex items-center justify-center border-2 border-[#06122b] shadow-md">
             <AlertTriangle className="size-3.5" />
           </div>

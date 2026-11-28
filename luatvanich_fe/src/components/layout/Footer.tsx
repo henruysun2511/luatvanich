@@ -27,7 +27,7 @@ export function Footer() {
               onClick={(e) => handleNavClick(e, "top")}
               className="flex items-center gap-4 group inline-flex"
             >
-              <SealStamp char="万" size="md" variant="gold" className="w-12 h-12 text-[26px]" />
+              <SealStamp char="W" size="md" variant="gold" className="w-12 h-12" />
               <div>
                 <span className="block font-royal font-bold text-2xl text-white tracking-wider group-hover:text-[#f0d28a] transition-colors">
                   LUẬT VẠN ÍCH

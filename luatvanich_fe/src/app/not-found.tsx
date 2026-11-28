@@ -17,7 +17,7 @@ export default function NotFound() {
       <div className="relative z-10 space-y-6 max-w-lg">
         {/* Con dấu triện vàng */}
         <div className="flex justify-center">
-          <SealStamp char="万" size="md" variant="gold" className="w-16 h-16 text-3xl shadow-xl shadow-[#c29a45]/25" />
+          <SealStamp char="W" size="md" variant="gold" className="w-16 h-16 shadow-xl shadow-[#c29a45]/25" />
         </div>
 
         {/* Số 404 Hoàng gia */}

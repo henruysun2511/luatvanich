@@ -31,7 +31,7 @@ export function PageLoader({
     >
       <div className="flex items-center justify-center">
         <SealStamp
-          char="万"
+          char="W"
           size="md"
           variant="gold"
           className="w-14 h-14 text-2xl shadow-lg shadow-[#c29a45]/25 animate-pulse"
