@@ -64,7 +64,7 @@ export function HeroSection() {
         万益
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-12 relative z-[2] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[660px] pt-16 pb-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-[2] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[660px] pt-16 pb-28">
         <div className="lg:col-span-7 space-y-6">
           <EyebrowBadge
             hz={isZh ? "链接中越 · 法律护航" : "链接中越 · 法律护航"}
